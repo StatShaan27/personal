@@ -88,3 +88,41 @@ body::before {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+.edu-wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  text-align: center;
+  animation: fadeIn 1.5s ease-in;
+}
+
+.edu-block {
+  margin-bottom: 4rem;
+}
+
+.edu-block h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: #6effe0;
+  margin-bottom: 1rem;
+}
+
+.edu-block p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #e0e0e0;
+  margin-bottom: 1.5rem;
+}
+
+.edu-img {
+  width: 60%;
+  max-width: 400px;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px #6effe050;
+  margin-top: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.edu-img:hover {
+  transform: scale(1.05);
+}
