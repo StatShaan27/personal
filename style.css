@@ -67,6 +67,22 @@ nav a:hover {
   color: #000000;
   transform: scale(1.1);
 }
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+  background: linear-gradient(115deg, #1f1f1f, #151515, #0d0d0d);
+  background-size: 600% 600%;
+  animation: gradientFlow 30s ease infinite;
+  opacity: 0.6;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
