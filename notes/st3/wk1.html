@@ -191,12 +191,11 @@
   <div class="toc">
     <h3>Contents</h3>
     <ul>
-      <li><a href="#1.1"> Definition 1.1 — Point Estimation</a></li>
-      <li><a href="#1.2"> Definition 1.2 — Bias of an Estimator</a></li>
-      <li><a href="#1.6"> Definition 1.6 — Mean Squared Error</a></li>
+      <li><a href="#1.1"> Point Estimation</a></li>
+      <li><a href="#1.2"> Bias of an Estimator</a></li>
+      <li><a href="#1.6"> Mean Squared Error</a></li>
       <li><a href="#1.8"> Uniformly Minimum Variance Unbiased Estimator (UMVU)</a></li>
-      <li><a href="#1.3"></a></li>
-      <li><a href="#1.3"></a></li>
+      <li><a href="#1.9">Cramér–Rao Lower Bound (CRLB)</a></li>
       <!-- Add more as you progress -->
     </ul>
   </div>
@@ -675,40 +674,164 @@ Unbiased estimators:
 
     
 
-  <div class="glow-box" id="week3">
-    <h2>Week 3: Likelihood and Estimation Methods</h2>
-    <!-- Your notes go here -->
-  </div>
+  <div class="glow-box" id="1.9">
+  <h4>⚙️ The Core Problem:</h4>
+  <p>We want an estimator that:</p>
+  <ul>
+    <li>Is <strong>unbiased</strong></li>
+    <li>Has the <strong>lowest possible variance</strong></li>
+  </ul>
+  <p>But we saw earlier that not all unbiased estimators are equally good — some have higher variance than others.</p>
+  <blockquote>
+    ❓<strong>What is the best we can do, variance-wise, among all unbiased estimators?</strong><br>
+    ➡️ The <strong>Cramér–Rao Bound</strong> gives us a <strong>theoretical lower limit</strong> on this variance.
+  </blockquote>
 
-  <div class="glow-box" id="week3">
-    <h2>Week 3: Likelihood and Estimation Methods</h2>
-    <!-- Your notes go here -->
-  </div>
+  <h4>🎯 Theorem 1.9 — Cramér–Rao Lower Bound (CRLB)</h4>
+  <p>Let:</p>
+  <ul>
+    <li>\( X \sim f_\theta(x) \)</li>
+    <li>\( W(X) \) be an <strong>unbiased estimator</strong> of \( \theta \), i.e. \( \mathbb{E}_\theta[W(X)] = \theta \)</li>
+  </ul>
+  <p>Under some regularity conditions (we’ll get to them), the <strong>variance</strong> of \( W(X) \) satisfies:</p>
+  \[
+  \boxed{
+  \text{Var}(W(X)) \geq \frac{1}{\mathbb{E}_\theta \left[ \left( \frac{d}{d\theta} \log f_\theta(X) \right)^2 \right]}
+  }
+  \]
+  <p>✅ This is the <strong>Cramér–Rao Lower Bound (CRLB)</strong>.</p>
 
-  <div class="glow-box" id="week3">
-    <h2>Week 3: Likelihood and Estimation Methods</h2>
-    <!-- Your notes go here -->
-  </div>
+  <h4>✍️ Let’s Understand Each Piece:</h4>
 
-  <div class="glow-box" id="week3">
-    <h2>Week 3: Likelihood and Estimation Methods</h2>
-    <!-- Your notes go here -->
-  </div>
+  <h4>🔹 \( \log f_\theta(X) \) — The Log-Likelihood</h4>
+  <p>We often take logarithms of likelihoods because they make derivatives easier and preserve the maximum.</p>
+  \[
+  \frac{d}{d\theta} \log f_\theta(X)
+  \]
+  <p>This is called the <strong>score function</strong> — it measures how sensitive the likelihood is to changes in \( \theta \).</p>
 
-  <div class="glow-box" id="week3">
-    <h2>Week 3: Likelihood and Estimation Methods</h2>
-    <!-- Your notes go here -->
-  </div>
+  <h4>🔹 Fisher Information:</h4>
+  <p>Define the <strong>Fisher Information</strong>:</p>
+  \[
+  \mathcal{I}(\theta) := \mathbb{E}_\theta \left[ \left( \frac{d}{d\theta} \log f_\theta(X) \right)^2 \right]
+  \]
+  <p>It tells us <strong>how much information the data \( X \) carries about \( \theta \)</strong>.</p>
+  <p>✅ The more concentrated the likelihood is around the true \( \theta \), the higher the Fisher Information.</p>
 
-  <div class="glow-box" id="week3">
-    <h2>Week 3: Likelihood and Estimation Methods</h2>
-    <!-- Your notes go here -->
-  </div>
+  <h4>🔹 Final form of CRLB for Unbiased Estimators:</h4>
+  <p>When \( W(X) \) is <strong>unbiased</strong>, the CRLB becomes:</p>
+  \[
+  \boxed{
+  \text{Var}(W(X)) \geq \frac{1}{\mathcal{I}(\theta)}
+  }
+  \]
 
-  <div class="glow-box" id="week3">
-    <h2>Week 3: Likelihood and Estimation Methods</h2>
-    <!-- Your notes go here -->
-  </div>
+  <h4>🧠 Key Insight: Why is this <em>really</em> a lower bound?</h4>
+  <p>At first glance, it may seem odd that the RHS involves expectations of functions of \( X \), the random variable we’re estimating from. So how can this be a clean lower bound?</p>
+  <p>Here’s the trick:</p>
+  <ul>
+    <li>If \( W(X) \) is <strong>unbiased</strong>, then:</li>
+  </ul>
+  \[
+  \frac{d}{d\theta} \mathbb{E}_\theta[W(X)] = \frac{d}{d\theta} \theta = 1
+  \]
+  <p>So the general inequality:</p>
+  \[
+  \text{Var}(W(X)) \geq \frac{ \left( \frac{d}{d\theta} \mathbb{E}_\theta[W(X)] \right)^2 }{ \mathbb{E}_\theta \left[ \left( \frac{d}{d\theta} \log f_\theta(X) \right)^2 \right] }
+  \]
+  <p>becomes:</p>
+  \[
+  \text{Var}(W(X)) \geq \frac{1^2}{\mathcal{I}(\theta)} = \frac{1}{\mathcal{I}(\theta)}
+  \]
+  <p>So the bound <strong>does not depend on the estimator</strong>, only on the model \( f_\theta(x) \).</p>
+
+  <h4>📊 Interpretation</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Quantity</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\( W(X) \)</td>
+        <td>Your estimator (e.g., sample mean, sample max)</td>
+      </tr>
+      <tr>
+        <td>\( \mathbb{E}[W(X)] = \theta \)</td>
+        <td>Unbiasedness condition</td>
+      </tr>
+      <tr>
+        <td>\( \text{Var}(W(X)) \)</td>
+        <td>How much your estimator varies</td>
+      </tr>
+      <tr>
+        <td>\( \mathcal{I}(\theta) \)</td>
+        <td>How much your data “tells” you about \( \theta \)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>CRLB tells you:</strong> 🔻 You can’t beat this variance limit for any unbiased estimator.</p>
+
+  <h4>📉 Visual Metaphor: The Estimator Race</h4>
+  <p>You have many runners (estimators). Each is <strong>unbiased</strong>, but runs with a different "wiggle" (variance).</p>
+  <p>The <strong>Cramér–Rao bound</strong> is a <strong>solid track limit</strong> — no one can run below it.</p>
+  <pre>
+Variance
+│
+│
+│      (*)  Sample Variance Estimator
+│      |
+│      |
+│      |         (*)  Another Estimator
+│      |
+│      |_________________________
+│             CRLB (floor)
+└─────────────────────────────► Estimators
+  </pre>
+  <p>If someone reaches the floor — they are <strong>efficient</strong>.</p>
+
+  <h4>✨ When is the CRLB Attained?</h4>
+  <p>If an estimator <strong>achieves</strong> the CRLB (i.e., its variance equals the bound), it is:</p>
+  <ul>
+    <li><strong>Unbiased</strong></li>
+    <li><strong>Minimum variance</strong> among all unbiased estimators</li>
+    <li>⇒ Hence, it is the <strong>UMVU estimator</strong></li>
+  </ul>
+  <p>Often, <strong>MLEs</strong> in large samples tend to <strong>achieve CRLB asymptotically</strong>.</p>
+
+  <h4>🔁 Recap: Why It Matters</h4>
+  <ul>
+    <li><strong>CRLB gives a concrete lower limit</strong> on how good your estimator's variance can be.</li>
+    <li>If your estimator hits that bound → it’s the best (UMVU).</li>
+    <li>It’s a <strong>benchmark</strong> — if you propose a new estimator, compare it to the CRLB.</li>
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </section>
 
 <button class="next-btn" onclick="location.href='wk2.html'">Next Section →</button>
