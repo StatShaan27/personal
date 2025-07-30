@@ -1,1 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Week-2 | Shaan</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: #6effe0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      background: #1e1e1e;
+      border-bottom: 2px solid #333;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0;
+    }
+
+    header nav ul li {
+      display: inline;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: #6effe0;
+      font-weight: 500;
+      border: 1px solid transparent;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      border-color: #6effe0;
+      background-color: #6effe0;
+      color: #000;
+    }
+
+    .notes-wrapper {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .info-block {
+      margin-bottom: 2rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .info-block strong {
+      color: #6effe0;
+    }
+
+    .toc {
+      background-color: #1e1e1e;
+      border-left: 4px solid #6effe0;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+    }
+
+    .toc ul {
+      padding-left: 1rem;
+    }
+
+    .toc ul li {
+      padding: 0.3rem 0;
+    }
+
+    .toc a {
+      color: #c9d1d9;
+      text-decoration: none;
+      border-bottom: 1px dashed #6effe0;
+    }
+
+    .toc a:hover {
+      color: #6effe0;
+    }
+
+    .glow-box {
+      border: 2px solid #6effe0;
+      box-shadow: 0 0 20px rgba(110, 255, 224, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background-color: #1e1e1e;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(110, 255, 224, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(110, 255, 224, 0.4); }
+    }
+
+    ul {
+      line-height: 1.6;
+      padding-left: 1.2rem;
+    }
+
+    code, pre {
+      background-color: #222;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      color: #6effe0;
+      display: block;
+      overflow-x: auto;
+    }
+
+    .next-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #6effe0;
+      color: #000;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #6effe0;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+
+    .next-btn:hover {
+      background-color: #00ffcc;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
+  </style>
+  <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</head>
+<body>
+
+<header>
+  <h1>Statistical Methods III: Week-2</h1>
+  <p>AY 2025–26</p>
+  <nav>
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../../sections/projects.html">Projects</a></li>
+      <li><a href="../../sections/education.html">Education</a></li>
+      <li><a href="../../sections/misc.html">Misc</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="notes-wrapper">
+
+  <div class="info-block">
+    <p><strong>Instructor:</strong> Debasis Sengupta </p>
+    <p><strong>Office / Department:</strong> ASU</p>
+    <p><strong>Email:</strong> sdebasis@isical.ac.in</p>
+    <p><strong>Marking Scheme:</strong><br>
+      Assignments: 20% | Midterm Test: 30% | End Semester: 50%
+    </p>
+  </div>
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul>
+      <li><a href="#1.1"> Point Estimation</a></li>
+      <li><a href="#1.2"> Bias of an Estimator</a></li>
+      <li><a href="#1.6"> Mean Squared Error</a></li>
+      <li><a href="#1.8"> Uniformly Minimum Variance Unbiased Estimator (UMVU)</a></li>
+      <li><a href="#1.9">Cramér–Rao Lower Bound (CRLB)</a></li>
+      <!-- Add more as you progress -->
+    </ul>
+  </div>
+
+  <!-- Notes section boxes -->
+  <div class="glow-box" id="1.1">
+
+  <section>
+
+  <h4>🎯 Definition 1.1 — Point Estimation</h4>
+<p>A <strong>point estimate</strong> is simply a <em>single number</em> used to guess the value of an unknown population parameter.</p>
+
+<h4>📌 Key Terms</h4>
+<ul>
+  <li><strong>Parameter</strong>: A fixed, unknown number that describes a feature of a population (like \( \mu, \sigma^2 \)).</li>
+  <li><strong>Sample</strong>: A subset of data from the population (e.g., \( X_1, X_2, \dots, X_n \)).</li>
+  <li><strong>Statistic</strong>: Any function of the sample. E.g., \( \bar{X} = \frac{1}{n} \sum X_i \).</li>
+  <li><strong>Estimator</strong>: A statistic used to estimate a parameter — it's a function or rule.</li>
+  <li><strong>Estimate</strong>: The numerical value you get when you plug the sample into the estimator.</li>
+</ul>
+
+<h4>🧠 Analogy</h4>
+<p>Imagine you're a weather scientist trying to estimate tomorrow’s temperature in Kolkata:</p>
+<ul>
+  <li>The true average temperature of tomorrow is unknown — this is the <em>parameter</em>.</li>
+  <li>You gather sample data (e.g., past 10 days’ temperatures).</li>
+  <li>You decide to take their average — that’s your <em>estimator</em>: a method.</li>
+  <li>After plugging in the 10 values, the result (e.g., 32.5°C) is the <em>estimate</em>.</li>
+</ul>
+
+<h4>🧮 Mathematical Framework</h4>
+<p>Let’s say you observe a sample:</p>
+\[
+X = \begin{bmatrix} X_1 \\ X_2 \\ \vdots \\ X_n \end{bmatrix} \sim F(\theta)
+\]
+<p>where \( \theta \) is the unknown parameter, and \( F(\theta) \) is the distribution.</p>
+
+<p>Let \( T(X) \) be a function — for example, the sample mean:</p>
+\[
+T(X) = \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
+\]
+<p>Then:</p>
+<ul>
+  <li>\( T(X) \) is a statistic</li>
+  <li>If we use it to estimate \( \theta \), it becomes the <strong>estimator</strong></li>
+  <li>When we plug in real values for \( X_i \), we get an <strong>estimate</strong> of \( \theta \)</li>
+</ul>
+
+<h4>🔁 Estimators are Random Variables</h4>
+<p>Since estimators depend on the sample \( X_1, \dots, X_n \), and those are random, the estimator itself is also random.</p>
+<p>This means we can talk about its mean, variance, MSE, bias, etc.</p>
+
+<h4>📈 Mental Visualization</h4>
+<p>
+  Input: \( X_1, X_2, \dots, X_n \) → Estimator \( T(X) \) → Output: estimate (a number)
+</p>
+<p>Different random samples yield different estimates — that's why studying the distribution of the estimator is crucial.</p>
+
+<h4>✅ Summary</h4>
+<ul>
+  <li><strong>Estimator</strong> = rule (statistic) that processes sample data</li>
+  <li><strong>Estimate</strong> = number you get when you apply the rule to a particular sample</li>
+  <li>Estimators are random variables → can study their properties</li>
+  <li>Estimating a single number like \( \theta \) is called <strong>point estimation</strong></li>
+</ul>
+
+</section>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="glow-box" id="1.2">
+  <h4>🎯 Definition 1.2 — Bias of an Estimator</h4>
+  <p>Let \( \hat{\theta} \) be an estimator of the parameter \( \theta \).</p>
+  <p>Then, the <strong>bias</strong> of \( \hat{\theta} \) is defined as:</p>
+  \[
+  B(\theta) := \mathbb{E}[\hat{\theta}] - \theta
+  \]
+
+  <h4>🔍 What does this mean?</h4>
+  <p>Bias tells you <strong>on average</strong>, how far your estimator is from the true parameter. It's a measure of <em>systematic error</em>.</p>
+  <ul>
+    <li>If \( B(\theta) = 0 \), then the estimator is <strong>unbiased</strong>.</li>
+    <li>If \( B(\theta) > 0 \), then the estimator <strong>overestimates</strong> on average.</li>
+    <li>If \( B(\theta) < 0 \), then it <strong>underestimates</strong> on average.</li>
+  </ul>
+
+  <h4>🧠 Remark 1.3 — Why we can talk about \( \mathbb{E}[\hat{\theta}] \)</h4>
+  <p>Even though we don’t know the true \( \theta \), <strong>the estimator is a random variable</strong>.
+  So we can study its expected value (mean), variance, etc., as long as its distribution is defined
+  (which it is, because we assume the data-generating distribution \( F(\theta) \) is known).</p>
+
+  <h4>🧪 Example 1.4 — Biased Estimator (Uniform Distribution)</h4>
+  <p>Let’s say:</p>
+  \[
+  X_1, X_2, \dots, X_n \overset{iid}{\sim} \text{Unif}(0, \theta)
+  \]
+  <p>Then the <strong>maximum</strong> of the sample:</p>
+  \[
+  \hat{\theta}_{MLE} = \max(X_i)
+  \]
+  <p>is the <strong>Maximum Likelihood Estimator</strong> for \( \theta \). But it is <strong>biased</strong>. Specifically:</p>
+  \[
+  \max(X_i) < \theta \quad \text{(with probability 1)}
+  \]
+  <p>So:</p>
+  \[
+  \mathbb{E}[\hat{\theta}_{MLE}] < \theta \quad \Rightarrow \quad B(\theta) = \mathbb{E}[\hat{\theta}_{MLE}] - \theta < 0
+  \]
+  <p>✅ <strong>Negative bias</strong>: the estimator underestimates the true parameter.</p>
+
+  <h4>📊 Intuitive Visualization</h4>
+  <p>Suppose true \( \theta = 10 \), and you draw 5 samples from \( \text{Unif}(0,10) \):</p>
+  <ul>
+    <li>Maybe you get: [2.5, 7.1, 5.6, 9.2, 8.0] → max = 9.2</li>
+    <li>Repeat this many times → you’ll find average(max) &lt; 10</li>
+  </ul>
+  <p>💡 You <em>rarely</em> get a value equal to 10 — the true upper limit is almost never attained in the sample. Hence, <strong>systematic underestimation</strong>.</p>
+
+  <h4>🧪 Example 1.5 — Biased vs. Unbiased Estimator (Variance Estimation)</h4>
+  <p>Let:</p>
+  \[
+  X_1, \dots, X_n \overset{iid}{\sim} N(\mu, \sigma^2)
+  \]
+  <p>Define two estimators:</p>
+
+  <h4>❌ Biased Estimator:</h4>
+  \[
+  T(X) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2
+  \]
+  <p>This <strong>underestimates</strong> the true variance \( \sigma^2 \).</p>
+  <p>So, \( \mathbb{E}[T(X)] < \sigma^2 \), hence \( B(T) < 0 \).</p>
+
+  <h4>✅ Unbiased Estimator:</h4>
+  \[
+  S(X) = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
+  \]
+  <p>This is the familiar <strong>sample variance</strong> formula from statistics:</p>
+  \[
+  \mathbb{E}[S(X)] = \sigma^2 \Rightarrow B(S) = 0
+  \]
+
+  <h4>📌 Why does dividing by \( n - 1 \) fix the bias?</h4>
+  <p>Because \( \bar{X} \) itself depends on the data, and introduces <em>loss of one degree of freedom</em> — you’re estimating the mean from the same data.</p>
+  <p>So we compensate for this by dividing by \( n - 1 \) instead of \( n \). This adjustment ensures unbiasedness.</p>
+
+  <h4>🔁 Summary Table</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Estimator</th>
+        <th>Formula</th>
+        <th>Bias</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Max of sample (Uniform case)</td>
+        <td>\( \hat{\theta}_{MLE} = \max(X_i) \)</td>
+        <td>Negative</td>
+      </tr>
+      <tr>
+        <td>Naive variance</td>
+        <td>\( T(X) = \frac{1}{n} \sum (X_i - \bar{X})^2 \)</td>
+        <td>Negative</td>
+      </tr>
+      <tr>
+        <td>Corrected variance</td>
+        <td>\( S(X) = \frac{1}{n-1} \sum (X_i - \bar{X})^2 \)</td>
+        <td>0 (Unbiased)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>🧠 Visual Intuition: Bias</h4>
+  <pre>
+        θ (true)
+         |
+      ←---|---→
+   Estimator Values
+    (on average)
+
+   ↓ Biased Estimator
+    -----|---- θ
+   (systematically off)
+
+   ↓ Unbiased Estimator
+         |
+       E[θ̂] = θ
+  </pre>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+  <div class="glow-box" id="1.6">
+  <h4>📐 Definition 1.6 — Mean Squared Error</h4>
+  <p>If \( \hat{\theta} \) is an estimator for the parameter \( \theta \), then:</p>
+  \[
+  \text{MSE}(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \theta)^2]
+  \]
+  <p>This is the <strong>expected squared distance</strong> between the estimator and the true value. It measures <strong>overall accuracy</strong> — how close your guesses are to the truth, on average.</p>
+
+  <h4>🔬 Decomposition: Bias–Variance Tradeoff</h4>
+  <p>We can rewrite the MSE as:</p>
+  \[
+  \text{MSE}(\hat{\theta}) = 
+  \underbrace{\left( \mathbb{E}[\hat{\theta}] - \theta \right)^2}_{\text{Bias}^2} + 
+  \underbrace{\text{Var}(\hat{\theta})}_{\text{Variance}}
+  \]
+  <p>✅ This is called the <strong>bias–variance decomposition</strong>.</p>
+
+  <h4>🔁 Why this identity holds:</h4>
+  <p>Use the identity:</p>
+  \[
+  \mathbb{E}[(X - a)^2] = (\mathbb{E}[X] - a)^2 + \text{Var}(X)
+  \]
+  <p>Set \( X = \hat{\theta} \) and \( a = \theta \).</p>
+
+  <h4>⚠️ Why this matters</h4>
+  <p>Even an <strong>unbiased</strong> estimator (\( B(\theta) = 0 \)) can have <strong>large MSE</strong> if its <strong>variance is high</strong>.</p>
+  <p>MSE penalizes both error sources:</p>
+  <ul>
+    <li>Systematic deviation (bias)</li>
+    <li>Fluctuation/randomness (variance)</li>
+  </ul>
+
+  <h4>🧠 Real-Life Analogy</h4>
+  <p>Suppose you’re using an archery robot to hit a bullseye (true \( \theta \)):</p>
+  <ul>
+    <li>🎯 Arrows cluster around the bullseye → <strong>low bias, low variance</strong> (ideal)</li>
+    <li>↔️ Arrows spread widely but centered → <strong>unbiased, high variance</strong></li>
+    <li>🔀 Arrows cluster away from bullseye → <strong>biased, low variance</strong></li>
+    <li>❌ Arrows are off-center and widely spread → high bias and high variance</li>
+  </ul>
+  <p>→ <strong>MSE</strong> is like asking: <em>“How far are you typically from the bullseye?”</em></p>
+
+  <h4>📉 Example 1.7 — Unbiased Estimator with High Variance</h4>
+  <h4>Situation:</h4>
+  <p>You're estimating your friend’s height, known to be \( \theta = 170 \) cm.</p>
+  <p>Estimator is <strong>unbiased</strong>:</p>
+  \[
+  \mathbb{E}[\hat{\theta}] = 170
+  \]
+  <p>But in 5 trials, the outputs are:</p>
+  <pre>
+Trial     Estimate (θ̂)
+  1          130 cm
+  2          240 cm
+  3           80 cm
+  4          200 cm
+  5          170 cm
+  </pre>
+  <p>✅ The average = 170<br>❌ But the individual guesses are all over the place — <strong>high variance</strong></p>
+
+  <h4>📊 Visualization</h4>
+  <pre>
+True θ = 170
+Estimates: [130, 240, 80, 200, 170]
+
+→ MSE = E[(θ̂ − 170)²] = High!
+  </pre>
+
+  <h4>🔁 Conclusion: Why MSE is Important</h4>
+  <p>You don't just want your estimator to be right <strong>on average</strong> — you want it to be <strong>reliably close</strong> to the true value <strong>most of the time</strong>.</p>
+  <p>That’s what MSE captures.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Estimator Type</th>
+        <th>Bias</th>
+        <th>Variance</th>
+        <th>MSE = Bias² + Var</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Good Estimator</td>
+        <td>Low</td>
+        <td>Low</td>
+        <td>Low</td>
+      </tr>
+      <tr>
+        <td>Unbiased but high variance</td>
+        <td>0</td>
+        <td>High</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>Slight bias, low variance</td>
+        <td>Small</td>
+        <td>Small</td>
+        <td>Possibly Low!</td>
+      </tr>
+      <tr>
+        <td>Biased and high variance</td>
+        <td>High</td>
+        <td>High</td>
+        <td>High</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>🧠 Insight: Biased Estimators Can Be Better!</h4>
+  <p>Sometimes a <strong>biased estimator</strong> can have <strong>lower MSE</strong> than an unbiased one!</p>
+  <p>So in practice, we often prefer an estimator with <strong>slight bias and low variance</strong> over one that’s unbiased but very noisy.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<div class="glow-box" id="1.8">
+  <h4>🎯 Key Question:</h4>
+  <blockquote>
+    Among <strong>all unbiased estimators</strong> of a parameter \( \theta \), is there one with <strong>minimum possible variance</strong>?
+  </blockquote>
+  <p>This leads us to...</p>
+
+  <h4>🔶 Definition 1.8 — Uniformly Minimum Variance Unbiased Estimator (UMVU)</h4>
+  <p>Let \( X \sim f_\theta(x) \) and let \( \hat{\theta}(X) \) be an <strong>unbiased estimator</strong> of \( \theta \).</p>
+  <p>Then \( \hat{\theta}_{\text{UMVU}} \) is defined as:</p>
+  \[
+  \hat{\theta}_{\text{UMVU}} = \arg\min_{\hat{\theta} \text{ unbiased}} \ \text{Var}(\hat{\theta})
+  \]
+  <p>It is the <strong>best</strong> (i.e., least variable) among all <strong>unbiased</strong> estimators — <em>for every value of</em> \( \theta \) (this uniformity is important).</p>
+
+  <h4>📌 Why do we care?</h4>
+  <p>Among unbiased estimators, we want the one with <strong>smallest fluctuation</strong> (i.e., most stable).</p>
+  <p>The <strong>UMVU</strong> estimator is the one with <strong>lowest MSE</strong> among all <strong>unbiased</strong> estimators, since for unbiased estimators:</p>
+  \[
+  \text{MSE} = \text{Bias}^2 + \text{Var} = 0 + \text{Var}
+  \Rightarrow \text{Minimizing MSE} = \text{Minimizing Variance}
+  \]
+  <p>So for unbiased estimators, <strong>MSE = variance</strong>.</p>
+
+  <h4>🧠 Deeper Insight: Why Not Just Minimize Variance?</h4>
+  <p>You might think: <em>“Why not just minimize variance directly, even allowing bias?”</em></p>
+  <p>But here's the trap:</p>
+  <ul>
+    <li>You <strong>can</strong> construct an estimator with <strong>zero variance</strong>.</li>
+    <li>But that estimator would always return the <strong>same value</strong>, regardless of the data.</li>
+    <li>That value won't adjust based on the sample — so it won’t track the parameter at all.</li>
+  </ul>
+
+  <h4>⚠️ That’s called a degenerate estimator:</h4>
+  <p>For example:</p>
+  \[
+  \hat{\theta}(X) = 0 \quad \text{(always returns 0)}
+  \Rightarrow \text{Var} = 0,\quad \text{Bias} = \theta
+  \Rightarrow \text{MSE} = \theta^2
+  \]
+  <p>This is <strong>utter garbage</strong> as an estimator — it just ignores the data.</p>
+  <p>✅ So, we restrict ourselves to the class of <strong>unbiased estimators</strong>, and <strong>minimize variance within that class</strong>. That gives us the <strong>UMVU</strong>.</p>
+
+  <h4>⚙️ Optimization View:</h4>
+  <blockquote>
+    Minimize MSE(\( \hat{\theta} \)) subject to the constraint that \( \mathbb{E}[\hat{\theta}] = \theta \)
+  </blockquote>
+  <p>This is a <strong>constrained optimization problem</strong>:</p>
+  <ul>
+    <li><strong>Objective:</strong> Minimize \( \mathbb{E}[(\hat{\theta} - \theta)^2] \)</li>
+    <li><strong>Constraint:</strong> \( \mathbb{E}[\hat{\theta}] = \theta \)</li>
+  </ul>
+
+  <h4>🔧 What’s next: Theorem 1.9 (e.g., Rao-Blackwell or Lehmann–Scheffé)</h4>
+  <p>These theorems <strong>give a method</strong> to actually <strong>construct</strong> the UMVU estimator — using:</p>
+  <ul>
+    <li><strong>Sufficient statistics</strong></li>
+    <li><strong>Completeness</strong></li>
+    <li><strong>Conditioning</strong> to reduce variance</li>
+  </ul>
+  <p>But you don’t need them just yet to understand the intuition.</p>
+
+  <h4>🔁 Summary Table</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Concept</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bias</strong></td>
+        <td>Systematic error: how far off your estimator is on average</td>
+      </tr>
+      <tr>
+        <td><strong>Variance</strong></td>
+        <td>How much your estimator fluctuates across samples</td>
+      </tr>
+      <tr>
+        <td><strong>MSE</strong></td>
+        <td>Total error: combines bias and variance</td>
+      </tr>
+      <tr>
+        <td><strong>UMVU</strong></td>
+        <td>Among all unbiased estimators, the one with smallest variance</td>
+      </tr>
+      <tr>
+        <td><strong>Degenerate Estimator</strong></td>
+        <td>Zero variance but useless (doesn’t depend on data)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>📊 Visual Intuition:</h4>
+  <pre>
+Unbiased estimators:
+        ↑
+        |     (*) High variance
+        |   (*)
+        |      (*) Lower variance
+        |         (*) ← UMVU (min var)
+        +--------------------------→ Estimators
+  </pre>
+  <p>You're seeking the <strong>least wiggly, but unbiased</strong> estimator.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+  <div class="glow-box" id="1.9">
+  <h4>⚙️ The Core Problem:</h4>
+  <p>We want an estimator that:</p>
+  <ul>
+    <li>Is <strong>unbiased</strong></li>
+    <li>Has the <strong>lowest possible variance</strong></li>
+  </ul>
+  <p>But we saw earlier that not all unbiased estimators are equally good — some have higher variance than others.</p>
+  <blockquote>
+    ❓<strong>What is the best we can do, variance-wise, among all unbiased estimators?</strong><br>
+    ➡️ The <strong>Cramér–Rao Bound</strong> gives us a <strong>theoretical lower limit</strong> on this variance.
+  </blockquote>
+
+  <h4>🎯 Theorem 1.9 — Cramér–Rao Lower Bound (CRLB)</h4>
+  <p>Let:</p>
+  <ul>
+    <li>\( X \sim f_\theta(x) \)</li>
+    <li>\( W(X) \) be an <strong>unbiased estimator</strong> of \( \theta \), i.e. \( \mathbb{E}_\theta[W(X)] = \theta \)</li>
+  </ul>
+  <p>Under some regularity conditions (we’ll get to them), the <strong>variance</strong> of \( W(X) \) satisfies:</p>
+  \[
+  \boxed{
+  \text{Var}(W(X)) \geq \frac{1}{\mathbb{E}_\theta \left[ \left( \frac{d}{d\theta} \log f_\theta(X) \right)^2 \right]}
+  }
+  \]
+  <p>✅ This is the <strong>Cramér–Rao Lower Bound (CRLB)</strong>.</p>
+
+  <h4>✍️ Let’s Understand Each Piece:</h4>
+
+  <h4>🔹 \( \log f_\theta(X) \) — The Log-Likelihood</h4>
+  <p>We often take logarithms of likelihoods because they make derivatives easier and preserve the maximum.</p>
+  \[
+  \frac{d}{d\theta} \log f_\theta(X)
+  \]
+  <p>This is called the <strong>score function</strong> — it measures how sensitive the likelihood is to changes in \( \theta \).</p>
+
+  <h4>🔹 Fisher Information:</h4>
+  <p>Define the <strong>Fisher Information</strong>:</p>
+  \[
+  \mathcal{I}(\theta) := \mathbb{E}_\theta \left[ \left( \frac{d}{d\theta} \log f_\theta(X) \right)^2 \right]
+  \]
+  <p>It tells us <strong>how much information the data \( X \) carries about \( \theta \)</strong>.</p>
+  <p>✅ The more concentrated the likelihood is around the true \( \theta \), the higher the Fisher Information.</p>
+
+  <h4>🔹 Final form of CRLB for Unbiased Estimators:</h4>
+  <p>When \( W(X) \) is <strong>unbiased</strong>, the CRLB becomes:</p>
+  \[
+  \boxed{
+  \text{Var}(W(X)) \geq \frac{1}{\mathcal{I}(\theta)}
+  }
+  \]
+
+  <h4>🧠 Key Insight: Why is this <em>really</em> a lower bound?</h4>
+  <p>At first glance, it may seem odd that the RHS involves expectations of functions of \( X \), the random variable we’re estimating from. So how can this be a clean lower bound?</p>
+  <p>Here’s the trick:</p>
+  <ul>
+    <li>If \( W(X) \) is <strong>unbiased</strong>, then:</li>
+  </ul>
+  \[
+  \frac{d}{d\theta} \mathbb{E}_\theta[W(X)] = \frac{d}{d\theta} \theta = 1
+  \]
+  <p>So the general inequality:</p>
+  \[
+  \text{Var}(W(X)) \geq \frac{ \left( \frac{d}{d\theta} \mathbb{E}_\theta[W(X)] \right)^2 }{ \mathbb{E}_\theta \left[ \left( \frac{d}{d\theta} \log f_\theta(X) \right)^2 \right] }
+  \]
+  <p>becomes:</p>
+  \[
+  \text{Var}(W(X)) \geq \frac{1^2}{\mathcal{I}(\theta)} = \frac{1}{\mathcal{I}(\theta)}
+  \]
+  <p>So the bound <strong>does not depend on the estimator</strong>, only on the model \( f_\theta(x) \).</p>
+
+  <h4>📊 Interpretation</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Quantity</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\( W(X) \)</td>
+        <td>Your estimator (e.g., sample mean, sample max)</td>
+      </tr>
+      <tr>
+        <td>\( \mathbb{E}[W(X)] = \theta \)</td>
+        <td>Unbiasedness condition</td>
+      </tr>
+      <tr>
+        <td>\( \text{Var}(W(X)) \)</td>
+        <td>How much your estimator varies</td>
+      </tr>
+      <tr>
+        <td>\( \mathcal{I}(\theta) \)</td>
+        <td>How much your data “tells” you about \( \theta \)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>CRLB tells you:</strong> 🔻 You can’t beat this variance limit for any unbiased estimator.</p>
+
+  <h4>📉 Visual Metaphor: The Estimator Race</h4>
+  <p>You have many runners (estimators). Each is <strong>unbiased</strong>, but runs with a different "wiggle" (variance).</p>
+  <p>The <strong>Cramér–Rao bound</strong> is a <strong>solid track limit</strong> — no one can run below it.</p>
+  <pre>
+Variance
+│
+│
+│      (*)  Sample Variance Estimator
+│      |
+│      |
+│      |         (*)  Another Estimator
+│      |
+│      |_________________________
+│             CRLB (floor)
+└─────────────────────────────► Estimators
+  </pre>
+  <p>If someone reaches the floor — they are <strong>efficient</strong>.</p>
+
+  <h4>✨ When is the CRLB Attained?</h4>
+  <p>If an estimator <strong>achieves</strong> the CRLB (i.e., its variance equals the bound), it is:</p>
+  <ul>
+    <li><strong>Unbiased</strong></li>
+    <li><strong>Minimum variance</strong> among all unbiased estimators</li>
+    <li>⇒ Hence, it is the <strong>UMVU estimator</strong></li>
+  </ul>
+  <p>Often, <strong>MLEs</strong> in large samples tend to <strong>achieve CRLB asymptotically</strong>.</p>
+
+  <h4>🔁 Recap: Why It Matters</h4>
+  <ul>
+    <li><strong>CRLB gives a concrete lower limit</strong> on how good your estimator's variance can be.</li>
+    <li>If your estimator hits that bound → it’s the best (UMVU).</li>
+    <li>It’s a <strong>benchmark</strong> — if you propose a new estimator, compare it to the CRLB.</li>
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+<button class="prev-btn" onclick="location.href='wk1.html'">Previous Section →</button>
+
+<button class="next-btn" onclick="location.href='wk3.html'">Next Section →</button>
+
+<footer>
+  <p>&copy; 2025 Shaan | Built with purpose</p>
+</footer>
+
+</body>
+</html>
 
