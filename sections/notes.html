@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notes | Shaan</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    .notes-wrapper {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .notes-wrapper h2 {
+      color: #6effe0;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1.5rem;
+    }
+
+    .notes-section {
+      margin-bottom: 3rem;
+    }
+
+    .note-link {
+      display: block;
+      margin: 0.8rem 0;
+      font-size: 1.05rem;
+      color: #c9d1d9;
+      text-decoration: none;
+      border: 2px solid #6effe0;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      transition: all 0.3s ease;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .note-link:hover {
+      background-color: #6effe0;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .coming-soon {
+      color: #888;
+      font-style: italic;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Notes</h1>
+    <p>Compiled notes from my B.Stat coursework — organized by semester.</p>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../assets/Shaan_CV.pdf">CV</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="misc.html">Misc</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="notes-wrapper">
+
+    <section class="notes-section">
+      <h2>2nd Year (B.Stat)</h2>
+      <a href="notes/sem3.html" class="note-link">Semester 3 Notes</a>
+      <a href="notes/sem4.html" class="note-link">Semester 4 Notes</a>
+    </section>
+
+    <section class="notes-section">
+      <h2>3rd Year (B.Stat)</h2>
+      <a href="#" class="note-link">Semester 5 Notes</a>
+      <p class="coming-soon">Coming soon...</p>
+      <a href="#" class="note-link">Semester 6 Notes</a>
+      <p class="coming-soon">Coming soon...</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Shaan | Built with purpose</p>
+  </footer>
+
+</body>
+</html>
