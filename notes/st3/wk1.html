@@ -200,61 +200,61 @@
   <section>
 
   <h4>🎯 Definition 1.1 — Point Estimation</h4>
-  <p>A <strong>point estimate</strong> is simply a <em>single number</em> used to guess the value of an unknown population parameter.</p>
+<p>A <strong>point estimate</strong> is simply a <em>single number</em> used to guess the value of an unknown population parameter.</p>
 
-  <h4>📌 Let’s clarify the key terms:</h4>
-  <table>
-    <tr><th>Term</th><th>Meaning</th></tr>
-    <tr><td><strong>Parameter</strong></td><td>A fixed, unknown number that describes a feature of a population (like \( \mu, \sigma^2 \))</td></tr>
-    <tr><td><strong>Sample</strong></td><td>A subset of data from the population (e.g., \( X_1, X_2, \dots, X_n \))</td></tr>
-    <tr><td><strong>Statistic</strong></td><td>Any function of the sample. E.g., \( \bar{X} = \frac{1}{n} \sum X_i \) is a statistic</td></tr>
-    <tr><td><strong>Estimator</strong></td><td>A statistic <em>used</em> to estimate a parameter. It’s a function or rule</td></tr>
-    <tr><td><strong>Estimate</strong></td><td>The <strong>numerical value</strong> you get when you plug the sample into the estimator</td></tr>
-  </table>
+<h4>📌 Key Terms</h4>
+<ul>
+  <li><strong>Parameter</strong>: A fixed, unknown number that describes a feature of a population (like \( \mu, \sigma^2 \)).</li>
+  <li><strong>Sample</strong>: A subset of data from the population (e.g., \( X_1, X_2, \dots, X_n \)).</li>
+  <li><strong>Statistic</strong>: Any function of the sample. E.g., \( \bar{X} = \frac{1}{n} \sum X_i \).</li>
+  <li><strong>Estimator</strong>: A statistic used to estimate a parameter — it's a function or rule.</li>
+  <li><strong>Estimate</strong>: The numerical value you get when you plug the sample into the estimator.</li>
+</ul>
 
-  <h4>🧠 Analogy:</h4>
-  <p>Imagine you're a weather scientist trying to estimate tomorrow’s temperature in Kolkata.</p>
-  <ul>
-    <li>The <strong>true average temperature</strong> of tomorrow is unknown — this is the <strong>parameter</strong>.</li>
-    <li>You gather <strong>sample data</strong> (e.g., past 10 days’ temperatures).</li>
-    <li>You decide to take their average — that’s your <strong>estimator</strong>: a method.</li>
-    <li>After plugging in the 10 values, the result (e.g., 32.5°C) is the <strong>estimate</strong>.</li>
-  </ul>
+<h4>🧠 Analogy</h4>
+<p>Imagine you're a weather scientist trying to estimate tomorrow’s temperature in Kolkata:</p>
+<ul>
+  <li>The true average temperature of tomorrow is unknown — this is the <em>parameter</em>.</li>
+  <li>You gather sample data (e.g., past 10 days’ temperatures).</li>
+  <li>You decide to take their average — that’s your <em>estimator</em>: a method.</li>
+  <li>After plugging in the 10 values, the result (e.g., 32.5°C) is the <em>estimate</em>.</li>
+</ul>
 
-  <h4>🧮 Mathematically:</h4>
-  <p>Let’s say you observe a sample:</p>
-  \[
-  X = \begin{bmatrix} X_1 \\ X_2 \\ \vdots \\ X_n \end{bmatrix} \sim F(\theta)
-  \]
-  <p>where \( \theta \) is the unknown parameter, and \( F(\theta) \) is the distribution.</p>
-  <p>Let \( T(X) \) be a function — for example, the sample mean:</p>
-  \[
-  T(X) = \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
-  \]
-  <p>Then:</p>
-  <ul>
-    <li>\( T(X) \) is a <strong>statistic</strong></li>
-    <li>If we <em>use</em> it to estimate \( \theta \), it becomes the <strong>estimator</strong></li>
-    <li>When we plug in real values for \( X_i \), we get an <strong>estimate</strong> of \( \theta \)</li>
-  </ul>
+<h4>🧮 Mathematical Framework</h4>
+<p>Let’s say you observe a sample:</p>
+\[
+X = \begin{bmatrix} X_1 \\ X_2 \\ \vdots \\ X_n \end{bmatrix} \sim F(\theta)
+\]
+<p>where \( \theta \) is the unknown parameter, and \( F(\theta) \) is the distribution.</p>
 
-  <h4>🔁 Estimators are Random Variables</h4>
-  <p>Very important: Since estimators depend on the sample \( X_1, \dots, X_n \), and those are random, the <strong>estimator itself is random</strong>.</p>
-  <p>➡️ This means we can talk about its <strong>mean, variance, MSE, bias</strong>, etc.</p>
+<p>Let \( T(X) \) be a function — for example, the sample mean:</p>
+\[
+T(X) = \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
+\]
+<p>Then:</p>
+<ul>
+  <li>\( T(X) \) is a statistic</li>
+  <li>If we use it to estimate \( \theta \), it becomes the <strong>estimator</strong></li>
+  <li>When we plug in real values for \( X_i \), we get an <strong>estimate</strong> of \( \theta \)</li>
+</ul>
 
-  <h4>📈 Visualization (Mental Image):</h4>
-  <pre>
-Input: X₁, X₂, ..., Xₙ  ──►  Estimator T(X)  ──►  Output: estimate (number)
-  </pre>
-  <p>Different random samples → different estimates. That’s why <strong>studying the distribution of the estimator is key</strong>.</p>
+<h4>🔁 Estimators are Random Variables</h4>
+<p>Since estimators depend on the sample \( X_1, \dots, X_n \), and those are random, the estimator itself is also random.</p>
+<p>This means we can talk about its mean, variance, MSE, bias, etc.</p>
 
-  <h4>✅ Summary:</h4>
-  <ul>
-    <li><strong>Estimator</strong> = rule (statistic) that processes sample data</li>
-    <li><strong>Estimate</strong> = number you get when you apply the rule to a particular sample</li>
-    <li>Estimators are <strong>random variables</strong> → can study their properties</li>
-    <li>If we’re estimating a single number (like \( \theta \)), this is called <strong>point estimation</strong></li>
-  </ul>
+<h4>📈 Mental Visualization</h4>
+<p>
+  Input: \( X_1, X_2, \dots, X_n \) → Estimator \( T(X) \) → Output: estimate (a number)
+</p>
+<p>Different random samples yield different estimates — that's why studying the distribution of the estimator is crucial.</p>
+
+<h4>✅ Summary</h4>
+<ul>
+  <li><strong>Estimator</strong> = rule (statistic) that processes sample data</li>
+  <li><strong>Estimate</strong> = number you get when you apply the rule to a particular sample</li>
+  <li>Estimators are random variables → can study their properties</li>
+  <li>Estimating a single number like \( \theta \) is called <strong>point estimation</strong></li>
+</ul>
 
 </section>
 
