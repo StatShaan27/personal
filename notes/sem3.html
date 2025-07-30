@@ -52,6 +52,38 @@
       font-size: 0.95rem;
       margin-top: 0.5rem;
     }
+    .notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.note-card {
+  border: 2px solid #6effe0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  background-color: #1e1e1e;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(110, 255, 224, 0.2);
+}
+
+.note-card h3 {
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+  color: #6effe0;
+}
+
+.note-card p {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 1rem;
+}
+
   </style>
 </head>
 <body>
@@ -59,23 +91,20 @@
   <header>
     <h1>My Notes</h1>
     <p>Compiled notes from my B.Stat coursework — organized by semester.</p>
-    <nav>
-      <ul>
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../assets/Shaan_CV.pdf">CV</a></li>
-        <li><a href="../sections/projects.html">Projects</a></li>
-        <li><a href="../sections/education.html">Education</a></li>
-        <li><a href="../sections/misc.html">Misc</a></li>
-      </ul>
-    </nav>
-      <u1>
-        <hr>
-      </u1>
-    <nav>
-      <u1>
-        <li><a href="../sections/notes.html">Back to Notes Page</a></li>
-      </u1>
-    </nav>
+      <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../sections/projects.html">Projects</a></li>
+      <li><a href="../sections/education.html">Education</a></li>
+      <li><a href="../sections/misc.html">Misc</a></li>
+    </ul>
+  </nav>
+
+  <div style="text-align: center; margin-top: 1rem;">
+    <a class="note-link" href="../sections/notes.html">Back to Notes Page</a>
+  </div>
+
   </header>
 
  <section class="notes-wrapper">
