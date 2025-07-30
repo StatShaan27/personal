@@ -168,11 +168,11 @@
   <p>AY 2025–26</p>
   <nav>
     <ul>
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="../assets/Shaan_CV.pdf">CV</a></li>
-      <li><a href="../sections/projects.html">Projects</a></li>
-      <li><a href="../sections/education.html">Education</a></li>
-      <li><a href="../sections/misc.html">Misc</a></li>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../../sections/projects.html">Projects</a></li>
+      <li><a href="../../sections/education.html">Education</a></li>
+      <li><a href="../../sections/misc.html">Misc</a></li>
     </ul>
   </nav>
 </header>
@@ -194,7 +194,7 @@
       <li><a href="#1.1"> Definition 1.1 — Point Estimation</a></li>
       <li><a href="#1.2"> Definition 1.2 — Bias of an Estimator</a></li>
       <li><a href="#1.6"> Definition 1.6 — Mean Squared Error</a></li>
-      <li><a href="#1.3"></a></li>
+      <li><a href="#1.8"> Uniformly Minimum Variance Unbiased Estimator (UMVU)</a></li>
       <li><a href="#1.3"></a></li>
       <li><a href="#1.3"></a></li>
       <!-- Add more as you progress -->
@@ -549,10 +549,131 @@ Estimates: [130, 240, 80, 200, 170]
 
 
     
-<div class="glow-box" id="week3">
-    <h2>Week 3: Likelihood and Estimation Methods</h2>
-    <!-- Your notes go here -->
-  </div>
+<div class="glow-box" id="1.8">
+  <h4>🎯 Key Question:</h4>
+  <blockquote>
+    Among <strong>all unbiased estimators</strong> of a parameter \( \theta \), is there one with <strong>minimum possible variance</strong>?
+  </blockquote>
+  <p>This leads us to...</p>
+
+  <h4>🔶 Definition 1.8 — Uniformly Minimum Variance Unbiased Estimator (UMVU)</h4>
+  <p>Let \( X \sim f_\theta(x) \) and let \( \hat{\theta}(X) \) be an <strong>unbiased estimator</strong> of \( \theta \).</p>
+  <p>Then \( \hat{\theta}_{\text{UMVU}} \) is defined as:</p>
+  \[
+  \hat{\theta}_{\text{UMVU}} = \arg\min_{\hat{\theta} \text{ unbiased}} \ \text{Var}(\hat{\theta})
+  \]
+  <p>It is the <strong>best</strong> (i.e., least variable) among all <strong>unbiased</strong> estimators — <em>for every value of</em> \( \theta \) (this uniformity is important).</p>
+
+  <h4>📌 Why do we care?</h4>
+  <p>Among unbiased estimators, we want the one with <strong>smallest fluctuation</strong> (i.e., most stable).</p>
+  <p>The <strong>UMVU</strong> estimator is the one with <strong>lowest MSE</strong> among all <strong>unbiased</strong> estimators, since for unbiased estimators:</p>
+  \[
+  \text{MSE} = \text{Bias}^2 + \text{Var} = 0 + \text{Var}
+  \Rightarrow \text{Minimizing MSE} = \text{Minimizing Variance}
+  \]
+  <p>So for unbiased estimators, <strong>MSE = variance</strong>.</p>
+
+  <h4>🧠 Deeper Insight: Why Not Just Minimize Variance?</h4>
+  <p>You might think: <em>“Why not just minimize variance directly, even allowing bias?”</em></p>
+  <p>But here's the trap:</p>
+  <ul>
+    <li>You <strong>can</strong> construct an estimator with <strong>zero variance</strong>.</li>
+    <li>But that estimator would always return the <strong>same value</strong>, regardless of the data.</li>
+    <li>That value won't adjust based on the sample — so it won’t track the parameter at all.</li>
+  </ul>
+
+  <h4>⚠️ That’s called a degenerate estimator:</h4>
+  <p>For example:</p>
+  \[
+  \hat{\theta}(X) = 0 \quad \text{(always returns 0)}
+  \Rightarrow \text{Var} = 0,\quad \text{Bias} = \theta
+  \Rightarrow \text{MSE} = \theta^2
+  \]
+  <p>This is <strong>utter garbage</strong> as an estimator — it just ignores the data.</p>
+  <p>✅ So, we restrict ourselves to the class of <strong>unbiased estimators</strong>, and <strong>minimize variance within that class</strong>. That gives us the <strong>UMVU</strong>.</p>
+
+  <h4>⚙️ Optimization View:</h4>
+  <blockquote>
+    Minimize MSE(\( \hat{\theta} \)) subject to the constraint that \( \mathbb{E}[\hat{\theta}] = \theta \)
+  </blockquote>
+  <p>This is a <strong>constrained optimization problem</strong>:</p>
+  <ul>
+    <li><strong>Objective:</strong> Minimize \( \mathbb{E}[(\hat{\theta} - \theta)^2] \)</li>
+    <li><strong>Constraint:</strong> \( \mathbb{E}[\hat{\theta}] = \theta \)</li>
+  </ul>
+
+  <h4>🔧 What’s next: Theorem 1.9 (e.g., Rao-Blackwell or Lehmann–Scheffé)</h4>
+  <p>These theorems <strong>give a method</strong> to actually <strong>construct</strong> the UMVU estimator — using:</p>
+  <ul>
+    <li><strong>Sufficient statistics</strong></li>
+    <li><strong>Completeness</strong></li>
+    <li><strong>Conditioning</strong> to reduce variance</li>
+  </ul>
+  <p>But you don’t need them just yet to understand the intuition.</p>
+
+  <h4>🔁 Summary Table</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Concept</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bias</strong></td>
+        <td>Systematic error: how far off your estimator is on average</td>
+      </tr>
+      <tr>
+        <td><strong>Variance</strong></td>
+        <td>How much your estimator fluctuates across samples</td>
+      </tr>
+      <tr>
+        <td><strong>MSE</strong></td>
+        <td>Total error: combines bias and variance</td>
+      </tr>
+      <tr>
+        <td><strong>UMVU</strong></td>
+        <td>Among all unbiased estimators, the one with smallest variance</td>
+      </tr>
+      <tr>
+        <td><strong>Degenerate Estimator</strong></td>
+        <td>Zero variance but useless (doesn’t depend on data)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>📊 Visual Intuition:</h4>
+  <pre>
+Unbiased estimators:
+        ↑
+        |     (*) High variance
+        |   (*)
+        |      (*) Lower variance
+        |         (*) ← UMVU (min var)
+        +--------------------------→ Estimators
+  </pre>
+  <p>You're seeking the <strong>least wiggly, but unbiased</strong> estimator.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
   <div class="glow-box" id="week3">
     <h2>Week 3: Likelihood and Estimation Methods</h2>
