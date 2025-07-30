@@ -129,3 +129,92 @@ body::before {
 .edu-img:hover {
   transform: scale(1.05);
 }
+/* Light theme body */
+body.light-mode {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f9f9f9;
+  color: #1a1a1a;
+}
+
+/* Layout styling */
+header, footer {
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Navigation */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #007acc;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+}
+nav a:hover {
+  background-color: #e6f4ff;
+}
+
+/* Main education layout */
+.edu-wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.edu-block {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.edu-block h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+.edu-block h2 a {
+  color: #005fa3;
+  text-decoration: none;
+}
+.edu-block h2 a:hover {
+  text-decoration: underline;
+}
+
+.edu-block p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+/* Image styling */
+.edu-img {
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+  max-width: 400px;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px #cccccc50;
+  transition: transform 0.3s ease;
+}
+
+.edu-img:hover {
+  transform: scale(1.03);
+}
+
+/* Footer */
+footer {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 3rem;
+}
