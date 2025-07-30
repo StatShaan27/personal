@@ -107,9 +107,22 @@ body::before {
   color: #e0e0e0;
 }
 
+.edu-image-block {
+  text-align: center;
+  margin: 2rem 0;
+}
+
 .edu-img {
-  width: 100%;
-  margin-top: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 10px #333;
+  max-width: 90%;
+  height: auto;
+  border: 3px solid white;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+.edu-caption {
+  color: #ccc;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  font-style: italic;
 }
