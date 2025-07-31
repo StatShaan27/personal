@@ -264,8 +264,107 @@ To check unbiasedness:
 
 
 
-    <div class="glow-box" id="12">
-      
+    <div class="glow-box" id="2">
+      <h4>Question:</h4>
+<p>
+In the previous problem, we found that the MLE of \( \theta \) is:
+</p>
+<p>
+\[
+\hat{\theta}_{\text{MLE}} = -\frac{1}{n} \sum_{i=1}^{n} \log X_i.
+\]
+</p>
+<p>
+<strong>What is the variance of \( \hat{\theta}_{\text{MLE}} \)?</strong><br>
+<strong>Does the variance go to zero as \( n \to \infty \)?</strong>
+</p>
+
+<h4>Solution:</h4>
+
+<p><strong>Step 1: Recall the MLE expression</strong></p>
+<p>
+\[
+\hat{\theta}_{\text{MLE}} = -\frac{1}{n} \sum_{i=1}^{n} \log X_i.
+\]
+Define \( Y_i = -\log X_i \). Then:
+\[
+\hat{\theta}_{\text{MLE}} = \frac{1}{n} \sum_{i=1}^n Y_i.
+\]
+So,
+\[
+\text{Var}(\hat{\theta}_{\text{MLE}}) = \frac{1}{n^2} \sum_{i=1}^n \text{Var}(Y_i) = \frac{1}{n} \text{Var}(Y_1).
+\]
+</p>
+
+<p><strong>Step 2: Distribution of \( Y = -\log X \)</strong></p>
+<p>
+Given: \( X \sim f(x|\theta) = \frac{x^{1/\theta - 1}}{\theta},\ 0 \le x \le 1 \)<br>
+Let \( X = e^{-Y} \), then \( dx = -e^{-Y} dY \)
+
+\[
+f_Y(y) = f_X(x(y)) \cdot \left| \frac{dx}{dy} \right| = \frac{e^{-(1/\theta - 1)y}}{\theta} \cdot e^{-y} = \frac{e^{-y/\theta}}{\theta}, \quad y \ge 0.
+\]
+
+Thus, \( Y = -\log X \sim \text{Exponential}\left( \frac{1}{\theta} \right) \)
+</p>
+
+<p><strong>Step 3: Mean and Variance of Exponential Distribution</strong></p>
+<p>
+If \( Y \sim \text{Exp}(\lambda) \), then:
+
+<ul>
+  <li>\( \mathbb{E}[Y] = \frac{1}{\lambda} \)</li>
+  <li>\( \text{Var}(Y) = \frac{1}{\lambda^2} \)</li>
+</ul>
+
+Here \( \lambda = 1/\theta \), so:
+<ul>
+  <li>\( \mathbb{E}[Y] = \theta \)</li>
+  <li>\( \text{Var}(Y) = \theta^2 \)</li>
+</ul>
+
+Thus,
+\[
+\text{Var}(\hat{\theta}_{\text{MLE}}) = \frac{1}{n} \theta^2
+\]
+</p>
+
+<p><strong>Final Answer:</strong></p>
+<p>
+\[
+\boxed{ \text{Var}(\hat{\theta}_{\text{MLE}}) = \frac{\theta^2}{n} }
+\]
+</p>
+
+<p><strong>Does variance → 0 as \( n \to \infty \)?</strong></p>
+<p>
+Yes — clearly:
+\[
+\lim_{n \to \infty} \frac{\theta^2}{n} = 0
+\]
+So, the MLE is <strong>consistent</strong>.
+</p>
+
+<h4>Related concepts / Other stuff:</h4>
+<ul>
+  <li><strong>Variance of Sample Mean:</strong> If \( Y_1, \ldots, Y_n \) are i.i.d. with variance \( \sigma^2 \), then \( \text{Var}(\bar{Y}) = \frac{\sigma^2}{n} \)</li>
+  <li><strong>Consistency of Estimators:</strong> An estimator \( \hat{\theta}_n \) is consistent if \( \hat{\theta}_n \xrightarrow{P} \theta \). True if unbiased and variance → 0.</li>
+</ul>
+
+<h4>🧠 Visual Intuition:</h4>
+<p>
+As \( n \) increases, the sample mean of i.i.d. exponential variables concentrates around the true mean \( \theta \). The variance shrinks as \( 1/n \), leading to a tighter distribution around \( \theta \).
+
+Imagine a histogram of \( \hat{\theta}_{\text{MLE}} \) values from repeated sampling — it gets narrower around \( \theta \) as \( n \) grows.
+</p>
+
+<h4>💡 Worth Mentioning:</h4>
+<ul>
+  <li>This is a rare case where the MLE is unbiased, has finite variance, and is consistent — all in closed form.</li>
+  <li>Transformation via \( -\log X \) is a classic estimation technique.</li>
+  <li>This MLE is also asymptotically efficient (achieves CRLB).</li>
+</ul>
+
     </div>
 
 
