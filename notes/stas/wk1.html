@@ -691,8 +691,154 @@ Would you like me to show the **Rao-Blackwell improvement** of $\hat{\theta}_1$ 
 
 
 
-  <div class="glow-box" id="12">
-      
+  <div class="glow-box" id="5">
+      <h4>Question:</h4>
+<p>
+Let \( X_1, X_2, \ldots, X_n \) be i.i.d. with distribution \( \mathcal{N}(\theta, \theta^2) \), where \( \theta > 0 \).
+</p>
+<p>Define:</p>
+<ul>
+  <li>\( \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i \) (sample mean)</li>
+  <li>\( S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2 \) (sample variance)</li>
+</ul>
+<blockquote>
+For which value of \( c \) is \( cS \) an <strong>unbiased estimator of \( \theta \)</strong>?
+</blockquote>
+
+<h4>Solution:</h4>
+
+<p>We are to find \( c \) such that:</p>
+<p>\[
+\mathbb{E}[cS] = \theta.
+\]</p>
+
+<p>So, we need:</p>
+<p>\[
+c = \frac{\theta}{\mathbb{E}[S]}
+\]</p>
+
+<p>We know:</p>
+<ul>
+  <li>\( X_i \sim \mathcal{N}(\theta, \theta^2) \)</li>
+  <li>\( \text{Var}(X_i) = \theta^2 \)</li>
+</ul>
+
+<p>The sample variance:</p>
+<p>\[
+S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
+\]</p>
+<p>is an <strong>unbiased estimator of \( \theta^2 \)</strong>:</p>
+<p>\[
+\Rightarrow \mathbb{E}[S^2] = \theta^2
+\]</p>
+
+<p>But:</p>
+<p>\[
+S = \sqrt{S^2} \Rightarrow \mathbb{E}[S] \ne \sqrt{\mathbb{E}[S^2]} \Rightarrow \mathbb{E}[S] < \theta
+\]</p>
+
+<p>So we must <strong>explicitly calculate</strong> \( \mathbb{E}[S] \) when \( X_i \sim \mathcal{N}(\theta, \theta^2) \).</p>
+
+<h4>🔹 Step 1: Use Chi-Square Distribution</h4>
+
+<p>We know that for \( X_i \sim \mathcal{N}(\mu, \sigma^2) \), the statistic:</p>
+<p>\[
+\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}
+\]</p>
+
+<p>This holds <em>even if \( \mu \ne 0 \)</em>.</p>
+
+<p>Here, \( \sigma^2 = \theta^2 \), so:</p>
+<p>\[
+\frac{(n-1)S^2}{\theta^2} \sim \chi^2_{n-1}
+\Rightarrow S = \theta \cdot \sqrt{\frac{1}{n-1} \cdot \chi^2_{n-1}}
+\]</p>
+
+<p>Let:</p>
+<p>\[
+Z = \chi^2_{n-1}, \quad \Rightarrow S = \theta \cdot \sqrt{\frac{Z}{n-1}}
+\]</p>
+
+<p>So:</p>
+<p>\[
+\mathbb{E}[S] = \theta \cdot \mathbb{E}\left[\sqrt{\frac{Z}{n-1}}\right]
+= \theta \cdot \frac{1}{\sqrt{n-1}} \cdot \mathbb{E}\left[\sqrt{Z}\right]
+\]</p>
+
+<p>We now need the expected value of \( \sqrt{Z} \), where \( Z \sim \chi^2_{n-1} \).</p>
+
+<h4>🔹 Step 2: Known Result: Expected value of square root of chi-square</h4>
+
+<p>For \( Z \sim \chi^2_k \), there’s a known result:</p>
+<p>\[
+\mathbb{E}[\sqrt{Z}] = \sqrt{2} \cdot \frac{\Gamma\left(\frac{k+1}{2}\right)}{\Gamma\left(\frac{k}{2}\right)}
+\]</p>
+
+<p>Apply this to \( Z \sim \chi^2_{n-1} \):</p>
+<p>\[
+\mathbb{E}[S] = \theta \cdot \frac{1}{\sqrt{n-1}} \cdot \mathbb{E}[\sqrt{Z}]
+= \theta \cdot \frac{\sqrt{2}}{\sqrt{n-1}} \cdot \frac{\Gamma\left(\frac{n}{2}\right)}{\Gamma\left(\frac{n-1}{2}\right)}
+\]</p>
+
+<h4>🔹 Step 3: Solve for \( c \)</h4>
+
+<p>We want:</p>
+<p>\[
+\mathbb{E}[cS] = \theta \Rightarrow c \cdot \mathbb{E}[S] = \theta
+\Rightarrow c = \frac{\theta}{\mathbb{E}[S]}
+\]</p>
+
+<p>Substitute:</p>
+<p>\[
+\mathbb{E}[S] = \theta \cdot \frac{\sqrt{2}}{\sqrt{n-1}} \cdot \frac{\Gamma\left(\frac{n}{2}\right)}{\Gamma\left(\frac{n-1}{2}\right)}
+\]</p>
+
+<p>Cancel \( \theta \), we get:</p>
+<p>\[
+c = \boxed{
+\frac{\sqrt{n-1}}{\sqrt{2}} \cdot \frac{\Gamma\left(\frac{n-1}{2}\right)}{\Gamma\left(\frac{n}{2}\right)}
+}
+\]</p>
+
+<h4>Final Answer:</h4>
+<p>\[
+\boxed{
+c = \frac{\sqrt{n - 1}}{\sqrt{2}} \cdot \frac{\Gamma\left( \frac{n - 1}{2} \right)}{\Gamma\left( \frac{n}{2} \right)}
+}
+\quad \text{makes } cS \text{ an unbiased estimator of } \theta.
+\]</p>
+
+<h4>Related concepts / Other stuff:</h4>
+
+<ul>
+  <li><strong>Chi-square and Gamma functions:</strong>
+    <ul>
+      <li>If \( Z \sim \chi^2_k \), then it’s a special case of \( \text{Gamma}(k/2, 2) \)</li>
+      <li>\( \mathbb{E}[\sqrt{Z}] \) involves non-linear expectations → handled with gamma functions.</li>
+    </ul>
+  </li>
+  <li><strong>Bias of the Sample Standard Deviation:</strong>
+    <ul>
+      <li>\( \mathbb{E}[S] < \sqrt{\text{Var}(X)} \)</li>
+      <li>This is because square root is concave → Jensen’s inequality implies bias downward.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4>🧠 Visual Intuition:</h4>
+<ul>
+  <li>The sample variance \( S^2 \) is <strong>unbiased</strong> for \( \theta^2 \)</li>
+  <li>But taking the square root <strong>pulls the expectation down</strong>, because of concavity.</li>
+  <li>To compensate, you scale up by \( c > 1 \), computed exactly via gamma ratios.</li>
+</ul>
+
+<h4>💡 Worth Mentioning:</h4>
+<ul>
+  <li>This is a <strong>rare exact correction</strong> for bias — many times people use approximate corrections (e.g., in small-sample t-tests).</li>
+  <li>For large \( n \), \( c \to 1 \), so \( S \approx \theta \), and bias becomes negligible.</li>
+  <li>This \( cS \) is <strong>not MVUE</strong> — \( \bar{X} \) is a better candidate due to sufficiency and completeness, but it doesn’t depend solely on \( S \).</li>
+</ul>
+
     </div>
 
 
