@@ -214,7 +214,7 @@
       <li><a href="#2.4"> Cramér–Rao Inequality in the Discrete Case</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.6">Cramér–Rao Bound for Vector Parameters</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.7">Fisher Information Matrix</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <!-- Add more as you progress -->
@@ -727,8 +727,48 @@
 
 
 
-<div class="glow-box" id="1.5">
-  
+<div class="glow-box" id="2.7">
+  <section>
+  <h4>📘 Fisher Information Matrix \(\mathcal{I}(\boldsymbol{\theta})\)</h4>
+  <p>Let’s now define the <strong>Fisher Information Matrix</strong> \(\mathcal{I}(\boldsymbol{\theta})\) in the <strong>vector parameter</strong> case.</p>
+  <hr>
+
+  <p>Let:</p>
+  <ul>
+    <li>\(\boldsymbol{\theta} \in \mathbb{R}^k\): vector parameter</li>
+    <li>\(\mathbf{X} \sim f(\mathbf{x} | \boldsymbol{\theta})\)</li>
+    <li>Assume \(f(\mathbf{x} | \boldsymbol{\theta})\) satisfies suitable <strong>regularity conditions</strong> (e.g., to allow differentiation under the integral)</li>
+  </ul>
+
+  <h4>✅ The Fisher Information Matrix is defined as:</h4>
+  \[
+  \mathcal{I}(\boldsymbol{\theta}) = \mathbb{E}_{\boldsymbol{\theta}} \left[ \left( \nabla_{\boldsymbol{\theta}} \log f(\mathbf{X}|\boldsymbol{\theta}) \right) \left( \nabla_{\boldsymbol{\theta}} \log f(\mathbf{X}|\boldsymbol{\theta}) \right)^\top \right]
+  \]
+
+  <h4>🔍 Where:</h4>
+  <ul>
+    <li>\(\nabla_{\boldsymbol{\theta}} \log f(\mathbf{X}|\boldsymbol{\theta}) \in \mathbb{R}^k\): the <strong>score vector</strong>
+      \[
+      \nabla_{\boldsymbol{\theta}} \log f(\mathbf{X}|\boldsymbol{\theta}) =
+      \begin{bmatrix}
+      \frac{\partial}{\partial\theta_1} \log f(\mathbf{X}|\boldsymbol{\theta}) \\
+      \vdots \\
+      \frac{\partial}{\partial\theta_k} \log f(\mathbf{X}|\boldsymbol{\theta})
+      \end{bmatrix}
+      \]
+    </li>
+    <li>The outer product produces a \(k \times k\) matrix</li>
+    <li>So, the Fisher Information Matrix is a <strong>positive semi-definite</strong> matrix of size \(k \times k\)</li>
+  </ul>
+
+  <h4>🧠 Alternate Form (if second derivatives are easier to compute):</h4>
+  <p>Under stronger regularity conditions, we can also write:</p>
+  \[
+  \mathcal{I}(\boldsymbol{\theta}) = -\mathbb{E}_{\boldsymbol{\theta}} \left[ \nabla_{\boldsymbol{\theta}}^2 \log f(\mathbf{X}|\boldsymbol{\theta}) \right]
+  \]
+  <p>Here, \(\nabla_{\boldsymbol{\theta}}^2 \log f(\mathbf{X}|\boldsymbol{\theta}) \in \mathbb{R}^{k \times k}\) is the <strong>Hessian matrix</strong> of second-order partial derivatives.</p>
+</section>
+
 </div>
 
 
