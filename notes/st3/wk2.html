@@ -218,7 +218,7 @@
       <li><a href="#2.8">Cramér–Rao Lower Bound: Vector Parameter Case</a></li>
       <li><a href="#2.9">Information Equality and Fisher Information Identity</a></li>
       <li><a href="#2.10">Step-by-Step Breakdown: The Score Function</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.11">Newton–Raphson for MLE: Likelihood Maximization</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
@@ -1183,8 +1183,132 @@
 
 
 
-<div class="glow-box" id="1.5">
-  
+<div class="glow-box" id="2.11">
+  <section>
+  <h4>🔷 Newton–Raphson for MLE: Likelihood Maximization</h4>
+  <p>You're now discussing <strong>numerical optimization of the likelihood</strong> using the <strong>Newton–Raphson method</strong>, one of the core techniques to compute <strong>Maximum Likelihood Estimators (MLEs)</strong>.</p>
+  <p>We'll break this into four parts for clarity:</p>
+  <hr>
+
+  <h4>🔹 1. Understanding the Graph of \( L(\theta) \) vs \( \theta \)</h4>
+  <p>The graph of the log-likelihood function \( L(\theta) \) often looks like a smooth, concave curve. The peak of this curve corresponds to the MLE \( \hat{\theta} \).</p>
+
+  <pre>
+        ^
+     L(θ)
+        |          /\
+        |         /  \
+        |        /    \
+        |_______/______\________>
+                    θ̂
+  </pre>
+
+  <p>At the maximum, the slope \( \frac{d}{d\theta} L(\theta) \) is zero — this is the <strong>first-order optimality condition</strong>.</p>
+
+  <h4>🔧 2. Gradient Ascent (Steepest Ascent)</h4>
+  <p>The update:</p>
+  \[
+  \hat{\theta}_{r+1} = \hat{\theta}_r + \eta_r \cdot \nabla_\theta L(\theta_r \mid x_1, \dots, x_n)
+  \]
+  <p>This is a <strong>gradient ascent step</strong>, where:</p>
+  <ul>
+    <li>\( \eta_r \) is a step size (learning rate)</li>
+    <li>\( \nabla_\theta L(\theta) \) is the gradient (score function)</li>
+    <li>You’re moving in the direction of increasing likelihood</li>
+  </ul>
+  <blockquote>This is <strong>not</strong> Newton–Raphson yet — just basic gradient ascent.</blockquote>
+
+  <h4>🧠 3. Newton–Raphson Update</h4>
+  <p>Newton–Raphson improves on gradient ascent by incorporating the second derivative:</p>
+  <ul>
+    <li><strong>Gradient:</strong> \( \nabla_\theta L(\theta) \)</li>
+    <li><strong>Hessian:</strong> \( \nabla^2_\theta L(\theta) \)</li>
+  </ul>
+
+  <p>The update rule becomes:</p>
+  \[
+  \hat{\theta}_{r+1} = \hat{\theta}_r - \left[ \nabla^2_\theta L(\theta_r) \right]^{-1} \cdot \nabla_\theta L(\theta_r)
+  \]
+
+  <p>✅ The <strong>minus sign</strong> reflects that for maximizing a concave function, you move <em>against</em> the curvature direction.</p>
+
+  <h4>📌 What's the Intuition?</h4>
+  <ul>
+    <li>The <strong>first derivative</strong> tells you the direction to move</li>
+    <li>The <strong>second derivative</strong> tells you how much to move (curvature)</li>
+  </ul>
+
+  <pre>
+   ^
+L(θ)|         *
+     |        ^
+     |       /|\
+     |      / | \    ← Newton step lands at the peak
+     |_____/__|__\________>
+               θ
+  </pre>
+
+  <h4>💡 Newton vs Gradient Ascent</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Uses</th>
+        <th>Pros</th>
+        <th>Cons</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Gradient Ascent</td>
+        <td>Gradient only</td>
+        <td>Simple</td>
+        <td>May take many steps</td>
+      </tr>
+      <tr>
+        <td>Newton–Raphson</td>
+        <td>Gradient + Hessian</td>
+        <td>Quadratic convergence</td>
+        <td>Requires second derivative</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>For well-behaved likelihoods (e.g., Normal), Newton–Raphson can converge in just a few steps.</p>
+
+  <h4>🔢 Example: Normal Model with Known Variance</h4>
+  <p>Suppose:</p>
+  <ul>
+    <li>\( X_1, \dots, X_n \sim \mathcal{N}(\mu, \sigma^2) \)</li>
+    <li>\( \sigma^2 \) is known; find MLE for \( \mu \)</li>
+  </ul>
+
+  <p>Log-likelihood:</p>
+  \[
+  L(\mu) = -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 + \text{const}
+  \]
+
+  <p>Then:</p>
+  <ul>
+    <li>\( \nabla_\mu L = \frac{1}{\sigma^2} \sum (x_i - \mu) = \frac{n}{\sigma^2} (\bar{x} - \mu) \)</li>
+    <li>\( \nabla^2_\mu L = -\frac{n}{\sigma^2} \)</li>
+  </ul>
+
+  <p>Newton–Raphson update:</p>
+  \[
+  \mu_{r+1} = \mu_r - \left( -\frac{\sigma^2}{n} \right) \cdot \frac{n}{\sigma^2} (\bar{x} - \mu_r) = \mu_r + (\bar{x} - \mu_r) = \bar{x}
+  \]
+
+  <p>✅ It converges in one step — because the log-likelihood is quadratic!</p>
+
+  <h4>✅ Summary</h4>
+  <ul>
+    <li>You’re using <strong>gradient ascent</strong> to maximize \( L(\theta) \)</li>
+    <li><strong>Newton–Raphson</strong> is more efficient by using curvature (Hessian)</li>
+    <li>It’s standard in MLE, logistic regression, Poisson models, etc.</li>
+  </ul>
+</section>
+
 </div>
 
 
