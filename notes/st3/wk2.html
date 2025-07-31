@@ -225,6 +225,11 @@
       <li><a href="#2.11">Newton–Raphson for MLE: Likelihood Maximization</a></li>
       <li><a href="#2.12">On the Direction of Steepest Ascent</a></li>
       <li><a href="#2.13">Connecting Fisher Information with the Hessian Matrix</a></li>
+      <li><a href="#2.14">Geometry and Calculus Behind MLE</a></li>
+      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       
@@ -1586,8 +1591,132 @@ Current θ_r
 
 
 
-<div class="glow-box" id="1.5">
-  
+<div class="glow-box" id="2.14">
+  <h4>🧭 Overview</h4>
+<p>You are essentially learning the <b>geometry and calculus behind MLE</b>:</p>
+<ul>
+  <li>When do we stop iterating for an estimate?</li>
+  <li>How do we measure “information” in the data?</li>
+  <li>What are the limits of accuracy for unbiased estimators?</li>
+</ul>
+
+<hr>
+
+<h4>1. ✅ Stopping Criteria in Iterative Estimation</h4>
+<p><b>🔁 In iterative methods</b> (like Newton–Raphson, gradient ascent), we update:</p>
+<pre><code>θ̂_{r+1} = θ̂_r + η_r ⋅ ∇<sub>θ</sub> L(θ̂_r)</code></pre>
+<p>We stop when the estimate becomes stable:</p>
+<pre><code>‖θ̂<sub>r+1</sub> − θ̂<sub>r</sub>‖₂ &lt; ε</code></pre>
+<p><b>✅ Example:</b> If θ = (μ, σ)<sup>T</sup>, then:</p>
+<pre><code>‖θ̂<sub>r+1</sub> − θ̂<sub>r</sub>‖₂² = (μ̂<sub>r+1</sub> − μ̂<sub>r</sub>)² + (σ̂<sub>r+1</sub> − σ̂<sub>r</sub>)²</code></pre>
+
+<hr>
+
+<h4>2. 📘 Fisher Information Matrix ℐ(θ)</h4>
+<pre><code>ℐ(θ) = E[ −∂²/∂θ ∂θᵗ log f(x | θ) ]</code></pre>
+<p><b>🔎 Intuition:</b></p>
+<ul>
+  <li>Very curved log-likelihood ⇒ precise estimate (low variance)</li>
+  <li>Flat log-likelihood ⇒ uncertain estimate (high variance)</li>
+</ul>
+<pre><code>
+       log L(θ)
+           ^
+           |
+   High    |     ____
+   info    |   /    \
+           |  /      \
+           | /        \
+   Low     |/          \___
+           +-------------------> θ
+</code></pre>
+
+<hr>
+
+<h4>3. 🧮 Hessian Matrix H</h4>
+<pre><code>H(θ) = [ ∂²L / ∂θᵢ∂θⱼ ]</code></pre>
+<ul>
+  <li>Measures curvature of L(θ)</li>
+  <li>Scalar case: just d²L/dθ²</li>
+  <li>Vector θ ⇒ k×k symmetric matrix</li>
+</ul>
+<p><b>🔁 In Newton–Raphson:</b></p>
+<pre><code>θ̂<sub>r+1</sub> = θ̂<sub>r</sub> − H<sup>−1</sup> ∇<sub>θ</sub> L</code></pre>
+
+<hr>
+
+<h4>4. 🔗 Link Between Hessian and Fisher Information</h4>
+<pre><code>ℐ(θ) = E_θ[−H(θ)] = E_θ[−∂²/∂θ∂θᵗ log f(x | θ)]</code></pre>
+<p><b>✅ Requires regularity conditions</b></p>
+
+<p><b>For i.i.d. Data:</b></p>
+<pre><code>X₁,…,Xₙ ~ i.i.d. f(x | θ)</code></pre>
+<pre><code>
+L(θ) = ∑ log f(xᵢ | θ) ⇒
+ℐ(θ) = n ⋅ E[−∂²/∂θ∂θᵗ log f(x₁ | θ)]
+</code></pre>
+
+<p>So more data ⇒ higher curvature ⇒ better certainty</p>
+
+<pre><code>
+E[−∂²/∂θ∂θᵗ log f(x₁ | θ)] = Pre-sample Fisher Info
+</code></pre>
+
+<hr>
+
+<h4>5. 🎯 Cramér–Rao Lower Bound (CRLB)</h4>
+<p><b>If θ̂ is unbiased:</b></p>
+<pre><code>Var(θ̂) ≥ ℐ<sup>−1</sup>(θ)</code></pre>
+<p>In scalar case:</p>
+<pre><code>Var(θ̂) ≥ 1 / ℐ(θ)</code></pre>
+<ul>
+  <li>CRLB is the theoretical lower bound on variance of unbiased estimators</li>
+  <li>Attained when estimator is "efficient"</li>
+</ul>
+
+<hr>
+
+<h4>6. 🧾 Observed Information Matrix</h4>
+<pre><code>𝒥(θ) = −H = −∑ ∂²/∂θ∂θᵗ log f(xᵢ | θ)</code></pre>
+<p>Used in:</p>
+<ul>
+  <li>Newton-Raphson updates (actual curvature)</li>
+  <li>MLE variance estimation:</li>
+</ul>
+<pre><code>Var̂(θ̂) ≈ [𝒥(θ̂)]<sup>−1</sup></code></pre>
+
+<hr>
+
+<h4>✅ Summary Table</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Formula</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Gradient (Score)</td>
+      <td>∇<sub>θ</sub> L(θ)</td>
+      <td>Direction of steepest ascent</td>
+    </tr>
+    <tr>
+      <td>Hessian</td>
+      <td>H(θ) = ∂²L / ∂θ ∂θᵗ</td>
+      <td>Curvature of log-likelihood</td>
+    </tr>
+    <tr>
+      <td>Fisher Info</td>
+      <td>ℐ(θ) = E[−H]</td>
+      <td>Expected curvature</td>
+    </tr>
+    <tr>
+      <td>Observed Info</td>
+      <td>𝒥(θ) = −H</td>
+      <td>Actual curvature fr
+
 </div>
 
 
