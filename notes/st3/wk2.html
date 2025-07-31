@@ -226,7 +226,7 @@
       <li><a href="#2.12">On the Direction of Steepest Ascent</a></li>
       <li><a href="#2.13">Connecting Fisher Information with the Hessian Matrix</a></li>
       <li><a href="#2.14">Geometry and Calculus Behind MLE</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.15">Fisher’s Scoring Method</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
@@ -1592,6 +1592,7 @@ Current θ_r
 
 
 <div class="glow-box" id="2.14">
+  <section>
   <h4>🧭 Overview</h4>
 <p>You are essentially learning the <b>geometry and calculus behind MLE</b>:</p>
 <ul>
@@ -1716,6 +1717,7 @@ E[−∂²/∂θ∂θᵗ log f(x₁ | θ)] = Pre-sample Fisher Info
       <td>Observed Info</td>
       <td>𝒥(θ) = −H</td>
       <td>Actual curvature fr
+  </section>
 
 </div>
 
@@ -1747,8 +1749,104 @@ E[−∂²/∂θ∂θᵗ log f(x₁ | θ)] = Pre-sample Fisher Info
 
 
 
-<div class="glow-box" id="1.5">
-  
+<div class="glow-box" id="2.15">
+  <section>
+  <h4>🔷 1. Background: Newton–Raphson in MLE</h4>
+<p>Recall that for Maximum Likelihood Estimation (MLE), we want to <strong>maximize</strong> the log-likelihood function:</p>
+<p>$$L(\theta) = \sum_{i=1}^n \log f(x_i \mid \theta)$$</p>
+<p>The <strong>Newton–Raphson update rule</strong> for finding the root of $\nabla_\theta L(\theta) = 0$ is:</p>
+<p>$$\theta^{(r+1)} = \theta^{(r)} - \left[ H(\theta^{(r)}) \right]^{-1} \nabla_\theta L(\theta^{(r)})$$</p>
+<ul>
+  <li>$\nabla_\theta L(\theta)$ is the <strong>score function</strong></li>
+  <li>$H(\theta) = \nabla_\theta^2 L(\theta)$ is the <strong>Hessian matrix</strong></li>
+</ul>
+
+<h4>🔷 2. Problem with Newton–Raphson</h4>
+<p>In practice, $H(\theta)$ may:</p>
+<ul>
+  <li>Be difficult to compute or invert</li>
+  <li>Be <strong>non-invertible</strong> at some points</li>
+  <li>Lead to <strong>unstable convergence</strong></li>
+</ul>
+
+<h4>🔷 3. Fisher’s Scoring: Motivation</h4>
+<p>To solve these issues, we replace the <strong>observed Hessian</strong> $H(\theta)$ with its <strong>expectation</strong>:</p>
+<p>$$\mathcal{I}(\theta) = \mathbb{E}_\theta\left[-\nabla_\theta^2 L(\theta)\right]$$</p>
+<p>This is the <strong>Fisher Information Matrix</strong>. It's often easier to compute and is <strong>positive semi-definite</strong>.</p>
+
+<h4>🔷 4. Fisher’s Scoring Update Rule</h4>
+<p>The update rule becomes:</p>
+<p>$$\theta^{(r+1)} = \theta^{(r)} + \left[\mathcal{I}(\theta^{(r)})\right]^{-1} \nabla_\theta L(\theta^{(r)})$$</p>
+<p>🔁 Notice:</p>
+<ul>
+  <li>Update direction uses the <strong>gradient (score)</strong></li>
+  <li>Scaled by <strong>inverse Fisher Information</strong>, not Hessian</li>
+</ul>
+
+<h4>🔷 5. Visualization: Geometric Insight</h4>
+<p>Imagine you’re on a hill (log-likelihood surface):</p>
+<ul>
+  <li><strong>Gradient Ascent</strong>: step in steepest direction</li>
+  <li><strong>Newton–Raphson</strong>: adjusts for curvature (Hessian)</li>
+  <li><strong>Fisher Scoring</strong>: uses <em>average curvature</em> — smoother steps</li>
+</ul>
+
+<h4>🔷 6. Example: Bernoulli Distribution</h4>
+<p>Let $X_1, \dots, X_n \sim \text{Bern}(p)$ where $0 &lt; p &lt; 1$</p>
+<p><strong>Log-likelihood:</strong></p>
+<p>$$L(p) = \sum_{i=1}^n \left[ x_i \log p + (1 - x_i)\log(1 - p) \right]$$</p>
+<p><strong>Score function:</strong></p>
+<p>$$\frac{dL}{dp} = \frac{n\bar{X}}{p} - \frac{n(1 - \bar{X})}{1 - p}$$</p>
+<p><strong>Observed Information:</strong></p>
+<p>$$H(p) = -\frac{n\bar{X}}{p^2} - \frac{n(1 - \bar{X})}{(1 - p)^2}$$</p>
+<p><strong>Fisher Information:</strong></p>
+<p>$$\mathcal{I}(p) = \frac{n}{p(1 - p)}$$</p>
+<p><strong>Fisher Scoring update:</strong></p>
+<p>$$p^{(r+1)} = p^{(r)} + \left[ \frac{n}{p^{(r)}(1 - p^{(r)})} \right]^{-1} \left( \frac{n\bar{X}}{p^{(r)}} - \frac{n(1 - \bar{X})}{1 - p^{(r)}} \right)$$</p>
+<p><strong>Which simplifies to:</strong></p>
+<p>$$p^{(r+1)} = \bar{X}$$</p>
+<p>🎯 <strong>That’s the MLE!</strong> Fisher scoring converges to it in <em>one step</em> for Bernoulli.</p>
+
+<h4>🔷 7. Comparison Table</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Uses</th>
+      <th>Stability</th>
+      <th>Convergence Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Gradient Ascent</td>
+      <td>Gradient only</td>
+      <td>May overshoot</td>
+      <td>Slower</td>
+    </tr>
+    <tr>
+      <td>Newton–Raphson</td>
+      <td>Gradient + Hessian</td>
+      <td>Can be unstable</td>
+      <td>Fast if Hessian good</td>
+    </tr>
+    <tr>
+      <td>Fisher Scoring</td>
+      <td>Gradient + Expected Hessian</td>
+      <td>More stable</td>
+      <td>Fast, smoother</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>🔷 8. When to Use Fisher Scoring?</h4>
+<p>✅ Use it when:</p>
+<ul>
+  <li><strong>Likelihood function is well-behaved</strong> but observed Hessian is messy</li>
+  <li>Working with <strong>GLMs</strong> — Fisher scoring is standard for IRLS</li>
+  <li>You need <strong>stable convergence</strong> with positive curvature</li>
+</ul>
+</section>
 </div>
 
 
