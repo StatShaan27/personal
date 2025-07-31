@@ -220,7 +220,7 @@
       <li><a href="#2.10">Step-by-Step Breakdown: The Score Function</a></li>
       <li><a href="#2.11">Newton–Raphson for MLE: Likelihood Maximization</a></li>
       <li><a href="#2.12">On the Direction of Steepest Ascent</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.13">Connecting Fisher Information with the Hessian Matrix</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       
@@ -1443,11 +1443,274 @@ Current θ_r
 
 
 
+<div class="glow-box" id="2.13">
+  <section>
+  <h4>🔷 Connecting Fisher Information with the Hessian Matrix</h4>
+  <p>Now connecting <strong>Fisher’s Information Matrix</strong> with the <strong>Hessian matrix</strong> of the log-likelihood function.</p>
+  <p>Let’s unpack this carefully and precisely.</p>
+
+  <hr>
+
+  <h4>🔷 1. Fisher Information Matrix (Multivariate Version)</h4>
+  <p>Suppose \( \theta \in \mathbb{R}^k \) is a <strong>vector parameter</strong> and \( f(x \mid \theta) \) is a probability density function satisfying standard regularity conditions.</p>
+
+  <p>Then, the <strong>Fisher Information Matrix</strong> is defined as:</p>
+  \[
+  \mathcal{I}(\theta) = \mathbb{E}_\theta \left[ \left( \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right)
+  \left( \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right)^\top \right]
+  \]
+
+  <ul>
+    <li>This is a \( k \times k \) <strong>positive semi-definite matrix</strong>.</li>
+    <li>It measures how much information the data carries about each component of \( \theta \), and how the components interact.</li>
+  </ul>
+
+  <hr>
+
+  <h4>🔶 2. Alternative Definition Using the Hessian (Second Derivatives)</h4>
+  <p>Under regularity conditions, the Fisher Information Matrix can also be written as the <strong>negative expected Hessian</strong> of the log-likelihood function:</p>
+  \[
+  \mathcal{I}(\theta) = - \mathbb{E}_\theta \left[ \frac{\partial^2}{\partial \theta \partial \theta^\top} \log f(x \mid \theta) \right]
+  \]
+
+  <p>✅ This is what your note says:</p>
+  <blockquote>
+    \( \mathbb{E}\left( -\frac{ \partial^2 }{ \partial \theta \partial \theta^\top } \log f(x \mid \theta) \right) = \text{Fisher Information Matrix} \)
+  </blockquote>
+
+  <hr>
+
+  <h4>📌 3. What Is the Hessian Matrix?</h4>
+  <p>The <strong>Hessian</strong> of a scalar-valued function \( L(\theta) \), where \( \theta \in \mathbb{R}^k \), is the matrix of <strong>second partial derivatives</strong>:</p>
+  \[
+  H(\theta) = \left[ \frac{ \partial^2 L(\theta) }{ \partial \theta_i \partial \theta_j } \right]_{i,j=1}^k
+  \]
+
+  <p>So for the <strong>log-likelihood</strong> function \( \log f(x \mid \theta) \), the Hessian is:</p>
+  \[
+  \frac{ \partial^2 }{ \partial \theta \partial \theta^\top } \log f(x \mid \theta)
+  \]
+
+  <p>It’s a \( k \times k \) symmetric matrix, assuming smoothness.</p>
+
+  <hr>
+
+  <h4>🔷 4. The (i,j)-th Element of Fisher Info = Expected Negative Hessian Entry</h4>
+  <p>You correctly stated:</p>
+  <blockquote>
+    (i, j)-th element of the Fisher Information matrix is the (i, j)-th element of the expected negative Hessian of \( \log f(x \mid \theta) \)
+  </blockquote>
+
+  <p>In symbols:</p>
+  \[
+  [\mathcal{I}(\theta)]_{i,j} = - \mathbb{E}_\theta \left[ \frac{\partial^2}{\partial \theta_i \partial \theta_j} \log f(x \mid \theta) \right]
+  \]
+
+  <p>This captures the <strong>curvature</strong> of the likelihood in the \( (\theta_i, \theta_j) \) direction.</p>
+
+  <hr>
+
+  <h4>🧠 Why Two Equivalent Definitions?</h4>
+  <p>Because of the <strong>Fisher identity</strong>:</p>
+  \[
+  \mathcal{I}(\theta) = \mathbb{E}_\theta \left[ \nabla_\theta \log f(x \mid \theta) \cdot \nabla_\theta \log f(x \mid \theta)^\top \right] 
+  = - \mathbb{E}_\theta \left[ \nabla^2_\theta \log f(x \mid \theta) \right]
+  \]
+
+  <p>Both are equal <strong>only under regularity conditions</strong>, where we’re allowed to exchange integration and differentiation.</p>
+
+  <hr>
+
+  <h4>✅ Summary</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Quantity</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\( \nabla_\theta \log f(x \mid \theta) \)</td>
+        <td>Score function (gradient of log-likelihood)</td>
+      </tr>
+      <tr>
+        <td>\( \nabla^2_\theta \log f(x \mid \theta) \)</td>
+        <td>Hessian matrix (second derivatives)</td>
+      </tr>
+      <tr>
+        <td>\( \mathcal{I}(\theta) \)</td>
+        <td>Fisher Information Matrix</td>
+      </tr>
+      <tr>
+        <td>\( [\mathcal{I}(\theta)]_{i,j} \)</td>
+        <td>Expected negative second derivative of log-likelihood w.r.t \( \theta_i \) and \( \theta_j \)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="glow-box" id="1.5">
   
 </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="1.5">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="1.5">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="1.5">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="1.5">
+  
+</div>
 
 
 
