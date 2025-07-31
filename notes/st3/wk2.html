@@ -211,7 +211,7 @@
       <li><a href="#2.1"> Variance Inequality: Toward a General CRLB</a></li>
       <li><a href="#2.2"> Cramér–Rao Bound for IID Case</a></li>
       <li><a href="#2.3"> Summarising the simplifications</a></li>
-      <li><a href="#1.8"> Uniformly Minimum Variance Unbiased Estimator (UMVU)</a></li>
+      <li><a href="#2.4"> Cramér–Rao Inequality in the Discrete Case</a></li>
       <li><a href="#1.9">Cramér–Rao Lower Bound (CRLB)</a></li>
       <!-- Add more as you progress -->
     </ul>
@@ -434,111 +434,84 @@
 
 
     
-<div class="glow-box" id="1.8">
-  <h4>🎯 Key Question:</h4>
-  <blockquote>
-    Among <strong>all unbiased estimators</strong> of a parameter \( \theta \), is there one with <strong>minimum possible variance</strong>?
-  </blockquote>
-  <p>This leads us to...</p>
+<div class="glow-box" id="2.4">
+  <h4>🔁 Cramér–Rao Inequality in the Discrete Case</h4>
+  <p>You're now pointing toward the <strong>discrete version</strong> of the Cramér–Rao bound, where we deal with <strong>PMFs</strong> instead of PDFs.</p>
+  <p>Let’s go through this step-by-step.</p>
 
-  <h4>🔶 Definition 1.8 — Uniformly Minimum Variance Unbiased Estimator (UMVU)</h4>
-  <p>Let \( X \sim f_\theta(x) \) and let \( \hat{\theta}(X) \) be an <strong>unbiased estimator</strong> of \( \theta \).</p>
-  <p>Then \( \hat{\theta}_{\text{UMVU}} \) is defined as:</p>
-  \[
-  \hat{\theta}_{\text{UMVU}} = \arg\min_{\hat{\theta} \text{ unbiased}} \ \text{Var}(\hat{\theta})
-  \]
-  <p>It is the <strong>best</strong> (i.e., least variable) among all <strong>unbiased</strong> estimators — <em>for every value of</em> \( \theta \) (this uniformity is important).</p>
+  <h4>📦 Now in the discrete case:</h4>
+  <p>Instead of a pdf \( f(x|\theta) \), you have a <strong>pmf</strong> \( p(x|\theta) \), where \( x \in \mathcal{X} \), a countable set.</p>
 
-  <h4>📌 Why do we care?</h4>
-  <p>Among unbiased estimators, we want the one with <strong>smallest fluctuation</strong> (i.e., most stable).</p>
-  <p>The <strong>UMVU</strong> estimator is the one with <strong>lowest MSE</strong> among all <strong>unbiased</strong> estimators, since for unbiased estimators:</p>
-  \[
-  \text{MSE} = \text{Bias}^2 + \text{Var} = 0 + \text{Var}
-  \Rightarrow \text{Minimizing MSE} = \text{Minimizing Variance}
-  \]
-  <p>So for unbiased estimators, <strong>MSE = variance</strong>.</p>
-
-  <h4>🧠 Deeper Insight: Why Not Just Minimize Variance?</h4>
-  <p>You might think: <em>“Why not just minimize variance directly, even allowing bias?”</em></p>
-  <p>But here's the trap:</p>
+  <h4>🧠 Key Result:</h4>
+  <p>Suppose:</p>
   <ul>
-    <li>You <strong>can</strong> construct an estimator with <strong>zero variance</strong>.</li>
-    <li>But that estimator would always return the <strong>same value</strong>, regardless of the data.</li>
-    <li>That value won't adjust based on the sample — so it won’t track the parameter at all.</li>
+    <li>\( X_1, \dots, X_n \) are i.i.d. with <strong>pmf</strong> \( p(x|\theta) \)</li>
+    <li>\( W(\mathbf{X}) \) is a statistic satisfying:
+      <ul>
+        <li>\( \mathbb{E}_\theta[W(\mathbf{X})] \) is <strong>differentiable</strong></li>
+        <li>The derivative of expectation can be interchanged with the sum:
+          \[
+          \frac{d}{d\theta} \mathbb{E}_\theta[W(\mathbf{X})] = \sum_{\mathbf{x}} W(\mathbf{x}) \frac{d}{d\theta} p(\mathbf{x}|\theta)
+          \]
+        </li>
+      </ul>
+    </li>
   </ul>
 
-  <h4>⚠️ That’s called a degenerate estimator:</h4>
-  <p>For example:</p>
-  \[
-  \hat{\theta}(X) = 0 \quad \text{(always returns 0)}
-  \Rightarrow \text{Var} = 0,\quad \text{Bias} = \theta
-  \Rightarrow \text{MSE} = \theta^2
-  \]
-  <p>This is <strong>utter garbage</strong> as an estimator — it just ignores the data.</p>
-  <p>✅ So, we restrict ourselves to the class of <strong>unbiased estimators</strong>, and <strong>minimize variance within that class</strong>. That gives us the <strong>UMVU</strong>.</p>
+  <p>Then, the <strong>Cramér–Rao-type inequality</strong> holds:</p>
+  <p>
+    \[
+    \operatorname{Var}_\theta(W(\mathbf{X})) \geq 
+    \frac{\left( \frac{d}{d\theta} \mathbb{E}_\theta[W(\mathbf{X})] \right)^2}{
+    \mathbb{E}_\theta\left[ \left( \frac{d}{d\theta} \log p(\mathbf{X}|\theta) \right)^2 \right]}
+    \]
+  </p>
+  <p>This is structurally identical to the continuous case — but all integrals are now <strong>sums</strong> over discrete outcomes.</p>
 
-  <h4>⚙️ Optimization View:</h4>
-  <blockquote>
-    Minimize MSE(\( \hat{\theta} \)) subject to the constraint that \( \mathbb{E}[\hat{\theta}] = \theta \)
-  </blockquote>
-  <p>This is a <strong>constrained optimization problem</strong>:</p>
+  <h4>✅ Example: Bernoulli Case</h4>
+  <p>Let’s make this real.</p>
   <ul>
-    <li><strong>Objective:</strong> Minimize \( \mathbb{E}[(\hat{\theta} - \theta)^2] \)</li>
-    <li><strong>Constraint:</strong> \( \mathbb{E}[\hat{\theta}] = \theta \)</li>
+    <li>\( X_1, \dots, X_n \sim \text{Bernoulli}(p) \)</li>
+    <li>\( p \in (0, 1) \), the parameter to estimate</li>
+    <li>\( \mathbf{X} = (X_1, \dots, X_n) \)</li>
   </ul>
 
-  <h4>🔧 What’s next: Theorem 1.9 (e.g., Rao-Blackwell or Lehmann–Scheffé)</h4>
-  <p>These theorems <strong>give a method</strong> to actually <strong>construct</strong> the UMVU estimator — using:</p>
   <ul>
-    <li><strong>Sufficient statistics</strong></li>
-    <li><strong>Completeness</strong></li>
-    <li><strong>Conditioning</strong> to reduce variance</li>
+    <li>PMF: \( p(x_i | p) = p^{x_i}(1-p)^{1 - x_i} \)</li>
+    <li>Log-likelihood:
+      \[
+      \log p(\mathbf{X}|p) = \sum_{i=1}^n \left[ x_i \log p + (1 - x_i) \log(1 - p) \right]
+      \]
+    </li>
+    <li>Score:
+      \[
+      \frac{d}{dp} \log p(\mathbf{X}|p) = \sum_{i=1}^n \left( \frac{x_i}{p} - \frac{1 - x_i}{1 - p} \right)
+      \]
+    </li>
+    <li>Fisher Information:
+      \[
+      \mathcal{I}(p) = \mathbb{E}_p\left[ \left( \sum_{i=1}^n \left( \frac{X_i}{p} - \frac{1 - X_i}{1 - p} \right) \right)^2 \right] = \frac{n}{p(1 - p)}
+      \]
+    </li>
+    <li>Sample mean \( \bar{X} = \frac{1}{n} \sum X_i \) is unbiased</li>
+    <li>Its variance: \( \frac{p(1 - p)}{n} \)</li>
   </ul>
-  <p>But you don’t need them just yet to understand the intuition.</p>
 
-  <h4>🔁 Summary Table</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Concept</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Bias</strong></td>
-        <td>Systematic error: how far off your estimator is on average</td>
-      </tr>
-      <tr>
-        <td><strong>Variance</strong></td>
-        <td>How much your estimator fluctuates across samples</td>
-      </tr>
-      <tr>
-        <td><strong>MSE</strong></td>
-        <td>Total error: combines bias and variance</td>
-      </tr>
-      <tr>
-        <td><strong>UMVU</strong></td>
-        <td>Among all unbiased estimators, the one with smallest variance</td>
-      </tr>
-      <tr>
-        <td><strong>Degenerate Estimator</strong></td>
-        <td>Zero variance but useless (doesn’t depend on data)</td>
-      </tr>
-    </tbody>
-  </table>
+  <p>Then CRLB is:</p>
+  <p>
+    \[
+    \operatorname{Var}(\hat{p}) \geq \frac{1}{\mathcal{I}(p)} = \frac{p(1 - p)}{n}
+    \]
+  </p>
+  <p>✅ The sample mean attains this → it is efficient.</p>
 
-  <h4>📊 Visual Intuition:</h4>
-  <pre>
-Unbiased estimators:
-        ↑
-        |     (*) High variance
-        |   (*)
-        |      (*) Lower variance
-        |         (*) ← UMVU (min var)
-        +--------------------------→ Estimators
-  </pre>
-  <p>You're seeking the <strong>least wiggly, but unbiased</strong> estimator.</p>
+  <h4>📌 Summary</h4>
+  <ul>
+    <li>The CRLB works <strong>analogously</strong> for <strong>discrete pmfs</strong></li>
+    <li>Replace integrals with sums</li>
+    <li>Use \( \log p(x|\theta) \) instead of \( \log f(x|\theta) \)</li>
+    <li>Example: Bernoulli trials → sample mean of i.i.d. Bernoulli ⇒ efficient estimator of \( p \)</li>
+  </ul>
 </div>
 
 
