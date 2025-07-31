@@ -208,7 +208,7 @@
   <div class="toc">
     <h3>Contents</h3>
     <ul>
-      <li><a href="#1.1"> Point Estimation</a></li>
+      <li><a href="#2.1"> Variance Inequality: Toward a General CRLB</a></li>
       <li><a href="#1.2"> Bias of an Estimator</a></li>
       <li><a href="#1.6"> Mean Squared Error</a></li>
       <li><a href="#1.8"> Uniformly Minimum Variance Unbiased Estimator (UMVU)</a></li>
@@ -218,71 +218,70 @@
   </div>
 
   <!-- Notes section boxes -->
-  <div class="glow-box" id="1.1">
+  <div class="glow-box" id="2.1">
+  <h4>🧠 Variance Inequality: Toward a General CRLB</h4>
+  <p>You’re discussing a <strong>variance inequality</strong> in estimation theory — a generalized form of the <strong>Cramér–Rao bound</strong>.</p>
 
-  <section>
+  <h4>📦 1. Setup:</h4>
+  <ul>
+    <li>Let \( X_1, X_2, \dots, X_n \) be i.i.d. with density \( f(x|\theta) \).</li>
+    <li>Let \( \mathbf{X} = (X_1, \dots, X_n) \) and \( W(\mathbf{X}) \) be any statistic.</li>
+    <li>You aim to bound \( \operatorname{Var}_\theta(W(\mathbf{X})) \).</li>
+  </ul>
+  <p><strong>Key assumptions:</strong></p>
+  <ul>
+    <li>\( \operatorname{Var}_\theta(W(\mathbf{X})) < \infty \)</li>
+    <li>\( \frac{d}{d\theta} \mathbb{E}_\theta[W(\mathbf{X})] = \int \frac{d}{d\theta} \left( W(\mathbf{X}) f(\mathbf{X}|\theta) \right) d\mathbf{x} \)</li>
+  </ul>
+  <p>The second condition is a <strong>regularity condition</strong> — it lets you differentiate under the integral sign, essential for proving CR-type results.</p>
 
-  <h4>🎯 Definition 1.1 — Point Estimation</h4>
-<p>A <strong>point estimate</strong> is simply a <em>single number</em> used to guess the value of an unknown population parameter.</p>
+  <h4>🔎 2. The Inequality Itself:</h4>
+  <p>Then, the variance of \( W(\mathbf{X}) \) satisfies the inequality:</p>
+  \[
+  \operatorname{Var}_\theta(W(\mathbf{X})) \geq \frac{ \left( \frac{d}{d\theta} \mathbb{E}_\theta[W(\mathbf{X})] \right)^2 }{ \mathbb{E}_\theta \left[ \left( \frac{d}{d\theta} \log f(\mathbf{X}|\theta) \right)^2 \right] }
+  \]
+  <p>This is a <strong>generalized Cramér–Rao Lower Bound</strong>.</p>
+  <p>✅ No matter what statistic or (nearly) unbiased estimator you use, its variance can’t fall below this bound.</p>
 
-<h4>📌 Key Terms</h4>
-<ul>
-  <li><strong>Parameter</strong>: A fixed, unknown number that describes a feature of a population (like \( \mu, \sigma^2 \)).</li>
-  <li><strong>Sample</strong>: A subset of data from the population (e.g., \( X_1, X_2, \dots, X_n \)).</li>
-  <li><strong>Statistic</strong>: Any function of the sample. E.g., \( \bar{X} = \frac{1}{n} \sum X_i \).</li>
-  <li><strong>Estimator</strong>: A statistic used to estimate a parameter — it's a function or rule.</li>
-  <li><strong>Estimate</strong>: The numerical value you get when you plug the sample into the estimator.</li>
-</ul>
+  <h4>ℹ️ Fisher Information</h4>
+  <p>The denominator is the <strong>Fisher Information</strong>:</p>
+  \[
+  \mathcal{I}(\theta) := \mathbb{E}_\theta \left[ \left( \frac{d}{d\theta} \log f(\mathbf{X}|\theta) \right)^2 \right]
+  \]
+  <p>It quantifies how much information the sample \( \mathbf{X} \) provides about \( \theta \).</p>
 
-<h4>🧠 Analogy</h4>
-<p>Imagine you're a weather scientist trying to estimate tomorrow’s temperature in Kolkata:</p>
-<ul>
-  <li>The true average temperature of tomorrow is unknown — this is the <em>parameter</em>.</li>
-  <li>You gather sample data (e.g., past 10 days’ temperatures).</li>
-  <li>You decide to take their average — that’s your <em>estimator</em>: a method.</li>
-  <li>After plugging in the 10 values, the result (e.g., 32.5°C) is the <em>estimate</em>.</li>
-</ul>
+  <h4>✂️ 3. Simplification When Unbiased</h4>
+  <p>If \( W(\mathbf{X}) \) is unbiased, i.e.</p>
+  \[
+  \mathbb{E}_\theta[W(\mathbf{X})] = \theta \quad \text{for all } \theta,
+  \]
+  <p>then:</p>
+  \[
+  \frac{d}{d\theta} \mathbb{E}_\theta[W(\mathbf{X})] = 1
+  \]
+  <p>This simplifies the variance bound to:</p>
+  \[
+  \operatorname{Var}_\theta(W(\mathbf{X})) \geq \frac{1}{\mathbb{E}_\theta \left[ \left( \frac{d}{d\theta} \log f(\mathbf{X}|\theta) \right)^2 \right]}
+  \]
+  <p>✅ This is the <strong>standard Cramér–Rao Lower Bound</strong> for unbiased estimators.</p>
 
-<h4>🧮 Mathematical Framework</h4>
-<p>Let’s say you observe a sample:</p>
-\[
-X = \begin{bmatrix} X_1 \\ X_2 \\ \vdots \\ X_n \end{bmatrix} \sim F(\theta)
-\]
-<p>where \( \theta \) is the unknown parameter, and \( F(\theta) \) is the distribution.</p>
+  <h4>🔢 4. Concrete Example</h4>
+  <p>Suppose:</p>
+  <ul>
+    <li>\( \mathbb{E}(X_i) = \theta \) for all \( i \)</li>
+    <li>Let \( W(\mathbf{X}) \) be the sample mean: \( \bar{X} = \frac{1}{n} \sum X_i \)</li>
+  </ul>
+  <p>Then clearly \( \mathbb{E}(W(\mathbf{X})) = \theta \), so this is an unbiased estimator.</p>
+  <p>✅ The simplified CRLB applies.</p>
 
-<p>Let \( T(X) \) be a function — for example, the sample mean:</p>
-\[
-T(X) = \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
-\]
-<p>Then:</p>
-<ul>
-  <li>\( T(X) \) is a statistic</li>
-  <li>If we use it to estimate \( \theta \), it becomes the <strong>estimator</strong></li>
-  <li>When we plug in real values for \( X_i \), we get an <strong>estimate</strong> of \( \theta \)</li>
-</ul>
-
-<h4>🔁 Estimators are Random Variables</h4>
-<p>Since estimators depend on the sample \( X_1, \dots, X_n \), and those are random, the estimator itself is also random.</p>
-<p>This means we can talk about its mean, variance, MSE, bias, etc.</p>
-
-<h4>📈 Mental Visualization</h4>
-<p>
-  Input: \( X_1, X_2, \dots, X_n \) → Estimator \( T(X) \) → Output: estimate (a number)
-</p>
-<p>Different random samples yield different estimates — that's why studying the distribution of the estimator is crucial.</p>
-
-<h4>✅ Summary</h4>
-<ul>
-  <li><strong>Estimator</strong> = rule (statistic) that processes sample data</li>
-  <li><strong>Estimate</strong> = number you get when you apply the rule to a particular sample</li>
-  <li>Estimators are random variables → can study their properties</li>
-  <li>Estimating a single number like \( \theta \) is called <strong>point estimation</strong></li>
-</ul>
-
-</section>
-
-
-  </div>
+  <h4>📌 Summary So Far:</h4>
+  <ul>
+    <li>A general inequality relates the <strong>variance</strong> of an estimator to the <strong>sensitivity of its expectation</strong> and the <strong>Fisher Information</strong>.</li>
+    <li>Under mild conditions, the inequality holds broadly.</li>
+    <li>If the estimator is <strong>unbiased</strong>, the bound takes a cleaner form.</li>
+    <li><strong>Example:</strong> Sample mean of i.i.d. data with mean \( \theta \) satisfies the CRLB conditions.</li>
+  </ul>
+</div>
 
 
 
