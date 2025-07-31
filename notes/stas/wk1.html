@@ -1019,8 +1019,91 @@ c = \frac{\sqrt{n - 1}}{\sqrt{2}} \cdot \frac{\Gamma\left( \frac{n - 1}{2} \righ
 
 
 
-    <div class="glow-box" id="12">
-        
+    <div class="glow-box" id="7">
+        <section class="qa-section">
+  <div class="question">
+    <h2 class="text-xl font-bold text-black mb-2">❓ Question</h2>
+    <p>Let \( X_1, X_2, \ldots, X_n \) be a random sample from a population with mean \( \mu \) and variance \( \sigma^2 \). (The distribution is <strong>not specified</strong>.) Show that the statistic</p>
+    <p>\[
+    \sum_{i=1}^{n} a_i X_i
+    \]</p>
+    <p>is an unbiased estimator of \( \mu \) <strong>if and only if</strong></p>
+    <p>\[
+    \sum_{i=1}^{n} a_i = 1.
+    \]</p>
+  </div>
+
+  <div class="solution mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">✅ Detailed Solution</h2>
+    <p>Let’s denote the statistic:</p>
+    <p>\[
+    T = \sum_{i=1}^{n} a_i X_i
+    \]</p>
+    <p>We want to find the condition under which \( T \) is <strong>unbiased</strong> for \( \mu \). That is:</p>
+    <p>\[
+    \mathbb{E}[T] = \mu
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">🔹 Step 1: Use Linearity of Expectation</h3>
+    <p>\[
+    \mathbb{E}[T] = \mathbb{E}\left[\sum_{i=1}^n a_i X_i\right] = \sum_{i=1}^n a_i \mathbb{E}[X_i]
+    \]</p>
+    <p>Since \( X_i \) are i.i.d. with mean \( \mu \),</p>
+    <p>\[
+    \mathbb{E}[X_i] = \mu \quad \text{for all } i
+    \]</p>
+    <p>So:</p>
+    <p>\[
+    \mathbb{E}[T] = \sum_{i=1}^n a_i \mu = \mu \sum_{i=1}^n a_i
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">🔹 Step 2: Impose the Unbiasedness Condition</h3>
+    <p>We want \( \mathbb{E}[T] = \mu \), so:</p>
+    <p>\[
+    \mu \sum_{i=1}^n a_i = \mu
+    \]</p>
+    <p>Now divide both sides by \( \mu \):</p>
+    <p>\[
+    \sum_{i=1}^n a_i = 1
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">🔁 “If and only if” Justification</h3>
+    <ul class="list-disc list-inside">
+      <li><strong>If</strong> \( \sum a_i = 1 \), then \( \mathbb{E}[T] = \mu \), so the estimator is unbiased.</li>
+      <li><strong>Only if</strong> the estimator is unbiased, then from above, \( \mu \sum a_i = \mu \Rightarrow \sum a_i = 1 \)</li>
+    </ul>
+    <p>Hence, the <strong>condition is necessary and sufficient</strong>.</p>
+  </div>
+
+  <div class="related mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">📌 Related Concepts</h2>
+    <ul class="list-disc list-inside">
+      <li><strong>Linear estimators:</strong> The form \( \sum a_i X_i \) is a linear estimator.</li>
+      <li><strong>Unbiasedness:</strong> An estimator \( T \) for \( \mu \) is unbiased if \( \mathbb{E}[T] = \mu \).</li>
+      <li><strong>Sufficiency:</strong> Not discussed here, but often in such setups we ask if this form is optimal under some loss function.</li>
+      <li><strong>Best Linear Unbiased Estimator (BLUE):</strong> Under the Gauss–Markov theorem, this is connected to choosing optimal \( a_i \)'s when more structure is known (e.g., constant variance, independence).</li>
+    </ul>
+  </div>
+
+  <div class="intuition mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">🧠 Visual Intuition</h2>
+    <p>Think of each \( X_i \) as a “vote” on the value of \( \mu \), and \( a_i \) as the “weight” of that vote. To get an unbiased estimate, the total weight has to be 1 — like averaging with possibly unequal weights. If you give too little or too much total weight, the final value will be systematically too low or too high, respectively.</p>
+  </div>
+
+  <div class="worth mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">💡 Worth Mentioning</h2>
+    <ul class="list-disc list-inside">
+      <li>If all weights are equal \( a_i = \frac{1}{n} \), then \( T = \bar{X} \), the sample mean — which is always an unbiased estimator of \( \mu \).</li>
+      <li>The variance of \( T = \sum a_i X_i \) is:
+        <p>\[
+        \mathrm{Var}(T) = \sigma^2 \sum a_i^2
+        \]</p>
+        So you can minimize this (i.e., make it most efficient) <strong>subject to</strong> \( \sum a_i = 1 \).
+      </li>
+    </ul>
+  </div>
+</section>
+
     </div>
 
 
@@ -1055,8 +1138,88 @@ c = \frac{\sqrt{n - 1}}{\sqrt{2}} \cdot \frac{\Gamma\left( \frac{n - 1}{2} \righ
 
 
 
-  <div class="glow-box" id="12">
-      
+  <div class="glow-box" id="8">
+      <section class="qa-section">
+  <div class="question">
+    <h2 class="text-xl font-bold text-black mb-2">🔹 Question</h2>
+    <p><em>In the above problem, consider all unbiased estimators of</em></p>
+    <p>\[
+    \mu, \quad \text{which are of the form} \quad \sum_{i=1}^n a_i X_i.
+    \]</p>
+    <p><em>Which one of these estimators has the minimum variance? What is the minimum variance?</em></p>
+  </div>
+
+  <div class="solution mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">✅ Detailed Solution</h2>
+    <p>We are given:</p>
+    <ul class="list-disc list-inside">
+      <li>\( X_1, X_2, \dots, X_n \) are i.i.d. with unknown mean \( \mu \) and unknown variance \( \sigma^2 \).</li>
+      <li>The estimator is \( \hat{\mu}_a = \sum_{i=1}^n a_i X_i \), where \( \sum a_i = 1 \) to ensure <strong>unbiasedness</strong>.</li>
+    </ul>
+    <p>We are to <strong>minimize the variance</strong> of such an unbiased estimator.</p>
+
+    <h3 class="font-semibold mt-4 mb-1">🔹 Step 1: Compute Variance of the Estimator</h3>
+    <p>Since the \( X_i \)'s are uncorrelated (i.i.d.),</p>
+    <p>\[
+    \operatorname{Var}(\hat{\mu}_a) = \operatorname{Var}\left(\sum_{i=1}^n a_i X_i \right) = \sum_{i=1}^n a_i^2 \operatorname{Var}(X_i) = \sigma^2 \sum_{i=1}^n a_i^2
+    \]</p>
+    <p>So, minimizing the variance of the estimator \( \hat{\mu}_a \) reduces to minimizing</p>
+    <p>\[
+    \sum_{i=1}^n a_i^2
+    \]</p>
+    <p><strong>subject to the constraint</strong> \( \sum_{i=1}^n a_i = 1 \).</p>
+
+    <h3 class="font-semibold mt-4 mb-1">🔹 Step 2: Use Lagrange Multipliers</h3>
+    <p>Let us minimize \( L = \sum_{i=1}^n a_i^2 - \lambda \left( \sum_{i=1}^n a_i - 1 \right) \)</p>
+    <p>Taking derivative w.r.t. \( a_i \):</p>
+    <p>\[
+    \frac{\partial L}{\partial a_i} = 2a_i - \lambda = 0 \Rightarrow a_i = \frac{\lambda}{2}, \quad \text{for all } i
+    \]</p>
+    <p>Apply the constraint:</p>
+    <p>\[
+    \sum_{i=1}^n a_i = n \cdot \frac{\lambda}{2} = 1 \Rightarrow \lambda = \frac{2}{n}
+    \Rightarrow a_i = \frac{1}{n} \quad \text{for all } i
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">✅ Answer:</h3>
+    <ul class="list-disc list-inside">
+      <li>The <strong>minimum variance unbiased estimator</strong> of \( \mu \) among all linear combinations of the form \( \sum a_i X_i \) is:
+        <p>\[
+        \boxed{\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i}
+        \]</p>
+      </li>
+      <li>Its <strong>minimum variance</strong> is:
+        <p>\[
+        \operatorname{Var}(\bar{X}) = \sigma^2 \sum_{i=1}^n a_i^2 = \sigma^2 \cdot \sum_{i=1}^n \left(\frac{1}{n}\right)^2 = \sigma^2 \cdot \frac{n}{n^2} = \frac{\sigma^2}{n}
+        \]</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="related mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">📌 Related Concepts</h2>
+    <ul class="list-disc list-inside">
+      <li><strong>Unbiased Estimator:</strong> An estimator \( T \) is unbiased for \( \theta \) if \( \mathbb{E}[T] = \theta \)</li>
+      <li><strong>Minimum Variance Unbiased Estimator (MVUE):</strong> Among all unbiased estimators, the one with smallest variance.</li>
+      <li><strong>Lagrange Multipliers:</strong> A method to optimize functions with equality constraints.</li>
+    </ul>
+  </div>
+
+  <div class="intuition mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">🧠 Visual Intuition</h2>
+    <p>Think of all unbiased estimators as lying on a plane defined by \( \sum a_i = 1 \). Among them, the one that "spreads" weight equally (i.e., \( a_i = 1/n \)) is the most "stable" because it averages out randomness optimally. Any deviation from equal weights increases sensitivity and thus variance.</p>
+  </div>
+
+  <div class="worth mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">💡 Worth Mentioning</h2>
+    <ul class="list-disc list-inside">
+      <li>This result is <strong>distribution-free</strong> – it only requires i.i.d. with finite variance.</li>
+      <li>This also justifies why the <strong>sample mean</strong> \( \bar{X} \) is typically the default estimator of the population mean in practice.</li>
+      <li>This is closely tied to the <strong>Gauss-Markov theorem</strong> (in linear models) where the least squares estimator is BLUE (Best Linear Unbiased Estimator).</li>
+    </ul>
+  </div>
+</section>
+
     </div>
 
 
@@ -1096,8 +1259,101 @@ c = \frac{\sqrt{n - 1}}{\sqrt{2}} \cdot \frac{\Gamma\left( \frac{n - 1}{2} \righ
 
 
 
-  <div class="glow-box" id="12">
-      
+  <div class="glow-box" id="9">
+      <section class="qa-section">
+  <div class="question">
+    <h2 class="text-xl font-bold text-black mb-2">❓ Question</h2>
+    <p>Let \( X_1, X_2, \ldots, X_n \) be i.i.d. Bernoulli(\( p \)). Show that the <strong>variance of the sample mean</strong> \( \bar{X} \) <strong>attains the Cramér–Rao Lower Bound (CRLB)</strong>, and hence is the <strong>best unbiased estimator</strong> of \( p \).</p>
+  </div>
+
+  <div class="solution mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">✅ Detailed Solution</h2>
+
+    <h3 class="font-semibold mt-4 mb-1">Step 1: Define the setup</h3>
+    <ul class="list-disc list-inside">
+      <li>\( X_i \sim \text{Bernoulli}(p) \), so \( X_i \in \{0,1\} \)</li>
+      <li>\( \mathbb{E}(X_i) = p \), \( \operatorname{Var}(X_i) = p(1-p) \)</li>
+      <li>\( \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i \)</li>
+    </ul>
+    <p>We are asked to:</p>
+    <ul class="list-disc list-inside">
+      <li>Compute \( \operatorname{Var}(\bar{X}) \)</li>
+      <li>Compute the CRLB for unbiased estimators of \( p \)</li>
+      <li>Check if \( \operatorname{Var}(\bar{X}) = \text{CRLB} \)</li>
+    </ul>
+
+    <h3 class="font-semibold mt-4 mb-1">Step 2: Compute variance of the sample mean</h3>
+    <p>\[
+    \operatorname{Var}(\bar{X}) = \operatorname{Var}\left( \frac{1}{n} \sum_{i=1}^n X_i \right) = \frac{1}{n^2} \sum_{i=1}^n \operatorname{Var}(X_i) = \frac{1}{n^2} \cdot n \cdot p(1-p) = \frac{p(1-p)}{n}
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">Step 3: Compute the CRLB</h3>
+    <p>We use the CRLB formula for i.i.d. samples:</p>
+    <p>\[
+    \text{CRLB} = \frac{1}{n \cdot I(p)}
+    \]</p>
+    <p>where \( I(p) \) is the Fisher Information for a single observation \( X_i \).</p>
+    <p>For a Bernoulli distribution:</p>
+    <p>\[
+    f(x|p) = p^x(1-p)^{1-x}, \quad x \in \{0, 1\}
+    \]</p>
+    <p>Compute the log-likelihood:</p>
+    <p>\[
+    \log f(x|p) = x \log p + (1-x) \log(1-p)
+    \]</p>
+    <p>Now compute the score:</p>
+    <p>\[
+    \frac{d}{dp} \log f(x|p) = \frac{x}{p} - \frac{1-x}{1-p}
+    \]</p>
+    <p>Then the Fisher Information is:</p>
+    <p>\[
+    I(p) = \mathbb{E} \left[ \left( \frac{d}{dp} \log f(x|p) \right)^2 \right] = \mathbb{E} \left[ \left( \frac{x}{p} - \frac{1 - x}{1 - p} \right)^2 \right]
+    \]</p>
+    <p>Evaluate this expectation:</p>
+    <p>\[
+    = \left( \frac{1}{p} \right)^2 \cdot p + \left( \frac{1}{1-p} \right)^2 \cdot (1 - p) = \frac{1}{p} + \frac{1}{1-p}
+    \]</p>
+    <p>So:</p>
+    <p>\[
+    I(p) = \frac{1}{p(1 - p)} \Rightarrow \text{CRLB} = \frac{1}{n \cdot \frac{1}{p(1 - p)}} = \frac{p(1 - p)}{n}
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">Step 4: Compare with variance of \( \bar{X} \)</h3>
+    <p>We found earlier:</p>
+    <p>\[
+    \operatorname{Var}(\bar{X}) = \frac{p(1-p)}{n} = \text{CRLB}
+    \]</p>
+    <p>✔️ <strong>So the sample mean achieves the Cramér–Rao Lower Bound.</strong></p>
+
+    <h3 class="font-semibold mt-4 mb-1">🔚 Conclusion:</h3>
+    <p>Since \( \bar{X} \) is unbiased for \( p \) and achieves the CRLB, it is the <strong>Minimum Variance Unbiased Estimator (MVUE)</strong> for \( p \). That is, it is the <strong>best unbiased estimator</strong> of \( p \).</p>
+  </div>
+
+  <div class="related mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">📌 Related Concepts</h2>
+    <ul class="list-disc list-inside">
+      <li><strong>Bernoulli Distribution:</strong> A simple discrete distribution with two outcomes: 1 (success with probability \( p \)) and 0 (failure with probability \( 1-p \)).</li>
+      <li><strong>Sample Mean</strong> \( \bar{X} \): For i.i.d. variables, it is an unbiased estimator of the population mean, and often (as here) it’s also the MVUE.</li>
+      <li><strong>Cramér–Rao Lower Bound (CRLB):</strong> A theoretical lower bound on the variance of any unbiased estimator. If an unbiased estimator achieves this bound, it is efficient.</li>
+      <li><strong>Fisher Information:</strong> Measures how much information a sample carries about the unknown parameter.</li>
+    </ul>
+  </div>
+
+  <div class="intuition mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">🧠 Visual Intuition</h2>
+    <p>Imagine you’re trying to estimate the true probability \( p \) of getting heads in a biased coin using sample proportions. As you increase the number of tosses \( n \), the sample mean \( \bar{X} \) (i.e., proportion of heads) becomes more accurate.</p>
+    <p>The CRLB says: “No matter how clever your estimator is, if it’s unbiased, its variance can’t be better than this limit.” And the sample mean <em>exactly</em> hits that limit here.</p>
+  </div>
+
+  <div class="worth mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">💡 Worth Mentioning</h2>
+    <ul class="list-disc list-inside">
+      <li>Since \( \bar{X} \) is both <strong>sufficient</strong> and <strong>complete</strong> for Bernoulli(\( p \)), Lehmann–Scheffé theorem also confirms it’s the <strong>unique MVUE</strong>.</li>
+      <li>The result generalizes to Binomial distributions too: sample mean of i.i.d. Binomials is the MVUE for \( p \).</li>
+    </ul>
+  </div>
+</section>
+
     </div>
 
 
