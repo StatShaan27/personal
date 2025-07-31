@@ -388,8 +388,104 @@ Imagine a histogram of \( \hat{\theta}_{\text{MLE}} \) values from repeated samp
 
 
 
-  <div class="glow-box" id="12">
-      
+  <div class="glow-box" id="3">
+      <h4>Question:</h4>
+<p>
+Let \( X_1, X_2, \ldots, X_n \) be i.i.d. exponential random variables with mean \( \theta \), i.e.,
+</p>
+<p>
+\[
+f(x \mid \theta) = \frac{1}{\theta} e^{-x/\theta}, \quad x \ge 0.
+\]
+</p>
+<p>
+Find an <strong>unbiased estimator of \( \theta \)</strong> that depends <strong>only on \( \min\{X_1, X_2, \ldots, X_n\} \)</strong>.
+</p>
+
+<h4>Solution:</h4>
+
+<p><strong>Step 1: Let’s define the statistic</strong></p>
+<p>
+Let:
+\[
+Y = \min\{X_1, X_2, \ldots, X_n\}
+\]
+We aim to find a constant \( c_n \) such that:
+\[
+\mathbb{E}[c_n Y] = \theta
+\quad \Rightarrow \quad \text{then } c_n Y \text{ is unbiased.}
+\]
+So we must find \( c_n = \frac{1}{\mathbb{E}[Y]} \cdot \theta \).
+</p>
+
+<p><strong>Step 2: Distribution of the Minimum</strong></p>
+<p>
+Let \( Y = X_{(1)} = \min\{X_1, \ldots, X_n\} \).<br>
+Then for exponential \( \text{Exp}(\theta) \), the minimum has the distribution:
+\[
+Y \sim \text{Exponential}\left(\frac{1}{\theta} \cdot n\right)
+\]
+That is:
+\[
+f_Y(y) = \frac{n}{\theta} e^{-ny/\theta}, \quad y \ge 0.
+\]
+So:
+\[
+\mathbb{E}[Y] = \frac{\theta}{n}
+\]
+</p>
+
+<p><strong>Step 3: Construct Unbiased Estimator</strong></p>
+<p>
+We want:
+\[
+\mathbb{E}[c_n Y] = \theta \Rightarrow c_n \cdot \frac{\theta}{n} = \theta \Rightarrow c_n = n
+\]
+</p>
+
+<p><strong>Final Answer:</strong></p>
+<p>
+\[
+\boxed{ \hat{\theta} = n \cdot \min\{X_1, \ldots, X_n\} }
+\]
+This is an <strong>unbiased estimator</strong> of \( \theta \) using only the <strong>minimum</strong>.
+</p>
+
+<h4>Related concepts / Other stuff:</h4>
+
+<ul>
+  <li><strong>Exponential Distribution and Order Statistics:</strong>
+    <ul>
+      <li>The minimum of \( n \) i.i.d. \( \text{Exp}(\theta) \) is again exponential, with rate \( \frac{n}{\theta} \).</li>
+      <li>This is because the exponential distribution has the <em>memoryless</em> property.</li>
+    </ul>
+  </li>
+  <li><strong>Sufficiency and Completeness:</strong>
+    <ul>
+      <li>The full data \( X_1, \ldots, X_n \) gives the sufficient statistic \( \sum X_i \), but the minimum alone is not sufficient.</li>
+      <li>Still, one can construct an unbiased estimator from a <em>function of a statistic</em>, even if it's not sufficient.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4>🧠 Visual Intuition:</h4>
+<p>
+Imagine sampling 100 exponential lifetimes, and just recording the <strong>first failure</strong> time. Since failures happen randomly, and exponentially, the <strong>first failure</strong> tends to occur <strong>faster</strong> than the average lifetime.
+</p>
+<p>
+Hence, the minimum is <strong>biased low</strong>, but scaling it up by \( n \) compensates for this — making it an <strong>unbiased estimate</strong>.
+</p>
+<blockquote>
+Think of \( \min(X_1, \dots, X_n) \approx \frac{\theta}{n} \), so multiplying by \( n \) gets you back to \( \theta \).
+</blockquote>
+
+<h4>💡 Worth Mentioning:</h4>
+<ul>
+  <li>This estimator is not the most <strong>efficient</strong> (in terms of variance). The MLE \( \hat{\theta}_{\text{MLE}} = \bar{X} \) has <strong>lower variance</strong>.</li>
+  <li>But this question is important in contexts where only <strong>partial information</strong> is available — like censoring or online streaming.</li>
+  <li>The estimator \( n \cdot X_{(1)} \) is <strong>minimal sufficient</strong> in some practical settings, like <strong>reliability theory</strong>.</li>
+</ul>
+
     </div>
 
 
@@ -414,8 +510,161 @@ Imagine a histogram of \( \hat{\theta}_{\text{MLE}} \) values from repeated samp
 
 
 
-  <div class="glow-box" id="12">
-      
+  <div class="glow-box" id="4">
+      Excellent — now we’re entering the core of **comparing estimators** using principles of **mean squared error (MSE)**, **variance**, and **efficiency**.
+
+Let’s proceed systematically:
+
+---
+
+## ❓ Question
+
+For $X_1, \dots, X_n \overset{iid}{\sim} \text{Exp}(\theta)$,
+you’ve already identified the estimator:
+
+$$
+\hat{\theta}_1 = n \cdot \min\{X_1, \dots, X_n\}
+$$
+
+which is unbiased.
+
+> **Find a better estimator for $\theta$** than $\hat{\theta}_1$, and **prove** that it is better.
+
+---
+
+## ✅ Detailed Solution
+
+---
+
+### 🔹 Step 1: Known Facts
+
+* The exponential distribution has:
+
+  $$
+  \mathbb{E}[X_i] = \theta, \quad \text{Var}(X_i) = \theta^2
+  $$
+
+* The **sample mean** is:
+
+  $$
+  \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
+  $$
+
+* Since $X_i \sim \text{Exp}(\theta)$, the sum $T = \sum X_i \sim \text{Gamma}(n, \theta)$.
+
+Thus:
+
+* $\hat{\theta}_2 := \bar{X} = \frac{1}{n} \sum X_i$ is:
+
+  * **Unbiased**, since $\mathbb{E}[\bar{X}] = \theta$
+  * **MLE**, because the exponential family is regular
+  * **Minimum variance unbiased estimator (MVUE)**, because it's based on a **complete sufficient statistic**
+
+---
+
+### 🔹 Step 2: Variance Comparison
+
+#### Estimator 1 (Based on Minimum):
+
+$$
+\hat{\theta}_1 = n X_{(1)}, \quad \text{where } X_{(1)} = \min(X_i)
+$$
+
+We know:
+
+$$
+X_{(1)} \sim \text{Exp}\left(\frac{n}{\theta}\right)
+\Rightarrow \mathbb{E}[X_{(1)}] = \frac{\theta}{n},\quad \text{Var}(X_{(1)}) = \frac{\theta^2}{n^2}
+$$
+
+So:
+
+$$
+\text{Var}(\hat{\theta}_1) = \text{Var}(n X_{(1)}) = n^2 \cdot \frac{\theta^2}{n^2} = \theta^2
+$$
+
+#### Estimator 2 (Sample Mean):
+
+$$
+\hat{\theta}_2 = \bar{X},\quad \text{Var}(\bar{X}) = \frac{\theta^2}{n}
+$$
+
+---
+
+### 🔎 Comparison
+
+* $\text{Var}(\hat{\theta}_1) = \theta^2$
+* $\text{Var}(\hat{\theta}_2) = \frac{\theta^2}{n}$
+
+Since $n > 1$, we have:
+
+$$
+\text{Var}(\hat{\theta}_2) < \text{Var}(\hat{\theta}_1)
+\Rightarrow \hat{\theta}_2 \text{ is strictly better in variance}
+$$
+
+Both estimators are **unbiased**, so **lower variance ⇒ lower MSE**.
+
+---
+
+### ✅ Final Answer
+
+$$
+\boxed{
+\text{The sample mean } \hat{\theta}_2 = \bar{X} \text{ is a better estimator than } \hat{\theta}_1 = n X_{(1)}.
+}
+$$
+
+✔ It is **unbiased**,
+✔ Has **lower variance**,
+✔ And is the **MLE and MVUE**.
+
+---
+
+## 📌 Related Concepts
+
+### 1. **Sufficient and Complete Statistic**
+
+* $T = \sum X_i$ is sufficient and complete for $\theta$ in exponential families.
+* Any unbiased function of $T$ (like $\bar{X}$) is the **unique MVUE** by the **Lehmann–Scheffé theorem**.
+
+### 2. **Cramér–Rao Lower Bound (CRLB)**
+
+For exponential:
+
+$$
+I(\theta) = \frac{n}{\theta^2}, \quad \Rightarrow \text{CRLB} = \frac{1}{I(\theta)} = \frac{\theta^2}{n}
+$$
+
+Since:
+
+$$
+\text{Var}(\bar{X}) = \frac{\theta^2}{n} = \text{CRLB}
+$$
+
+→ So $\bar{X}$ is **efficient**.
+
+---
+
+## 🧠 Visual Intuition
+
+> Imagine observing only the first failure in a system of $n$ light bulbs — this is $\hat{\theta}_1$.
+> Now imagine observing **all failure times** and averaging them — this is $\hat{\theta}_2$.
+
+Clearly, the second gives more information — so naturally, it leads to a better estimator.
+
+---
+
+## 💡 Worth Mentioning
+
+* $\hat{\theta}_1 = n X_{(1)}$ is **not sufficient**, so by the **Rao-Blackwell theorem**, we can improve it by conditioning on the sufficient statistic $\sum X_i$\*\* — and the result is $\bar{X}$.
+* This is an example of **using partial information vs full information**.
+* In data-limited scenarios (like censored data), $X_{(1)}$ may be all you have — so even if suboptimal, it’s **practically useful**.
+
+---
+
+Would you like me to show the **Rao-Blackwell improvement** of $\hat{\theta}_1$ to derive $\hat{\theta}_2$ as the MVUE?
+
     </div>
 
 
