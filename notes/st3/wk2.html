@@ -1340,8 +1340,79 @@ L(θ)|         *
 
 
 
-<div class="glow-box" id="1.5">
-  
+<div class="glow-box" id="2.12">
+  <section>
+  <h3>On the Direction of Steepest Ascent:</h3>
+  <h4>🔷 1. Why the Direction of Steepest Ascent?</h4>
+  <p>Imagine the log-likelihood function \( L(\theta) \) as a <strong>landscape</strong> — a smooth surface over the parameter space.<br>
+  Your goal: <strong>reach the top (maximum likelihood estimate \( \hat{\theta} \))</strong>.</p>
+
+  <p>At any point \( \theta_r \), the <strong>gradient</strong> \( \nabla_\theta L(\theta_r) \) is a vector that:</p>
+  <ul>
+    <li>Points in the direction where \( L(\theta) \) increases most rapidly.</li>
+    <li>Has a <strong>magnitude</strong> equal to the rate of increase in that direction.</li>
+  </ul>
+
+  <p>So, to climb the hill toward the MLE, you step in the direction of the <strong>gradient</strong>:</p>
+  \[
+    \hat{\theta}_{r+1} = \hat{\theta}_r + \eta_r \cdot \nabla_\theta L(\theta_r)
+  \]
+  <p>Here, \( \eta_r > 0 \) is your <strong>step size</strong> — how far you move in that direction.</p>
+
+  <h4>🔶 2. What Makes Gradient the <em>Steepest</em> Direction?</h4>
+  <p><strong>Let’s be precise:</strong></p>
+  <p>Suppose you want to increase \( L(\theta) \) by moving a small distance \( \delta \theta \). The first-order change is:</p>
+  \[
+    \Delta L(\theta) \approx \nabla_\theta L(\theta)^\top \delta \theta
+  \]
+  <p>We want to choose \( \delta \theta \) of unit length (i.e., \( \| \delta \theta \| = 1 \)) that gives <strong>maximum increase</strong>:</p>
+  \[
+    \max_{\| \delta \theta \| = 1} \nabla_\theta L(\theta)^\top \delta \theta
+  \]
+  <p>The solution to this maximization is:</p>
+  \[
+    \delta \theta = \frac{ \nabla_\theta L(\theta) }{ \| \nabla_\theta L(\theta) \| }
+  \]
+  <p>i.e., move in the <strong>direction of the gradient</strong>. ✅</p>
+
+  <h4>📊 Visual Intuition (2D Case)</h4>
+  <p>Think of the log-likelihood surface like a hill in 3D.</p>
+  <ul>
+    <li>The <strong>gradient vector</strong> at your current point points <em>uphill</em> in the steepest direction.</li>
+    <li>If you move orthogonally to the gradient, you stay at the same level (iso-likelihood curve).</li>
+    <li>Moving against the gradient leads you <em>downhill</em> — which you want to avoid during maximization.</li>
+  </ul>
+
+  <pre>
+      ^
+     /|\\         ← Gradient points this way
+    / |
+   /  |             Log-Likelihood surface
+  *---→
+Current θ_r
+  </pre>
+
+  <h4>🔁 Comparison with Newton–Raphson</h4>
+  <ul>
+    <li><strong>Steepest ascent</strong>: always follows the direction of greatest immediate gain.</li>
+    <li><strong>Newton–Raphson</strong>: modifies the direction based on the <strong>curvature</strong>, sometimes avoiding overshooting or zigzagging.</li>
+  </ul>
+
+  <p>So, in practice:</p>
+  <ul>
+    <li><strong>Gradient ascent</strong> is more robust, especially when the curvature is poorly behaved or Hessians are hard to compute.</li>
+    <li><strong>Newton–Raphson</strong> is faster when curvature information is reliable and the function is well-behaved (e.g., Gaussian likelihood).</li>
+  </ul>
+
+  <h4>✅ Summary</h4>
+  <ul>
+    <li>We prefer the direction of <strong>steepest ascent</strong> because it guarantees the fastest local increase in the log-likelihood.</li>
+    <li>The <strong>gradient</strong> gives this direction.</li>
+    <li>The <strong>step size</strong> \( \eta_r \) controls how aggressively we move — too small = slow; too large = unstable.</li>
+    <li>This approach is the foundation for many modern learning algorithms, including <strong>stochastic gradient ascent</strong> in MLE for big data or machine learning.</li>
+  </ul>
+</section>
+
 </div>
 
 
