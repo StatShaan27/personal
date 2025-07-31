@@ -217,7 +217,7 @@
       <li><a href="#2.7">Fisher Information Matrix</a></li>
       <li><a href="#2.8">Cramér–Rao Lower Bound: Vector Parameter Case</a></li>
       <li><a href="#2.9">Information Equality and Fisher Information Identity</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.10">Step-by-Step Breakdown: The Score Function</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
@@ -1071,8 +1071,88 @@
 
 
 
-<div class="glow-box" id="1.5">
-  
+<div class="glow-box" id="2.10">
+  <section>
+  <h4>🔷 Step-by-Step Breakdown: The Score Function</h4>
+  <p>Let’s walk through it clearly, with <strong>intuition</strong>, <strong>derivation</strong>, and a <strong>small example</strong>.</p>
+  <hr>
+
+  <h4>📘 Log-Likelihood Expression</h4>
+  <p>You wrote:</p>
+  \[
+  L(\theta \mid x_1, x_2, \dots, x_n) = \sum_{i=1}^n \log f(x_i \mid \theta)
+  \]
+  <p>This is the <strong>log-likelihood function</strong> for \( n \) i.i.d. observations from the model \( f(x \mid \theta) \).</p>
+
+  <h4>🧠 Why Sum of Logs?</h4>
+  <p>Because:</p>
+  \[
+  \begin{aligned}
+  \text{Likelihood: } \mathcal{L}(\theta \mid x_1, \dots, x_n) &= \prod_{i=1}^n f(x_i \mid \theta) \\
+  \Rightarrow \log \mathcal{L}(\theta \mid x_1, \dots, x_n) &= \sum_{i=1}^n \log f(x_i \mid \theta)
+  \end{aligned}
+  \]
+  <p>Taking the log simplifies multiplication into summation.</p>
+
+  <h4>🔧 Score Function (Gradient of Log-Likelihood)</h4>
+  <p>Now differentiate the log-likelihood with respect to \( \theta \):</p>
+  \[
+  \frac{\partial}{\partial \theta} L(\theta \mid x_1, \dots, x_n) = \sum_{i=1}^n \frac{\partial}{\partial \theta} \log f(x_i \mid \theta)
+  \]
+  <p>Using the chain rule:</p>
+  \[
+  = \sum_{i=1}^n \frac{1}{f(x_i \mid \theta)} \cdot \frac{\partial f(x_i \mid \theta)}{\partial \theta}
+  \]
+  <p>This is the <strong>score function</strong>, often denoted:</p>
+  \[
+  \nabla_\theta L(\theta \mid x_1, \dots, x_n)
+  \]
+  <p>✅ Your symbolic expression is correct — it's the score function for the full sample.</p>
+
+  <h4>✅ Summary</h4>
+  \[
+  \nabla_\theta L(\theta) = \sum_{i=1}^n \frac{ \frac{\partial}{\partial \theta} f(x_i \mid \theta) }{ f(x_i \mid \theta) } = \sum_{i=1}^n \frac{\partial}{\partial \theta} \log f(x_i \mid \theta)
+  \]
+  <p>This is crucial for:</p>
+  <ul>
+    <li><strong>Maximum Likelihood Estimation (MLE):</strong> Set score = 0 and solve for \( \theta \)</li>
+    <li><strong>Fisher Information for \( n \) samples:</strong> \( \mathcal{I}_n(\theta) = n \mathcal{I}(\theta) \)</li>
+    <li><strong>Asymptotic theory</strong> of MLEs (e.g., consistency, normality)</li>
+  </ul>
+
+  <h4>📊 Small Example: Normal Model with Known Variance</h4>
+  <p>Suppose:</p>
+  <ul>
+    <li>\( X_1, \dots, X_n \sim \mathcal{N}(\mu, \sigma^2) \)</li>
+    <li>\( \sigma^2 \) known; estimate \( \mu \)</li>
+  </ul>
+
+  <p>Then:</p>
+  \[
+  f(x_i \mid \mu) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left( -\frac{(x_i - \mu)^2}{2\sigma^2} \right)
+  \]
+  \[
+  \log f(x_i \mid \mu) = -\frac{1}{2} \log(2\pi \sigma^2) - \frac{(x_i - \mu)^2}{2\sigma^2}
+  \]
+
+  <p>Summing over \( i \):</p>
+  \[
+  L(\mu) = \sum_{i=1}^n \log f(x_i \mid \mu) = -\frac{n}{2} \log(2\pi \sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+  \]
+
+  <p>Differentiating:</p>
+  \[
+  \frac{d}{d\mu} L(\mu) = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu)
+  \]
+
+  <p>Set derivative = 0 for MLE:</p>
+  \[
+  \sum_{i=1}^n (x_i - \mu) = 0 \quad \Rightarrow \quad \mu = \bar{x}
+  \]
+
+  <p>✅ So the MLE for \( \mu \) is the sample mean \( \bar{x} \).</p>
+</section>
+
 </div>
 
 
