@@ -1386,8 +1386,100 @@ c = \frac{\sqrt{n - 1}}{\sqrt{2}} \cdot \frac{\Gamma\left( \frac{n - 1}{2} \righ
 
 
 
-  <div class="glow-box" id="12">
-      
+  <div class="glow-box" id="10">
+      <section class="qa-section">
+  <div class="question">
+    <h2 class="text-xl font-bold text-black mb-2">❓ Question</h2>
+    <p>We are given:</p>
+    <ul class="list-disc list-inside">
+      <li>\( X_1, X_2, \ldots, X_n \sim \text{iid } \mathcal{N}(\mu, \sigma^2) \)</li>
+      <li>Sample mean: \( \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i \)</li>
+      <li>Estimator:
+        <div class="mt-2">
+          \[
+          T^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2
+          \]
+        </div>
+      </li>
+    </ul>
+    <p>We are asked to compute \( \text{Var}(T^2) \), and compare it with the <strong>Cramér–Rao Lower Bound (CRLB)</strong> for an unbiased estimator of \( \sigma^2 \).</p>
+  </div>
+
+  <div class="solution mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">✅ Detailed Solution</h2>
+
+    <h3 class="font-semibold mt-4 mb-1">🔹 Step 1: Bias of \( T^2 \)</h3>
+    <p>Recall that:</p>
+    <p>\[
+    \mathbb{E}[T^2] = \frac{n-1}{n} \sigma^2
+    \]</p>
+    <p>So, \( T^2 \) is a <strong>biased</strong> estimator of \( \sigma^2 \).</p>
+    <p>Let’s define:</p>
+    <p>\[
+    S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
+    \]</p>
+    <p>Then \( \mathbb{E}[S^2] = \sigma^2 \), so \( S^2 \) is <strong>unbiased</strong> for \( \sigma^2 \). And clearly:</p>
+    <p>\[
+    T^2 = \frac{n-1}{n} S^2
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">🔹 Step 2: Variance of \( T^2 \)</h3>
+    <p>Let us find \( \text{Var}(T^2) \) using the fact that \( S^2 \) is a scaled chi-squared variable:</p>
+    <p>\[
+    (n-1)\frac{S^2}{\sigma^2} \sim \chi^2_{n-1}
+    \Rightarrow \text{Var}(S^2) = \frac{2\sigma^4}{n-1}
+    \]</p>
+    <p>Now use \( T^2 = \frac{n-1}{n} S^2 \):</p>
+    <p>\[
+    \text{Var}(T^2) = \left(\frac{n-1}{n}\right)^2 \text{Var}(S^2)
+    = \left(\frac{n-1}{n}\right)^2 \cdot \frac{2\sigma^4}{n-1}
+    = \frac{(n-1) \cdot 2\sigma^4}{n^2}
+    = \frac{2(n-1)\sigma^4}{n^2}
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">🔹 Step 3: Cramér–Rao Lower Bound for \( \sigma^2 \)</h3>
+    <p>For \( X_1, \ldots, X_n \sim \mathcal{N}(\mu, \sigma^2) \), the CRLB for an unbiased estimator of \( \sigma^2 \) is:</p>
+    <p>\[
+    \text{Var}(\hat{\sigma}^2) \geq \frac{2\sigma^4}{n}
+    \]</p>
+    <p>This is the <strong>minimum possible variance</strong> for any unbiased estimator of \( \sigma^2 \).</p>
+
+    <h3 class="font-semibold mt-4 mb-1">🔹 Step 4: Comparison</h3>
+    <p>We found:</p>
+    <ul class="list-disc list-inside">
+      <li>\( \text{Var}(T^2) = \frac{2(n-1)\sigma^4}{n^2} \)</li>
+      <li>\( \text{CRLB} = \frac{2\sigma^4}{n} \)</li>
+    </ul>
+    <p>Now compare:</p>
+    <p>\[
+    \frac{2(n-1)\sigma^4}{n^2} < \frac{2\sigma^4}{n}
+    \quad \text{since } \frac{n-1}{n} < 1
+    \]</p>
+    <p><strong>BUT!</strong> This comparison is misleading. <strong>CRLB applies only to unbiased estimators</strong>, and <strong>\( T^2 \) is biased</strong>. So even though \( \text{Var}(T^2) < \text{CRLB} \), <strong>this does not contradict the CRLB</strong>, because the bound doesn’t apply to biased estimators.</p>
+
+    <h3 class="font-semibold mt-4 mb-1">✅ Conclusion</h3>
+    <ul class="list-disc list-inside">
+      <li>\( T^2 \) is <strong>biased</strong> for \( \sigma^2 \).</li>
+      <li>Its variance is:
+        <div class="mt-2">
+          \[
+          \text{Var}(T^2) = \frac{2(n-1)}{n^2} \sigma^4
+          \]
+        </div>
+      </li>
+      <li>The CRLB for <strong>unbiased</strong> estimators of \( \sigma^2 \) is:
+        <div class="mt-2">
+          \[
+          \frac{2\sigma^4}{n}
+          \]
+        </div>
+      </li>
+      <li>So, <strong>\( T^2 \) has smaller variance than the CRLB</strong>, but that’s <strong>permissible</strong> because it is <strong>biased</strong>.</li>
+      <li>The best <strong>unbiased</strong> estimator of \( \sigma^2 \) is \( S^2 \), and it <strong>attains</strong> the CRLB.</li>
+    </ul>
+  </div>
+</section>
+
     </div>
 
 
@@ -1422,8 +1514,108 @@ c = \frac{\sqrt{n - 1}}{\sqrt{2}} \cdot \frac{\Gamma\left( \frac{n - 1}{2} \righ
 
 
 
-  <div class="glow-box" id="12">
-      
+  <div class="glow-box" id="11">
+      <section class="qa-section">
+  <div class="question">
+    <h2 class="text-xl font-bold text-black mb-2">❓ Question</h2>
+    <p>We are given the setup:</p>
+    <ul class="list-disc list-inside">
+      <li>\( X_1, X_2, \dots, X_n \overset{iid}{\sim} N(\mu, \sigma^2) \)</li>
+      <li>Sample mean: \( \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i \)</li>
+      <li>Estimator:
+        <div class="mt-2">
+          \[
+          T^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2
+          \]
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="solution mt-6">
+    <h2 class="text-xl font-bold text-black mb-2">✅ Solution</h2>
+
+    <h3 class="font-semibold mt-4 mb-1">🔍 Step 1: Bias and MSE of \( T^2 \)</h3>
+    <p>We know that:</p>
+    <p>\[
+    E[T^2] = \left( \frac{n-1}{n} \right) \sigma^2
+    \]</p>
+    <p>Hence, \( T^2 \) is <strong>biased</strong> for \( \sigma^2 \). Its bias is:</p>
+    <p>\[
+    \text{Bias}(T^2) = E[T^2] - \sigma^2 = \left( \frac{n-1}{n} - 1 \right) \sigma^2 = -\frac{\sigma^2}{n}
+    \]</p>
+    <p>Now compute the <strong>Mean Squared Error (MSE)</strong>:</p>
+    <p>\[
+    \text{MSE}(T^2) = \text{Var}(T^2) + \left( \text{Bias}(T^2) \right)^2
+    \]</p>
+    <p>We also know that:</p>
+    <p>\[
+    \text{Var}(T^2) = \frac{2\sigma^4(n - 1)}{n^2}
+    \quad \text{(from standard results on sample variance)}
+    \]</p>
+    <p>So,</p>
+    <p>\[
+    \text{Bias}(T^2)^2 = \left( \frac{\sigma^2}{n} \right)^2 = \frac{\sigma^4}{n^2}
+    \]</p>
+    <p>Putting it together:</p>
+    <p>\[
+    \text{MSE}(T^2) = \frac{2\sigma^4(n - 1)}{n^2} + \frac{\sigma^4}{n^2}
+    = \frac{\sigma^4}{n^2} (2(n - 1) + 1)
+    = \frac{\sigma^4}{n^2} (2n - 1)
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">📉 Step 2: Cramér–Rao Lower Bound (CRLB) for estimating \( \sigma^2 \)</h3>
+    <p>The Fisher Information for \( \sigma^2 \) in the normal case is:</p>
+    <p>\[
+    I(\sigma^2) = \frac{n}{2\sigma^4}
+    \]</p>
+    <p>Therefore, the CRLB for <strong>any unbiased estimator</strong> of \( \sigma^2 \) is:</p>
+    <p>\[
+    \text{Var}(\hat{\sigma}^2) \geq \frac{1}{I(\sigma^2)} = \frac{2\sigma^4}{n}
+    \]</p>
+
+    <h3 class="font-semibold mt-4 mb-1">✅ Step 3: Compare MSE of \( T^2 \) with CRLB</h3>
+    <p>We already found:</p>
+    <p>\[
+    \text{MSE}(T^2) = \frac{\sigma^4}{n^2} (2n - 1)
+    \]</p>
+    <p>Let's compare this to the CRLB:</p>
+    <p>\[
+    \frac{\sigma^4}{n^2} (2n - 1) \quad \text{vs.} \quad \frac{2\sigma^4}{n}
+    \]</p>
+    <p>Multiply both sides of the CRLB by \( \frac{n}{n} \) to make the denominator same:</p>
+    <p>\[
+    \frac{2\sigma^4}{n} = \frac{2\sigma^4 n}{n^2}
+    \]</p>
+    <p>Now we compare:</p>
+    <p>\[
+    \frac{\sigma^4 (2n - 1)}{n^2} \quad \text{vs.} \quad \frac{2\sigma^4 n}{n^2}
+    \]</p>
+    <p>Clearly:</p>
+    <p>\[
+    2n - 1 < 2n \quad \Rightarrow \quad \text{MSE}(T^2) < \text{CRLB}
+    \]</p>
+    <p>🚫 But this comparison is <strong>invalid</strong> because the CRLB is only for <strong>unbiased</strong> estimators, and \( T^2 \) is <strong>biased</strong>. So the CRLB doesn't directly bound the <strong>MSE</strong> of \( T^2 \). Still, it's useful to check for insight.</p>
+
+    <h3 class="font-semibold mt-4 mb-1">🧠 Final Verdict</h3>
+    <ul class="list-disc list-inside">
+      <li>\( T^2 \) is a <strong>biased</strong> estimator of \( \sigma^2 \), with bias \( -\frac{\sigma^2}{n} \).</li>
+      <li>Its <strong>MSE</strong> is:
+        <div class="mt-2">
+          \[
+          \frac{\sigma^4}{n^2}(2n - 1)
+          \]
+        </div>
+      </li>
+      <li>The <strong>CRLB</strong> is \( \frac{2\sigma^4}{n} \), but only applies to <strong>unbiased</strong> estimators.</li>
+      <li>So yes: <strong>the MSE of \( T^2 \) is less than the CRLB</strong>, but this does <strong>not violate</strong> the CRLB because the CRLB doesn't apply to biased estimators.</li>
+    </ul>
+
+    <p class="mt-4 font-semibold text-green-700">✅ <strong>Conclusion:</strong></p>
+    <p>The MSE of \( T^2 \) is <strong>less than</strong> the Cramér–Rao lower bound for the variance of <em>any unbiased</em> estimator of \( \sigma^2 \), <strong>but this is allowed</strong>, because \( T^2 \) is <strong>not unbiased</strong>.</p>
+  </div>
+</section>
+
     </div>
 
 
@@ -1455,9 +1647,7 @@ c = \frac{\sqrt{n - 1}}{\sqrt{2}} \cdot \frac{\Gamma\left( \frac{n - 1}{2} \righ
 
 
 
-  <div class="glow-box" id="12">
-      
-    </div>
+  
 
 
 
