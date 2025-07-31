@@ -864,8 +864,138 @@ c = \frac{\sqrt{n - 1}}{\sqrt{2}} \cdot \frac{\Gamma\left( \frac{n - 1}{2} \righ
 
 
 
-  <div class="glow-box" id="12">
-      
+  <div class="glow-box" id="6">
+      <section class="border border-gray-300 p-6 rounded-2xl shadow-md mb-8">
+  <h2 class="text-2xl font-semibold mb-4 text-black">🔷 QUESTION</h2>
+  <p class="mb-4">
+    Suppose, in the above problem, the values of <span class="math">c</span> is chosen as the value that makes <span class="math">cS</span> an unbiased estimator of <span class="math">\(\theta\)</span>. Then
+  </p>
+  <div class="text-center mb-4">
+    <span class="math">\[
+    \lambda \bar{X} + (1 - \lambda)cS
+    \]</span>
+  </div>
+  <p class="mb-4">
+    is also an unbiased estimator of <span class="math">\(\theta\)</span> for every value of <span class="math">\(\lambda \in [0, 1]\)</span>.
+    <br>
+    <strong>For which value of <span class="math">\(\lambda\)</span> in this interval does the unbiased estimator have the minimum variance?</strong>
+  </p>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4 text-black">📘 DETAILED SOLUTION</h2>
+  <p class="mb-4">
+    We are given:
+  </p>
+  <ul class="list-disc list-inside mb-4">
+    <li><span class="math">\(X_1, \dots, X_n \overset{iid}{\sim} \mathcal{N}(\theta, \theta^2)\)</span> where <span class="math">\(\theta > 0\)</span></li>
+    <li><span class="math">\(\bar{X} = \frac{1}{n} \sum X_i\)</span></li>
+    <li><span class="math">\(S^2 = \frac{1}{n-1} \sum (X_i - \bar{X})^2\)</span></li>
+    <li><span class="math">\(S = \sqrt{S^2}\)</span></li>
+    <li>Let <span class="math">c</span> be such that <span class="math">cS</span> is unbiased for <span class="math">\(\theta\)</span></li>
+    <li>Consider <span class="math">\(\delta_\lambda = \lambda \bar{X} + (1 - \lambda)cS\)</span></li>
+  </ul>
+
+  <h3 class="text-xl font-semibold mb-2 text-black">✅ Step 1: Check Unbiasedness</h3>
+  <p class="mb-4">
+    Both <span class="math">\(\bar{X}\)</span> and <span class="math">\(cS\)</span> are unbiased estimators of <span class="math">\(\theta\)</span>. So:
+  </p>
+  <div class="text-center mb-4">
+    <span class="math">\[
+    \mathbb{E}[\delta_\lambda] = \lambda \theta + (1 - \lambda)\theta = \theta
+    \]</span>
+  </div>
+
+  <h3 class="text-xl font-semibold mb-2 text-black">✅ Step 2: Compute Variance</h3>
+  <p class="mb-4">
+    Since <span class="math">\(\bar{X}\)</span> and <span class="math">\(S\)</span> are independent:
+  </p>
+  <div class="text-center mb-4">
+    <span class="math">\[
+    \operatorname{Var}(\delta_\lambda) = \lambda^2 \operatorname{Var}(\bar{X}) + (1 - \lambda)^2 \operatorname{Var}(cS)
+    \]</span>
+  </div>
+  <p class="mb-4">
+    We know:
+  </p>
+  <ul class="list-disc list-inside mb-4">
+    <li><span class="math">\(\operatorname{Var}(\bar{X}) = \frac{\theta^2}{n}\)</span></li>
+    <li><span class="math">\(\mathbb{E}[S] = b_n \theta \Rightarrow c = \frac{1}{b_n}\)</span></li>
+    <li><span class="math">\(\operatorname{Var}(S) \approx \frac{\theta^2}{2(n-1)}\)</span></li>
+  </ul>
+  <p class="mb-4">
+    So:
+  </p>
+  <div class="text-center mb-4">
+    <span class="math">\[
+    \operatorname{Var}(cS) = \frac{1}{b_n^2} \cdot \frac{\theta^2}{2(n-1)}
+    \]</span>
+  </div>
+  <p class="mb-4">
+    Putting all together:
+  </p>
+  <div class="text-center mb-4">
+    <span class="math">\[
+    \operatorname{Var}(\delta_\lambda) = \theta^2 \left[\lambda^2 \cdot \frac{1}{n} + (1 - \lambda)^2 \cdot \frac{1}{b_n^2 \cdot 2(n - 1)}\right]
+    \]</span>
+  </div>
+
+  <h3 class="text-xl font-semibold mb-2 text-black">✅ Step 3: Minimize Variance w.r.t. \(\lambda\)</h3>
+  <p class="mb-4">
+    Let:
+  </p>
+  <div class="text-center mb-4">
+    <span class="math">\[
+    V(\lambda) = A\lambda^2 + B(1 - \lambda)^2
+    \]</span>
+  </div>
+  <p class="mb-4">
+    where:
+    <span class="math">\(A = \frac{1}{n}, \quad B = \frac{1}{b_n^2 \cdot 2(n - 1)}\)</span>
+  </p>
+  <p class="mb-4">
+    Then:
+  </p>
+  <div class="text-center mb-4">
+    <span class="math">\[
+    V(\lambda) = (A + B)\lambda^2 - 2B\lambda + B
+    \]</span>
+  </div>
+  <p class="mb-4">
+    Minimize by setting derivative to 0:
+  </p>
+  <div class="text-center mb-4">
+    <span class="math">\[
+    \lambda^* = \frac{B}{A + B}
+    \]</span>
+  </div>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4 text-black">✅ Final Answer</h2>
+  <div class="text-center mb-4 text-xl font-bold">
+    <span class="math">\[
+    \boxed{\lambda^* = \frac{\displaystyle \frac{1}{b_n^2 \cdot 2(n - 1)}}{\displaystyle \frac{1}{n} + \frac{1}{b_n^2 \cdot 2(n - 1)}}}
+    \]</span>
+  </div>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4 text-black">📌 Related Concepts</h2>
+  <ul class="list-disc list-inside mb-4">
+    <li>Linear combinations of unbiased estimators stay unbiased.</li>
+    <li>To minimize variance among unbiased estimators, exploit independence and variance structure.</li>
+    <li>Convex combinations are common when fusing noisy signals.</li>
+    <li>Chi-square variance and Gamma correction methods appear in finite-sample theory.</li>
+  </ul>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4 text-black">🧠 Visual Intuition</h2>
+  <p class="mb-4">
+    Picture a slider between <span class="math">\(\bar{X}\)</span> and <span class="math">\(cS\)</span>. Moving it shifts weight from one to another. The optimal point balances their variance contributions.
+  </p>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4 text-black">💡 Worth Mentioning</h2>
+  <ul class="list-disc list-inside mb-4">
+    <li>As <span class="math">n \to \infty</span>, <span class="math">\(\lambda^* \to 1\)</span>.</li>
+    <li>This derivation is symbolic — no need for data values.</li>
+    <li>You can evaluate <span class="math">b_n</span> numerically for practical usage.</li>
+  </ul>
+</section>
+
     </div>
 
 
@@ -889,8 +1019,8 @@ c = \frac{\sqrt{n - 1}}{\sqrt{2}} \cdot \frac{\Gamma\left( \frac{n - 1}{2} \righ
 
 
 
-  <div class="glow-box" id="12">
-      
+    <div class="glow-box" id="12">
+        
     </div>
 
 
