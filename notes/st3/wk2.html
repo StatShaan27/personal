@@ -1815,38 +1815,38 @@ E[−∂²/∂θ∂θᵗ log f(x₁ | θ)] = Pre-sample Fisher Info
 <p>🎯 <strong>That’s the MLE!</strong> Fisher scoring converges to it in <em>one step</em> for Bernoulli.</p>
 
 <h4>🔷 7. Comparison Table</h4>
-<table>
-  <thead>
+<table style="width: 100%; border-collapse: collapse; margin-top: 1em;">
+  <thead style="background-color: #6effe0; color: black; box-shadow: 0 0 10px #58e181;">
     <tr>
-      <th>Method</th>
-      <th>Uses</th>
-      <th>Stability</th>
-      <th>Convergence Speed</th>
+      <th style="border: 1px solid #ccc; padding: 8px;">Method</th>
+      <th style="border: 1px solid #ccc; padding: 8px;">Uses</th>
+      <th style="border: 1px solid #ccc; padding: 8px;">Stability</th>
+      <th style="border: 1px solid #ccc; padding: 8px;">Convergence Speed</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Gradient Ascent</td>
-      <td>Gradient only</td>
-      <td>May overshoot</td>
-      <td>Slower</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Gradient Ascent</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Gradient only</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">May overshoot</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Slower</td>
     </tr>
     <tr>
-      <td>Newton–Raphson</td>
-      <td>Gradient + Hessian</td>
-      <td>Can be unstable</td>
-      <td>Fast if Hessian good</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Newton–Raphson</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Gradient + Hessian</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Can be unstable</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Fast if Hessian good</td>
     </tr>
     <tr>
-      <td>Fisher Scoring</td>
-      <td>Gradient + Expected Hessian</td>
-      <td>More stable</td>
-      <td>Fast, smoother</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Fisher Scoring</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Gradient + Expected Hessian</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">More stable</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Fast, smoother</td>
     </tr>
   </tbody>
 </table>
 
-<h4>🔷 8. When to Use Fisher Scoring?</h4>
+    <h4>🔷 8. When to Use Fisher Scoring?</h4>
 <p>✅ Use it when:</p>
 <ul>
   <li><strong>Likelihood function is well-behaved</strong> but observed Hessian is messy</li>
