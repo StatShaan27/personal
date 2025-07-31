@@ -209,7 +209,7 @@
     <h3>Contents</h3>
     <ul>
       <li><a href="#2.1"> Variance Inequality: Toward a General CRLB</a></li>
-      <li><a href="#1.2"> Bias of an Estimator</a></li>
+      <li><a href="#2.2"> Cramér–Rao Bound for IID Case</a></li>
       <li><a href="#1.6"> Mean Squared Error</a></li>
       <li><a href="#1.8"> Uniformly Minimum Variance Unbiased Estimator (UMVU)</a></li>
       <li><a href="#1.9">Cramér–Rao Lower Bound (CRLB)</a></li>
@@ -294,126 +294,61 @@
 
 
 
-    <div class="glow-box" id="1.2">
-  <h4>🎯 Definition 1.2 — Bias of an Estimator</h4>
-  <p>Let \( \hat{\theta} \) be an estimator of the parameter \( \theta \).</p>
-  <p>Then, the <strong>bias</strong> of \( \hat{\theta} \) is defined as:</p>
+    <div class="glow-box" id="2.2">
+  <h4>🔍 Simplification (2): Cramér–Rao Bound for IID Case</h4>
+
+  <h4>🧩 1. Factorization of Likelihood for IID Samples</h4>
+  <p>If \( X_1, \dots, X_n \) are <strong>i.i.d.</strong>, then:</p>
   \[
-  B(\theta) := \mathbb{E}[\hat{\theta}] - \theta
+  f(\mathbf{x}|\theta) = \prod_{i=1}^{n} f(x_i|\theta)
+  \quad \Rightarrow \quad
+  \log f(\mathbf{x}|\theta) = \sum_{i=1}^{n} \log f(x_i|\theta)
+  \]
+  <p>This simplifies the <strong>log-likelihood</strong> and makes computing the <strong>score function</strong> much easier.</p>
+
+  <h4>📘 2. Example: \( X_i \sim \mathcal{N}(\mu, 1) \)</h4>
+  <p>The density is:</p>
+  \[
+  f(x_i|\mu) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{(x_i - \mu)^2}{2}\right)
+  \]
+  <p>Then the log-likelihood becomes:</p>
+  \[
+  \log f(x_i|\mu) = -\frac{1}{2} \log(2\pi) - \frac{1}{2}(x_i - \mu)^2
+  \]
+  <p>Differentiating with respect to \( \mu \):</p>
+  \[
+  \frac{d}{d\mu} \log f(x_i|\mu) = x_i - \mu
+  \]
+  <p>So, the <strong>score function for the full sample</strong> is:</p>
+  \[
+  \frac{d}{d\mu} \log f(\mathbf{x}|\mu) = \sum_{i=1}^n (x_i - \mu)
   \]
 
-  <h4>🔍 What does this mean?</h4>
-  <p>Bias tells you <strong>on average</strong>, how far your estimator is from the true parameter. It's a measure of <em>systematic error</em>.</p>
+  <h4>📐 3. Fisher Information</h4>
+  <p>To compute the <strong>Fisher Information</strong> \( \mathcal{I}(\mu) \), we evaluate:</p>
+  \[
+  \mathbb{E}_\mu \left[ \left( \sum_{i=1}^n (X_i - \mu) \right)^2 \right]
+  \]
+  <p>Because the \( X_i \) are independent and each has zero mean after centering:</p>
+  \[
+  = \sum_{i=1}^n \mathbb{E}_\mu[(X_i - \mu)^2]
+  \]
+  <p>Each term \( \mathbb{E}_\mu[(X_i - \mu)^2] = 1 \), so total Fisher Information is:</p>
+  \[
+  \mathcal{I}(\mu) = n
+  \]
+
+  <h4>✅ Conclusion: CRLB Achieved by Sample Mean</h4>
   <ul>
-    <li>If \( B(\theta) = 0 \), then the estimator is <strong>unbiased</strong>.</li>
-    <li>If \( B(\theta) > 0 \), then the estimator <strong>overestimates</strong> on average.</li>
-    <li>If \( B(\theta) < 0 \), then it <strong>underestimates</strong> on average.</li>
+    <li><strong>Estimator:</strong> Sample mean \( \bar{X} \)</li>
+    <li><strong>Unbiased:</strong> Yes</li>
+    <li><strong>Variance of \( \bar{X} \):</strong> \( \frac{1}{n} \)</li>
+    <li><strong>Fisher Information:</strong> \( n \)</li>
+    <li><strong>CRLB:</strong> \( \frac{1}{n} \)</li>
   </ul>
-
-  <h4>🧠 Remark 1.3 — Why we can talk about \( \mathbb{E}[\hat{\theta}] \)</h4>
-  <p>Even though we don’t know the true \( \theta \), <strong>the estimator is a random variable</strong>.
-  So we can study its expected value (mean), variance, etc., as long as its distribution is defined
-  (which it is, because we assume the data-generating distribution \( F(\theta) \) is known).</p>
-
-  <h4>🧪 Example 1.4 — Biased Estimator (Uniform Distribution)</h4>
-  <p>Let’s say:</p>
-  \[
-  X_1, X_2, \dots, X_n \overset{iid}{\sim} \text{Unif}(0, \theta)
-  \]
-  <p>Then the <strong>maximum</strong> of the sample:</p>
-  \[
-  \hat{\theta}_{MLE} = \max(X_i)
-  \]
-  <p>is the <strong>Maximum Likelihood Estimator</strong> for \( \theta \). But it is <strong>biased</strong>. Specifically:</p>
-  \[
-  \max(X_i) < \theta \quad \text{(with probability 1)}
-  \]
-  <p>So:</p>
-  \[
-  \mathbb{E}[\hat{\theta}_{MLE}] < \theta \quad \Rightarrow \quad B(\theta) = \mathbb{E}[\hat{\theta}_{MLE}] - \theta < 0
-  \]
-  <p>✅ <strong>Negative bias</strong>: the estimator underestimates the true parameter.</p>
-
-  <h4>📊 Intuitive Visualization</h4>
-  <p>Suppose true \( \theta = 10 \), and you draw 5 samples from \( \text{Unif}(0,10) \):</p>
-  <ul>
-    <li>Maybe you get: [2.5, 7.1, 5.6, 9.2, 8.0] → max = 9.2</li>
-    <li>Repeat this many times → you’ll find average(max) &lt; 10</li>
-  </ul>
-  <p>💡 You <em>rarely</em> get a value equal to 10 — the true upper limit is almost never attained in the sample. Hence, <strong>systematic underestimation</strong>.</p>
-
-  <h4>🧪 Example 1.5 — Biased vs. Unbiased Estimator (Variance Estimation)</h4>
-  <p>Let:</p>
-  \[
-  X_1, \dots, X_n \overset{iid}{\sim} N(\mu, \sigma^2)
-  \]
-  <p>Define two estimators:</p>
-
-  <h4>❌ Biased Estimator:</h4>
-  \[
-  T(X) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2
-  \]
-  <p>This <strong>underestimates</strong> the true variance \( \sigma^2 \).</p>
-  <p>So, \( \mathbb{E}[T(X)] < \sigma^2 \), hence \( B(T) < 0 \).</p>
-
-  <h4>✅ Unbiased Estimator:</h4>
-  \[
-  S(X) = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
-  \]
-  <p>This is the familiar <strong>sample variance</strong> formula from statistics:</p>
-  \[
-  \mathbb{E}[S(X)] = \sigma^2 \Rightarrow B(S) = 0
-  \]
-
-  <h4>📌 Why does dividing by \( n - 1 \) fix the bias?</h4>
-  <p>Because \( \bar{X} \) itself depends on the data, and introduces <em>loss of one degree of freedom</em> — you’re estimating the mean from the same data.</p>
-  <p>So we compensate for this by dividing by \( n - 1 \) instead of \( n \). This adjustment ensures unbiasedness.</p>
-
-  <h4>🔁 Summary Table</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Estimator</th>
-        <th>Formula</th>
-        <th>Bias</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Max of sample (Uniform case)</td>
-        <td>\( \hat{\theta}_{MLE} = \max(X_i) \)</td>
-        <td>Negative</td>
-      </tr>
-      <tr>
-        <td>Naive variance</td>
-        <td>\( T(X) = \frac{1}{n} \sum (X_i - \bar{X})^2 \)</td>
-        <td>Negative</td>
-      </tr>
-      <tr>
-        <td>Corrected variance</td>
-        <td>\( S(X) = \frac{1}{n-1} \sum (X_i - \bar{X})^2 \)</td>
-        <td>0 (Unbiased)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h4>🧠 Visual Intuition: Bias</h4>
-  <pre>
-        θ (true)
-         |
-      ←---|---→
-   Estimator Values
-    (on average)
-
-   ↓ Biased Estimator
-    -----|---- θ
-   (systematically off)
-
-   ↓ Unbiased Estimator
-         |
-       E[θ̂] = θ
-  </pre>
+  <p>✅ The sample mean <em>achieves</em> the bound, hence it is <strong>efficient</strong>.</p>
 </div>
+
 
 
 
