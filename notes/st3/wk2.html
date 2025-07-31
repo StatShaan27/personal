@@ -215,9 +215,15 @@
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.6">Cramér–Rao Bound for Vector Parameters</a></li>
       <li><a href="#2.7">Fisher Information Matrix</a></li>
+      <li><a href="#2.8">Cramér–Rao Lower Bound: Vector Parameter Case</a></li>
+      <li><a href="#2.9">Information Equality and Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
-      <!-- Add more as you progress -->
+      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.5">Fisher Information Identity</a></li>
+      
     </ul>
   </div>
 
@@ -813,10 +819,357 @@
 
 
 
+<div class="glow-box" id="2.8">
+  <section>
+  <h4>🧠 Cramér–Rao Lower Bound: Vector Parameter Case</h4>
+  <p>Here's the <strong>full form of the Cramér–Rao Lower Bound (CRLB)</strong> in the vector parameter case, complete with all definitions, assumptions, and mathematical structure.</p>
+  <hr>
+
+  <p>Let:</p>
+  <ul>
+    <li>\(\boldsymbol{\theta} \in \mathbb{R}^k\): vector-valued parameter</li>
+    <li>\(\mathbf{X} \in \mathbb{R}^n\): random sample with joint pdf (or pmf) \(f(\mathbf{x} | \boldsymbol{\theta})\)</li>
+    <li>\(\mathbf{W}(\mathbf{X}) \in \mathbb{R}^m\): statistic estimating a function of \(\boldsymbol{\theta}\)</li>
+    <li>All relevant expectations, gradients, and Fisher Information are well-defined and finite</li>
+  </ul>
+
+  <h4>📘 General Matrix Form of the CRLB:</h4>
+  \[
+  \operatorname{Cov}_{\boldsymbol{\theta}}(\mathbf{W}(\mathbf{X})) \succeq 
+  \left( \frac{\partial}{\partial \boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] \right)
+  \cdot \mathcal{I}(\boldsymbol{\theta})^{-1} \cdot 
+  \left( \frac{\partial}{\partial \boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] \right)^\top
+  \]
+
+  <h4>🧩 Term Definitions:</h4>
+  <ul>
+    <li>\(\operatorname{Cov}_{\boldsymbol{\theta}}(\mathbf{W}) \in \mathbb{R}^{m \times m}\): Covariance matrix of the estimator</li>
+    <li>\(\frac{\partial}{\partial \boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}] \in \mathbb{R}^{m \times k}\): Jacobian matrix of expected estimator wrt \(\boldsymbol{\theta}\)</li>
+    <li>\(\mathcal{I}(\boldsymbol{\theta}) \in \mathbb{R}^{k \times k}\): Fisher Information Matrix</li>
+  </ul>
+
+  <h4>🎯 Fisher Information Matrix Definition:</h4>
+  <p>Let the <strong>score vector</strong> be:</p>
+  \[
+  \mathbf{S}(\mathbf{X}; \boldsymbol{\theta}) = \nabla_{\boldsymbol{\theta}} \log f(\mathbf{X} | \boldsymbol{\theta}) \in \mathbb{R}^k
+  \]
+  <p>Then:</p>
+  \[
+  \mathcal{I}(\boldsymbol{\theta}) = \mathbb{E}_{\boldsymbol{\theta}}\left[ \mathbf{S}(\mathbf{X}; \boldsymbol{\theta}) \mathbf{S}(\mathbf{X}; \boldsymbol{\theta})^\top \right]
+  \]
+  <p>Or, under regularity conditions:</p>
+  \[
+  \mathcal{I}(\boldsymbol{\theta}) = - \mathbb{E}_{\boldsymbol{\theta}}\left[ \nabla_{\boldsymbol{\theta}}^2 \log f(\mathbf{X} | \boldsymbol{\theta}) \right]
+  \]
+
+  <h4>✅ Special Case: Unbiased Estimator</h4>
+  <p>If \(\mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] = \boldsymbol{\theta}\), then the Jacobian is identity, and:</p>
+  \[
+  \operatorname{Cov}_{\boldsymbol{\theta}}(\mathbf{W}) \succeq \mathcal{I}(\boldsymbol{\theta})^{-1}
+  \]
+  <p>This matches the scalar case:</p>
+  \[
+  \operatorname{Var}_{\theta}(W) \geq \frac{1}{\mathcal{I}(\theta)}
+  \]
+
+  <h4>🧠 Setup: Vector CRLB with Fisher Info Substituted</h4>
+  <ul>
+    <li>\(\boldsymbol{\theta} \in \mathbb{R}^p\): vector parameter</li>
+    <li>\(\mathbf{X}\): data with PDF/PMF \(f(\mathbf{x}|\boldsymbol{\theta})\)</li>
+    <li>\(\mathbf{W}(\mathbf{X}) \in \mathbb{R}^k\): unbiased estimator of \(\boldsymbol{\psi}(\boldsymbol{\theta}) = \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})]\)</li>
+  </ul>
+
+  <h4>✅ CRLB (Multivariate Version):</h4>
+  \[
+  \text{Cov}_{\boldsymbol{\theta}}(\mathbf{W}(\mathbf{X})) \succeq
+  \left[ \frac{ \partial \boldsymbol{\psi}(\boldsymbol{\theta}) }{ \partial \boldsymbol{\theta} } \right]^\top
+  \left[ \mathbb{E}_{\boldsymbol{\theta}} \left[
+    \left( \frac{ \partial }{ \partial \boldsymbol{\theta} } \log f(\mathbf{X}|\boldsymbol{\theta}) \right)
+    \left( \frac{ \partial }{ \partial \boldsymbol{\theta} } \log f(\mathbf{X}|\boldsymbol{\theta}) \right)^\top
+  \right] \right]^{-1}
+  \left[ \frac{ \partial \boldsymbol{\psi}(\boldsymbol{\theta}) }{ \partial \boldsymbol{\theta} } \right]
+  \]
+
+  <h4>🔍 Explanation of Components:</h4>
+  <ul>
+    <li>\(\frac{ \partial \boldsymbol{\psi}(\boldsymbol{\theta}) }{ \partial \boldsymbol{\theta} } \in \mathbb{R}^{k \times p}\): Jacobian of \(\boldsymbol{\psi}(\boldsymbol{\theta})\)</li>
+    <li>Middle matrix is the <strong>Fisher Information Matrix</strong>:
+      \[
+      \mathbf{I}(\boldsymbol{\theta}) =
+      \mathbb{E}_{\boldsymbol{\theta}} \left[
+        \left( \frac{ \partial }{ \partial \boldsymbol{\theta} } \log f(\mathbf{X}|\boldsymbol{\theta}) \right)
+        \left( \frac{ \partial }{ \partial \boldsymbol{\theta} } \log f(\mathbf{X}|\boldsymbol{\theta}) \right)^\top
+      \right]
+      \]
+    </li>
+  </ul>
+
+  <h4>📌 Summary:</h4>
+  <p>The multivariate CRLB states:</p>
+  \[
+  \boxed{
+  \text{Cov}_{\boldsymbol{\theta}}(\mathbf{W}(\mathbf{X})) \succeq
+  \left[ \frac{ \partial \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] }{ \partial \boldsymbol{\theta} } \right]^\top
+  \left[
+  \mathbb{E}_{\boldsymbol{\theta}} \left[
+    \left( \frac{ \partial }{ \partial \boldsymbol{\theta} } \log f(\mathbf{X}|\boldsymbol{\theta}) \right)
+    \left( \frac{ \partial }{ \partial \boldsymbol{\theta} } \log f(\mathbf{X}|\boldsymbol{\theta}) \right)^\top
+  \right]
+  \right]^{-1}
+  \left[ \frac{ \partial \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] }{ \partial \boldsymbol{\theta} } \right]
+  }
+  \]
+  <p>This is a <strong>matrix inequality</strong>: the LHS is the covariance matrix of the estimator, and the RHS is the lower bound (in the <strong>positive semi-definite</strong> sense).</p>
+</section>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="2.9">
+  <section>
+  <h4>✨ Information Equality and Fisher Information Identity</h4>
+  <p>You're diving into the <strong>information equality</strong> result, which is foundational for the <strong>Cramér–Rao lower bound (CRLB)</strong>. It links the <strong>variance of the score function</strong> with the <strong>expected curvature</strong> of the log-likelihood.</p>
+  <hr>
+  <p>Let us go through each step in full clarity, with notation, interpretation, and a diagram at the end.</p>
+
+  <h4>🔶 The Setup</h4>
+  <ul>
+    <li>$f(x \mid \theta)$: parametric family of densities</li>
+    <li>Regularity conditions assumed (interchanging integration and differentiation allowed)</li>
+    <li>$x$ is a random variable drawn from $f(x \mid \theta)$</li>
+    <li>$\theta \in \mathbb{R}$: scalar parameter</li>
+  </ul>
+
+  <h4>🧰 Step 1: Expectation of the Score Function is Zero</h4>
+  \[
+  \mathbb{E}_\theta\left[ \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right] = 0
+  \]
+  <p>This is a standard identity under regularity conditions:</p>
+  \[
+  \begin{align*}
+  \mathbb{E}_\theta\left[ \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right]
+  &= \int \frac{\partial}{\partial \theta} \log f(x \mid \theta) \cdot f(x \mid \theta)\, dx \\
+  &= \int \frac{1}{f(x \mid \theta)} \cdot \frac{\partial f(x \mid \theta)}{\partial \theta} \cdot f(x \mid \theta)\, dx \\
+  &= \int \frac{\partial f(x \mid \theta)}{\partial \theta} \, dx \\
+  &= \frac{\partial}{\partial \theta} \int f(x \mid \theta) \, dx = \frac{\partial}{\partial \theta}(1) = 0
+  \end{align*}
+  \]
+  <p><strong>Conclusion:</strong> the expected score is zero.</p>
+
+  <h4>🔹 Step 2: Variance of Score Function = Negative Expectation of Second Derivative</h4>
+  <p>The claim is:</p>
+  \[
+  \mathbb{E}_\theta\left[ \left( \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right)^2 \right] = 
+  - \mathbb{E}_\theta\left[ \frac{\partial^2}{\partial \theta^2} \log f(x \mid \theta) \right]
+  \]
+
+  <h4>📌 LHS: Variance of the Score Function</h4>
+  \[
+  \begin{align*}
+  \mathbb{E}_\theta\left[ \left( \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right)^2 \right]
+  &= \int \left( \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right)^2 f(x \mid \theta)\, dx \\
+  &= \int \left( \frac{ \partial f(x \mid \theta)/\partial \theta }{ f(x \mid \theta) } \right)^2 f(x \mid \theta)\, dx \\
+  &= \int \left( \frac{ \partial f(x \mid \theta) }{ \partial \theta } \right)^2 \cdot \frac{1}{f(x \mid \theta)}\, dx
+  \end{align*}
+  \]
+
+  <h4>📌 RHS: Negative Expectation of Second Derivative</h4>
+  \[
+  \begin{align*}
+  \mathbb{E}_\theta\left[ \frac{\partial^2}{\partial \theta^2} \log f(x \mid \theta) \right]
+  &= \int \frac{\partial^2}{\partial \theta^2} \log f(x \mid \theta) \cdot f(x \mid \theta)\, dx \\
+  &= \int \left[ \frac{ \partial^2 f }{ \partial \theta^2 } - \frac{ (\partial f/\partial \theta)^2 }{ f } \right] dx
+  \end{align*}
+  \]
+  <p>Now, under regularity:</p>
+  \[
+  \int \frac{\partial^2 f(x \mid \theta)}{\partial \theta^2} dx = \frac{\partial^2}{\partial \theta^2} 1 = 0
+  \]
+  <p>So the result becomes:</p>
+  \[
+  - \int \frac{ (\partial f / \partial \theta)^2 }{ f } dx
+  \]
+  <p><strong>Conclusion:</strong></p>
+  \[
+  \mathbb{E}_\theta\left[ \left( \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right)^2 \right] = - \mathbb{E}_\theta\left[ \frac{\partial^2}{\partial \theta^2} \log f(x \mid \theta) \right]
+  \]
+
+  <h4>📊 Visual Interpretation</h4>
+  <p>Let \( \ell(\theta) = \log f(x \mid \theta) \). Then:</p>
+  <ul>
+    <li>\( \ell'(\theta) \): score function — slope of log-likelihood</li>
+    <li>\( \ell''(\theta) \): curvature — measures peakness/flatness</li>
+    <li>Taking expectation, the curvature = variance of slope (negated)</li>
+  </ul>
+
+  <h4>ℹ Fisher Information</h4>
+  \[
+  \mathcal{I}(\theta) = \mathbb{E}_\theta\left[ \left( \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right)^2 \right] = -\mathbb{E}_\theta\left[ \frac{\partial^2}{\partial \theta^2} \log f(x \mid \theta) \right]
+  \]
+  <p>This quantifies how much information one observation gives about \(\theta\).</p>
+
+  <h4>📆 Summary</h4>
+  <ul>
+    <li>This is the <strong>Fisher Information identity</strong></li>
+    <li>Backbone of the <strong>Cramér–Rao Inequality</strong></li>
+    <li>Relies on <strong>regularity conditions</strong> (to switch integral and derivative)</li>
+    <li>Captures the connection between score and curvature</li>
+  </ul>
+</section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="glow-box" id="1.5">
   
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="1.5">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="1.5">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="1.5">
+  
+</div>
 
 
 
