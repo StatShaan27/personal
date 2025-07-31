@@ -213,7 +213,7 @@
       <li><a href="#2.3"> Summarising the simplifications</a></li>
       <li><a href="#2.4"> Cramér–Rao Inequality in the Discrete Case</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.6">Cramér–Rao Bound for Vector Parameters</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
@@ -630,8 +630,55 @@
 
 
 
-<div class="glow-box" id="1.5">
-  
+<div class="glow-box" id="2.6">
+<section>
+  <h4>🧠 Cramér–Rao Bound for Vector Parameters</h4>
+  <p>Excellent — you’re now stepping into the <strong>multivariate (vector parameter) version</strong> of the Cramér–Rao Lower Bound (CRLB), which generalizes the scalar case using <strong>matrix calculus and Fisher information matrices</strong>.</p>
+  <p>Let’s break it down.</p>
+  <hr>
+
+  <p>Let:</p>
+  <ul>
+    <li>\(\boldsymbol{\theta} \in \mathbb{R}^k\): vector parameter</li>
+    <li>\(\mathbf{X} \sim f(\mathbf{x}|\boldsymbol{\theta})\)</li>
+    <li>\(\mathbf{W}(\mathbf{X}) \in \mathbb{R}^m\): vector-valued statistic</li>
+    <li>\(\mathbf{W}(\mathbf{X})\) has finite variance and differentiable expectation w.r.t. \(\boldsymbol{\theta}\)</li>
+  </ul>
+
+  <h4>📘 Multivariate CRLB (Matrix Form):</h4>
+  \[
+  \operatorname{Var}_{\boldsymbol{\theta}}(\mathbf{W}(\mathbf{X})) \succeq 
+  \left( \frac{d}{d\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] \right)^\top 
+  \cdot \mathcal{I}(\boldsymbol{\theta})^{-1} \cdot 
+  \left( \frac{d}{d\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] \right)
+  \]
+
+  <h4>📌 Notation Breakdown:</h4>
+  <ul>
+    <li>\(\operatorname{Var}_{\boldsymbol{\theta}}(\mathbf{W}) \in \mathbb{R}^{m \times m}\): Covariance matrix of the estimator</li>
+    <li>\(\frac{d}{d\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}] \in \mathbb{R}^{m \times k}\): Jacobian matrix of expectation</li>
+    <li>\(\mathcal{I}(\boldsymbol{\theta}) \in \mathbb{R}^{k \times k}\): Fisher Information matrix</li>
+    <li>\(\succeq\): Matrix inequality meaning the difference is positive semi-definite</li>
+  </ul>
+
+  <h4>⚙️ Meaning:</h4>
+  <p>This inequality tells you that the <strong>covariance matrix of any estimator</strong> of a vector parameter is bounded <strong>from below</strong> by a matrix formed from:</p>
+  <ul>
+    <li>The sensitivity of the estimator (Jacobian of expectation)</li>
+    <li>The inverse Fisher Information matrix</li>
+  </ul>
+
+  <h4>✅ Special Case: Unbiased Estimator</h4>
+  <p>If \(\mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] = \boldsymbol{\theta}\), then:</p>
+  <ul>
+    <li>Jacobian = Identity matrix \(I_k\)</li>
+  </ul>
+  <p>So, the bound becomes:</p>
+  \[
+  \operatorname{Var}_{\boldsymbol{\theta}}(\mathbf{W}(\mathbf{X})) \succeq \mathcal{I}(\boldsymbol{\theta})^{-1}
+  \]
+  <p>Just like in the scalar case, but extended to full matrix structure.</p>
+</section>
 </div>
 
 
