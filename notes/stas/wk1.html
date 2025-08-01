@@ -511,161 +511,76 @@ Think of \( \min(X_1, \dots, X_n) \approx \frac{\theta}{n} \), so multiplying by
 
 
   <div class="glow-box" id="4">
-      Excellent — now we’re entering the core of **comparing estimators** using principles of **mean squared error (MSE)**, **variance**, and **efficiency**.
+    <section>
+  <h4>Qsn: Better Estimator for \(\theta\) in Exponential Case</h4>
+  <p>Let \(X_1, \dots, X_n \overset{iid}{\sim} \text{Exp}(\theta)\). You’re given:</p>
+  \[
+  \hat{\theta}_1 = n \cdot \min\{X_1, \dots, X_n\}
+  \]
+  <p>which is unbiased. <strong>Find a better estimator for \(\theta\)</strong> and <strong>prove</strong> that it is better.</p>
 
-Let’s proceed systematically:
+  <h4>Soln:</h4>
 
----
+  <p><strong>Known facts:</strong></p>
+  <ul>
+    <li>\(\mathbb{E}[X_i] = \theta\), \(\text{Var}(X_i) = \theta^2\)</li>
+    <li>Sample mean: \(\bar{X} = \frac{1}{n} \sum X_i\)</li>
+    <li>\(T = \sum X_i \sim \text{Gamma}(n, \theta)\)</li>
+    <li>\(\hat{\theta}_2 := \bar{X}\) is unbiased, MLE, and MVUE (by completeness and sufficiency of \(T\))</li>
+  </ul>
 
-## ❓ Question
+  <p><strong>Variance comparison:</strong></p>
+  <ul>
+    <li>\(\hat{\theta}_1 = n X_{(1)}\), where \(X_{(1)} = \min(X_i)\)</li>
+    <li>\(X_{(1)} \sim \text{Exp}(n/\theta)\) ⟹ \(\mathbb{E}[X_{(1)}] = \theta/n\), \(\text{Var}(X_{(1)}) = \theta^2/n^2\)</li>
+    <li>\(\text{Var}(\hat{\theta}_1) = n^2 \cdot \frac{\theta^2}{n^2} = \theta^2\)</li>
+    <li>\(\hat{\theta}_2 = \bar{X}\), \(\text{Var}(\bar{X}) = \frac{\theta^2}{n}\)</li>
+  </ul>
 
-For $X_1, \dots, X_n \overset{iid}{\sim} \text{Exp}(\theta)$,
-you’ve already identified the estimator:
+  <p><strong>Conclusion:</strong></p>
+  <p>Since \(n > 1\), \(\text{Var}(\hat{\theta}_2) < \text{Var}(\hat{\theta}_1)\).</p>
+  <p>Both are unbiased ⟹ lower variance ⇒ lower MSE.</p>
 
-$$
-\hat{\theta}_1 = n \cdot \min\{X_1, \dots, X_n\}
-$$
+  <p><strong>Final Answer:</strong></p>
+  \[
+  \boxed{
+  \hat{\theta}_2 = \bar{X} \text{ is better than } \hat{\theta}_1 = n X_{(1)}
+  }
+  \]
+  <ul>
+    <li>Unbiased ✅</li>
+    <li>Lower variance ✅</li>
+    <li>MLE and MVUE ✅</li>
+  </ul>
 
-which is unbiased.
+  <h4>Related concepts/ other stuffs:</h4>
 
-> **Find a better estimator for $\theta$** than $\hat{\theta}_1$, and **prove** that it is better.
+  <p><strong>1. Sufficient & Complete Statistic:</strong></p>
+  <ul>
+    <li>\(T = \sum X_i\) is sufficient and complete in exponential family</li>
+    <li>\(\bar{X}\) is a function of \(T\) ⇒ MVUE by Lehmann–Scheffé</li>
+  </ul>
 
----
+  <p><strong>2. CRLB:</strong></p>
+  \[
+  I(\theta) = \frac{n}{\theta^2} \Rightarrow \text{CRLB} = \frac{\theta^2}{n}
+  \]
+  \[
+  \text{Var}(\bar{X}) = \frac{\theta^2}{n} = \text{CRLB} \Rightarrow \bar{X} \text{ is efficient}
+  \]
 
-## ✅ Detailed Solution
+  <p><strong>3. Visual Intuition:</strong></p>
+  <p>Imagine observing only the <em>first</em> failure among \(n\) bulbs vs observing <em>all</em> failures and averaging them. Clearly, averaging gives a better estimate.</p>
 
----
+  <p><strong>4. Practical insight:</strong></p>
+  <ul>
+    <li>\(\hat{\theta}_1 = n X_{(1)}\) is not sufficient</li>
+    <li>Use Rao–Blackwell: condition on \(\sum X_i\) ⇒ get \(\bar{X}\)</li>
+    <li>In censored or incomplete data, \(X_{(1)}\) may be all you have</li>
+  </ul>
+</section>
 
-### 🔹 Step 1: Known Facts
-
-* The exponential distribution has:
-
-  $$
-  \mathbb{E}[X_i] = \theta, \quad \text{Var}(X_i) = \theta^2
-  $$
-
-* The **sample mean** is:
-
-  $$
-  \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
-  $$
-
-* Since $X_i \sim \text{Exp}(\theta)$, the sum $T = \sum X_i \sim \text{Gamma}(n, \theta)$.
-
-Thus:
-
-* $\hat{\theta}_2 := \bar{X} = \frac{1}{n} \sum X_i$ is:
-
-  * **Unbiased**, since $\mathbb{E}[\bar{X}] = \theta$
-  * **MLE**, because the exponential family is regular
-  * **Minimum variance unbiased estimator (MVUE)**, because it's based on a **complete sufficient statistic**
-
----
-
-### 🔹 Step 2: Variance Comparison
-
-#### Estimator 1 (Based on Minimum):
-
-$$
-\hat{\theta}_1 = n X_{(1)}, \quad \text{where } X_{(1)} = \min(X_i)
-$$
-
-We know:
-
-$$
-X_{(1)} \sim \text{Exp}\left(\frac{n}{\theta}\right)
-\Rightarrow \mathbb{E}[X_{(1)}] = \frac{\theta}{n},\quad \text{Var}(X_{(1)}) = \frac{\theta^2}{n^2}
-$$
-
-So:
-
-$$
-\text{Var}(\hat{\theta}_1) = \text{Var}(n X_{(1)}) = n^2 \cdot \frac{\theta^2}{n^2} = \theta^2
-$$
-
-#### Estimator 2 (Sample Mean):
-
-$$
-\hat{\theta}_2 = \bar{X},\quad \text{Var}(\bar{X}) = \frac{\theta^2}{n}
-$$
-
----
-
-### 🔎 Comparison
-
-* $\text{Var}(\hat{\theta}_1) = \theta^2$
-* $\text{Var}(\hat{\theta}_2) = \frac{\theta^2}{n}$
-
-Since $n > 1$, we have:
-
-$$
-\text{Var}(\hat{\theta}_2) < \text{Var}(\hat{\theta}_1)
-\Rightarrow \hat{\theta}_2 \text{ is strictly better in variance}
-$$
-
-Both estimators are **unbiased**, so **lower variance ⇒ lower MSE**.
-
----
-
-### ✅ Final Answer
-
-$$
-\boxed{
-\text{The sample mean } \hat{\theta}_2 = \bar{X} \text{ is a better estimator than } \hat{\theta}_1 = n X_{(1)}.
-}
-$$
-
-✔ It is **unbiased**,
-✔ Has **lower variance**,
-✔ And is the **MLE and MVUE**.
-
----
-
-## 📌 Related Concepts
-
-### 1. **Sufficient and Complete Statistic**
-
-* $T = \sum X_i$ is sufficient and complete for $\theta$ in exponential families.
-* Any unbiased function of $T$ (like $\bar{X}$) is the **unique MVUE** by the **Lehmann–Scheffé theorem**.
-
-### 2. **Cramér–Rao Lower Bound (CRLB)**
-
-For exponential:
-
-$$
-I(\theta) = \frac{n}{\theta^2}, \quad \Rightarrow \text{CRLB} = \frac{1}{I(\theta)} = \frac{\theta^2}{n}
-$$
-
-Since:
-
-$$
-\text{Var}(\bar{X}) = \frac{\theta^2}{n} = \text{CRLB}
-$$
-
-→ So $\bar{X}$ is **efficient**.
-
----
-
-## 🧠 Visual Intuition
-
-> Imagine observing only the first failure in a system of $n$ light bulbs — this is $\hat{\theta}_1$.
-> Now imagine observing **all failure times** and averaging them — this is $\hat{\theta}_2$.
-
-Clearly, the second gives more information — so naturally, it leads to a better estimator.
-
----
-
-## 💡 Worth Mentioning
-
-* $\hat{\theta}_1 = n X_{(1)}$ is **not sufficient**, so by the **Rao-Blackwell theorem**, we can improve it by conditioning on the sufficient statistic $\sum X_i$\*\* — and the result is $\bar{X}$.
-* This is an example of **using partial information vs full information**.
-* In data-limited scenarios (like censored data), $X_{(1)}$ may be all you have — so even if suboptimal, it’s **practically useful**.
-
----
-
-Would you like me to show the **Rao-Blackwell improvement** of $\hat{\theta}_1$ to derive $\hat{\theta}_2$ as the MVUE?
-
-    </div>
+  </div>
 
 
 
