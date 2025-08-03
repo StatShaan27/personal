@@ -227,11 +227,6 @@
       <li><a href="#2.13">Connecting Fisher Information with the Hessian Matrix</a></li>
       <li><a href="#2.14">Geometry and Calculus Behind MLE</a></li>
       <li><a href="#2.15">Fisher’s Scoring Method</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
-      <li><a href="#2.5">Fisher Information Identity</a></li>
       
     </ul>
   </div>
@@ -973,10 +968,10 @@
 
   <h4>🔶 The Setup</h4>
   <ul>
-    <li>$f(x \mid \theta)$: parametric family of densities</li>
+    <li> \( f(x \mid \theta) \) : parametric family of densities</li>
     <li>Regularity conditions assumed (interchanging integration and differentiation allowed)</li>
-    <li>$x$ is a random variable drawn from $f(x \mid \theta)$</li>
-    <li>$\theta \in \mathbb{R}$: scalar parameter</li>
+    <li>\( x \) is a random variable drawn from $f(x \mid \theta)$</li>
+    <li> \( \theta \in \mathbb{R} \): scalar parameter</li>
   </ul>
 
   <h4>🧰 Step 1: Expectation of the Score Function is Zero</h4>
@@ -1777,7 +1772,7 @@ E[−∂²/∂θ∂θᵗ log f(x₁ | θ)] = Pre-sample Fisher Info
 </ul>
 
 <h4>🔷 3. Fisher’s Scoring: Motivation</h4>
-<p>To solve these issues, we replace the <strong>observed Hessian</strong> $H(\theta)$ with its <strong>expectation</strong>:</p>
+<p>To solve these issues, we replace the <strong>observed Hessian</strong> \( H(\theta) \) with its <strong>expectation</strong>:</p>
 <p>$$\mathcal{I}(\theta) = \mathbb{E}_\theta\left[-\nabla_\theta^2 L(\theta)\right]$$</p>
 <p>This is the <strong>Fisher Information Matrix</strong>. It's often easier to compute and is <strong>positive semi-definite</strong>.</p>
 
@@ -1882,105 +1877,7 @@ E[−∂²/∂θ∂θᵗ log f(x₁ | θ)] = Pre-sample Fisher Info
 
 
 
-<div class="glow-box" id="1.5">
-  
-</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="glow-box" id="1.5">
-  
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="glow-box" id="1.5">
-  
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="glow-box" id="1.5">
-  
-</div>
 </section>
 <button class="prev-btn" onclick="location.href='wk1.html'"> ← Previous Section </button>
 
