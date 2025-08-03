@@ -191,7 +191,7 @@
   <div class="toc">
     <h3>Contents</h3>
     <ul>
-      <li><a href="#1"> Point Estimation</a></li>
+      <li><a href="#1"> ε–δ Definition of Continuity</a></li>
       <li><a href="#2"> Bias of an Estimator</a></li>
       <li><a href="#3"> Mean Squared Error</a></li>
       <li><a href="#4"> Uniformly Minimum Variance Unbiased Estimator (UMVU)</a></li>
@@ -202,7 +202,105 @@
 
   <!-- Notes section boxes -->
   <div class="glow-box" id="1">
-    
+    <h2>🔹 PART 1: <strong>ε–δ Definition of Continuity</strong></h2>
+
+<p>Let’s build intuition first:</p>
+
+<blockquote>
+  "A function is continuous at a point if <em>small changes in input lead to small changes in output</em>."
+</blockquote>
+
+<p>Now, <strong>step-by-step</strong>:</p>
+
+<h2>💡 ε–δ Setup:</h2>
+
+<p>We are given:</p>
+<ul>
+  <li>A function \( f \) defined on an interval \( I = (a, b) \).</li>
+  <li>A point \( x \in I \).</li>
+</ul>
+
+<p>The goal: for <strong>every</strong> tiny output error margin \( \epsilon > 0 \), we must <strong>find</strong> an input margin \( \delta > 0 \) so that:</p>
+
+\[
+|x - y| < \delta \quad \Rightarrow \quad |f(x) - f(y)| < \epsilon
+\]
+
+<p>That is:</p>
+
+<blockquote>
+  "If \( y \) is close enough to \( x \), then \( f(y) \) is close enough to \( f(x) \)."
+</blockquote>
+
+<h2>📊 Visual Intuition:</h2>
+
+<p>Picture the graph of \( f \) near \( x \):</p>
+<ul>
+  <li>Draw a <strong>horizontal band</strong> of width \( 2\epsilon \) centered at \( f(x) \): this is the vertical range we want to trap outputs in.</li>
+  <li>Then, we draw a <strong>vertical band</strong> around \( x \) of width \( 2\delta \): this is the zone from which the inputs \( y \) must come.</li>
+  <li>Continuity means we can <strong>find</strong> such a vertical band so that <em>every</em> input from it maps into the horizontal band.</li>
+</ul>
+
+<p><em>Do you want me to generate a plot for this?</em></p>
+
+<hr>
+
+<h2>🔹 PART 2: <strong>Open Sets in \( \mathbb{R} \)</strong></h2>
+
+<h2>🔁 Basic idea:</h2>
+
+<p>An <strong>open set</strong> is one that <strong>doesn’t include its boundary</strong> — and around <strong>every</strong> point in it, there’s a little wiggle room (i.e., an open interval fully inside the set).</p>
+
+<h2>🧠 Think of examples:</h2>
+
+<ul>
+  <li>\((1, 3)\): open — because every point inside has a small interval around it still inside the set.</li>
+  <li>\([1, 3]\): not open — the endpoints 1 and 3 don’t allow wiggle room.</li>
+  <li>\( \mathbb{R} \): open.</li>
+  <li>\( \emptyset \): trivially open — because there’s no point to violate the definition!</li>
+</ul>
+
+<h2>🧩 Properties:</h2>
+
+<p>Let’s do a quick quiz:</p>
+
+<p><strong>Q:</strong> Why is the intersection of two open sets also open?</p>
+
+<hr>
+
+<h2>🔹 PART 3: <strong>Topological Definition of Continuity</strong></h2>
+
+<p>This is where things start to generalize. Instead of using ε and δ directly, we say:</p>
+
+<blockquote>
+  <strong>Continuity = inverse image of open sets is open</strong>
+</blockquote>
+
+<p>But here it’s phrased at a <strong>point</strong>, like this:</p>
+<ul>
+  <li>If \( f(x) \in U \), where \( U \) is open,</li>
+  <li>then there’s some <strong>open</strong> set \( V \) around \( x \) so that \( f(V) \subseteq U \).</li>
+</ul>
+
+<h2>🔁 How does this match the ε–δ idea?</h2>
+
+<p>Let’s say \( U = (f(x)-\epsilon, f(x)+\epsilon) \). That’s your output band.</p>
+
+<p>Then the topological definition says:</p>
+
+<ul>
+  <li>There must be some open set \( V \) (maybe an interval around \( x \)) such that <strong>everything in \( V \)</strong> gets mapped inside \( U \).</li>
+</ul>
+
+<p>So this is exactly the ε–δ game:</p>
+<ul>
+  <li>\( V = (x - \delta, x + \delta) \),</li>
+  <li>\( f(V) \subseteq U = (f(x) - \epsilon, f(x) + \epsilon) \)</li>
+</ul>
+
+<hr>
+
+
   </div>
 
 
