@@ -191,8 +191,8 @@ e<!DOCTYPE html>
   <div class="toc">
     <h3>Contents</h3>
     <ul>
-      <li><a href="#1"> ε–δ Definition of Continuity</a></li>
-      <li><a href="#2"> Bias of an Estimator</a></li>
+      <li><a href="#1"> Continuity at a point</a></li>
+      <li><a href="#2"> Continuation of Equivalence Proof</a></li>
       <li><a href="#3"> Mean Squared Error</a></li>
       <li><a href="#4"> Uniformly Minimum Variance Unbiased Estimator (UMVU)</a></li>
       <li><a href="#0">Cramér–Rao Lower Bound (CRLB)</a></li>
@@ -285,8 +285,132 @@ there exists an <strong>open set</strong> \( V \subseteq \mathbb{R} \) such that
 
 
 
-  <div class="glow-box" id="0">
-    
+  <div class="glow-box" id="2">
+    <h2>Continuation of Equivalence Proof</h2>
+
+<p>
+If \( f(x) \in U \), where \( U \) is an open set, then \( \exists \epsilon > 0 \) such that
+\( (f(x)-\epsilon, f(x)+\epsilon) \subseteq U \).
+</p>
+
+<p>
+From the \( \epsilon\text{–}\delta \) definition of continuity at \( x \),
+we know \( \exists \delta > 0 \) such that
+\( (x-\delta, x+\delta) \subseteq f^{-1}((f(x)-\epsilon, f(x)+\epsilon)) \subseteq f^{-1}(U) \).
+</p>
+
+<h2>Definition of a Continuous Function</h2>
+
+<p>
+A function \( f: I \to \mathbb{R} \) is <strong>continuous</strong> if it is continuous at every point of its domain.
+</p>
+
+<hr>
+
+<h2>Proposition</h2>
+
+<p>
+<strong>Proposition:</strong> A function \( f: \mathbb{R} \to \mathbb{R} \) is continuous
+<strong>if and only if</strong> for every open set \( U \subseteq \mathbb{R} \), the inverse image
+\( f^{-1}(U) \subseteq \mathbb{R} \) is also open.
+</p>
+
+<h3>Proof:</h3>
+
+<h4>\( (\Rightarrow) \) Forward Direction:</h4>
+
+<p>
+Assume \( f \) is continuous. Let \( U \subseteq \mathbb{R} \) be an open set.
+We need to show that \( f^{-1}(U) \) is open.
+</p>
+
+<p>
+Let \( x \in f^{-1}(U) \). By definition, this means \( f(x) \in U \).
+Since \( U \) is an open set, there exists an \( \epsilon > 0 \) such that the open interval
+\( (f(x)-\epsilon, f(x)+\epsilon) \subseteq U \).
+</p>
+
+<p>
+Because \( f \) is continuous at \( x \), for this specific \( \epsilon \),
+there must exist a \( \delta > 0 \) such that the interval \( (x-\delta, x+\delta) \)
+is mapped by \( f \) into \( (f(x)-\epsilon, f(x)+\epsilon) \).
+</p>
+
+<p>
+Therefore, \( (x-\delta, x+\delta) \subseteq f^{-1}((f(x)-\epsilon, f(x)+\epsilon)) \subseteq f^{-1}(U) \).
+</p>
+
+<p>
+Since for any arbitrary \( x \in f^{-1}(U) \), we found an open interval around \( x \)
+that is fully contained in \( f^{-1}(U) \), the set \( f^{-1}(U) \) is open by definition.
+</p>
+
+<h4>\( (\Leftarrow) \) Backward Direction:</h4>
+
+<p>
+Assume that for every open set \( U \), its inverse image \( f^{-1}(U) \) is open.
+We need to show that \( f \) is continuous at every point \( x \).
+</p>
+
+<p>
+Let \( x \in \mathbb{R} \) be an arbitrary point, and let \( \epsilon > 0 \) be given.
+Consider the interval \( U = (f(x)-\epsilon, f(x)+\epsilon) \). This is an open set in \( \mathbb{R} \).
+</p>
+
+<p>
+By our assumption, the inverse image \( f^{-1}(U) \) must be an open set.
+We know that \( x \in f^{-1}(U) \) because \( f(x) \in U \).
+</p>
+
+<p>
+Since \( f^{-1}(U) \) is open and contains \( x \), by the definition of an open set,
+there must exist a \( \delta > 0 \) such that the open interval \( (x-\delta, x+\delta) \subseteq f^{-1}(U) \).
+</p>
+
+<p>
+This implies that for any \( y \in (x-\delta, x+\delta) \), we have \( f(y) \in U \),
+which means \( |f(y)-f(x)| < \epsilon \).
+</p>
+
+<p>
+This is precisely the \( \epsilon\text{–}\delta \) definition of continuity at \( x \).
+Thus, \( f \) is continuous.
+</p>
+
+<hr>
+
+<h2>Definitions in \( \mathbb{R}^n \)</h2>
+
+<h3>Neighborhood in \( \mathbb{R} \):</h3>
+
+<p>For \( x \in \mathbb{R} \) and \( \epsilon > 0 \):</p>
+<ul>
+  <li>The <strong>open \( \epsilon \)-neighborhood</strong> is
+    \( N_\epsilon(x) = \{ a \in \mathbb{R} \mid |x-a| < \epsilon \} \).</li>
+  <li>The <strong>closed \( \epsilon \)-neighborhood</strong> is
+    \( \bar{N}_\epsilon(x) = \{ a \in \mathbb{R} \mid |x-a| \le \epsilon \} \).</li>
+</ul>
+
+<h3>Euclidean Norm in \( \mathbb{R}^n \):</h3>
+
+<p>
+For a vector \( x = (x_1, \dots, x_n) \in \mathbb{R}^n \), the norm (or length) is:
+</p>
+
+\[
+|x| = \sqrt{x_1^2 + \dots + x_n^2}
+\]
+
+<h3>Neighborhood in \( \mathbb{R}^n \) (Ball):</h3>
+
+<p>For a point \( x \in \mathbb{R}^n \) and \( \epsilon > 0 \):</p>
+<ul>
+  <li>The <strong>open ball</strong> is
+    \( N_\epsilon(x) = \{ a \in \mathbb{R}^n \mid |x-a| < \epsilon \} \).</li>
+  <li>The <strong>closed ball</strong> is
+    \( \bar{N}_\epsilon(x) = \{ a \in \mathbb{R}^n \mid |x-a| \le \epsilon \} \).</li>
+</ul>
+
   </div>
 
 
