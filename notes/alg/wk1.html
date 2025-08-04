@@ -202,7 +202,195 @@
 
   <!-- Notes section boxes -->
   <div class="glow-box" id="1">
-    
+    <h2><strong>1st Class</strong></h2>
+
+<h3><strong>Equivalence Relation</strong></h3>
+<p>
+Let \( X (
+e \emptyset) \) be a set. A relation \( \sim \) on \( X \) is called an <strong>equivalence relation</strong> if:
+</p>
+<ul>
+  <li><strong>Reflexivity:</strong> \( x \sim x \) for all \( x \in X \).</li>
+  <li><strong>Symmetry:</strong> For all \( x, y \in X \), if \( x \sim y \) then \( y \sim x \).</li>
+  <li><strong>Transitivity:</strong> For all \( x, y, z \in X \), if \( x \sim y \) and \( y \sim z \) then \( x \sim z \).</li>
+</ul>
+
+<h3><strong>Equivalence Class</strong></h3>
+<p>
+Let \( \sim \) be an equivalence relation on a set \( X (\ne \emptyset) \).
+For any \( x \in X \), the <strong>equivalence class</strong> of \( x \) is defined as:
+</p>
+<p>
+\[
+[x] := \{y \in X \mid x \sim y\}
+\]
+</p>
+
+<p><strong>Example 1:</strong> If \( a \in [x] \), then \( [x] = [a] \).</p>
+<p><strong>Solution:</strong></p>
+<ul>
+  <li>If \( a \in [x] \), then by definition, \( x \sim a \). By symmetry, \( a \sim x \).</li>
+  <li>To show \( [x] \subseteq [a] \): Let \( b \in [x] \Rightarrow x \sim b \). Since \( a \sim x \) and \( x \sim b \), by transitivity \( a \sim b \Rightarrow b \in [a] \).</li>
+  <li>To show \( [a] \subseteq [x] \): Let \( c \in [a] \Rightarrow a \sim c \). Since \( x \sim a \) and \( a \sim c \), by transitivity \( x \sim c \Rightarrow c \in [x] \).</li>
+</ul>
+<p>Hence, \( [a] = [x] \).</p>
+
+<p><strong>Example 2:</strong> For any \( x, y \in X \), either \( [x] = [y] \) or \( [x] \cap [y] = \emptyset \).</p>
+<p><strong>Solution:</strong></p>
+<ul>
+  <li>If \( [x] \cap [y] = \emptyset \), done.</li>
+  <li>Otherwise, \( \exists z \in [x] \cap [y] \Rightarrow x \sim z \) and \( y \sim z \Rightarrow z \sim y \). Since \( x \sim z \) and \( z \sim y \), by transitivity \( x \sim y \Rightarrow [x] = [y] \).</li>
+</ul>
+
+<h3><strong>Construction of Natural Numbers (Von Neumann Ordinals)</strong></h3>
+<p>
+On the class of sets, define the <strong>successor operation</strong> by \( S(A) = A \cup \{A\} \). Starting from \( \emptyset \):
+</p>
+<ul>
+  <li>
+    \( S(\emptyset) = \{\emptyset\} \)
+  </li>
+  <li>
+    \( S(\{\emptyset\}) = \{\emptyset, \{\emptyset\}\} \)
+  </li>
+  <li>
+    \( S(\{\emptyset, \{\emptyset\}\}) = \{\emptyset, \{\emptyset\}, \{\emptyset, \{\emptyset\}\}\} \)
+  </li>
+</ul>
+<p>
+Define natural numbers:
+\[
+0 := \emptyset, \quad 1 := S(0), \quad 2 := S(1), \quad \dots
+\]
+</p>
+<ul>
+  <li>
+    \( 1 = \{0\} \)
+  </li>
+  <li>
+    \( 2 = \{0, 1\} \)
+  </li>
+  <li>
+    \( 3 = \{0, 1, 2\} \)
+  </li>
+</ul>
+<p>
+Every natural number is the set of all its predecessors.
+</p>
+
+<h3><strong>Peano Axioms</strong></h3>
+<p>
+The set \( \mathbb{N} \) satisfies:
+</p>
+<ul>
+  <li>
+    \( 0 \) is a natural number.
+  </li>
+  <li>
+    The successor of any natural number is also a natural number.
+  </li>
+  <li>
+    \( 0 \) is not the successor of any natural number.
+  </li>
+  <li>
+    If \( S(n) = S(m) \), then \( n = m \).
+  </li>
+  <li>
+    <strong>Induction:</strong> If true for 0 and holds from \( n \Rightarrow S(n) \), then true for all \( \mathbb{N} \).
+  </li>
+</ul>
+
+<h2><strong>Operations on \( \mathbb{N} \)</strong></h2>
+<h3><strong>Addition</strong></h3>
+<ul>
+  <li>
+    \( n + 0 = n \)
+  </li>
+  <li>
+    \( n + S(m) = S(n + m) \)
+  </li>
+</ul>
+<p>
+This makes \( (\mathbb{N}, +) \) a <strong>cancellative abelian monoid</strong>:
+</p>
+<ul>
+  <li>
+    <strong>Identity:</strong> \( n + 0 = 0 + n = n \)
+  </li>
+  <li>
+    <strong>Associativity:</strong> \( n + (m + p) = (n + m) + p \)
+  </li>
+  <li>
+    <strong>Commutativity:</strong> \( n + m = m + n \)
+  </li>
+  <li>
+    <strong>Cancellation:</strong> If \( n + m = n + p \), then \( m = p \)
+  </li>
+</ul>
+
+<p><strong>Motivation for Integers (\( \mathbb{Z} \))</strong></p>
+<p>
+The equation \( 2 + x = 1 \) has no solution in \( \mathbb{N} \). Using Peano Axiom 3, this motivates extending to integers.
+</p>
+
+<h2><strong>Extending \( \mathbb{N} \) to Integers (\( \mathbb{Z} \))</strong></h2>
+<p>
+Let \( X = \mathbb{N} \times \mathbb{N} \), and define:
+</p>
+<p>
+\[
+(a, b) \sim (c, d) \iff a + d = c + b
+\]
+</p>
+<p>
+This is an equivalence relation. Define:
+\[
+\mathbb{Z} := \{[(a, b)] \mid a, b \in \mathbb{N}\}
+\]
+<p>
+Addition: \( [(a, b)] + [(c, d)] = [(a + c, b + d)] \)<br>
+Embedding: \( \phi(a) = [(a, 0)] \)<br>
+Interpretation: \( [(a, b)] = a - b \)
+</p>
+
+<h2><strong>Extending \( \mathbb{Z} \) to Rational Numbers (\( \mathbb{Q} \))</strong></h2>
+<p>
+Let \( X = \mathbb{Z} \times (\mathbb{Z} \setminus \{0\}) \), define:
+</p>
+<p>
+\[
+(a, b) \sim (c, d) \iff ad = cb
+\]
+</p>
+<p>
+Define:
+\[
+\mathbb{Q} := \{[(a, b)] \mid a \in \mathbb{Z}, b \in \mathbb{Z} \setminus \{0\}\}
+\]</p>
+<ul>
+  <li>
+    Addition: \( [(a, b)] + [(c, d)] = [(ad + bc, bd)] \)
+  </li>
+  <li>
+    Multiplication: \( [(a, b)] \cdot [(c, d)] = [(ac, bd)] \)
+  </li>
+</ul>
+<p>
+Embedding: \( \phi(a) = [(a, 1)] \)<br>
+Every non-zero element has an inverse &rarr; \( (\mathbb{Q}, +, \cdot) \) is a <strong>field</strong>.<br>
+Fraction notation: \( \frac{m}{n} \)
+</p>
+
+<h2><strong>Further Extensions</strong></h2>
+<ul>
+  <li>
+    Equation \( x^2 = 2 \) has no solution in \( \mathbb{Q} \) &rarr; Extend to <strong>\( \mathbb{R} \)</strong> (Dedekind cuts or Cauchy sequences).
+  </li>
+  <li>
+    Equation \( x^2 = -1 \) has no solution in \( \mathbb{R} \) &rarr; Extend to <strong>\( \mathbb{C} \)</strong> via \( \mathbb{R}[x]/(x^2 + 1) \).
+  </li>
+</ul>
+
   </div>
 
 
