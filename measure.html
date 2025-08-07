@@ -193,7 +193,7 @@
       <li><a href="#1"> Overview: Why Measure Theory? </a></li>
       <li><a href="#2"> The Cost and Benefit of Rigor </a></li>
       <li><a href="#3"> The de Finetti Notation</a></li>
-      <li><a href="#4"> </a></li>
+      <li><a href="#4"> End Comments and Exercise problems</a></li>
       <li><a href="#0"></a></li>
       <!-- Add more as you progress -->
     </ul>
@@ -766,8 +766,118 @@
 
 
 
-<div class="glow-box" id="0">
-  
+<div class="glow-box" id="4">
+  <h2>🔷 Section-by-Section Explanation</h2>
+
+<hr>
+
+<h3>1. <strong>The de Finetti Notation</strong></h3>
+<p>De Finetti proposed a simplification: use <strong>expectation</strong> as the primary object in probability theory. For example:</p>
+<pre><code>P(A) = E(1_A)
+</code></pre>
+<p>This allows a unified treatment of <strong>events</strong> and <strong>random variables</strong>.</p>
+
+<hr>
+
+<h3>2. <strong>Indicator Functions as Algebraic Objects</strong></h3>
+<p>Define:</p>
+<pre><code>1_A(ω) = 1 if ω ∈ A, 0 otherwise</code></pre>
+<p>Then set operations correspond to algebraic operations:</p>
+<table>
+<thead>
+<tr><th>Set Operation</th><th>Algebraic Form</th></tr>
+</thead>
+<tbody>
+<tr><td>Union A ∪ B</td><td>max(1<sub>A</sub>, 1<sub>B</sub>)</td></tr>
+<tr><td>Intersection A ∩ B</td><td>1<sub>A</sub> · 1<sub>B</sub></td></tr>
+<tr><td>Complement A<sup>c</sup></td><td>1 − 1<sub>A</sub></td></tr>
+<tr><td>Symmetric Diff A Δ B</td><td>(1<sub>A</sub> − 1<sub>B</sub>)<sup>2</sup> mod 2</td></tr>
+</tbody>
+</table>
+
+<h4>✅ Example:</h4>
+<p>Instead of Venn diagrams, we write:</p>
+<pre><code>(A Δ B) Δ C = A Δ (B Δ C) ⇒ 1_A + 1_B + 1_C mod 2</code></pre>
+<p>Associativity follows from arithmetic.</p>
+
+<hr>
+
+<h3>3. <strong>Using the Same Symbol for Probability and Expectation</strong></h3>
+<p>Since <code>P(A) = E(1_A)</code>, we write:</p>
+<ul>
+  <li><strong>PA</strong> for probability of A</li>
+  <li><strong>PX</strong> for expectation of random variable X</li>
+</ul>
+<p>This is safe overloading and encourages algebraic manipulation.</p>
+
+<hr>
+
+<h3>4. <strong>Application: Tchebychev’s Inequality</strong></h3>
+<p>Using indicator functions:</p>
+<pre><code>1_{|X − μ| > ε} ≤ (X − μ)^2 / ε^2
+⇒ P{|X − μ| > ε} = E[1_{|X − μ| > ε}] ≤ E[(X − μ)^2] / ε^2</code></pre>
+<p>Key idea: apply monotonicity of expectation.</p>
+
+<hr>
+
+<h3>5. <strong>Advantages of the Notation</strong></h3>
+<ul>
+  <li>Unified symbol for P and E</li>
+  <li>Algebra replaces set-theoretic reasoning</li>
+  <li>Less clutter in expressions with multiple measures</li>
+</ul>
+
+<hr>
+
+<h2>🧠 Visual Summary</h2>
+<pre>
+Set/Event A  -----------→  Indicator Function 1_A
+                    (maps to 0/1)
+                             |
+                             ↓
+          P(A) = E[1_A] ————→ Unified as PX
+                             ↑
+      Random Variable X  ----
+</pre>
+
+<hr>
+
+<h2>✅ Problem Solutions</h2>
+
+<h3>Problem 1: Exact Number of Events Occurring</h3>
+<p>Let <code>A_1, ..., A_N</code> be events and <code>S_k := Σ_{|J| = k} P(∩_{i∈J} A_i)</code>. Then:</p>
+<pre><code>P{exactly m of the A_i occur} = Σ_{k=m}^N (−1)^{k−m} C(k, m) S_k</code></pre>
+<p><strong>Hint (Generating Function):</strong> Use:</p>
+<pre><code>∏ (1 + (z−1) A_i) = Σ (z−1)^k Σ_{|J|=k} A_J</code></pre>
+<p>Take expectations, expand via Newton’s identity. Coefficient of <code>z^m</code> gives the desired probability.</p>
+
+<h3>Problem 2: Rederive Lemma via Dutch Book</h3>
+<p>Three bets:</p>
+<ol>
+<li>Pay <code>c_i·p(F_i)</code>, win <code>c_i</code> on <code>F_i</code></li>
+<li>Pay <code>−p(X)</code>, win <code>−X</code></li>
+<li>Conditional: on <code>F_i</code>, pay <code>c_i</code>, win <code>X</code></li>
+</ol>
+<p>Sum of expected payoffs is zero ⇨ no arbitrage ⇨</p>
+<pre><code>p(X) = Σ p(F_i)·p(X|F_i)</code></pre>
+<p><strong>Law of Total Expectation derived.</strong></p>
+
+<h3>Problem 3: Continuity from Below</h3>
+<p>If <code>A_n ↑ A</code>, then:</p>
+<pre><code>lim P(A_n) = P(A)
+⇒ lim E[1_{A_n}] = E[1_A]</code></pre>
+<p>Apply <strong>monotone convergence theorem</strong>.</p>
+
+<hr>
+
+<h2>🔚 Summary of Key Takeaways</h2>
+<ul>
+  <li>de Finetti notation unifies probability and expectation</li>
+  <li>Set operations become algebraic expressions</li>
+  <li>Indicator functions are powerful tools</li>
+  <li>Enables compact proofs and generalizes to more complex settings</li>
+</ul>
+
 </div>
 
 
