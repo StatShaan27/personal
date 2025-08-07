@@ -773,40 +773,41 @@
 
 <h3>1. <strong>The de Finetti Notation</strong></h3>
 <p>De Finetti proposed a simplification: use <strong>expectation</strong> as the primary object in probability theory. For example:</p>
-<pre><code>P(A) = E(1_A)
-</code></pre>
+<p>\[ P(A) = \mathbb{E}(1_A) \]</p>
 <p>This allows a unified treatment of <strong>events</strong> and <strong>random variables</strong>.</p>
 
 <hr>
 
 <h3>2. <strong>Indicator Functions as Algebraic Objects</strong></h3>
 <p>Define:</p>
-<pre><code>1_A(ω) = 1 if ω ∈ A, 0 otherwise</code></pre>
+<p>\[ 1_A(\omega) = \begin{cases} 1 & \text{if } \omega \in A \\ 0 & \text{otherwise} \end{cases} \]</p>
 <p>Then set operations correspond to algebraic operations:</p>
 <table>
 <thead>
 <tr><th>Set Operation</th><th>Algebraic Form</th></tr>
 </thead>
 <tbody>
-<tr><td>Union A ∪ B</td><td>max(1<sub>A</sub>, 1<sub>B</sub>)</td></tr>
-<tr><td>Intersection A ∩ B</td><td>1<sub>A</sub> · 1<sub>B</sub></td></tr>
-<tr><td>Complement A<sup>c</sup></td><td>1 − 1<sub>A</sub></td></tr>
-<tr><td>Symmetric Diff A Δ B</td><td>(1<sub>A</sub> − 1<sub>B</sub>)<sup>2</sup> mod 2</td></tr>
+<tr><td>Union \(A \cup B\)</td><td>\( \max(1_A, 1_B) \)</td></tr>
+<tr><td>Intersection \(A \cap B\)</td><td>\(1_A \cdot 1_B\)</td></tr>
+<tr><td>Complement \(A^c\)</td><td>\(1 - 1_A\)</td></tr>
+<tr><td>Symmetric Diff \(A \Delta B\)</td><td>\((1_A - 1_B)^2 \bmod 2\)</td></tr>
 </tbody>
 </table>
 
 <h4>✅ Example:</h4>
 <p>Instead of Venn diagrams, we write:</p>
-<pre><code>(A Δ B) Δ C = A Δ (B Δ C) ⇒ 1_A + 1_B + 1_C mod 2</code></pre>
+<p>\[
+(A \Delta B) \Delta C = A \Delta (B \Delta C) \Rightarrow 1_A + 1_B + 1_C \bmod 2
+\]</p>
 <p>Associativity follows from arithmetic.</p>
 
 <hr>
 
 <h3>3. <strong>Using the Same Symbol for Probability and Expectation</strong></h3>
-<p>Since <code>P(A) = E(1_A)</code>, we write:</p>
+<p>Since \( P(A) = \mathbb{E}(1_A) \), we write:</p>
 <ul>
-  <li><strong>PA</strong> for probability of A</li>
-  <li><strong>PX</strong> for expectation of random variable X</li>
+  <li><strong>\(PA\)</strong> for probability of A</li>
+  <li><strong>\(PX\)</strong> for expectation of random variable X</li>
 </ul>
 <p>This is safe overloading and encourages algebraic manipulation.</p>
 
@@ -814,8 +815,10 @@
 
 <h3>4. <strong>Application: Tchebychev’s Inequality</strong></h3>
 <p>Using indicator functions:</p>
-<pre><code>1_{|X − μ| > ε} ≤ (X − μ)^2 / ε^2
-⇒ P{|X − μ| > ε} = E[1_{|X − μ| > ε}] ≤ E[(X − μ)^2] / ε^2</code></pre>
+<p>\[
+1_{|X - \mu| > \varepsilon} \le \frac{(X - \mu)^2}{\varepsilon^2} \\
+\Rightarrow P(|X - \mu| > \varepsilon) = \mathbb{E}[1_{|X - \mu| > \varepsilon}] \le \frac{\mathbb{E}[(X - \mu)^2]}{\varepsilon^2}
+\]</p>
 <p>Key idea: apply monotonicity of expectation.</p>
 
 <hr>
@@ -845,27 +848,35 @@ Set/Event A  -----------→  Indicator Function 1_A
 <h2>✅ Problem Solutions</h2>
 
 <h3>Problem 1: Exact Number of Events Occurring</h3>
-<p>Let <code>A_1, ..., A_N</code> be events and <code>S_k := Σ_{|J| = k} P(∩_{i∈J} A_i)</code>. Then:</p>
-<pre><code>P{exactly m of the A_i occur} = Σ_{k=m}^N (−1)^{k−m} C(k, m) S_k</code></pre>
+<p>Let \( A_1, \dots, A_N \) be events and \( S_k := \sum_{|J| = k} P\left(\bigcap_{i \in J} A_i\right) \). Then:</p>
+<p>\[
+P\{\text{exactly } m \text{ of the } A_i \text{ occur}\} = \sum_{k=m}^N (-1)^{k - m} \binom{k}{m} S_k
+\]</p>
 <p><strong>Hint (Generating Function):</strong> Use:</p>
-<pre><code>∏ (1 + (z−1) A_i) = Σ (z−1)^k Σ_{|J|=k} A_J</code></pre>
-<p>Take expectations, expand via Newton’s identity. Coefficient of <code>z^m</code> gives the desired probability.</p>
+<p>\[
+\prod (1 + (z - 1) A_i) = \sum (z - 1)^k \sum_{|J| = k} A_J
+\]</p>
+<p>Take expectations, expand via Newton’s identity. Coefficient of \( z^m \) gives the desired probability.</p>
 
 <h3>Problem 2: Rederive Lemma via Dutch Book</h3>
 <p>Three bets:</p>
 <ol>
-<li>Pay <code>c_i·p(F_i)</code>, win <code>c_i</code> on <code>F_i</code></li>
-<li>Pay <code>−p(X)</code>, win <code>−X</code></li>
-<li>Conditional: on <code>F_i</code>, pay <code>c_i</code>, win <code>X</code></li>
+<li>Pay \( c_i \cdot p(F_i) \), win \( c_i \) on \( F_i \)</li>
+<li>Pay \( -p(X) \), win \( -X \)</li>
+<li>Conditional: on \( F_i \), pay \( c_i \), win \( X \)</li>
 </ol>
 <p>Sum of expected payoffs is zero ⇨ no arbitrage ⇨</p>
-<pre><code>p(X) = Σ p(F_i)·p(X|F_i)</code></pre>
+<p>\[
+p(X) = \sum p(F_i) p(X|F_i)
+\]</p>
 <p><strong>Law of Total Expectation derived.</strong></p>
 
 <h3>Problem 3: Continuity from Below</h3>
-<p>If <code>A_n ↑ A</code>, then:</p>
-<pre><code>lim P(A_n) = P(A)
-⇒ lim E[1_{A_n}] = E[1_A]</code></pre>
+<p>If \( A_n \uparrow A \), then:</p>
+<p>\[
+\lim P(A_n) = P(A) \\
+\Rightarrow \lim \mathbb{E}[1_{A_n}] = \mathbb{E}[1_A]
+\]</p>
 <p>Apply <strong>monotone convergence theorem</strong>.</p>
 
 <hr>
@@ -877,6 +888,18 @@ Set/Event A  -----------→  Indicator Function 1_A
   <li>Indicator functions are powerful tools</li>
   <li>Enables compact proofs and generalizes to more complex settings</li>
 </ul>
+
+<!-- Add MathJax -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
 
 </div>
 
