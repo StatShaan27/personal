@@ -191,7 +191,7 @@
     <h3>Contents</h3>
     <ul>
       <li><a href="#1"> Overview: Why Measure Theory? </a></li>
-      <li><a href="#2"> </a></li>
+      <li><a href="#2"> The Cost and Benefit of Rigor </a></li>
       <li><a href="#3"> </a></li>
       <li><a href="#4"> </a></li>
       <li><a href="#0"></a></li>
@@ -390,8 +390,7 @@
   <h4>📌 Visual:</h4>
   <p><em>A discrete sum (e.g., binomial) getting closer to the bell curve (normal). Measure theory allows us to rigorously define this convergence.</em></p>
 
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/CLT_uniform_distribution.svg/512px-CLT_uniform_distribution.svg.png" alt="CLT Approximation" />
-
+  
   <hr>
 
   <h2>🔷 Final Takeaway</h2>
@@ -480,7 +479,128 @@
 
 
   <div class="glow-box" id="2">
-    
+    <h2>🔹 1. The Cost and Benefit of Rigor</h2>
+<blockquote><p>"Probabilities are numbers in [0,1] attached to subsets of a sample space Ω..."</p></blockquote>
+<h3>✅ Classical Rules:</h3>
+<ul>
+  <li>P(∅) = 0, P(Ω) = 1 — impossible vs. certain events</li>
+  <li>For disjoint sets A<sub>i</sub>:<br>
+    <p>P(∪ A<sub>i</sub>) = ∑ P(A<sub>i</sub>)</p>
+    <ul>
+      <li>This is countable additivity.</li>
+    </ul>
+  </li>
+</ul>
+<h4>🔍 Visual Analogy:</h4>
+<p>Think of sets A<sub>i</sub> like non-overlapping tiles. Total area = sum of individual areas.</p>
+
+<h2>🔹 2. The Subtlety of Countable Additivity</h2>
+<blockquote><p>“Mathematically, this extension is far from obvious...”</p></blockquote>
+<h3>⚠️ Key Insight:</h3>
+<p>Infinite sums of disjoint probabilities aren't trivial. Some pathological subsets can break countable additivity.</p>
+
+<h3>🎓 Lebesgue’s Contribution (1902):</h3>
+<ul>
+  <li>Defined measure on complicated sets in ℝ.</li>
+  <li>Proved: No measure on all subsets of ℝ can satisfy countable additivity, translation invariance, and match interval lengths.</li>
+  <li>Leads to paradoxes (e.g., Vitali sets).</li>
+</ul>
+
+<h4>💡 Enter Sigma-Fields</h4>
+<p>Define probabilities only for sets in a σ-field: a structured, manageable collection.</p>
+
+<h2>🔹 3. Sigma-Fields: A Solution with Benefits</h2>
+<h3>✅ Definition:</h3>
+<ul>
+  <li>Ω ∈ ᵊ</li>
+  <li>If A ∈ ᵊ, then A<sup>c</sup> ∈ ᵊ</li>
+  <li>If A<sub>i</sub> ∈ ᵊ, then ∪ A<sub>i</sub> ∈ ᵊ</li>
+</ul>
+<h4>🎯 Benefit:</h4>
+<p>Restricts our universe, but enables general, paradox-free reasoning. Many key theorems become easier to prove.</p>
+
+<h2>🔹 4. Anatomy of a Measure-Theoretic Proof</h2>
+<h3>📘 Example Goal:</h3>
+<p>Prove a property ℓ(A) holds for all A ∈ ᵊ.</p>
+<h3>📌 Steps:</h3>
+<ul>
+  <li>(a) Prove for basic class ℂ (e.g., intervals)</li>
+  <li>(b) Show ᵊ = σ(ℂ)</li>
+  <li>(c) Prove property is preserved under set operations</li>
+  <li>(d) Define ᵍ := {A ∈ ᵊ : ℓ(A) holds}</li>
+  <li>(e) Show ᵍ is a σ-field containing ℂ ➔ ᵍ = ᵊ</li>
+</ul>
+<h4>💡 Example:</h4>
+<p>Prove P(A<sup>c</sup>) = 1 - P(A) for all A:</p>
+<ul>
+  <li>Start with intervals</li>
+  <li>Show preservation under complement</li>
+  <li>Define B = {A : P(A<sup>c</sup>) = 1 - P(A)}</li>
+  <li>Show B is a σ-field containing intervals</li>
+</ul>
+
+<h2>🔹 5. Historical Context: From Lebesgue to Kolmogorov</h2>
+<h3>🧠 Lebesgue:</h3>
+<ul>
+  <li>Extended integration theory beyond Riemann.</li>
+  <li>Enabled rigorous probability via measure theory.</li>
+</ul>
+<h3>🧠 Kolmogorov (1933):</h3>
+<ul>
+  <li>Formalized probability as a measure space (Ω, ᵊ, P).</li>
+</ul>
+<table>
+  <thead>
+    <tr><th>Probability Concept</th><th>Measure-Theoretic Concept</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Event</td><td>Measurable set</td></tr>
+    <tr><td>Probability</td><td>Measure</td></tr>
+    <tr><td>Random variable</td><td>Measurable function</td></tr>
+    <tr><td>Expected value</td><td>Integral w.r.t. measure</td></tr>
+    <tr><td>Independence</td><td>Product measure</td></tr>
+  </tbody>
+</table>
+
+<h2>🔹 6. Redefining Random Variables and Expectation</h2>
+<blockquote><p>"Kolmogorov identified random variables with measurable functions..."</p></blockquote>
+<h3>✅ Random Variables:</h3>
+<p>Defined as measurable functions: X: Ω → ℝ</p>
+<p>For each x, the set { ω : X(ω) ≤ x } is in ᵊ.</p>
+
+<h3>✅ Expectation:</h3>
+<p>Defined as Lebesgue integral:</p>
+<p>E[X] = ∫ X dP</p>
+
+<h4>🔹 Familiar Properties:</h4>
+<ul>
+  <li>Linearity: E(c<sub>1</sub>X<sub>1</sub> + c<sub>2</sub>X<sub>2</sub>) = c<sub>1</sub>E(X<sub>1</sub>) + c<sub>2</sub>E(X<sub>2</sub>)</li>
+  <li>Monotonicity: If X ≥ Y, then E(X) ≥ E(Y)</li>
+</ul>
+
+<h4>🔹 New Benefits:</h4>
+<ul>
+  <li>Continuity under limits</li>
+  <li>Powerful convergence theorems (MCT, DCT, etc.)</li>
+</ul>
+
+
+<h2>🔺 Final Takeaways</h2>
+<h3>🎯 Why Use Measure Theory in Probability?</h3>
+<table>
+  <thead>
+    <tr><th>Classical Probability</th><th>Measure-Theoretic Probability</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Vague or redundant definitions</td><td>Clean, general definitions</td></tr>
+    <tr><td>Struggles with infinite sample spaces</td><td>Handles countable additivity</td></tr>
+    <tr><td>Events = subsets</td><td>Events = measurable sets</td></tr>
+    <tr><td>Random variables = rules</td><td>Random variables = measurable functions</td></tr>
+    <tr><td>Expectation = sum/integral</td><td>Expectation = Lebesgue integral</td></tr>
+    <tr><td>Case-by-case reasoning</td><td>Unified framework</td></tr>
+  </tbody>
+</table>
+
   </div>
 
 
