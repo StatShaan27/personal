@@ -1,1 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Measure-Theoretic Probability | Shaan</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: #6effe0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      background: #1e1e1e;
+      border-bottom: 2px solid #333;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0;
+    }
+
+    header nav ul li {
+      display: inline;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: #6effe0;
+      font-weight: 500;
+      border: 1px solid transparent;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      border-color: #6effe0;
+      background-color: #6effe0;
+      color: #000;
+    }
+
+    .notes-wrapper {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .info-block {
+      margin-bottom: 2rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .info-block strong {
+      color: #6effe0;
+    }
+
+    .toc {
+      background-color: #1e1e1e;
+      border-left: 4px solid #6effe0;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+    }
+
+    .toc ul {
+      padding-left: 1rem;
+    }
+
+    .toc ul li {
+      padding: 0.3rem 0;
+    }
+
+    .toc a {
+      color: #c9d1d9;
+      text-decoration: none;
+      border-bottom: 1px dashed #6effe0;
+    }
+
+    .toc a:hover {
+      color: #6effe0;
+    }
+
+    .glow-box {
+      border: 2px solid #6effe0;
+      box-shadow: 0 0 20px rgba(110, 255, 224, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background-color: #1e1e1e;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(110, 255, 224, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(110, 255, 224, 0.4); }
+    }
+
+    ul {
+      line-height: 1.6;
+      padding-left: 1.2rem;
+    }
+
+    code, pre {
+      background-color: #222;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      color: #6effe0;
+      display: block;
+      overflow-x: auto;
+    }
+
+    .next-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #6effe0;
+      color: #000;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #6effe0;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+
+    .next-btn:hover {
+      background-color: #00ffcc;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
+  </style>
+  <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</head>
+<body>
+
+<header>
+  <h1>Measure-Theoretic Probability</h1>
+  <p>AY 2025–26</p>
+  <nav>
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../../sections/projects.html">Projects</a></li>
+      <li><a href="../../sections/education.html">Education</a></li>
+      <li><a href="../../sections/misc.html">Misc</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="notes-wrapper">
+
+ <div class="info-block">
+    <p><strong>Instructor:</strong> Independent Study </p>
+    <p><strong>Office / Department:</strong> - </p>
+    <p><strong>Email:</strong> mdsworld2006@gmail.com</p>
+    
+    </p>
+  </div>
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul>
+      <li><a href="#1"> Overview: Why Measure Theory? </a></li>
+      <li><a href="#2"> </a></li>
+      <li><a href="#3"> </a></li>
+      <li><a href="#4"> </a></li>
+      <li><a href="#0"></a></li>
+      <!-- Add more as you progress -->
+    </ul>
+  </div>
+
+  <!-- Notes section boxes -->
+  <div class="glow-box" id="1">
+   <section>
+
+  <h2>🔷 Overview: Why Measure Theory?</h2>
+
+  <blockquote>
+    <p><em>"Following Kolmogorov (1933)... it has been widely accepted that probabilities should be studied as special sorts of measures."</em></p>
+  </blockquote>
+
+  <h3>🔑 Key Idea:</h3>
+  <p>Measure theory gives probability a <strong>rigorous mathematical foundation</strong>.</p>
+
+  <h3>⚖️ Visual Analogy:</h3>
+  <p>Think of <strong>probability</strong> as measuring <strong>areas</strong> under curves or <strong>sizes</strong> of sets—just like how length, area, and volume are measured. Kolmogorov formalized this by saying:</p>
+
+  <blockquote>
+    <p>Probabilities <strong>are</strong> measures, just defined over a special space called a <strong>probability space</strong>.</p>
+  </blockquote>
+
+  <h3>📌 Minimal Setup Needed:</h3>
+  <ul>
+    <li>A <strong>\(\sigma\)</strong>-field (collection of measurable events)</li>
+    <li>A <strong>measure</strong> (assigns values to events)</li>
+    <li>An <strong>integral</strong> (generalized sum)</li>
+  </ul>
+
+  <h3>✅ Why This Matters:</h3>
+  <p>Most undergraduate texts don’t teach this and rely on <strong>hand-wavy, case-specific arguments</strong>. That becomes limiting very fast.</p>
+
+  <hr>
+
+  <h2>🔷 Section 1: Independence</h2>
+
+  <blockquote>
+    <p><em>"There are various elementary definitions of independence for random variables..."</em></p>
+  </blockquote>
+
+  <h3>🔑 Classical Definition:</h3>
+  <p>Independence via <strong>distribution function factorization</strong>:</p>
+
+  \[
+  P(X \le x, Y \le y) = P(X \le x) \cdot P(Y \le y)
+  \]
+
+  <p>✅ Works for simple cases.</p>
+
+  <h3>❌ Problem:</h3>
+  <p>Suppose you define:</p>
+
+  \[
+  Y = X_1 X_2 \left[ \log \left( \frac{X_1^2 + X_2^2}{|X_1| + |X_2|} \right) + \frac{|X_1|^3 + X_2^3}{X_1^4 + X_2^4} \right]
+  \]
+  \[
+  Z = \sin \left[ X_3 + X_3^2 + X_3 X_4 + X_4^2 + \sqrt{X_3^4 + X_4^4} \right]
+  \]
+
+  <p>Even if \(X_1, X_2, X_3, X_4\) are independent, showing \(Y \perp Z\) by checking joint CDFs or densities is nearly impossible.</p>
+
+  <ul>
+    <li>The distributions of \(Y\) and \(Z\) are complex and likely <strong>don’t have nice density forms</strong>.</li>
+    <li>Calculating \(P(Y \le y, Z \le z)\) is infeasible.</li>
+    <li><strong>Jacobians?</strong> Ugh. Very messy.</li>
+  </ul>
+
+  <h3>✅ Measure Theoretic View:</h3>
+  <p>You define <strong>independence via product measures</strong>:</p>
+
+  <blockquote>
+    <p>Two random variables \(X\) and \(Y\) are independent if their joint distribution measure is the <strong>product</strong> of their individual distribution measures.</p>
+  </blockquote>
+
+  <h4>📌 This avoids:</h4>
+  <ul>
+    <li>Calculating densities</li>
+    <li>Checking joint CDFs</li>
+    <li>Tedious transformations</li>
+  </ul>
+
+  <hr>
+
+  <h2>🔷 Section 2: Discrete vs Continuous</h2>
+
+  <blockquote>
+    <p><em>"Proofs of Tchebychev’s inequality... split into discrete and continuous cases."</em></p>
+  </blockquote>
+
+  <h3>🔑 Observation:</h3>
+  <ul>
+    <li>One proof for <strong>discrete</strong> \(X\): use finite sums.</li>
+    <li>One for <strong>continuous</strong> \(X\): use integrals.</li>
+  </ul>
+
+  <p>Example:</p>
+
+  \[
+  P(|X - \mu| \ge \epsilon) \le \frac{\text{Var}(X)}{\epsilon^2}
+  \]
+
+  <h3>❌ Problem:</h3>
+  <p>Why duplicate effort for each case?</p>
+
+  <h3>✅ Measure Theory Fix:</h3>
+  <p>Just define <strong>expected value</strong> as:</p>
+
+  \[
+  E[X] = \int_\Omega X \, dP
+  \]
+
+  <p>No need to distinguish between:</p>
+  <ul>
+    <li>Discrete (integral reduces to sum)</li>
+    <li>Continuous (integral over density)</li>
+  </ul>
+
+  <h4>📌 Key Insight:</h4>
+  <p>Measure theory <strong>unifies</strong> the two worlds: discrete and continuous are just <strong>special cases</strong> of measurable functions.</p>
+
+  <hr>
+
+  <h2>🔷 Section 3: Univariate vs Multivariate</h2>
+
+  <blockquote>
+    <p><em>"Once you learn single-variable formulae, you're told to relearn everything for multiple variables."</em></p>
+  </blockquote>
+
+  <h3>🔑 Typical Scenario:</h3>
+  <ul>
+    <li>First: Study \(X\), a single random variable.</li>
+    <li>Then: Study \((X, Y)\): joint density, CDFs, Jacobians, etc.</li>
+  </ul>
+
+  <h3>❌ Problem:</h3>
+  <p>Redundant work and repetition. Jacobians in transformations are often complex and unnecessary.</p>
+
+  <h3>✅ Measure Theory Fix:</h3>
+  <ul>
+    <li>A <strong>distribution</strong> is an <strong>image measure</strong> of the probability measure under a function \(X : \Omega \to \mathbb{R}\).</li>
+    <li>A <strong>joint distribution</strong> is the image measure under a vector-valued function \((X_1, X_2, \dots) : \Omega \to \mathbb{R}^d\).</li>
+  </ul>
+
+  <h4>📌 Key Insight:</h4>
+  <p>No need for two separate theories.</p>
+
+  <blockquote>
+    <p>“Image measure” = the push-forward of measure via random variable mapping.</p>
+  </blockquote>
+
+  <hr>
+
+  <h2>🔷 Section 4: Approximation of Distributions</h2>
+
+  <blockquote>
+    <p><em>"How can a discrete distribution be approximated by a continuous one?"</em></p>
+  </blockquote>
+
+  <h3>🔑 Central Limit Theorem (CLT):</h3>
+  <p>If \(\xi_1, \dots, \xi_n\) are i.i.d. random variables with mean 0, variance summing to 1:</p>
+
+  \[
+  S_n = \xi_1 + \dots + \xi_n \xrightarrow{d} N(0, 1)
+  \]
+
+  <h3>❌ Problem with Classical Approach:</h3>
+  <ul>
+    <li>You’re told convergence in distribution means \( F_n(x) \to F(x) \) pointwise.</li>
+    <li>But real CLT proofs use moment generating functions, characteristic functions, or Laplace transforms.</li>
+  </ul>
+
+  <p>There’s a <strong>gap in rigor</strong>—equivalence of convergence types is often <strong>assumed</strong>, not proved.</p>
+
+  <h3>✅ Measure Theory Fix:</h3>
+
+  <blockquote>
+    <p>Define convergence in distribution as:</p>
+  </blockquote>
+
+  \[
+  X_n \xrightarrow{d} X \iff E[f(X_n)] \to E[f(X)] \quad \text{for all bounded, continuous } f
+  \]
+
+  <p>This covers:</p>
+  <ul>
+    <li>Real-valued random variables</li>
+    <li>Random vectors</li>
+    <li>Random elements in metric spaces like function spaces</li>
+  </ul>
+
+  <h4>📌 Visual:</h4>
+  <p><em>A discrete sum (e.g., binomial) getting closer to the bell curve (normal). Measure theory allows us to rigorously define this convergence.</em></p>
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/CLT_uniform_distribution.svg/512px-CLT_uniform_distribution.svg.png" alt="CLT Approximation" />
+
+  <hr>
+
+  <h2>🔷 Final Takeaway</h2>
+
+  <blockquote>
+    <p><em>"In the long run, the measure theoretic approach will save you much work..."</em></p>
+  </blockquote>
+
+  <h3>✅ Summary of Benefits:</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Classical Approach</th>
+        <th>Measure-Theoretic Approach</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Separate cases: discrete vs continuous</td>
+        <td>Unified via integration w.r.t. measures</td>
+      </tr>
+      <tr>
+        <td>Messy independence proofs</td>
+        <td>Simple via product measures</td>
+      </tr>
+      <tr>
+        <td>Repetition in univariate/multivariate</td>
+        <td>Unified via image measures and product spaces</td>
+      </tr>
+      <tr>
+        <td>Vague convergence arguments</td>
+        <td>Rigorous convergence via expectations</td>
+      </tr>
+      <tr>
+        <td>Case-by-case formulas</td>
+        <td>General theorems that cover all cases</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2>🔚 Conclusion</h2>
+
+  <p>Measure theory isn’t just abstract formality. It <strong>streamlines</strong>, <strong>generalizes</strong>, and <strong>deepens</strong> your understanding of probability:</p>
+
+  <ul>
+    <li>Avoids tedious calculations</li>
+    <li>Handles complex problems cleanly</li>
+    <li>Prepares you for modern probability, statistics, and machine learning</li>
+  </ul>
+
+  <p>And as the author hints — once you learn this framework, you won’t go back.</p>
+
+</section>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="glow-box" id="2">
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="0">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="0">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="0">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="0">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="0">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="0">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="0">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="0">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="0">
+  
+</div>
+
+
+</section>
+
+<button class="next-btn" onclick="location.href='wk2.html'">Next Section →</button>
+
+<footer>
+  <p>&copy; 2025 Shaan | Built with purpose</p>
+</footer>
+
+</body>
+</html>
+
 
