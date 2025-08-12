@@ -206,7 +206,185 @@
 
   <!-- Notes section boxes -->
   <div class="glow-box" id="1">
-    
+    ```html
+<section>
+  <h2>Question</h2>
+  <p>
+    <strong>Q1.</strong><br>
+    Let \(X_1,X_2,\dots,X_n\) be the numbers of annual accidents occurring in \(n\) stretches of a highway in year 2010. These are independent with pmf \(\mathrm{Poi}(\tau_i),\; i=1,\dots,n.\)
+    Let \(Y_1,Y_2,\dots,Y_n\) be the numbers of annual accidents on the same stretches in year 2020; they are independent with pmf \(\mathrm{Poi}(\beta\tau_i),\; i=1,\dots,n.\)
+    For some reason observations \(X_1,\dots,X_k\) are missing (only \(X_{k+1},\dots,X_n\) are observed). Derive explicit expressions for the MLE of \(\beta\) and \(\tau_1,\dots,\tau_n.\)
+  </p>
+
+  <h2>Solution</h2>
+  <ul>
+    <li>
+      <strong>Step 0 — notation.</strong>
+      <ul>
+        <li>Define the indicator \(\delta_i\) for observed \(X_i\):
+          \[
+            \delta_i=\begin{cases}1,& i=k+1,\dots,n\ (\text{observed }X_i),\\[4pt]
+            0,& i=1,\dots,k\ (\text{missing }X_i).\end{cases}
+          \]
+        </li>
+        <li>Observed-data totals:
+          \[
+            S_X=\sum_{i:\,\delta_i=1} X_i=\sum_{i=k+1}^n X_i,\qquad S_Y=\sum_{i=1}^n Y_i.
+          \]
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Step 1 — observed-data likelihood.</strong>
+      <ul>
+        <li>The observed-data likelihood (up to constants not involving parameters) is
+          \[
+            L(\beta,\tau_1,\dots,\tau_n)
+            \propto
+            \prod_{i:\,\delta_i=1} e^{-\tau_i}\tau_i^{X_i}\times
+            \prod_{i=1}^n e^{-\beta\tau_i}(\beta\tau_i)^{Y_i}.
+          \]
+        </li>
+        <li>Log-likelihood \(\ell(\beta,\tau)\):
+          \[
+            \ell(\beta,\tau)
+            = \sum_{i:\,\delta_i=1}\big[-\tau_i+X_i\log\tau_i\big]
+            + \sum_{i=1}^n\big[-\beta\tau_i + Y_i\log\beta + Y_i\log\tau_i\big]
+            + \text{const.}
+          \]
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Step 2 — score equations for each \(\tau_i\).</strong>
+      <ul>
+        <li>If \(X_i\) is observed (\(\delta_i=1\)):
+          \[
+            \frac{\partial\ell}{\partial\tau_i}
+            = -1 + \frac{X_i}{\tau_i} -\beta + \frac{Y_i}{\tau_i}
+            = -(1+\beta)+\frac{X_i+Y_i}{\tau_i}.
+          \]
+          Setting to \(0\) gives
+          \[
+            \tau_i=\frac{X_i+Y_i}{1+\beta},\qquad i=k+1,\dots,n.
+          \]
+        </li>
+        <li>If \(X_i\) is missing (\(\delta_i=0\)):
+          \[
+            \frac{\partial\ell}{\partial\tau_i}
+            = -(1+\beta)+\frac{Y_i}{\tau_i}=0
+            \quad\Rightarrow\quad
+            \tau_i=\frac{Y_i}{1+\beta},\qquad i=1,\dots,k.
+          \]
+        </li>
+        <li>Compact form (solution of \(\tau_i\)-score eqns as a function of \(\beta\)):
+          \[
+            \boxed{\;\hat\tau_i(\beta)=\frac{\delta_i X_i + Y_i}{1+\beta}\;,\qquad i=1,\dots,n.\;}
+          \]
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Step 3 — score equation for \(\beta\).</strong>
+      <ul>
+        <li>Differentiate \(\ell\) w.r.t. \(\beta\):
+          \[
+            \frac{\partial\ell}{\partial\beta}
+            = \sum_{i=1}^n\left(-\tau_i + \frac{Y_i}{\beta}\right)
+            = -\sum_{i=1}^n \tau_i + \frac{S_Y}{\beta}.
+          \]
+        </li>
+        <li>Substitute \(\tau_i=\hat\tau_i(\beta)=\dfrac{\delta_i X_i+Y_i}{1+\beta}\) to get
+          \[
+            -\sum_{i=1}^n \frac{\delta_i X_i + Y_i}{1+\beta} + \frac{S_Y}{\beta} = 0.
+          \]
+          Since \(\sum_{i=1}^n(\delta_i X_i+Y_i)=S_X+S_Y\), this simplifies to
+          \[
+            -\frac{S_X+S_Y}{1+\beta} + \frac{S_Y}{\beta}=0.
+          \]
+        </li>
+        <li>Solve for \(\beta\):
+          \[
+            \frac{S_Y}{\beta}=\frac{S_X+S_Y}{1+\beta}
+            \quad\Longrightarrow\quad
+            \beta(S_X+S_Y)=S_Y(1+\beta)
+            \quad\Longrightarrow\quad
+            \beta S_X=S_Y.
+          \]
+          Hence, provided \(S_X>0\),
+          \[
+            \boxed{\;\hat\beta=\frac{S_Y}{S_X}=\frac{\sum_{i=1}^n Y_i}{\sum_{i=k+1}^n X_i}\;. \;}
+          \]
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Step 4 — plug back to get \(\hat\tau_i\).</strong>
+      <ul>
+        <li>Using \(\hat\beta=S_Y/S_X\) in \(\hat\tau_i(\beta)\) yields
+          \[
+            \boxed{\;\hat\tau_i
+            = \frac{\delta_i X_i + Y_i}{1+\hat\beta}
+            = \frac{\delta_i X_i + Y_i}{1 + \dfrac{S_Y}{S_X}}
+            = \frac{S_X(\delta_i X_i + Y_i)}{S_X+S_Y}\;. \;}
+          \]
+        </li>
+        <li>Equivalently,
+          \[
+            \hat\tau_i=\begin{cases}
+              \dfrac{X_i+Y_i}{1+\hat\beta}, & i=k+1,\dots,n\ (\text{observed }X_i),\\[8pt]
+              \dfrac{Y_i}{1+\hat\beta}, & i=1,\dots,k\ (\text{missing }X_i).
+            \end{cases}
+          \]
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Step 5 — existence / edge cases.</strong>
+      <ul>
+        <li>If \(S_X=\sum_{i=k+1}^n X_i=0\) while \(S_Y>0\), the equation \(\beta S_X=S_Y\) cannot be satisfied by any finite \(\beta\); the likelihood increases as \(\beta\to\infty\) and no finite MLE exists.</li>
+        <li>If \(S_X=0\) and \(S_Y=0\), \(\beta\) is not identifiable (any \(\beta\) gives same likelihood) and all \(\tau_i\) are estimated as zero. Assume \(S_X>0\) for the usual case.</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Step 6 — justification of maximum.</strong>
+      <ul>
+        <li>For fixed \(\beta\) the log-likelihood is concave in each \(\tau_i\) (second derivative w.r.t. \(\tau_i\) equals \(- (X_i+Y_i)/\tau_i^2<0\) when \(X_i+Y_i>0\)), and profiling yields a single finite critical point for \(\beta\) under regular data (\(S_X>0\)), giving the global maximum in regular cases.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Related concepts</h2>
+  <ul>
+    <li><strong>Poisson-regression / GLM viewpoint:</strong> the model is a multiplicative scale-change; \(\log\beta\) acts like an offset if \(\tau_i\) were modeled.</li>
+    <li><strong>Profile likelihood:</strong> we profiled out the \(\tau_i\) to obtain a closed-form MLE for \(\beta\).</li>
+    <li><strong>Method-of-moments equivalence:</strong> \(\hat\beta=S_Y/S_X\) also follows from equating totals, since \(E[S_Y]=\beta E[S_X]\).</li>
+    <li><strong>Missingness assumption:</strong> we implicitly assumed the \(X\)-missingness is non-informative (MCAR). If missingness depends on \(\tau_i\) or \(Y_i\), estimates may be biased.</li>
+  </ul>
+
+  <h2>Remarks / Summary</h2>
+  <p>
+    The MLEs are simple and intuitive:
+    \[
+      \boxed{\;\hat\beta=\frac{S_Y}{S_X}\;,\qquad
+      \hat\tau_i=\frac{\delta_i X_i + Y_i}{1+\hat\beta}=\frac{S_X(\delta_i X_i + Y_i)}{S_X+S_Y}\;}
+    \]
+    (with the usual caveat that \(S_X>0\) is required for a finite \(\hat\beta\)). These estimators borrow strength across stretches and years: missing \(X_i\) are estimated using \(Y_i\) and the global scale \(\hat\beta\).
+  </p>
+  <ul>
+    <li>Provide the explicit Fisher-information / asymptotic variance for \(\hat\beta\) (delta-method or observed information),</li>
+    <li>Give an EM derivation (treat missing \(X_i\) as latent) and show equivalence to the closed-form solution, or</li>
+    <li>Compute the estimates and produce the suggested visualizations for a toy dataset in R or Python.</li>
+  </ul>
+</section>
+```
+
   </div>
 
 
