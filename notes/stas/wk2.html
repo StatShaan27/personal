@@ -542,7 +542,111 @@ In Problem 1, assume a “complete data model” that includes the observed valu
 
 
   <div class="glow-box" id="3">
-      
+      <h2>Q3.</h2>
+<p>
+In Problem 2, write down the recursive updating equation for \(\tau_1\) alone, covering both cases: \(X_1\) missing and \(X_1\) observed.
+</p>
+
+<h2>Solution</h2>
+
+<h2>EM-step structure (recap)</h2>
+<ul>
+    <li>
+        At iteration \(t\):
+        \[
+        \tilde X_i^{(t)} =
+        \begin{cases}
+        X_i, & i\in O \ (\text{observed}),\\[4pt]
+        \tau_i^{(t)}, & i\in M \ (\text{missing}).
+        \end{cases}
+        \]
+    </li>
+    <li>Define:
+        \[
+        A^{(t)} = \sum_{i=1}^n \tilde X_i^{(t)}, \quad
+        S_Y = \sum_{i=1}^n Y_i.
+        \]
+    </li>
+    <li>M-step updates:
+        \[
+        \beta^{(t+1)} = \frac{S_Y}{A^{(t)}}, \quad
+        \tau_i^{(t+1)} = \frac{\tilde X_i^{(t)} + Y_i}{1 + \beta^{(t+1)}}.
+        \]
+    </li>
+</ul>
+
+<h2>Case A — \(X_1\) missing (\(1 \in M\))</h2>
+<ul>
+    <li>\(\tilde X_1^{(t)} = \tau_1^{(t)}\)</li>
+    <li>Let:
+        \[
+        B^{(t)} = \sum_{i \ne 1} \tilde X_i^{(t)} = A^{(t)} - \tau_1^{(t)}.
+        \]
+    </li>
+    <li>From \(\beta^{(t+1)} = S_Y / A^{(t)}\) and the M-step:
+        \[
+        \tau_1^{(t+1)} = \frac{\tau_1^{(t)} + Y_1}{1 + \frac{S_Y}{A^{(t)}}}
+        = \frac{A^{(t)}\big(\tau_1^{(t)} + Y_1\big)}{A^{(t)} + S_Y}.
+        \]
+    </li>
+    <li>Substitute \(A^{(t)} = B^{(t)} + \tau_1^{(t)}\) to get:
+        \[
+        \boxed{
+        \tau_1^{(t+1)} =
+        \frac{\big(B^{(t)} + \tau_1^{(t)}\big)\big(\tau_1^{(t)} + Y_1\big)}
+             {B^{(t)} + \tau_1^{(t)} + S_Y}
+        \quad (\text{if \(X_1\) missing})}
+        \]
+    </li>
+</ul>
+
+<h3>Special subcase — only \(\tau_1\) missing</h3>
+<ul>
+    <li>If \(M = \{1\}\), \(B^{(t)} = S_X^{(O)}\) (constant).</li>
+    <li>Recurrence simplifies to:
+        \[
+        \boxed{
+        \tau_1^{(t+1)} =
+        \frac{\big(S_X^{(O)} + \tau_1^{(t)}\big)\big(\tau_1^{(t)} + Y_1\big)}
+             {S_X^{(O)} + \tau_1^{(t)} + S_Y}
+        \quad (\text{if only \(\tau_1\) missing})}
+        \]
+    </li>
+    <li>At convergence (\(\tau_1^{(t+1)} = \tau_1^{(t)} = \tau_1^*\)):
+        \[
+        \tau_1^* = \frac{Y_1}{\beta^*}, \quad
+        \beta^* = \frac{S_Y}{\sum_i \tilde X_i^*}.
+        \]
+    </li>
+</ul>
+
+<h2>Case B — \(X_1\) observed (\(1 \in O\))</h2>
+<ul>
+    <li>\(\tilde X_1^{(t)} = X_1\) (constant data).</li>
+    <li>M-step gives:
+        \[
+        \boxed{
+        \tau_1^{(t+1)} =
+        \frac{X_1 + Y_1}{1 + \beta^{(t+1)}}
+        \quad (\text{if \(X_1\) observed})}
+        \]
+    </li>
+    <li>Using \(\beta^{(t+1)} = S_Y / A^{(t)}\):
+        \[
+        \tau_1^{(t+1)} =
+        \frac{A^{(t)}(X_1 + Y_1)}{A^{(t)} + S_Y}.
+        \]
+    </li>
+    <li>At convergence:
+        \[
+        \boxed{
+        \hat{\tau}_1 = \frac{X_1 + Y_1}{1 + \hat{\beta}}, \quad
+        \hat{\beta} = \frac{S_Y}{\sum_{i \in O} X_i}
+        }
+        \]
+    </li>
+</ul>
+
     </div>
 
 
