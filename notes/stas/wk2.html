@@ -672,7 +672,105 @@ In Problem 2, write down the recursive updating equation for \(\tau_1\) alone, c
 
 
   <div class="glow-box" id="4">
-    
+    <h2>Q4. If the recursions in Problem 3 converge, what is the value of $\tau_1$ reached at convergence?</h2>
+
+<h2>Detailed solution</h2>
+
+<p>
+Let the EM iterates converge to $(\beta^*,\tau_1^*,\tau_2^*,\dots,\tau_n^*)$. At convergence, the EM fixed-point (stationarity) conditions must hold — these are simply the M-step formulae evaluated at the limit, together with the definition of the $\tilde X_i$.
+</p>
+
+<p>
+Recall the M-step relations used in the EM:
+</p>
+
+$$
+\beta = \frac{S_Y}{\sum_{i=1}^n \tilde X_i},\qquad
+\tau_i = \frac{\tilde X_i + Y_i}{1+\beta},
+$$
+
+<p>
+where $\tilde X_i = X_i$ if $X_i$ observed and $\tilde X_i = \tau_i$ if $X_i$ missing, and $S_Y = \sum_{i=1}^n Y_i$.
+</p>
+
+<h3>Case A — $X_1$ observed</h3>
+
+<p>
+Then $\tilde X_1^* = X_1$ and the fixed-point equation for $\tau_1$ is:
+</p>
+
+$$
+\tau_1^* = \frac{X_1 + Y_1}{1+\beta^*}.
+$$
+
+<p>
+So the limit value is:
+</p>
+
+$$
+\boxed{\tau_1^* = \frac{X_1 + Y_1}{1+\beta^*}}
+$$
+
+<p>
+(Equivalently, using $\beta^* = S_Y / \sum_{i\in O} X_i$ when appropriate, this equals the closed-form MLE value.)
+</p>
+
+<h3>Case B — $X_1$ missing</h3>
+
+<p>
+Then $\tilde X_1^* = \tau_1^*$. The fixed-point equation gives:
+</p>
+
+$$
+\tau_1^* = \frac{\tau_1^* + Y_1}{1+\beta^*}.
+$$
+
+<p>
+Rearranging:
+</p>
+
+$$
+(1+\beta^*)\tau_1^* = \tau_1^* + Y_1
+\quad\Longrightarrow\quad
+\beta^* \tau_1^* = Y_1
+\quad\Longrightarrow\quad
+\boxed{\tau_1^* = \frac{Y_1}{\beta^*}}.
+$$
+
+<h3>Summary</h3>
+<ul>
+    <li>If $X_1$ is observed: $\displaystyle \tau_1^* = \frac{X_1 + Y_1}{1+\beta^*}$</li>
+    <li>If $X_1$ is missing: $\displaystyle \tau_1^* = \frac{Y_1}{\beta^*}$</li>
+</ul>
+
+<p>
+These match the fixed-point formulas from earlier and the MLE relations from direct maximization.
+</p>
+
+<h2>How to prove these equalities (short rigorous argument)</h2>
+<ol>
+    <li><b>EM fixed-point property.</b> A limit point $(\beta^*,\tau^*)$ of the EM iteration satisfies the M-step maximization conditional on the E-step expectations computed at $(\beta^*,\tau^*)$. This implies that the M-step equations hold at $(\beta^*,\tau^*)$.</li>
+    <li><b>Algebraic rearrangement.</b> For the missing case: $\tau_1^* = (\tau_1^* + Y_1)/(1+\beta^*) \Rightarrow \beta^* \tau_1^* = Y_1 \Rightarrow \tau_1^* = Y_1/\beta^*$. For the observed case, rearrangement is similarly straightforward.</li>
+    <li><b>Consistency with MLE.</b> Since EM limit points satisfy the observed-data score equations, they match the direct MLE relations.</li>
+</ol>
+
+<h2>How to prove the EM recursions actually converge (sketch)</h2>
+<ul>
+    <li><b>Monotonicity + compactness.</b> If the log-likelihood is strictly concave and the parameter space is compact, EM converges to the unique maximizer.</li>
+    <li><b>One-dimensional contraction (special case).</b> If only $\tau_1$ is missing, analyze the scalar map:
+    $$
+    f(\tau) = \frac{(S_X^{(O)} + \tau)(\tau + Y_1)}{S_X^{(O)} + \tau + S_Y}
+    $$
+    and check $|f'(\tau^*)| &lt; 1$ for local convergence.</li>
+    <li><b>Vector case.</b> For multiple missing values, check the spectral radius of the Jacobian or use uniqueness of the MLE.</li>
+</ul>
+
+<h3>Important caveats / edge cases</h3>
+<ul>
+    <li>If $S_X^{(O)}=0$ but $S_Y>0$, $\beta$ may be unbounded and EM can diverge.</li>
+    <li>With many missing entries or small counts, EM may converge slowly; acceleration methods (PX-EM, SQUAREM) can help.</li>
+</ul>
+
   </div>
 
 
