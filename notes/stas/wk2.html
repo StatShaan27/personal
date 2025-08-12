@@ -776,7 +776,103 @@ In Problem 2, write down the recursive updating equation for \(\tau_1\) alone, c
 
 
   <div class="glow-box" id="5">
-      
+      <section>
+  <h2>Question</h2>
+  <p>
+    <strong>Q5.</strong><br>
+    If the recursions in Problem 2 converge, what is the value of \(\beta\) reached at convergence?
+  </p>
+
+  <h2>Solution</h2>
+
+  <h2>Setup / notation</h2>
+  <ul>
+    <li>Index sets:
+      <ul>
+        <li>\(O=\{k+1,\dots,n\}\) (indices where \(X_i\) is observed)</li>
+        <li>\(M=\{1,\dots,k\}\) (indices where \(X_i\) is missing)</li>
+      </ul>
+    </li>
+    <li>Totals:
+      \[
+        S_X^{(O)}=\sum_{i\in O} X_i,\quad
+        S_Y^{(O)}=\sum_{i\in O} Y_i,\quad
+        S_Y^{(M)}=\sum_{i\in M} Y_i,\quad
+        S_Y=\sum_{i=1}^n Y_i = S_Y^{(O)}+S_Y^{(M)}.
+      \]
+    </li>
+  </ul>
+
+  <h2>Fixed-point relations at EM limit</h2>
+  <ul>
+    <li>At a limit point \((\beta^*,\tau_1^*,\dots,\tau_n^*)\) the M-step coordinate formulas hold:
+      <ul>
+        <li>For \(i\in O\) (observed):
+          \[
+            \tau_i^* = \frac{X_i+Y_i}{1+\beta^*}.
+          \]
+        </li>
+        <li>For \(i\in M\) (missing):
+          \[
+            \tau_i^* = \frac{Y_i}{\beta^*}.
+          \]
+        </li>
+      </ul>
+    </li>
+    <li>The \(\beta\)-limit satisfies the M-step relation:
+      \[
+        \beta^* \;=\; \frac{S_Y}{\displaystyle\sum_{i=1}^n \tilde X_i^*},
+        \qquad\text{where }\tilde X_i^*=\begin{cases}X_i,&i\in O,\\[4pt]\tau_i^*,&i\in M.\end{cases}
+      \]
+    </li>
+  </ul>
+
+  <h2>Algebraic derivation</h2>
+  <ul>
+    <li>Compute \(\sum_{i=1}^n \tilde X_i^*\):
+      \[
+        \sum_{i=1}^n \tilde X_i^* = \sum_{i\in O} X_i + \sum_{i\in M} \tau_i^*
+        = S_X^{(O)} + \sum_{i\in M} \frac{Y_i}{\beta^*}
+        = S_X^{(O)} + \frac{S_Y^{(M)}}{\beta^*}.
+      \]
+    </li>
+    <li>Substitute into the \(\beta\)-equation:
+      \[
+        \beta^* = \frac{S_Y}{S_X^{(O)} + \dfrac{S_Y^{(M)}}{\beta^*}}.
+      \]
+    </li>
+    <li>Multiply both sides by the denominator:
+      \[
+        \beta^*\Big(S_X^{(O)} + \frac{S_Y^{(M)}}{\beta^*}\Big) = S_Y
+        \quad\Longrightarrow\quad
+        \beta^* S_X^{(O)} + S_Y^{(M)} = S_Y.
+      \]
+    </li>
+    <li>Simplify to obtain:
+      \[
+        \beta^* S_X^{(O)} = S_Y - S_Y^{(M)} = S_Y^{(O)}.
+      \]
+    </li>
+  </ul>
+
+  <h2>Final result</h2>
+  <p>
+    Therefore the limit (and under regularity the MLE) is
+  </p>
+  \[
+    \boxed{\displaystyle \beta^* \;=\; \frac{S_Y^{(O)}}{S_X^{(O)}} \;=\; \frac{\sum_{i\in O} Y_i}{\sum_{i\in O} X_i}.}
+  \]
+  <p>
+    Intuition: only stretches with observed \(X_i\) provide the direct link identifying the scale \(\beta\). Observed \(Y\) for missing \(X\) inform the \(\tau_i\) but cannot by themselves separate \(\beta\) from \(\tau_i\).
+  </p>
+
+  <h2>Edge cases & interpretation</h2>
+  <ul>
+    <li>If all \(X_i\) observed (\(M=\varnothing\)), this reduces to \(\beta^*=S_Y/S_X\) with \(S_X=\sum_i X_i\).</li>
+    <li>If no \(X_i\) observed (\(O=\varnothing\)), then \(S_X^{(O)}=0\) and \(\beta\) is not identifiable from the data (denominator zero); additional assumptions or priors are required.</li>
+  </ul>
+</section>
+
   </div>
 
 
