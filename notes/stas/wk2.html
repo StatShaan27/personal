@@ -395,7 +395,129 @@
 
 
     <div class="glow-box" id="2">
-      
+      <h2>Q2.</h2>
+<p>
+In Problem 1, assume a “complete data model” that includes the observed values of \(X_1,\dots,X_k\) (so the missing \(X_1,\dots,X_k\) are treated as latent). Write down the E-step and the M-step of the EM algorithm to obtain the MLEs of \(\beta\) and \(\tau_1,\dots,\tau_n\).
+</p>
+
+<h2>Solution</h2>
+
+<h2>Model recap / notation</h2>
+<ul>
+    <li>For \(i=1,\dots,n\):
+        <ul>
+            <li>\(X_i \sim \operatorname{Poi}(\tau_i)\)</li>
+            <li>\(Y_i \sim \operatorname{Poi}(\beta\tau_i)\)</li>
+        </ul>
+        Independent across \(i\) and between years conditional on the \(\tau_i\)’s.
+    </li>
+    <li>Observed: all \(Y_i\); \(X_{k+1},\dots,X_n\) observed; \(X_1,\dots,X_k\) missing.</li>
+    <li>Sets: \(M=\{1,\dots,k\}\) (missing), \(O=\{k+1,\dots,n\}\) (observed).</li>
+    <li>Notation:
+        \[
+        S_X^{(O)}=\sum_{i\in O} X_i,\quad
+        S_Y=\sum_{i=1}^n Y_i,\quad
+        S_Y^{(O)}=\sum_{i\in O} Y_i,\quad
+        S_Y^{(M)}=\sum_{i\in M} Y_i
+        \]
+    </li>
+</ul>
+
+<h2>Complete-data log-likelihood</h2>
+<p>If we had the full data \((X_1,\dots,X_n,Y_1,\dots,Y_n)\), the log-likelihood (up to constant) is:</p>
+\[
+\ell_c(\beta,\tau)
+= \sum_{i=1}^n\left[-(1+\beta)\tau_i + (X_i+Y_i)\log\tau_i\right] + S_Y\log\beta
+\]
+
+<h2>E-step</h2>
+<ul>
+    <li>For each missing \(i\in M\):
+        \[
+        \mathbb{E}[X_i\mid Y_i,\theta^{(t)}] = \tau_i^{(t)}
+        \]
+        (since \(X_i\) and \(Y_i\) are independent given \(\tau_i\)).
+    </li>
+    <li>Define:
+        \[
+        \tilde X_i^{(t)} =
+        \begin{cases}
+        X_i, & i\in O,\\
+        \tau_i^{(t)}, & i\in M.
+        \end{cases}
+        \]
+    </li>
+    <li>Expected complete-data log-likelihood:
+        \[
+        Q(\beta,\tau\mid\theta^{(t)}) = \sum_{i=1}^n\left[-(1+\beta)\tau_i + (\tilde X_i^{(t)}+Y_i)\log\tau_i\right] + S_Y\log\beta
+        \]
+    </li>
+</ul>
+
+<h2>M-step</h2>
+<ul>
+    <li>Differentiate w.r.t. \(\tau_i\):
+        \[
+        \tau_i^{(t+1)} = \frac{\tilde X_i^{(t)} + Y_i}{1+\beta}
+        \]
+    </li>
+    <li>Differentiate w.r.t. \(\beta\):
+        \[
+        \beta^{(t+1)} = \frac{S_Y}{\sum_{i=1}^n \tau_i^{(t+1)}}
+        \]
+    </li>
+    <li>Substitute to obtain:
+        \[
+        \beta^{(t+1)} = \frac{S_Y}{S_X^{(O)} + \sum_{i\in M} \tau_i^{(t)}}
+        \]
+    </li>
+</ul>
+
+<h2>One EM iteration</h2>
+<ul>
+    <li><strong>E-step:</strong>
+        <ul>
+            <li>For \(i\in M\): \(\tilde X_i^{(t)} = \tau_i^{(t)}\)</li>
+            <li>For \(i\in O\): \(\tilde X_i^{(t)} = X_i\)</li>
+        </ul>
+    </li>
+    <li><strong>M-step:</strong>
+        <ol>
+            <li>\(\displaystyle \beta^{(t+1)} = \frac{S_Y}{S_X^{(O)} + \sum_{i\in M} \tau_i^{(t)}}\)</li>
+            <li>\(\displaystyle \tau_i^{(t+1)} = \frac{\tilde X_i^{(t)} + Y_i}{1+\beta^{(t+1)}}\)</li>
+        </ol>
+    </li>
+</ul>
+
+<h2>Initialization & termination</h2>
+<ul>
+    <li>Initialize \(\tau_i^{(0)}\) and \(\beta^{(0)}\) with reasonable values.</li>
+    <li>Iterate until convergence based on parameter change or log-likelihood increment.</li>
+</ul>
+
+<h2>Fixed point / connection to MLE</h2>
+<ul>
+    <li>At convergence:
+        \[
+        \tau_i^{*} = \frac{\tilde X_i^{*}+Y_i}{1+\beta^{*}}, \quad
+        \beta^{*} = \frac{S_Y}{\sum_i \tilde X_i^{*}}
+        \]
+    </li>
+    <li>For \(i\in O\): \(\tau_i^{*} = \frac{X_i+Y_i}{1+\beta^{*}}\)</li>
+    <li>For \(i\in M\): \(\tau_i^{*} = \frac{Y_i}{\beta^{*}}\)</li>
+    <li>Final closed-form MLE:
+        \[
+        \beta^{*} = \frac{S_Y^{(O)}}{S_X^{(O)}}
+        \]
+    </li>
+</ul>
+
+<h2>Edge cases</h2>
+<ul>
+    <li>If \(S_X^{(O)}=0\), \(\beta\) not identifiable — regularize or use Bayesian approach.</li>
+    <li>If \(S_Y^{(O)}=0\) and \(S_X^{(O)}>0\), \(\beta^{*}=0\).</li>
+</ul>
+
     </div>
 
 
