@@ -1039,7 +1039,100 @@ In Problem 2, write down the recursive updating equation for \(\tau_1\) alone, c
 
 
   <div class="glow-box" id="7">
-      
+      <section>
+  <h2>Question</h2>
+  <p>
+    <strong>Q7.</strong><br>
+    Are the parameters of the model of Problem 6 uniquely identifiable from the data?
+  </p>
+
+  <h2>Solution</h2>
+
+  <h2>Short answer</h2>
+  <ul>
+    <li>
+      <p>
+        <strong>Yes — generically.</strong> The parameters \((p,\mu_1,\mu_2,\sigma^2)\) of the two-normal mixture with a common variance are identifiable <em>up to label switching</em>. That is, the mapping
+        \[
+          (p,\mu_1,\mu_2,\sigma^2)\mapsto f(y\mid p,\mu_1,\mu_2,\sigma^2)
+        \]
+        is one-to-one except for the trivial symmetry that swaps component labels:
+        \((p,\mu_1,\mu_2,\sigma^2)\) and \((1-p,\mu_2,\mu_1,\sigma^2)\) define the same distribution.
+      </p>
+    </li>
+    <li>
+      <p>
+        Degenerate failures of identifiability occur only in obvious special cases (components coincide or one weight is 0 or 1).
+      </p>
+    </li>
+  </ul>
+
+  <h2>Constructive identifiability sketch (moment method)</h2>
+  <ul>
+    <li>
+      <p>
+        Let \(m=\mathbb{E}[Y]=p\mu_1+(1-p)\mu_2\) and \(\Delta=\mu_1-\mu_2\). Denote central moments \(\mu_r=\mathbb{E}[(Y-m)^r]\). For the model
+        \[
+          Y\sim p\,\mathcal N(\mu_1,\sigma^2)+(1-p)\,\mathcal N(\mu_2,\sigma^2),
+        \]
+        one obtains the moment relations
+        \[
+        \begin{aligned}
+          \mu_2 &= \sigma^2 + p(1-p)\Delta^2,\\[4pt]
+          \mu_3 &= p(1-p)(1-2p)\Delta^3,\\[4pt]
+          \mu_4 &= 3\sigma^4 + 6\sigma^2 p(1-p)\Delta^2
+                  + p(1-p)\big[(1-p)^3+p^3\big]\Delta^4.
+        \end{aligned}
+        \]
+      </p>
+    </li>
+    <li>
+      <p>
+        From \((\mu_2,\mu_3,\mu_4)\) one can (generically) solve for \((p,\Delta^2,\sigma^2)\). Then \(\mu_1,\mu_2\) follow from \(m\) and \(\Delta\) (the sign of \(\Delta\) is the label choice).
+      </p>
+    </li>
+    <li>
+      <p>
+        Special subcases:
+        <ul>
+          <li>If \(p\neq\tfrac12\) and \(\Delta\neq0\), then \(\mu_3\neq0\) typically gives the sign and magnitude information needed to recover \(p\) and \(\Delta\).</li>
+          <li>If \(p=\tfrac12\) then \(\mu_3=0\) but \(\mu_2,\mu_4\) still determine \(\Delta^2\) and \(\sigma^2\) (so parameters recoverable up to label swap).</li>
+        </ul>
+      </p>
+    </li>
+  </ul>
+
+  <h2>Non-identifiable / degenerate cases</h2>
+  <ul>
+    <li>\(\mu_1=\mu_2\): the mixture reduces to a single \(\mathcal N(\mu_1,\sigma^2)\); \(p\) and the two means cannot be separated.</li>
+    <li>\(p\in\{0,1\}\): only a single component is present; the other component's parameters are irrelevant.</li>
+    <li>Label-switching symmetry: \((p,\mu_1,\mu_2,\sigma^2)\) and \((1-p,\mu_2,\mu_1,\sigma^2)\) represent the same model — this is the only nonidentifiability in the generic (nondegenerate) case.</li>
+  </ul>
+
+  <h2>Related theoretical facts</h2>
+  <ul>
+    <li>Finite mixtures of distinct normal components are identifiable (up to permutations of labels); this is a classical result in mixture theory.</li>
+    <li>Having a common unknown variance \(\sigma^2\) does not destroy identifiability — higher moments or characteristic-function arguments separate \(\Delta\), \(p\), and \(\sigma^2\).</li>
+  </ul>
+
+  <h2>Practical implications & recommendations</h2>
+  <ul>
+    <li>In estimation, enforce an identifiability convention (e.g. impose \(\mu_1\le\mu_2\) or order by component means) or post-process MCMC/EM output to resolve label switching.</li>
+    <li>Be alert to near-degeneracy: when \(\mu_1\approx\mu_2\) or \(p\) near 0 or 1 the likelihood is flat in directions and numerical methods may be unstable; use regularization, informative priors, or constrained optimization.</li>
+    <li>Use multiple random starts and check for label permutations and convergence to the same fitted mixture (modulo label swaps).</li>
+  </ul>
+
+  <h2>Visualization check</h2>
+  <ul>
+    <li>Plot the fitted mixture density and the two component densities. If components overlap strongly or one weight is near 0, identifiability is practically weak even if theoretically present.</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>
+    The model is identifiable except for the unavoidable label-switching symmetry and trivial degenerate cases (coincident components or trivial weight). In plain terms: you can recover the parameters from the distribution, but you must either accept or remove the label ambiguity and be careful near degeneracies.
+  </p>
+</section>
+
   </div>
 
 
