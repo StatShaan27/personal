@@ -899,7 +899,114 @@ In Problem 2, write down the recursive updating equation for \(\tau_1\) alone, c
 
 
 <div class="glow-box" id="6">
-      
+  <section>
+  <h2>Question</h2>
+  <p>
+    <strong>Q6.</strong><br>
+    Let \(Y_1,\dots,Y_n\) be i.i.d. from the two–component normal mixture
+  </p>
+  \[
+    f(y\mid p,\mu_1,\mu_2,\sigma^2)
+    = p\,\frac{1}{\sigma}\,\phi\!\left(\frac{y-\mu_1}{\sigma}\right)
+    +(1-p)\,\frac{1}{\sigma}\,\phi\!\left(\frac{y-\mu_2}{\sigma}\right),
+    \quad 0<p<1,\; \sigma>0.
+  \]
+  <p>
+    Write down an iterative step of the steepest-ascent method for the MLEs of \(p,\mu_1,\mu_2,\sigma^2\).
+  </p>
+
+  <h2>Solution</h2>
+
+  <h2>Log-likelihood and responsibilities</h2>
+  <ul>
+    <li>Parameters: \(\theta=(p,\mu_1,\mu_2,\sigma^2)\), with \(\sigma>0\).</li>
+    <li>Log-likelihood:
+      \[
+        \ell(\theta)=\sum_{i=1}^n
+        \log\!\left[p\,\phi_{\mu_1,\sigma}(Y_i) + (1-p)\,\phi_{\mu_2,\sigma}(Y_i)\right],
+      \]
+      where \(\phi_{\mu,\sigma}(y)=\frac{1}{\sigma}\phi\!\big((y-\mu)/\sigma\big)\).
+    </li>
+    <li>Responsibilities (posterior weights under current \(\theta\)):
+      \[
+        r_i(\theta)=
+        \frac{p\,\phi_{\mu_1,\sigma}(Y_i)}
+             {p\,\phi_{\mu_1,\sigma}(Y_i)+(1-p)\,\phi_{\mu_2,\sigma}(Y_i)}\in(0,1).
+      \]
+    </li>
+  </ul>
+
+  <h2>Score (gradient) components</h2>
+  <ul>
+    <li>
+      \[
+        \frac{\partial \ell}{\partial p}
+        = \sum_{i=1}^n\!\left(\frac{r_i}{p}-\frac{1-r_i}{1-p}\right)
+      \]
+    </li>
+    <li>
+      \[
+        \frac{\partial \ell}{\partial \mu_1}
+        = \frac{1}{\sigma^2}\sum_{i=1}^n r_i\,(Y_i-\mu_1),\qquad
+        \frac{\partial \ell}{\partial \mu_2}
+        = \frac{1}{\sigma^2}\sum_{i=1}^n (1-r_i)\,(Y_i-\mu_2)
+      \]
+    </li>
+    <li>
+      \[
+        \frac{\partial \ell}{\partial \sigma^2}
+        = \sum_{i=1}^n\!\left[
+          -\frac{1}{2\sigma^2}
+          + \frac{ r_i\,(Y_i-\mu_1)^2 + (1-r_i)\,(Y_i-\mu_2)^2 }{2\sigma^4}
+        \right]
+      \]
+    </li>
+  </ul>
+
+  <h2>Steepest-ascent iterative step</h2>
+  <ul>
+    <li>Given iterate \(\theta^{(t)}=(p^{(t)},\mu_1^{(t)},\mu_2^{(t)},(\sigma^2)^{(t)})\) and stepsize \(\eta_t>0\), compute responsibilities
+      \[
+        r_i^{(t)}=
+        \frac{p^{(t)}\,\phi_{\mu_1^{(t)},\,\sigma^{(t)}}(Y_i)}
+             {p^{(t)}\,\phi_{\mu_1^{(t)},\,\sigma^{(t)}}(Y_i)+\big(1-p^{(t)}\big)\,\phi_{\mu_2^{(t)},\,\sigma^{(t)}}(Y_i)}.
+      \]
+    </li>
+    <li>Update:
+      \[
+      \begin{aligned}
+        p^{(t+1)} \,&=\, p^{(t)} + \eta_t \sum_{i=1}^n\!\left(\frac{r_i^{(t)}}{p^{(t)}}-\frac{1-r_i^{(t)}}{1-p^{(t)}}\right),\\[6pt]
+        \mu_1^{(t+1)} \,&=\, \mu_1^{(t)} + \eta_t \frac{1}{(\sigma^{2})^{(t)}}\sum_{i=1}^n r_i^{(t)}\big(Y_i-\mu_1^{(t)}\big),\\[6pt]
+        \mu_2^{(t+1)} \,&=\, \mu_2^{(t)} + \eta_t \frac{1}{(\sigma^{2})^{(t)}}\sum_{i=1}^n (1-r_i^{(t)})\big(Y_i-\mu_2^{(t)}\big),\\[8pt]
+        (\sigma^{2})^{(t+1)} \,&=\, (\sigma^{2})^{(t)} + \eta_t
+        \sum_{i=1}^n\!\left[
+          -\frac{1}{2(\sigma^{2})^{(t)}}
+          + \frac{ r_i^{(t)}(Y_i-\mu_1^{(t)})^2 + (1-r_i^{(t)})(Y_i-\mu_2^{(t)})^2}
+                 {2\big((\sigma^{2})^{(t)}\big)^2}
+        \right].
+      \end{aligned}
+      \]
+    </li>
+  </ul>
+
+  <h2>Constraints & practicalities</h2>
+  <ul>
+    <li><em>Maintain constraints:</em> \(0<p<1\), \(\sigma^2>0\).
+      <ul>
+        <li><strong>Projection:</strong> after the step, clip \(p\in[\epsilon,1-\epsilon]\), \(\sigma^2\ge \epsilon\).</li>
+        <li><strong>Reparameterize (cleaner):</strong> update \(\omega=\log\!\frac{p}{1-p}\), \(\lambda=\log\sigma^2\) unconstrained via gradient ascent, then map back \(p=\mathrm{logit}^{-1}(\omega)\), \(\sigma^2=e^\lambda\).</li>
+      </ul>
+    </li>
+    <li>Use a line-search or diminishing \(\eta_t\) to ensure ascent of \(\ell(\theta)\).</li>
+    <li>Impose an identifiability convention (e.g., \(\mu_1\le \mu_2\)) to avoid label switching.</li>
+  </ul>
+
+  <h2>Remarks</h2>
+  <p>
+    The responsibilities \(r_i^{(t)}\) are the same weights used in EM. Steepest ascent follows the score direction; EM or second-order (Newton / Fisher scoring, L-BFGS) steps usually converge faster for mixtures, but the updates above are the canonical steepest-ascent iteration.
+  </p>
+</section>
+
 </div>
 
 
