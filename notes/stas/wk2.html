@@ -1165,7 +1165,118 @@ In Problem 2, write down the recursive updating equation for \(\tau_1\) alone, c
 
 
   <div class="glow-box" id="8">
-      
+      <section>
+  <h2>Question</h2>
+  <p>
+    <strong>Q8.</strong><br>
+    Suppose \((X_1,Y_1),\dots,(X_n,Y_n)\) are i.i.d. where \(X_i\sim\operatorname{Bernoulli}(p)\) and the conditional pdf of \(Y_i\) given \(X_i=x\) is
+  </p>
+  \[
+    f(y\mid x,p,\mu_1,\mu_2,\sigma^2)=
+    x\;\frac{1}{\sigma}\phi\!\Big(\frac{y-\mu_1}{\sigma}\Big)
+    +(1-x)\;\frac{1}{\sigma}\phi\!\Big(\frac{y-\mu_2}{\sigma}\Big),
+    \quad -\infty<y<\infty,
+  \]
+  <p>
+    with \(0<p<1,\; -\infty<\mu_1,\mu_2<\infty,\; \sigma>0\). Obtain explicit expressions for the MLEs of the four parameters.
+  </p>
+
+  <h2>Solution</h2>
+
+  <h2>Interpretation & notation</h2>
+  <ul>
+    <li>The label \(X_i\) is observed, so this is a labeled mixture: if \(X_i=1\) then \(Y_i\sim N(\mu_1,\sigma^2)\); if \(X_i=0\) then \(Y_i\sim N(\mu_2,\sigma^2)\).</li>
+    <li>Define
+      \[
+        n_1=\sum_{i=1}^n X_i,\qquad n_0=n-n_1.
+      \]
+    </li>
+    <li>Index sets and sums:
+      \[
+        I_1=\{i: X_i=1\},\quad I_0=\{i:X_i=0\},
+      \]
+      \[
+        S_1=\sum_{i\in I_1} Y_i,\quad S_0=\sum_{i\in I_0} Y_i.
+      \]
+    </li>
+    <li>Sample means (when defined):
+      \[
+        \bar Y_1=\frac{S_1}{n_1}\ (\text{if }n_1>0),\qquad
+        \bar Y_0=\frac{S_0}{n_0}\ (\text{if }n_0>0).
+      \]
+    </li>
+    <li>Sums of squared deviations:
+      \[
+        Q_1=\sum_{i\in I_1}(Y_i-\bar Y_1)^2,\quad
+        Q_0=\sum_{i\in I_0}(Y_i-\bar Y_0)^2.
+      \]
+    </li>
+  </ul>
+
+  <h2>Log-likelihood (brief)</h2>
+  <p>
+    Because \((X_i,Y_i)\) are i.i.d. and \(X_i\) observed,
+    \[
+      \ell(p,\mu_1,\mu_2,\sigma^2)
+      = \sum_{i=1}^n \big[X_i\log p +(1-X_i)\log(1-p)\big]
+        + \sum_{i\in I_1}\log\phi_{\mu_1,\sigma}(Y_i)
+        + \sum_{i\in I_0}\log\phi_{\mu_2,\sigma}(Y_i),
+    \]
+    where \(\log\phi_{\mu,\sigma}(y)=-\tfrac12\log(2\pi\sigma^2)-\dfrac{(y-\mu)^2}{2\sigma^2}\).
+  </p>
+
+  <h2>MLE for \(p\)</h2>
+  <ul>
+    <li>Maximizing the Bernoulli part yields the familiar estimator:
+      \[
+        \boxed{\;\hat p = \frac{n_1}{n} = \frac{1}{n}\sum_{i=1}^n X_i\;.}
+      \]
+    </li>
+  </ul>
+
+  <h2>MLEs for \(\mu_1,\mu_2\)</h2>
+  <ul>
+    <li>Maximizing the normal log-terms w.r.t. \(\mu_1\) (holding \(\sigma^2\) fixed) gives the sample mean within group 1:
+      \[
+        \boxed{\;\hat\mu_1 = \bar Y_1 = \frac{1}{n_1}\sum_{i: X_i=1} Y_i \quad(\text{if }n_1>0)\;.}
+      \]
+    </li>
+    <li>Similarly for group 0:
+      \[
+        \boxed{\;\hat\mu_2 = \bar Y_0 = \frac{1}{n_0}\sum_{i: X_i=0} Y_i \quad(\text{if }n_0>0)\;.}
+      \]
+    </li>
+  </ul>
+
+  <h2>MLE for \(\sigma^2\)</h2>
+  <ul>
+    <li>Collect the normal contributions and differentiate w.r.t. \(\sigma^2\). The MLE is
+      \[
+        \boxed{\;
+          \widehat{\sigma^2}
+          = \frac{1}{n}\Bigg(\sum_{i\in I_1}(Y_i-\hat\mu_1)^2 + \sum_{i\in I_0}(Y_i-\hat\mu_2)^2\Bigg)
+          \;=\; \frac{Q_1+Q_0}{n}\;.
+        }
+      \]
+      (Note: this is the MLE divisor \(n\), not the unbiased divisor \(n-2\).)
+    </li>
+  </ul>
+
+  <h2>Edge cases & existence</h2>
+  <ul>
+    <li>If \(n_1=0\) then \(\hat p=0\) and \(\hat\mu_1\) is undefined from the data; similarly if \(n_0=0\) then \(\hat p=1\) and \(\hat\mu_2\) is undefined. In those degenerate cases extra assumptions or priors are required.</li>
+    <li>If both groups have at least one observation, the MLEs above are well-defined and unique.</li>
+  </ul>
+
+  <h2>Summary (boxed answers)</h2>
+  <ul>
+    <li>\(\displaystyle \boxed{\;\hat p = \dfrac{n_1}{n}\;}\).</li>
+    <li>\(\displaystyle \boxed{\;\hat\mu_1 = \bar Y_1 = \dfrac{1}{n_1}\sum_{i:X_i=1} Y_i\;}\) (if \(n_1>0\)).</li>
+    <li>\(\displaystyle \boxed{\;\hat\mu_2 = \bar Y_0 = \dfrac{1}{n_0}\sum_{i:X_i=0} Y_i\;}\) (if \(n_0>0\)).</li>
+    <li>\(\displaystyle \boxed{\;\widehat{\sigma^2} = \dfrac{1}{n}\Big(\sum_{i\in I_1}(Y_i-\hat\mu_1)^2 + \sum_{i\in I_0}(Y_i-\hat\mu_2)^2\Big)\;}\).</li>
+  </ul>
+</section>
+
   </div>
 
 
