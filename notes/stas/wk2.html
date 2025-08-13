@@ -1308,6 +1308,103 @@ In Problem 2, write down the recursive updating equation for \(\tau_1\) alone, c
 
   <div class="glow-box" id="9">
       
+<section>
+  <h2>Question</h2>
+  <p>
+    <strong>Q9.</strong><br>
+    For the data and the model described in Problem 6, let the “complete data model” be as in Problem 8. Derive the E-step and the M-step of the EM algorithm for finding the MLEs of the four parameters \((p,\mu_1,\mu_2,\sigma^2)\).
+  </p>
+
+  <h2>Solution</h2>
+
+  <h2>Model / notation (recap)</h2>
+  <ul>
+    <li>Observed: \(Y_1,\dots,Y_n\). Latent labels: \(X_i\in\{0,1\}\) for \(i=1,\dots,n\).</li>
+    <li>Complete-data model:
+      \[
+        P(X_i=1)=p,\qquad
+        Y_i\mid X_i=1\sim N(\mu_1,\sigma^2),\quad
+        Y_i\mid X_i=0\sim N(\mu_2,\sigma^2).
+      \]
+    </li>
+    <li>Current iterate: \(\theta^{(t)}=(p^{(t)},\mu_1^{(t)},\mu_2^{(t)},(\sigma^2)^{(t)})\).</li>
+  </ul>
+
+  <h2>E-step</h2>
+  <ul>
+    <li>Compute the conditional expectation of the complete-data indicator \(X_i\) given \(Y_i\) under \(\theta^{(t)}\). These are the responsibilities:
+      \[
+        \boxed{\;
+        r_i^{(t)} \;=\; \mathbb{E}[X_i\mid Y_i,\theta^{(t)}]
+        \;=\; \Pr\{X_i=1\mid Y_i,\theta^{(t)}\}
+        \;=\; \frac{p^{(t)}\,\phi\!\big(\dfrac{Y_i-\mu_1^{(t)}}{\sigma^{(t)}}\big)}
+        {\,p^{(t)}\,\phi\!\big(\dfrac{Y_i-\mu_1^{(t)}}{\sigma^{(t)}}\big)
+        +(1-p^{(t)})\,\phi\!\big(\dfrac{Y_i-\mu_2^{(t)}}{\sigma^{(t)}}\big)\,}\;}
+      \]
+      where \(\sigma^{(t)}=\sqrt{(\sigma^2)^{(t)}}\) and \(\phi\) is the standard normal pdf.
+    </li>
+    <li>Also note \(\mathbb{E}[1-X_i\mid Y_i,\theta^{(t)}]=1-r_i^{(t)}\).</li>
+    <li>For numerical stability compute the ratio using log-sum-exp form (work in log-domain).</li>
+  </ul>
+
+  <h2>M-step</h2>
+  <ul>
+    <li>Set \(R^{(t)}=\sum_{i=1}^n r_i^{(t)}\) (the expected count in component 1) and \(n-R^{(t)}=\sum_{i=1}^n(1-r_i^{(t)})\).</li>
+    <li>Maximize the expected complete-data log-likelihood (replace \(X_i\) by \(r_i^{(t)}\)). Closed-form updates are:</li>
+    <li>
+      \[
+        \boxed{\; p^{(t+1)} \;=\; \frac{1}{n}\sum_{i=1}^n r_i^{(t)} \;=\; \frac{R^{(t)}}{n} \;}
+      \]
+    </li>
+    <li>
+      \[
+        \boxed{\; \mu_1^{(t+1)} \;=\; \frac{\displaystyle\sum_{i=1}^n r_i^{(t)} Y_i}{\displaystyle\sum_{i=1}^n r_i^{(t)}} \;=\; \frac{1}{R^{(t)}}\sum_{i=1}^n r_i^{(t)}Y_i \;}
+      \]
+    </li>
+    <li>
+      \[
+        \boxed{\; \mu_2^{(t+1)} \;=\; \frac{\displaystyle\sum_{i=1}^n (1-r_i^{(t)}) Y_i}{\displaystyle\sum_{i=1}^n (1-r_i^{(t)})} \;=\; \frac{1}{n-R^{(t)}}\sum_{i=1}^n (1-r_i^{(t)})Y_i \;}
+      \]
+    </li>
+    <li>
+      \[
+        \boxed{\; (\sigma^2)^{(t+1)} \;=\; \frac{1}{n}\sum_{i=1}^n\Big[\, r_i^{(t)}\big(Y_i-\mu_1^{(t+1)}\big)^2 + (1-r_i^{(t)})\big(Y_i-\mu_2^{(t+1)}\big)^2 \Big]\; }
+      \]
+      (This follows by maximizing the expected complete-data normal log-likelihood; the MLE divisor is \(n\).)
+    </li>
+  </ul>
+
+  <h2>One EM iteration (concise summary)</h2>
+  <ul>
+    <li>Given \(\theta^{(t)}\):</li>
+    <li><strong>E-step:</strong> compute \(r_i^{(t)}\) for \(i=1,\dots,n\) using the boxed formula above.</li>
+    <li><strong>M-step:</strong> compute \(R^{(t)}=\sum r_i^{(t)}\) and update
+      \[
+        p^{(t+1)}=\frac{R^{(t)}}{n},\quad
+        \mu_1^{(t+1)}=\frac{\sum r_i^{(t)}Y_i}{R^{(t)}},\quad
+        \mu_2^{(t+1)}=\frac{\sum (1-r_i^{(t)})Y_i}{n-R^{(t)}},
+      \]
+      and
+      \[
+        (\sigma^2)^{(t+1)}=\frac{1}{n}\sum \big[ r_i^{(t)}(Y_i-\mu_1^{(t+1)})^2 + (1-r_i^{(t)})(Y_i-\mu_2^{(t+1)})^2\big].
+      \]
+    </li>
+  </ul>
+
+  <h2>Convergence & practical notes</h2>
+  <ul>
+    <li>Iterate E and M steps until parameter change or log-likelihood increment falls below tolerance.</li>
+    <li>Initialization: choose sensible starts (k-means, random, or multiple restarts) to avoid poor local maxima and label switching.</li>
+    <li>For numerical stability use log-domain computations for responsibilities; guard against division by zero (ensure \(R^{(t)}\) and \(n-R^{(t)}\) are not too close to 0; regularize if necessary).</li>
+  </ul>
+
+  <h2>Remark</h2>
+  <p>
+    These EM updates are the classical closed-form E- and M-steps for the Gaussian two-component mixture with common variance. They increase the observed-data log-likelihood monotonically and (under regularity) converge to a stationary point of the likelihood.
+  </p>
+</section>
+
+
   </div>
 
 
@@ -1341,7 +1438,81 @@ In Problem 2, write down the recursive updating equation for \(\tau_1\) alone, c
 
 
   <div class="glow-box" id="10">
-      
+      <div style="border:1px solid #ccc; padding:16px; border-radius:8px; background:#f9f9f9; font-family:monospace; white-space:pre; overflow-x:auto;">
+<pre>
+  set.seed(123)  # For reproducibility
+
+### ---- Parameters for simulation ----
+n <- 100
+p_true <- 0.4
+mu1_true <- -1
+mu2_true <- 2
+sigma2_true <- 1
+
+### ---- Simulate data from mixture model ----
+z <- rbinom(n, 1, p_true)   # Latent component indicators
+x <- numeric(n)
+x[z == 1] <- rnorm(sum(z == 1), mean = mu1_true, sd = sqrt(sigma2_true))
+x[z == 0] <- rnorm(sum(z == 0), mean = mu2_true, sd = sqrt(sigma2_true))
+
+### ---- Initial values ----
+p <- 0.001              # small positive to avoid NA in E-step
+mu1 <- 0
+mu2 <- mean(x)
+sigma2 <- var(x)
+
+### ---- EM Algorithm ----
+max_iter <- 1000
+tol <- 1e-6
+loglik <- numeric(max_iter)
+eps <- 1e-10
+
+for (iter in 1:max_iter) {
+  
+  ## E-step: Posterior probabilities for component 1
+  tau1 <- p * dnorm(x, mean = mu1, sd = sqrt(sigma2))
+  tau2 <- (1 - p) * dnorm(x, mean = mu2, sd = sqrt(sigma2))
+  
+  denom <- tau1 + tau2 + eps  # avoid division by zero
+  gamma <- tau1 / denom
+  
+  ## Log-likelihood
+  loglik[iter] <- sum(log(denom))
+  
+  ## M-step: Update parameters
+  p_new <- mean(gamma)
+  mu1_new <- sum(gamma * x) / sum(gamma)
+  mu2_new <- sum((1 - gamma) * x) / sum(1 - gamma)
+  sigma2_new <- sum(gamma * (x - mu1_new)^2 + (1 - gamma) * (x - mu2_new)^2) / n
+  
+  ## Check convergence
+  if (max(abs(c(p_new - p, mu1_new - mu1, mu2_new - mu2, sigma2_new - sigma2)), na.rm = TRUE) < tol) {
+    p <- p_new; mu1 <- mu1_new; mu2 <- mu2_new; sigma2 <- sigma2_new
+    loglik <- loglik[1:iter]
+    cat("Converged in", iter, "iterations\n")
+    break
+  }
+  
+  ## Update for next iteration
+  p <- p_new
+  mu1 <- mu1_new
+  mu2 <- mu2_new
+  sigma2 <- sigma2_new
+}
+
+### ---- Final estimates ----
+cat("Estimated p:", p, "\n")
+cat("Estimated mu1:", mu1, "\n")
+cat("Estimated mu2:", mu2, "\n")
+cat("Estimated sigma^2:", sigma2, "\n")
+
+### ---- Plot log-likelihood ----
+plot(loglik, type = "o", main = "Log-likelihood over iterations",
+     xlab = "Iteration", ylab = "Log-likelihood")
+
+</pre>
+</div>
+
   </div>
 
 </section>
