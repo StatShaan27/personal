@@ -213,7 +213,7 @@
     <h3>Contents</h3>
     <ul>
       <li><a href="#2.1"> Likelihood-based estimation for Infant Mortality Rate (IMR)</a></li>
-      <li><a href="#2.2"> Cramér–Rao Bound for IID Case</a></li>
+      <li><a href="#2.2"> Numerical Optimization Algorithms</a></li>
       <li><a href="#2.3"> Summarising the simplifications</a></li>
       <li><a href="#2.4"> Cramér–Rao Inequality in the Discrete Case</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
@@ -392,8 +392,136 @@
 
 
 
-    <div class="glow-box" id="2.0">
-  
+    <div class="glow-box" id="2.2">
+      <section>
+  <h2>Numerical Optimization Algorithms</h2>
+
+  <h2>Newton–Raphson for MLE</h2>
+  <ul>
+    <li><strong>Purpose:</strong> Find parameter values where the score function (gradient of log-likelihood) is zero.</li>
+    <li><strong>Update rule:</strong>
+      \[
+      \theta^{(n+1)} = \theta^{(n)} - H^{-1} \nabla L
+      \]
+      where:
+      <ul>
+        <li>\(\theta = (\alpha, \gamma)\) in the IMR case.</li>
+        <li>\(\nabla L\) = score vector.</li>
+        <li>\(H\) = Hessian (matrix of 2nd derivatives).</li>
+      </ul>
+    </li>
+    <li><strong>Geometric picture:</strong> Standing on a mountain surface (log-likelihood). Newton–Raphson uses local curvature to jump toward the peak.</li>
+    <li><strong>Problem:</strong> If the likelihood surface is bumpy or flat, the Hessian may be unstable → divergence can occur.</li>
+  </ul>
+
+  <h2>Fisher’s Scoring</h2>
+  <ul>
+    <li><strong>Modification:</strong> Replace observed Hessian (\(-H\)) with expected Hessian (Fisher Information \(I\)).</li>
+    <li><strong>Update rule:</strong>
+      \[
+      \theta^{(n+1)} = \theta^{(n)} + I^{-1} \nabla L
+      \]
+    </li>
+    <li><strong>Why?</strong>
+      <ul>
+        <li>Expected curvature often simpler to compute.</li>
+        <li>Provides more stable convergence.</li>
+        <li>Fisher Information is positive definite (under regularity) → avoids negative directions.</li>
+      </ul>
+    </li>
+    <li><strong>Visualization:</strong> Newton uses actual local curvature at your point (can be lumpy). Fisher’s Scoring uses the average curvature of the whole mountain (smoother) → better convergence.</li>
+  </ul>
+
+  <h2>Worked Poisson Example: Accidents in Two Cities</h2>
+
+  <h2>Setup</h2>
+  <ul>
+    <li>City A counts: \(X_i \sim \text{Pois}(T_i)\).</li>
+    <li>City B counts: \(Y_i \sim \text{Pois}(\beta T_i)\).</li>
+    <li>Parameters:
+      <ul>
+        <li>\(T_i\): baseline expected counts (differs by year).</li>
+        <li>\(\beta\): constant relative risk multiplier (same across years).</li>
+      </ul>
+    </li>
+    <li>Interpretation: City B is always \(\beta\) times as risky as City A → multiplicative risk model.</li>
+  </ul>
+
+  <h2>Step 1: Log-Likelihood</h2>
+  <ul>
+    <li>Ignoring constants:
+      \[
+      L = \sum_{i=1}^n \Big[-(\beta T_i) + y_i \ln(\beta T_i) - T_i + x_i \ln(T_i)\Big]
+      \]
+    </li>
+  </ul>
+
+  <h2>Step 2: First-Order Conditions</h2>
+  <ul>
+    <li>Derivative wrt \(\beta\):
+      \[
+      \frac{\partial L}{\partial \beta} = -\sum T_i + \frac{1}{\beta}\sum y_i = 0
+      \]
+    </li>
+    <li>Derivative wrt \(T_i\):
+      \[
+      \frac{\partial L}{\partial T_i} = -\beta + \frac{y_i}{T_i} - 1 + \frac{x_i}{T_i} = 0
+      \]
+    </li>
+  </ul>
+
+  <h2>Step 3: Solve Equations</h2>
+  <ul>
+    <li>From derivative wrt \(T_i\):
+      \[
+      T_i = \frac{x_i+y_i}{\beta+1}
+      \]
+    </li>
+    <li>Plug into derivative wrt \(\beta\):
+      \[
+      \frac{1}{\beta}\sum y_i = \sum T_i = \sum \frac{x_i+y_i}{\beta+1}
+      \]
+    </li>
+    <li>Simplify:
+      \[
+      \hat{\beta} = \frac{\sum y_i}{\sum x_i}
+      \]
+    </li>
+  </ul>
+
+  <h2>Step 4: Final MLEs</h2>
+  <ul>
+    <li><strong>Risk ratio:</strong>
+      \[
+      \hat{\beta} = \frac{\bar{Y}}{\bar{X}} \quad \text{(ratio of averages or totals)}
+      \]
+    </li>
+    <li><strong>Baseline yearly rates:</strong>
+      \[
+      \hat{T}_i = \frac{x_i+y_i}{\hat{\beta}+1}
+      \]
+    </li>
+    <li><strong>Interpretation:</strong>
+      <ul>
+        <li>\(\hat{\beta}\) = relative risk of City B vs City A.</li>
+        <li>\(\hat{T}_i\) = baseline expected accidents for year \(i\), adjusted so A and B scale correctly.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Connecting Back to Newton–Raphson / Fisher Scoring</h2>
+  <ul>
+    <li>In the IMR example (\(\alpha, \gamma\)): analytic MLEs are messy → iterative methods (Newton or Fisher) are used.</li>
+    <li>In the Poisson accidents example: algebra is nice → closed-form MLEs possible.</li>
+    <li>Takeaway:
+      <ul>
+        <li>Sometimes MLEs = neat closed forms (like \(\hat{\beta}=\sum Y/\sum X\)).</li>
+        <li>Often MLEs = require iterative numerical optimization (Newton/Fisher).</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
     </div>
 
 
