@@ -214,7 +214,7 @@
     <ul>
       <li><a href="#2.1"> Likelihood-based estimation for Infant Mortality Rate (IMR)</a></li>
       <li><a href="#2.2"> Numerical Optimization Algorithms</a></li>
-      <li><a href="#2.3"> Summarising the simplifications</a></li>
+      <li><a href="#2.3"> Expectation–Maximization with Incomplete Data</a></li>
       <li><a href="#2.4"> Cramér–Rao Inequality in the Discrete Case</a></li>
       <li><a href="#2.5">Fisher Information Identity</a></li>
       <li><a href="#2.6">Cramér–Rao Bound for Vector Parameters</a></li>
@@ -551,8 +551,168 @@
 
 
 
-<div class="glow-box" id="2.0">
-  
+<div class="glow-box" id="2.3">
+  <section>
+  <h2>1) Model Recap (Complete-Data)</h2>
+  <ul>
+    <li>For each year \(i=1,\dots,n\):
+      <ul>
+        <li>\(X_i \sim \text{Pois}(T_i)\) (City A)</li>
+        <li>\(Y_i \sim \text{Pois}(\beta T_i)\) (City B)</li>
+      </ul>
+    </li>
+    <li>Parameters: \(\beta>0\) and \(T_1,\dots,T_n>0\).</li>
+  </ul>
+  <p>Ignoring constants, the complete-data log-likelihood is:</p>
+  <p>
+  \[
+  L(\beta,\mathbf T;\mathbf x,\mathbf y)
+  =\sum_{i=1}^n \Big[-(\beta+1)T_i + y_i(\log\beta+\log T_i) + x_i\log T_i\Big].
+  \]
+  </p>
+  <p>The <strong>complete-data sufficient statistics</strong> are:</p>
+  <p>
+  \[
+  S_X=\sum_i x_i,\quad S_Y=\sum_i y_i,\quad \sum_i\log T_i \;\text{(enters via }x_i+y_i\text{)}.
+  \]
+  </p>
+  <p>When nothing is missing, the MLEs satisfy:</p>
+  <p>
+  \[
+  \hat{\beta}=\frac{\sum_i y_i}{\sum_i x_i},\qquad 
+  \hat T_i=\frac{x_i+y_i}{\hat\beta+1}.
+  \]
+  </p>
+
+  <h2>2) Missing Data: One \(x_s\) is Missing</h2>
+
+  <h3>E-step (Expectation)</h3>
+  <p>Construct:</p>
+  <p>
+  \[
+  Q(\beta,\mathbf T\mid \beta^{(n)},\mathbf T^{(n)})
+  = \mathbb E\!\left[L(\beta,\mathbf T;\mathbf X,\mathbf Y)\,\middle|\,\text{observed},\,\beta^{(n)},\mathbf T^{(n)}\right].
+  \]
+  </p>
+  <p>Only terms involving the missing \(X_s\) need an expectation. Since:</p>
+  <p>
+  \[
+  X_s \mid \beta^{(n)},\mathbf T^{(n)} \sim \text{Pois}\big(T_s^{(n)}\big),\quad
+  \mathbb E[X_s\mid\cdot]=T_s^{(n)},
+  \]
+  </p>
+  <p>and \(\log T_s\) is not random, we have:</p>
+  <p>
+  \[
+  \mathbb E[X_s \log T_s \mid \cdot]=T_s^{(n)}\log T_s.
+  \]
+  </p>
+  <p>So, in \(Q\) replace missing \(x_s\) by \(T_s^{(n)}\). Concretely, use:</p>
+  <p>
+  \[
+  \tilde S_X^{(n)}=\sum_{i\neq s} x_i + T_s^{(n)}.
+  \]
+  </p>
+
+  <h3>M-step (Maximization)</h3>
+  <p>Maximize \(Q\) as if \(x_s\) were replaced. Updates:</p>
+  <ul>
+    <li><strong>Update for \(\beta\):</strong>
+      <p>
+      \[
+      \beta^{(n+1)}=\frac{\sum_i y_i}{\tilde S_X^{(n)}}=\frac{\sum_i y_i}{\sum_{i\neq s} x_i + T_s^{(n)}}.
+      \]
+      </p>
+    </li>
+    <li><strong>Updates for \(T_i\):</strong>
+      <p>
+      \[
+      T_i^{(n+1)}=\frac{x_i+y_i}{\beta^{(n+1)}+1}\quad(i\neq s),\qquad 
+      T_s^{(n+1)}=\frac{T_s^{(n)}+y_s}{\beta^{(n+1)}+1}.
+      \]
+      </p>
+    </li>
+  </ul>
+  <p>Repeat E→M until convergence.</p>
+
+  <h2>3) Why This Works</h2>
+  <ul>
+    <li>EM maximizes observed-data likelihood via expected complete-data log-likelihood.</li>
+    <li>In exponential families, EM works with expected sufficient statistics.</li>
+    <li>Here, only \(S_X\) is affected; replace missing \(x_s\) by \(T_s^{(n)}\).</li>
+    <li>Each EM step increases or preserves the observed log-likelihood → convergence to stationary point (MLE under mild conditions).</li>
+  </ul>
+
+  <h2>4) Pseudocode (Notes-Ready)</h2>
+  <pre>
+Input: observed {x_i (i≠s), y_i (all i)}, choose initial β(0)>0 and T_i(0)>0
+repeat
+  # E-step
+  Sx_tilde ← (∑_{i≠s} x_i) + T_s^(n)
+
+# M-step
+
+β^(n+1) ← (∑\_i y\_i) / Sx\_tilde
+for i≠s:   T\_i^(n+1) ← (x\_i + y\_i) / (β^(n+1) + 1)
+i = s:     T\_s^(n+1) ← (T\_s^(n) + y\_s) / (β^(n+1) + 1)
+
+until convergence (e.g., relative change in β and all T\_i below tolerance)
+Output: β̂, T̂\_1,…,T̂\_n </pre>
+
+  <p><strong>Stopping rule:</strong></p>
+  <p>
+  \[
+  \max\left\{\frac{|\beta^{(n+1)}-\beta^{(n)}|}{\beta^{(n)}},\;\max_i \frac{|T_i^{(n+1)}-T_i^{(n)}|}{T_i^{(n)}}\right\}<10^{-6}\;(\text{tight}) \;\text{or } 10^{-4}\;(\text{looser}).
+  \]
+  </p>
+
+  <h2>5) Tiny Numeric Walk-Through</h2>
+  <p>Suppose \(n=3\). Observed:</p>
+  <p>
+  \[
+  (x_1, x_2, x_3)=(12,\,?,\,9),\qquad (y_1,y_2,y_3)=(8,\,10,\,7).
+  \]
+  </p>
+  <p>Init: \(\beta^{(0)}=1\). Guess missing \(x_2\) with \(y_2\). Then:</p>
+  <p>
+  \[
+  T_1^{(0)}=10,\;\;T_2^{(0)}=10,\;\;T_3^{(0)}=8.
+  \]
+  </p>
+  <p><strong>E:</strong> \(\tilde S_X^{(0)}=31.\)</p>
+  <p><strong>M:</strong> \(\beta^{(1)}=\tfrac{25}{31}\approx0.8065.\)</p>
+  <p>Then:</p>
+  <p>
+  \[
+  T_1^{(1)}\approx11.06,\quad
+  T_2^{(1)}\approx11.08,\quad
+  T_3^{(1)}\approx8.86.
+  \]
+  </p>
+  <p>Next iteration uses \(T_2^{(1)}\), and so on, until convergence.</p>
+
+  <h2>6) Visual Intuition</h2>
+  <ul>
+    <li>Plate diagram: \(T_i \rightarrow X_i\); \(T_i,\beta \rightarrow Y_i\). Dashed circle around missing \(X_s\).</li>
+    <li>EM loop schematic: E-step (impute) → M-step (closed form update) → repeat.</li>
+    <li>Convergence plot: \(\beta^{(n)}\) vs iterations, flattening to stable value.</li>
+  </ul>
+
+  <h2>7) Extensions & Cautions</h2>
+  <ul>
+    <li>Multiple missing \(x_i\): replace each by \(T_i^{(n)}\).</li>
+    <li>Missing \(y_i\): replace by \(\beta^{(n)}T_i^{(n)}\); re-derive updates.</li>
+    <li>Ignorable missingness assumption: MCAR/MAR; otherwise need missingness model.</li>
+    <li>Initialization: good starts speed convergence.
+      <ul>
+        <li>\(\beta^{(0)}=\tfrac{\sum y_i}{\sum_{i:\,x_i\text{ obs}} x_i + \sum_{i:\,x_i\text{ miss}} y_i}\)</li>
+        <li>\(T_i^{(0)}=\tfrac{x_i+y_i}{\beta^{(0)}+1}\), using \(x_i:=y_i\) where missing.</li>
+      </ul>
+    </li>
+    <li>Monotonicity: EM always increases observed log-likelihood (Newton/Fisher may not).</li>
+  </ul>
+</section>
+
     </div>
 
 
