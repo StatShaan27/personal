@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Week-3 | Shaan</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: #6effe0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      background: #1e1e1e;
+      border-bottom: 2px solid #333;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0;
+    }
+
+    header nav ul li {
+      display: inline;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: #6effe0;
+      font-weight: 500;
+      border: 1px solid transparent;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      border-color: #6effe0;
+      background-color: #6effe0;
+      color: #000;
+    }
+
+    .notes-wrapper {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .info-block {
+      margin-bottom: 2rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .info-block strong {
+      color: #6effe0;
+    }
+
+    .toc {
+      background-color: #1e1e1e;
+      border-left: 4px solid #6effe0;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+    }
+
+    .toc ul {
+      padding-left: 1rem;
+    }
+
+    .toc ul li {
+      padding: 0.3rem 0;
+    }
+
+    .toc a {
+      color: #c9d1d9;
+      text-decoration: none;
+      border-bottom: 1px dashed #6effe0;
+    }
+
+    .toc a:hover {
+      color: #6effe0;
+    }
+
+    .glow-box {
+      border: 2px solid #6effe0;
+      box-shadow: 0 0 20px rgba(110, 255, 224, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background-color: #1e1e1e;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(110, 255, 224, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(110, 255, 224, 0.4); }
+    }
+
+    ul {
+      line-height: 1.6;
+      padding-left: 1.2rem;
+    }
+
+    code, pre {
+      background-color: #222;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      color: #6effe0;
+      display: block;
+      overflow-x: auto;
+    }
+
+    .next-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #6effe0;
+      color: #000;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #6effe0;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+
+
+    .prev-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #6effe0;
+    color: #000;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold
+    cursor: pointer;
+    box-shadow: 0 0 10px #6effe0;
+    transition: background-color 0.3s ease;
+    z-index: 100;
+    }
+
+    .next-btn:hover {
+      background-color: #00ffcc;
+    }
+
+    .prev-btn:hover {
+      background-color: #00ffcc;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
+  </style>
+  <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</head>
+<body>
+
+<header>
+  <h1>Statistical Methods III: Week-3</h1>
+  <p>AY 2025–26</p>
+  <nav>
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../../sections/projects.html">Projects</a></li>
+      <li><a href="../../sections/education.html">Education</a></li>
+      <li><a href="../../sections/misc.html">Misc</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="notes-wrapper">
+
+  <div class="info-block">
+    <p><strong>Instructor:</strong> Debasis Sengupta </p>
+    <p><strong>Office / Department:</strong> ASU</p>
+    <p><strong>Email:</strong> sdebasis@isical.ac.in</p>
+    <p><strong>Marking Scheme:</strong><br>
+      Assignments: 20% | Midterm Test: 30% | End Semester: 50%
+    </p>
+  </div>
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul>
+      <li><a href="#2.1"> Likelihood-based estimation for Infant Mortality Rate (IMR)</a></li>
+      <li><a href="#2.2"> Cramér–Rao Bound for IID Case</a></li>
+      <li><a href="#2.3"> Summarising the simplifications</a></li>
+      <li><a href="#2.4"> Cramér–Rao Inequality in the Discrete Case</a></li>
+      <li><a href="#2.5">Fisher Information Identity</a></li>
+      <li><a href="#2.6">Cramér–Rao Bound for Vector Parameters</a></li>
+      <li><a href="#2.7">Fisher Information Matrix</a></li>
+      <li><a href="#2.8">Cramér–Rao Lower Bound: Vector Parameter Case</a></li>
+      <li><a href="#2.9">Information Equality and Fisher Information Identity</a></li>
+      <li><a href="#2.10">Step-by-Step Breakdown: The Score Function</a></li>
+      <li><a href="#2.11">Newton–Raphson for MLE: Likelihood Maximization</a></li>
+      <li><a href="#2.12">On the Direction of Steepest Ascent</a></li>
+      <li><a href="#2.13">Connecting Fisher Information with the Hessian Matrix</a></li>
+      <li><a href="#2.14">Geometry and Calculus Behind MLE</a></li>
+      <li><a href="#2.15">Fisher’s Scoring Method</a></li>
+      
+    </ul>
+  </div>
+
+  <!-- Notes section boxes -->
+  <div class="glow-box" id="2.1">
+    <section>
+  <h2>Question</h2>
+  <p>Likelihood-based estimation for Infant Mortality Rate (IMR) modeled with Poisson distributions across 3 decades. Work line by line with intuition and visual thinking.</p>
+  <ul>
+    <li>Assume \(Y_i \sim \text{Poisson}(\mu_i)\) with \(\mu_i=\alpha\,\gamma^{\,i-1}\) for \(i=1,2,3\).</li>
+    <li>Form the joint likelihood and log-likelihood.</li>
+    <li>Derive the score equations w.r.t. \(\alpha\) and \(\gamma\).</li>
+    <li>Compute the Hessian and discuss when mixed partials are equal.</li>
+    <li>State the gradient vector and provide interpretation and a visualization idea.</li>
+  </ul>
+
+  <h2>Solution</h2>
+
+  <h2>Step 1: Model Setup</h2>
+  <ul>
+    <li>\(Y_i \sim \text{Poisson}(\mu_i)\), \(i=1,2,3\).</li>
+    <li>\(\mu_i=\alpha\,\gamma^{\,i-1}\).</li>
+    <li>Interpretations:
+      <ul>
+        <li>\(\alpha\): baseline mortality rate (first decade).</li>
+        <li>\(\gamma\): multiplicative growth/decay factor across decades.
+          <ul>
+            <li>\(\gamma>1\): rate increases each decade.</li>
+            <li>\(\gamma<1\): rate decreases (improves) each decade.</li>
+            <li>\(\gamma=1\): constant rate across decades.</li>
+          </ul>
+        </li>
+        <li>Mortality rate follows a multiplicative trend across decades.</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Intuition: think of \(\alpha\) as the starting height and \(\gamma\) as the common ratio of a geometric progression driving the decade-to-decade change.</p>
+
+  <h2>Step 2: Likelihood Function</h2>
+  <ul>
+    <li>Because of independence,
+      \[
+      f(\vec y\mid \alpha,\gamma)=\prod_{i=1}^{3}\frac{e^{-\alpha \gamma^{\,i-1}}\big(\alpha \gamma^{\,i-1}\big)^{y_i}}{y_i!}.
+      \]
+    </li>
+    <li>Log-likelihood:
+      \[
+      L(\alpha,\gamma\mid \vec y)= -\sum_{i=1}^{3}\alpha \gamma^{\,i-1}
+      +\sum_{i=1}^{3} y_i \log\!\big(\alpha \gamma^{\,i-1}\big)
+      -\sum_{i=1}^{3}\log(y_i!).
+      \]
+    </li>
+    <li>Use \(\log(\alpha \gamma^{\,i-1})=\log\alpha+(i-1)\log\gamma\) to simplify derivatives.</li>
+    <li>The term \(-\sum \log(y_i!)\) is constant in \((\alpha,\gamma)\) for optimization.</li>
+  </ul>
+
+  <h2>Step 3: Score Equations (First Derivatives)</h2>
+  <ul>
+    <li>With respect to \(\alpha\):
+      \[
+      \frac{\partial L}{\partial \alpha} = -\sum_{i=1}^{3}\gamma^{\,i-1} + \frac{1}{\alpha}\sum_{i=1}^{3} y_i.
+      \]
+      <ul>
+        <li>First term: expected “load” of \(\alpha\) across decades.</li>
+        <li>Second term: contribution from observed counts, scaled by \(\alpha\).</li>
+      </ul>
+    </li>
+    <li>With respect to \(\gamma\):
+      \[
+      \frac{\partial L}{\partial \gamma} = -\sum_{i=1}^{3} (i-1)\alpha \gamma^{\,i-2} + \frac{1}{\gamma}\sum_{i=1}^{3}(i-1) y_i.
+      \]
+      <ul>
+        <li>First term: effect of \(\gamma\) on expected mortality (weighted by \(\alpha\)).</li>
+        <li>Second term: \(\gamma\)’s effect on the observed data via the log link.</li>
+      </ul>
+    </li>
+    <li>Set both equal to zero to obtain the MLEs of \((\alpha,\gamma)\).</li>
+  </ul>
+
+  <h2>Step 4: Hessian (Second Derivatives)</h2>
+  <ul>
+    <li>
+      \[
+      \frac{\partial^{2} L}{\partial \alpha^{2}} = -\frac{1}{\alpha^{2}}\sum_{i=1}^{3} y_i
+      \quad \text{(always negative ⇒ concave in \(\alpha\)).}
+      \]
+    </li>
+    <li>
+      \[
+      \frac{\partial^{2} L}{\partial \alpha\,\partial \gamma} = -\sum_{i=1}^{3}(i-1)\gamma^{\,i-2}.
+      \]
+    </li>
+    <li>
+      \[
+      \frac{\partial^{2} L}{\partial \gamma^{2}}
+      = -\sum_{i=1}^{3}(i-1)(i-2)\alpha \gamma^{\,i-3}
+      - \frac{1}{\gamma^{2}}\sum_{i=1}^{3}(i-1)y_i.
+      \]
+    </li>
+    <li>Hessian matrix:
+      \[
+      H=
+      \begin{pmatrix}
+      \dfrac{\partial^{2} L}{\partial \alpha^{2}} & \dfrac{\partial^{2} L}{\partial \alpha\,\partial \gamma}\\[6pt]
+      \dfrac{\partial^{2} L}{\partial \gamma\,\partial \alpha} & \dfrac{\partial^{2} L}{\partial \gamma^{2}}
+      \end{pmatrix}.
+      \]
+    </li>
+  </ul>
+
+  <h2>Step 5: Symmetry of Mixed Partials</h2>
+  <ul>
+    <li>By Clairaut’s theorem (twice continuously differentiable \(L\)), mixed partials are equal:
+      \[
+      \frac{\partial^{2} L}{\partial \alpha\,\partial \gamma}
+      =
+      \frac{\partial^{2} L}{\partial \gamma\,\partial \alpha}.
+      \]
+    </li>
+    <li>If differing expressions appear, they arise from algebraic slips, not a failure of symmetry here.</li>
+  </ul>
+
+  <h2>Step 6: Gradient Vector (Summary)</h2>
+  <ul>
+    <li>
+      \[
+      \nabla L(\alpha,\gamma)=
+      \begin{pmatrix}
+      -\sum_{i=1}^{3}\gamma^{\,i-1} + \dfrac{1}{\alpha}\sum_{i=1}^{3} y_i\\[6pt]
+      -\sum_{i=1}^{3}(i-1)\alpha \gamma^{\,i-2} + \dfrac{1}{\gamma}\sum_{i=1}^{3}(i-1) y_i
+      \end{pmatrix}.
+      \]
+    </li>
+    <li>Solve \(\nabla L=0\) for the MLEs of \((\alpha,\gamma)\).</li>
+  </ul>
+
+  <h2>Viz</h2>
+  <ul>
+    <li>Bar chart of IMR across decades. Example with \(\alpha=50\):
+      <ul>
+        <li>\(\gamma=0.8 \Rightarrow [50,\,40,\,32]\) (declining trend).</li>
+        <li>\(\gamma=1.2 \Rightarrow [50,\,60,\,72]\) (growing trend).</li>
+      </ul>
+    </li>
+    <li>Interpretation: the slope of bars tracks \(\gamma\); the first bar anchors at \(\alpha\).</li>
+  </ul>
+
+  <h2>Summary / Insight</h2>
+  <p>This is a two-parameter Poisson trend model where \(\alpha\) sets the initial level and \(\gamma\) controls geometric change across decades. The log-likelihood is concave in \(\alpha\) and has well-behaved mixed partials; the score equations cleanly separate expected vs. observed contributions, making interpretation straightforward.</p>
+</section>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="glow-box" id="2.0">
+  
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+  
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="2.0">
+  
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="glow-box" id="2.0">
+  
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="glow-box" id="2.0">
+  
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="glow-box" id="2.0">
+  
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="glow-box" id="2.0">
+  
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="glow-box" id="2.0">
+  
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+<button class="prev-btn" onclick="location.href='wk1.html'"> ← Previous Section </button>
+
+<button class="next-btn" onclick="location.href='wk3.html'">Next Section →</button>
+
+<footer>
+  <p>&copy; 2025 Shaan | Built with purpose</p>
+</footer>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+</body>
+</html>
