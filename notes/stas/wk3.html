@@ -1,1 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assignment: Week-3 | Shaan</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: #6effe0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      background: #1e1e1e;
+      border-bottom: 2px solid #333;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0;
+    }
+
+    header nav ul li {
+      display: inline;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: #6effe0;
+      font-weight: 500;
+      border: 1px solid transparent;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      border-color: #6effe0;
+      background-color: #6effe0;
+      color: #000;
+    }
+
+    .notes-wrapper {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .info-block {
+      margin-bottom: 2rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .info-block strong {
+      color: #6effe0;
+    }
+
+    .toc {
+      background-color: #1e1e1e;
+      border-left: 4px solid #6effe0;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+    }
+
+    .toc ul {
+      padding-left: 1rem;
+    }
+
+    .toc ul li {
+      padding: 0.3rem 0;
+    }
+
+    .toc a {
+      color: #c9d1d9;
+      text-decoration: none;
+      border-bottom: 1px dashed #6effe0;
+    }
+
+    .toc a:hover {
+      color: #6effe0;
+    }
+
+    .glow-box {
+      border: 2px solid #6effe0;
+      box-shadow: 0 0 20px rgba(110, 255, 224, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background-color: #1e1e1e;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(110, 255, 224, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(110, 255, 224, 0.4); }
+    }
+
+    ul {
+      line-height: 1.6;
+      padding-left: 1.2rem;
+    }
+
+    code, pre {
+      background-color: #222;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      color: #6effe0;
+      display: block;
+      overflow-x: auto;
+    }
+
+    .next-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #6effe0;
+      color: #000;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #6effe0;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+
+    .next-btn:hover {
+      background-color: #00ffcc;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
+  </style>
+  <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</head>
+<body>
+
+<header>
+  <h1>Statistical Methods III: Assignment Week-3</h1>
+  <p>AY 2025–26</p>
+  <nav>
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../../sections/projects.html">Projects</a></li>
+      <li><a href="../../sections/education.html">Education</a></li>
+      <li><a href="../../sections/misc.html">Misc</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="notes-wrapper">
+
+  <div class="info-block">
+    <p><strong>Instructor:</strong> Debasis Sengupta </p>
+    <p><strong>Office / Department:</strong> ASU</p>
+    <p><strong>Email:</strong> sdebasis@isical.ac.in</p>
+    <p><strong>Marking Scheme:</strong><br>
+      Assignments: 20% | Midterm Test: 30% | End Semester: 50%
+    </p>
+  </div>
+
+  <div class="toc">
+    <h3>Contents</h3>
+   <ul>
+  <li><a href="#1">Question 1</a></li>
+  <li><a href="#2">Question 2</a></li>
+  <li><a href="#3">Question 3</a></li>
+  <li><a href="#4">Question 4</a></li>
+  <li><a href="#5">Question 5</a></li>
+  <li><a href="#6">Question 6</a></li>
+  <li><a href="#7">Question 7</a></li>
+  <li><a href="#8">Question 8</a></li>
+  <li><a href="#9">Question 9</a></li>
+  <li><a href="#10">Question 10</a></li>
+</ul>
+  </div>
+
+  <!-- Notes section boxes -->
+  <div class="glow-box" id="1">
+    <section>
+  <h2>Question</h2>
+  <p>
+    We have counts \(Y_1,\dots,Y_4\) (multinomial given total \(n=\sum_i Y_i\)) with cell probabilities
+  </p>
+  <p>
+    \[
+      \pi_1=\tfrac12+\tfrac{\pi}{4},\qquad \pi_2=\pi_3=\tfrac{1-\pi}{4},\qquad \pi_4=\tfrac{\pi}{4},
+    \]
+    where \(\pi\in(0,1)\) is unknown. Reparametrise \(\pi=(1-\theta)^2\) and derive the Fisher–scoring iterative update for the MLE of \(\pi\) (i.e. the update for \(\theta\)).
+  </p>
+
+  <h2>Solution — Detailed Answer</h2>
+
+  <h2>Step 0 — substitute the reparametrisation</h2>
+  <p>
+    Put \(\pi=(1-\theta)^2\) and define
+  </p>
+  <p>\(a:=\dfrac{1-\theta}{2}\quad(\Rightarrow a^2=\dfrac{(1-\theta)^2}{4}).\)</p>
+  <p>
+    Then the cell probabilities as functions of \(\theta\) become (useful algebraic forms)
+  </p>
+  <ul>
+    <li>\(p_1(\theta)=\pi_1=\tfrac12+\tfrac{(1-\theta)^2}{4}=\tfrac12 + a^2,\)</li>
+    <li>\(p_2(\theta)=p_3(\theta)=\tfrac{1-(1-\theta)^2}{4}=\tfrac14 - a^2,\)</li>
+    <li>\(p_4(\theta)=\tfrac{(1-\theta)^2}{4}=a^2.\)</li>
+  </ul>
+
+  <h2>Step 1 — log-likelihood</h2>
+  <p>
+    For total \(n=\sum_i Y_i\),
+  </p>
+  <p>\(\ell(\theta)=\sum_{i=1}^4 Y_i\log p_i(\theta)+\text{const}.\)</p>
+
+  <h2>Step 2 — first derivative (score)</h2>
+  <p>
+    Differentiate \(p_i\) w.r.t. \(\theta\). Using \(a=(1-\theta)/2\) and \(da/d\theta=-1/2\),
+  </p>
+  <ul>
+    <li>\(\dfrac{dp_1}{d\theta}=\dfrac{dp_4}{d\theta}=-a,\)</li>
+    <li>\(\dfrac{dp_2}{d\theta}=\dfrac{dp_3}{d\theta}=+a.\)</li>
+  </ul>
+  <p>
+    Hence the score \(S(\theta)=\dfrac{d\ell}{d\theta}\) is
+  </p>
+  <p>
+    \[
+      \begin{aligned}
+        S(\theta)
+        &=\sum_{i=1}^4 Y_i\frac{p_i'(\theta)}{p_i(\theta)}
+        = -a\frac{Y_1}{p_1}+a\frac{Y_2}{p_2}+a\frac{Y_3}{p_3}-a\frac{Y_4}{p_4}\\
+        &= a\Big(\frac{Y_2+Y_3}{p_2}-\frac{Y_1}{p_1}-\frac{Y_4}{p_4}\Big).
+      \end{aligned}
+    \]
+  </p>
+
+  <h2>Step 3 — Fisher (expected) information</h2>
+  <p>
+    For a multinomial with probabilities \(p_i(\theta)\),
+  </p>
+  <p>\(I(\theta)=n\sum_{i=1}^4\frac{(p_i'(\theta))^2}{p_i(\theta)}.\)</p>
+  <p>
+    Because \((p_i')^2=a^2\) for every \(i\),
+  </p>
+  <p>\(I(\theta)=n\,a^2\Big(\frac{1}{p_1}+\frac{2}{p_2}+\frac{1}{p_4}\Big).\)</p>
+
+  <h2>Step 4 — Fisher scoring update (final iterative step)</h2>
+  <p>
+    Fisher scoring updates by
+  </p>
+  <p>\(\displaystyle \theta^{(t+1)}=\theta^{(t)}+\frac{S(\theta^{(t)})}{I(\theta^{(t)})}.\)</p>
+  <p>
+    Substitute \(S\) and \(I\). Cancelling common factors gives a convenient expression in terms of proportions \(r_i=Y_i/n\):
+  </p>
+  <p style="margin-left:0.5em; margin-right:0.5em;">
+    \[
+      \boxed{\,\theta^{(t+1)}=\theta^{(t)}+\frac{1}{a}\cdot
+      \frac{\dfrac{r_2+r_3}{p_2}-\dfrac{r_1}{p_1}-\dfrac{r_4}{p_4}}
+      {\dfrac{1}{p_1}+\dfrac{2}{p_2}+\dfrac{1}{p_4}}\,,}
+    \]
+  </p>
+  <p>
+    where all \(p_j\) and \(a\) are evaluated at \(\theta^{(t)}\):
+  </p>
+  <ul>
+    <li>\(a=\dfrac{1-\theta^{(t)}}{2},\)</li>
+    <li>\(p_1=\tfrac12+a^2,\quad p_2=\tfrac14-a^2,\quad p_4=a^2,\)</li>
+    <li>\(r_i=Y_i/n\). (Equivalently you may write the update using counts \(Y_i\); the \(n\) cancels.)</li>
+  </ul>
+  <p>
+    This boxed formula is the Fisher–scoring iterative step for \(\theta\). After convergence \(\hat\theta\) gives \(\hat\pi=(1-\hat\theta)^2\).
+  </p>
+
+  <h2>Related Concepts / Remarks</h2>
+  <p>
+    Short remarks and important connections.
+  </p>
+  <ul>
+    <li><strong>Why Fisher scoring?</strong> Fisher scoring replaces the observed negative second derivative by its expectation (the Fisher information). For generalized multinomial models, it often gives a stable and efficient algorithm; it is Newton–Raphson using expected information.</li>
+    <li><strong>Score / information simplification:</strong> The algebra simplified nicely because all \((p_i')^2\) equal the same value \(a^2\). That yields compact expressions for \(S\) and \(I\).</li>
+    <li><strong>Parameter domain & numerical caution:</strong> For valid probabilities we need \(p_2=\tfrac14-a^2>0\), i.e. \(a^2<1/4\) ⇔ \(|1-\theta|<1\) ⇔ \(\theta\in(0,2)\). Practically choose an initial \(\theta^{(0)}\) inside \((0,2)\) to keep all \(p_i>0\) (and avoid division by zero). If an iteration proposes \(\theta\) outside the admissible range, project it back (or use a damped update).</li>
+    <li><strong>Initial guess (practical):</strong> A reasonable start is to match \(p_4\) with the observed proportion \(r_4=Y_4/n\): \(\pi\approx 4r_4\), so \(\theta^{(0)}=1-\sqrt{\max(0,\min(1,4r_4))}\). If \(4r_4>1\) use a safer interior starting value (e.g. \(\theta^{(0)}=1\) ± small).</li>
+    <li><strong>Stopping rule:</strong> Use relative change \(|\theta^{(t+1)}-\theta^{(t)}|<\varepsilon\) (e.g. \(10^{-8}\)) or change in log-likelihood, or max iterations.</li>
+    <li><strong>Observed vs expected information:</strong> If you prefer Newton–Raphson (observed information), compute the second derivative \(d^2\ell/d\theta^2\) and use \(\theta^{(t+1)}=\theta^{(t)}- \big(\ell'(\theta^{(t)})/\ell''(\theta^{(t)})\big)\). Fisher scoring often yields more stable steps in multinomial problems.</li>
+    <li><strong>Asymptotic variance:</strong> At convergence \(\hat\theta\) the asymptotic variance is approximately \(I(\hat\theta)^{-1}\), with \(I(\hat\theta)=n a^2\big(1/p_1+2/p_2+1/p_4\big)\) evaluated at \(\hat\theta\). Delta method gives variance for \(\hat\pi=(1-\theta)^2\).</li>
+  </ul>
+
+  <h2>Viz (Visualizations)</h2>
+  <p>
+    Practical plots to inspect and debug the algorithm numerically.
+  </p>
+  <ul>
+    <li>Plot the log-likelihood \(\ell(\theta)\) over a grid in the admissible \(\theta\)-interval (say \([0.01,1.99]\)) to see where the peak lies and whether it's sharp or flat.</li>
+    <li>Plot the iteration path \(\theta^{(t)}\) vs iteration \(t\) to check monotone convergence and whether damping is needed.</li>
+    <li>Optionally plot the score \(S(\theta)\) and expected information \(I(\theta)\) over the grid to visualise step sizes implied by Fisher scoring.</li>
+  </ul>
+
+  <h2>Other Relevant Points</h2>
+  <p>
+    Additional practical advice, edge-cases, and numerical tips.
+  </p>
+  <ul>
+    <li>If any observed cell count is zero, avoid dividing by zero; start from interior values and/or add a tiny pseudo-count (e.g. +0.5) if needed for numerical stability.</li>
+    <li>Fisher scoring will usually converge fast for this one-parameter problem; if oscillation occurs, use step-halving/damping (e.g. \(\theta^{(t+1)}\leftarrow \theta^{(t)}+\gamma\cdot\)update with \(\gamma\in(0,1)\)).</li>
+    <li>After obtaining \(\hat\theta\), transform back to \(\hat\pi=(1-\hat\theta)^2\) and report standard errors via the observed Fisher information or the delta method.</li>
+    <li>Implementation note: compute \(p_2=\tfrac14-a^2\) carefully to avoid catastrophic cancellation when \(a^2\) is close to \(\tfrac14\).</li>
+  </ul>
+</section>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="glow-box" id="2">
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="glow-box" id="3">
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="glow-box" id="4">
+   
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="glow-box" id="5">
+      
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="6">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+<button class="next-btn" onclick="location.href='wk2.html'">Next Section →</button>
+
+<footer>
+  <p>&copy; 2025 Shaan | Built with purpose</p>
+</footer>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+</body>
+</html>
