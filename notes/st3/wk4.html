@@ -213,8 +213,8 @@
     <h3>Contents</h3>
     <ul>
       <li><a href="#4.1"> General EM Framework</a></li>
-      <li><a href="#3.2"> Numerical Optimization Algorithms</a></li>
-      <li><a href="#3.3"> Expectation–Maximization with Incomplete Data</a></li>
+      <li><a href="#4.2"> Genetics Example of EM (Dempster–Laird–Rubin, 1977) </a></li>
+      <li><a href="#4.3"> Report on the EM Algorithm in Genetics, Genomics, and Public Health </a></li>
       
       
     </ul>
@@ -348,8 +348,146 @@
 
 
 
-    <div class="glow-box" id="3.2">
-      
+    <div class="glow-box" id="4.2">
+      <section>
+  <h2>Genetics Example of EM (Dempster–Laird–Rubin, 1977)</h2>
+  <p>We start with observed data counts. The EM trick is to imagine hidden complete data, so the optimization becomes much simpler.</p>
+
+  <h3>Observed Data Setup</h3>
+  <p>We have 197 animals split into 4 categories:</p>
+  <table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+      <th>Group</th>
+      <th>Count (y<sub>i</sub>)</th>
+      <th>Probability</th>
+    </tr>
+    <tr>
+      <td>y<sub>1</sub></td>
+      <td>125</td>
+      <td>1/2 + π/4</td>
+    </tr>
+    <tr>
+      <td>y<sub>2</sub></td>
+      <td>18</td>
+      <td>(1-π)/4</td>
+    </tr>
+    <tr>
+      <td>y<sub>3</sub></td>
+      <td>20</td>
+      <td>(1-π)/4</td>
+    </tr>
+    <tr>
+      <td>y<sub>4</sub></td>
+      <td>34</td>
+      <td>π/4</td>
+    </tr>
+  </table>
+  <p>So the multinomial probabilities depend on one parameter π. But the first probability y<sub>1</sub> is a sum of two probabilities: 1/2 and π/4. That’s the clue for EM.</p>
+
+  <h3>Complete Data Idea</h3>
+  <ul>
+    <li>Pretend that y<sub>1</sub> was really two hidden groups:
+      <ul>
+        <li>x<sub>1</sub> animals came from prob 1/2</li>
+        <li>x<sub>2</sub> animals came from prob π/4</li>
+      </ul>
+    </li>
+    <li>So: x<sub>1</sub>+x<sub>2</sub>=y<sub>1</sub>, x<sub>3</sub>=y<sub>2</sub>, x<sub>4</sub>=y<sub>3</sub>, x<sub>5</sub>=y<sub>4</sub>.</li>
+  </ul>
+
+  <table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+      <th>Complete Data</th>
+      <th>Probabilities</th>
+    </tr>
+    <tr>
+      <td>x<sub>1</sub></td>
+      <td>1/2</td>
+    </tr>
+    <tr>
+      <td>x<sub>2</sub></td>
+      <td>π/4</td>
+    </tr>
+    <tr>
+      <td>x<sub>3</sub></td>
+      <td>(1-π)/4</td>
+    </tr>
+    <tr>
+      <td>x<sub>4</sub></td>
+      <td>(1-π)/4</td>
+    </tr>
+    <tr>
+      <td>x<sub>5</sub></td>
+      <td>π/4</td>
+    </tr>
+  </table>
+
+  <h3>Complete-Data Log-Likelihood</h3>
+  <p>
+    L(π) = x<sub>1</sub> ln(1/2) + x<sub>2</sub> ln(π/4) + (x<sub>3</sub>+x<sub>4</sub>) ln((1-π)/4) + x<sub>5</sub> ln(π/4)
+  </p>
+  <p>This is simple to maximize if we had x<sub>2</sub>. But we don’t. That’s where the E-step comes in.</p>
+
+  <h3>E-Step</h3>
+  <ul>
+    <li>We compute the expected value of x<sub>2</sub>, given y<sub>1</sub> and current π<sup>(n)</sup>.</li>
+    <li>x<sub>2</sub> | y<sub>1</sub> ~ Binomial(y<sub>1</sub>, (π/4)/(1/2 + π/4))</li>
+    <li>So expectation:
+      <p>x<sub>2</sub><sup>(n)</sup> = y<sub>1</sub> · (π<sup>(n)</sup>/4) / (1/2 + π<sup>(n)</sup>/4)</p>
+    </li>
+  </ul>
+
+  <h3>M-Step</h3>
+  <ul>
+    <li>Maximize expected log-likelihood. Differentiate, set to zero, solve for π:</li>
+  </ul>
+  <p>
+    π<sup>(n+1)</sup> = (x<sub>2</sub><sup>(n)</sup> + x<sub>5</sub>) / (x<sub>2</sub><sup>(n)</sup> + x<sub>3</sub> + x<sub>4</sub> + x<sub>5</sub>)
+  </p>
+  <p>Substitute observed counts:</p>
+  <p>
+    π<sup>(n+1)</sup> = (x<sub>2</sub><sup>(n)</sup> + y<sub>4</sub>) / (x<sub>2</sub><sup>(n)</sup> + y<sub>2</sub> + y<sub>3</sub> + y<sub>4</sub>)
+  </p>
+  <p>And iterate until convergence.</p>
+
+  <h2>Side Concepts</h2>
+
+  <h3>Conditional Multinomial Property</h3>
+  <p>If you lump two multinomial cells, then condition on their sum, one component is Binomial. This is why x<sub>2</sub>|(x<sub>1</sub>+x<sub>2</sub>) became Binomial.</p>
+
+  <h3>Hierarchical Model / Linear Regression</h3>
+  <p>
+    <ul>
+      <li>x<sub>i</sub> ~ g(x|θ)</li>
+      <li>Y<sub>i</sub> | X<sub>i</sub> ~ N(α+βX<sub>i</sub>, σ²)</li>
+    </ul>
+    Joint likelihood:
+    L(α,β,σ²,θ) = Σ ln( (1/σ) φ((y<sub>i</sub>-(α+βx<sub>i</sub>))/σ) g(x<sub>i</sub>|θ) )
+  </p>
+
+  <h3>Laplace Distribution (Robust Regression)</h3>
+  <p>
+    If Y<sub>i</sub>|X<sub>i</sub> ~ (1/2) λ exp(-λ |y<sub>i</sub>-(α+βx<sub>i</sub>)|),  
+    this leads to Least Absolute Deviations (LAD) regression.
+  </p>
+  <ul>
+    <li>Normal errors → minimize squared error (sensitive to outliers).</li>
+    <li>Laplace errors → minimize absolute deviations (robust to outliers).</li>
+  </ul>
+
+  <h2>Visual Summary</h2>
+  <ul>
+    <li>Observed categories: y<sub>1</sub>…y<sub>4</sub></li>
+    <li>Hidden split: y<sub>1</sub>=x<sub>1</sub>+x<sub>2</sub></li>
+    <li>E-step: estimate x<sub>2</sub></li>
+    <li>M-step: update π</li>
+    <li>Iterate until stable</li>
+  </ul>
+
+  <h2>Summary Insight</h2>
+  <p>This genetics example is a template: split complicated observed categories into hidden simple ones, use conditional distributions to impute missing parts, optimize on the completed dataset, and repeat. EM alternates estimation and maximization, guaranteeing monotone ascent in likelihood.</p>
+</section>
+
     </div>
 
 
@@ -379,133 +517,17 @@
 
 
 
-<div class="glow-box" id="3.3">
-  
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="glow-box" id="3.0">
-  
-    </div>
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="glow-box" id="3.0">
-  
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="glow-box" id="3.0">
-  
-    </div>
-
-
-
+<div class="glow-box" id="4.3">
+  <h2>Report on the EM Algorithm in Genetics, Genomics, and Public Health</h2>
+<p>
+These notes are based on the report by <strong>Nan M. Laird</strong>.  
+The full document can be accessed here:
+</p>
+<ul>
+  <li><a href="wk4.pdf" target="_blank">Download: EM Algorithm in Genetics, Genomics, and Public Health</a></li>
+</ul>
+
+</div>
 
 
 
