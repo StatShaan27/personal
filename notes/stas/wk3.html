@@ -349,7 +349,112 @@
 
 
     <div class="glow-box" id="2">
-      
+      <section>
+  <h2>Question 2</h2>
+  <p>
+    A complete-data formulation for the problem in Q1 was given in class so that the EM algorithm can be used. Starting from that, obtain <strong>a single iterative step</strong> (merge the E-step and M-step) which updates the estimate of \(\pi\).
+  </p>
+
+  <h2>Solution — Detailed Answer</h2>
+
+  <h2>Setup / notation</h2>
+  <p>
+    Write the cell probabilities as linear functions of \(\pi\):
+  </p>
+  <p>\(p_i(\pi)=a_i+b_i\pi,\qquad i=1,\dots,4,\)</p>
+  <ul>
+    <li>\(a_1=\tfrac12,\; b_1=\tfrac14\)</li>
+    <li>\(a_2=\tfrac14,\; b_2=-\tfrac14\)</li>
+    <li>\(a_3=\tfrac14,\; b_3=-\tfrac14\)</li>
+    <li>\(a_4=0,\; b_4=\tfrac14\)</li>
+  </ul>
+  <p>
+    Let \(\widetilde Y_i^{(t)}\) denote the expected complete counts computed at the E-step under \(\pi^{(t)}\). Write \(\tilde r_i^{(t)}=\widetilde Y_i^{(t)}/n\) if you prefer proportions.
+  </p>
+
+  <h2>Step 1 — Q-function (expected complete log-likelihood)</h2>
+  <p>
+    The EM M-step maximises
+  </p>
+  <p>\(Q(\pi\mid\pi^{(t)})=\sum_{i=1}^4 \widetilde Y_i^{(t)}\log\big(a_i+b_i\pi\big) + \text{const (w.r.t. }\pi).\)</p>
+
+  <h2>Step 2 — derivative of Q (score for Q)</h2>
+  <p>
+    Differentiate to get
+  </p>
+  <p>\(\dfrac{\partial Q}{\partial\pi}(\pi\mid\pi^{(t)})=\sum_{i=1}^4 \widetilde Y_i^{(t)}\dfrac{b_i}{a_i+b_i\pi}.\)</p>
+  <p>
+    Solving \(\partial Q/\partial\pi=0\) for \(\pi\) exactly gives the M-step but is implicit. A practical and standard merged one-line update is obtained by taking a single Newton step for this equation using \(\widetilde Y_i^{(t)}\).
+  </p>
+
+  <h2>Step 3 — Newton (one-step) update on Q (single merged iteration)</h2>
+  <p>
+    The second derivative is
+  </p>
+  <p>\(\dfrac{\partial^2 Q}{\partial\pi^2}(\pi\mid\pi^{(t)})=-\sum_{i=1}^4 \widetilde Y_i^{(t)}\dfrac{b_i^2}{(a_i+b_i\pi)^2}.\)</p>
+  <p>
+    Therefore a Newton update applied to \(Q\) gives the single-step merged iteration:
+  </p>
+  <p style="margin-left:0.5em; margin-right:0.5em;">
+    \[
+      \boxed{\;
+      \pi^{(t+1)} \;=\; \pi^{(t)} \;+\; 
+      \frac{\displaystyle \sum_{i=1}^4 \widetilde Y_i^{(t)}\dfrac{b_i}{a_i+b_i\pi^{(t)}}}
+      {\displaystyle \sum_{i=1}^4 \widetilde Y_i^{(t)}\dfrac{b_i^2}{(a_i+b_i\pi^{(t)})^2}}
+      \; }.
+    \]
+  </p>
+
+  <h2>Step 4 — explicit specialised form (using \(b_i=\pm\tfrac14\))</h2>
+  <p>
+    Plugging the \(a_i,b_i\) values and factoring constants yields the equivalent explicit form
+  </p>
+  <p style="margin-left:0.5em; margin-right:0.5em;">
+    \[
+      \boxed{\;
+      \pi^{(t+1)}=\pi^{(t)} + \dfrac{\displaystyle 
+      \frac{\widetilde Y_1^{(t)}}{p_1(\pi^{(t)})}-\frac{\widetilde Y_2^{(t)}}{p_2(\pi^{(t)})}-\frac{\widetilde Y_3^{(t)}}{p_3(\pi^{(t)})}+\frac{\widetilde Y_4^{(t)}}{p_4(\pi^{(t)})}
+      }
+      {\displaystyle 
+      \frac{\widetilde Y_1^{(t)}}{p_1(\pi^{(t)})^2}+\frac{\widetilde Y_2^{(t)}}{p_2(\pi^{(t)})^2}
+      +\frac{\widetilde Y_3^{(t)}}{p_3(\pi^{(t)})^2}+\frac{\widetilde Y_4^{(t)}}{p_4(\pi^{(t)})^2}
+      }\; },
+    \]
+  </p>
+  <p>
+    where \(p_i(\pi^{(t)})=a_i+b_i\pi^{(t)}\). If data are complete then \(\widetilde Y_i^{(t)}=Y_i\).
+  </p>
+
+  <h2>How this merges E- and M-steps (practical summary)</h2>
+  <ul>
+    <li><strong>E-step:</strong> compute \(\widetilde Y_i^{(t)}=\mathbb{E}[Y_i^{\text{(complete)}}\mid\text{observed},\pi^{(t)}]\).</li>
+    <li><strong>M-step (merged):</strong> perform the single Newton update for \(\pi\) given above (one explicit line).</li>
+    <li>If you insist on a pure EM M-step you would need to solve \(\sum_i \widetilde Y_i^{(t)}\dfrac{b_i}{a_i+b_i\pi^{(t+1)}}=0\) exactly each iteration, which is implicit and inconvenient; the one-step Newton is the common practical remedy.</li>
+  </ul>
+
+  <h2>Related Concepts</h2>
+  <ul>
+    <li><strong>Newton-within-EM:</strong> using one Newton (or Fisher) step in the M-step when a closed-form maximiser is unavailable; often accelerates convergence while keeping the EM structure.</li>
+    <li><strong>Fisher-scoring variant:</strong> replace the Hessian in the denominator by its expectation (with \(\widetilde Y_i^{(t)}\) weights) to obtain a Fisher-scoring merged iteration.</li>
+    <li><strong>Feasible region:</strong> ensure \(\pi^{(t+1)}\in(0,1)\) and \(p_i(\pi^{(t+1)})>0\). If the update leaves the feasible set, apply damping (step-halving) or project back into \((0,1)\).</li>
+  </ul>
+
+  <h2>Viz (Diagnostics)</h2>
+  <ul>
+    <li>Plot \(Q(\pi\mid\pi^{(t)})\) vs \(\pi\) for several \(\pi^{(t)}\) to check whether the Newton step moves uphill.</li>
+    <li>Trace \(\pi^{(t)}\) vs iteration \(t\) and optionally plot the observed log-likelihood to verify monotone behaviour (or detect the need for damping).</li>
+    <li>Plot the evolution of \(\widetilde Y_i^{(t)}\) if there is missingness — these typically stabilise quickly and reveal which components drive updates.</li>
+  </ul>
+
+  <h2>Other Relevant Points / Implementation tips</h2>
+  <ul>
+    <li>Use interior starting values for \(\pi^{(0)}\) (e.g. method-of-moments or \(\pi^{(0)}=\min(0.99,\max(0.01,4r_4))\)).</li>
+    <li>If any \(\widetilde Y_i^{(t)}\) or observed \(Y_i\) is zero, avoid division-by-zero by adding a tiny pseudo-count (e.g. +0.5) or using safe-guards in code.</li>
+    <li>Control step length (damping) when necessary: set \(\pi^{(t+1)}=\pi^{(t)}+\gamma\Delta\pi\) with \(\gamma\in(0,1]\) chosen to keep \(Q\) (or the observed log-likelihood) non-decreasing.</li>
+    <li>Check convergence by \(|\pi^{(t+1)}-\pi^{(t)}|<\varepsilon\) or small change in observed log-likelihood; report standard errors using the (observed or expected) information at the final iterate and the delta method if transforming parameters.</li>
+  </ul>
+</section>
+
     </div>
 
 
