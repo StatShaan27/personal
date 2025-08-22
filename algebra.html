@@ -211,7 +211,7 @@
     <h3>Contents</h3>
     <ul>
       <li><a href="#1"> Semi groups, Monoid and Group</a></li>
-      <li><a href="#2"> Genetics Example of EM (Dempster–Laird–Rubin, 1977) </a></li>
+      <li><a href="#2"> Basic Properties of Monoids and Groups </a></li>
       <li><a href="#3"> Report on the EM Algorithm in Genetics, Genomics, and Public Health </a></li>
       
       
@@ -393,8 +393,145 @@
 
 
 
-  <div class="glow-box" id="0">
-    
+  <div class="glow-box" id="2">
+    <section>
+  <h2>Theorem 1.2 — Basic Properties of Monoids and Groups</h2>
+
+  <h2>Part 1: Uniqueness of Identity</h2>
+  <ul>
+    <li>If a monoid \(G\) has two identities \(e_1, e_2\):
+      <ul>
+        <li>Since \(e_1\) is identity, \(e_1e_2=e_2\).</li>
+        <li>Since \(e_2\) is identity, \(e_1e_2=e_1\).</li>
+        <li>Hence \(e_1=e_2\).</li>
+      </ul>
+    </li>
+    <li>Example: In \((\mathbb{Z},+)\), identity is \(0\). No other element acts as identity.</li>
+  </ul>
+  <p>Summary: identity in a monoid is unique.</p>
+
+  <h2>Part (i)</h2>
+  <ul>
+    <li>If \(c \in G\) and \(cc=c\), then \(c=e\).</li>
+    <li>Proof:
+      <ul>
+        <li>Multiply both sides on the left by \(c^{-1}\): \(c^{-1}(cc)=c^{-1}c\).</li>
+        <li>This gives \((c^{-1}c)c=ec=c=e\).</li>
+      </ul>
+    </li>
+    <li>Example: In \((\mathbb{Z},+)\), if \(c+c=c\), then \(c=0\).</li>
+  </ul>
+
+  <h2>Part (ii) — Cancellation Law</h2>
+  <ul>
+    <li>If \(ab=ac\), then \(b=c\). If \(ba=ca\), then \(b=c\).</li>
+    <li>Proof (left cancellation):
+      <ul>
+        <li>Suppose \(ab=ac\).</li>
+        <li>Multiply both sides by \(a^{-1}\) on the left: \(a^{-1}(ab)=a^{-1}(ac)\).</li>
+        <li>\((a^{-1}a)b=(a^{-1}a)c \implies eb=ec \implies b=c\).</li>
+      </ul>
+    </li>
+    <li>Example: In \((\mathbb{Z},+)\), \(5+x=5+y\implies x=y\).</li>
+  </ul>
+
+  <h2>Part (iii) — Uniqueness of Inverse</h2>
+  <ul>
+    <li>If \(a^{-1}\) and \(b\) are both inverses of \(a\):
+      <ul>
+        <li>\(ab=e\) and \(a^{-1}a=e\).</li>
+        <li>Then \(a^{-1}(ab)=(a^{-1}a)b \implies b=a^{-1}\).</li>
+      </ul>
+    </li>
+    <li>Hence inverses are unique.</li>
+  </ul>
+
+  <h2>Part (iv)</h2>
+  <ul>
+    <li>\((a^{-1})^{-1}=a\).</li>
+    <li>Inverse of the inverse brings you back to the original element.</li>
+  </ul>
+
+  <h2>Part (v)</h2>
+  <ul>
+    <li>\((ab)^{-1}=b^{-1}a^{-1}\).</li>
+    <li>Check:
+      <ul>
+        <li>\((ab)(b^{-1}a^{-1})=a(bb^{-1})a^{-1}=aea^{-1}=aa^{-1}=e\).</li>
+        <li>Similarly, \((b^{-1}a^{-1})(ab)=e\).</li>
+      </ul>
+    </li>
+    <li>Example: In \((\mathbb{Z},+)\), \((a+b)^{-1}=-(a+b)=(-b)+(-a)\).</li>
+  </ul>
+
+  <h2>Part (vi)</h2>
+  <ul>
+    <li>Equations \(ax=b\) and \(ya=b\) have unique solutions.</li>
+    <li>Proof:
+      <ul>
+        <li>For \(ax=b\): \(x=a^{-1}b\).</li>
+        <li>For \(ya=b\): \(y=ba^{-1}\).</li>
+        <li>Uniqueness follows from cancellation law.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Summary of Theorem 1.2</h2>
+  <pre>
+   Monoid → identity unique
+   Group → 
+      (i) only identity satisfies cc=c
+      (ii) cancellation laws
+      (iii) inverses unique
+      (iv) inverse of inverse = original
+      (v) (ab)^-1 = b^-1 a^-1
+      (vi) equations ax=b, ya=b uniquely solvable
+  </pre>
+
+  <h2>Proposition 1.3 — Characterization of Groups</h2>
+  <p><strong>Statement:</strong> A semigroup \(G\) is a group iff:</p>
+  <ul>
+    <li>(1) There exists \(e \in G\) with \(ea=a\) (left identity).</li>
+    <li>(2) For each \(a\in G\), there exists \(a^{-1}\in G\) with \(a^{-1}a=e\) (left inverse).</li>
+  </ul>
+
+  <h2>Proof (⇒ direction)</h2>
+  <ul>
+    <li>If \(G\) is a group:
+      <ul>
+        <li>It has a two-sided identity, so \(ea=a\).</li>
+        <li>It has two-sided inverses, so left inverses exist.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Proof (⇐ direction)</h2>
+  <ul>
+    <li>Suppose semigroup has left identity \(e\) and left inverses.</li>
+    <li>Show \(e\) is two-sided identity:
+      <ul>
+        <li>For any \(a\), pick \(a^{-1}\).</li>
+        <li>Compute: \(a=(ea)=((a^{-1}a)a)=(a^{-1}(aa))\).</li>
+        <li>By associativity and cancellation, this forces \(ae=a\).</li>
+      </ul>
+    </li>
+    <li>Show \(a^{-1}\) is two-sided inverse:
+      <ul>
+        <li>From left inverse: \(a^{-1}a=e\).</li>
+        <li>Multiply by \(a^{-1}\) on the right: \((a^{-1}a)a^{-1}=ea^{-1}\).</li>
+        <li>This gives \(a^{-1}(aa^{-1})=a^{-1}\). By cancellation, \(aa^{-1}=e\).</li>
+      </ul>
+    </li>
+    <li>Thus \(G\) is a group.</li>
+  </ul>
+
+  <h2>Visualization</h2>
+  <ul>
+    <li>Theorem 1.2: gives core algebraic properties in groups.</li>
+    <li>Proposition 1.3: a semigroup with left identity and left inverses “upgrades” to a full group automatically.</li>
+  </ul>
+</section>
+
   </div>
 
 
