@@ -210,7 +210,7 @@
   <div class="toc">
     <h3>Contents</h3>
     <ul>
-      <li><a href="#1"> General EM Framework</a></li>
+      <li><a href="#1"> Semi groups, Monoid and Group</a></li>
       <li><a href="#2"> Genetics Example of EM (Dempster–Laird–Rubin, 1977) </a></li>
       <li><a href="#3"> Report on the EM Algorithm in Genetics, Genomics, and Public Health </a></li>
       
@@ -219,8 +219,150 @@
   </div>
 
   <!-- Notes section boxes -->
-  <div class="glow-box" id="0">
-    
+  <div class="glow-box" id="1">
+    <section>
+  <h2>Overview</h2>
+  <h2>1. Binary Operation</h2>
+  <ul>
+    <li>Definition: a binary operation on a set \(G\) is a map \( *: G \times G \to G\).</li>
+    <li>Meaning: if \(a,b \in G\) then \(a * b \in G\).</li>
+    <li>Examples:
+      <ul>
+        <li>On \(\mathbb{Z}\): addition \((a,b)\mapsto a+b\) and multiplication \((a,b)\mapsto ab\) are binary operations.</li>
+        <li>On \(\mathbb{N}\): subtraction is <em>not</em> a binary operation because \(2-5 \notin \mathbb{N}\).</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Summary: a binary operation simply combines two elements of the set and returns an element of the same set; closure is the essential requirement.</p>
+
+  <h2>2. Semigroup</h2>
+  <ul>
+    <li>Definition: a semigroup is a nonempty set \(G\) with a binary operation that is <strong>associative</strong>:</li>
+    <li>
+      <ul>
+        <li>Associativity: \(\;a(bc)=(ab)c\quad\forall a,b,c\in G.\)</li>
+      </ul>
+    </li>
+    <li>Examples:
+      <ul>
+        <li>\((\mathbb{Z},+)\) — integers under addition.</li>
+        <li>\((\mathbb{N},\times)\) — natural numbers under multiplication.</li>
+      </ul>
+    </li>
+    <li>Non-example: subtraction on integers is not associative:
+      <ul>
+        <li>\((5-3)-2 = 0\), but \(5-(3-2)=4\).</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Summary: semigroups require closure and associativity only; no identity or inverses are required.</p>
+
+  <h2>3. Monoid</h2>
+  <ul>
+    <li>Definition: a monoid is a semigroup that has an identity element \(e\).</li>
+    <li>Identity property: \(ae = ea = a\quad\forall a\in G.\)</li>
+    <li>Examples:
+      <ul>
+        <li>\((\mathbb{Z},+)\): identity is \(0\).</li>
+        <li>\((\mathbb{N},\times)\): identity is \(1\).</li>
+        <li>Strings under concatenation: identity is the empty string \(\varepsilon\).</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Summary: monoids add a neutral element to the semigroup structure — this often lets you speak meaningfully about powers and repeated application of the operation.</p>
+
+  <h2>4. Group</h2>
+  <ul>
+    <li>Definition: a group is a monoid in which every element has an inverse.</li>
+    <li>Inverse property: for each \(a\in G\) there exists \(a^{-1}\in G\) with \(aa^{-1}=a^{-1}a=e.\)</li>
+    <li>Examples:
+      <ul>
+        <li>\((\mathbb{Z},+)\): additive inverse of \(n\) is \(-n\).</li>
+        <li>\((\mathbb{Q}\setminus\{0\},\times)\): multiplicative inverse of \(q\) is \(q^{-1}\).</li>
+      </ul>
+    </li>
+    <li>Non-example: \((\mathbb{N},+)\) is not a group — most elements lack additive inverses in \(\mathbb{N}\).</li>
+  </ul>
+  <p>Summary: groups are the full package—closure, associativity, identity, and inverses—giving a highly symmetric algebraic structure useful across mathematics.</p>
+
+  <h2>5. Commutative (Abelian) Groups</h2>
+  <ul>
+    <li>Definition: the operation is commutative if \(ab=ba\) for all \(a,b\in G\).</li>
+    <li>If a semigroup/monoid/group satisfies commutativity it is called <em>Abelian</em>.</li>
+    <li>Examples and notes:
+      <ul>
+        <li>\((\mathbb{Z},+)\) is an Abelian group.</li>
+        <li>The set of invertible \(n\times n\) matrices under multiplication forms the group \(\mathrm{GL}(n,\mathbb{R})\); this group is generally <em>not</em> Abelian.</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Summary: commutativity is an additional symmetry that simplifies structure and representation theory; many familiar groups (additive number systems) are Abelian, while many important matrix groups are not.</p>
+
+  <h2>6. Order of a Group</h2>
+  <ul>
+    <li>Definition: the order of a group \(G\) is \(|G|\), the number of elements in \(G\).</li>
+    <li>Examples:
+      <ul>
+        <li>Finite group: \((\mathbb{Z}_5,+)\) has order \(5\).</li>
+        <li>Infinite group: \((\mathbb{Z},+)\) has infinite order.</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Summary: order classifies groups into finite and infinite; many theorems (e.g., Lagrange's theorem) tie element orders and subgroup sizes to the group order.</p>
+
+  <h2>Visualization</h2>
+  <ul>
+    <li>Hierarchy (concise): 
+      <ul>
+        <li>Semigroup: closure + associativity</li>
+        <li>Monoid: semigroup + identity</li>
+        <li>Group: monoid + inverses</li>
+      </ul>
+    </li>
+
+```
+<li>Example — Integers under Addition:
+  <ul>
+    <li>Semigroup? — yes (associative).</li>
+    <li>Monoid? — yes (identity = \(0\)).</li>
+    <li>Group? — yes (inverse = \(-n\)).</li>
+    <li>Abelian? — yes (\(a+b=b+a\)).</li>
+  </ul>
+</li>
+
+<li>Cayley table example — Group \((\mathbb{Z}_3,+)\) with elements \(\{0,1,2\}\):</li>
+```
+
+  </ul>
+
+  <table>
+    <caption>Cayley table for \((\mathbb{Z}_3,+)\)</caption>
+    <thead>
+      <tr>
+        <th>+</th>
+        <th>0</th>
+        <th>1</th>
+        <th>2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>0</th><td>0</td><td>1</td><td>2</td>
+      </tr>
+      <tr>
+        <th>1</th><td>1</td><td>2</td><td>0</td>
+      </tr>
+      <tr>
+        <th>2</th><td>2</td><td>0</td><td>1</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Notes on the table: identity is \(0\); inverses are \(1+2\equiv 0\pmod{3}\) and \(2+1\equiv 0\pmod{3}\).</p>
+
+ 
+  </section>
+
   </div>
 
 
