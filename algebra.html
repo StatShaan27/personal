@@ -562,7 +562,154 @@
 
 
   <div class="glow-box" id="0">
-    
+    <section>
+  <h2>Proposition 1.4 — Statement</h2>
+  <ul>
+    <li>Let \(G\) be a semigroup. Then \(G\) is a group <strong>iff</strong> for all \(a,b\in G\) the equations \(ax=b\) and \(ya=b\) have solutions in \(G\).</li>
+  </ul>
+
+  <h2>Solution (Proof)</h2>
+
+  <h2>(⇒) If \(G\) is a group, then for all \(a,b\in G\) the equations have solutions</h2>
+  <ul>
+    <li>This direction is immediate because every element \(a\) has an inverse \(a^{-1}\) in a group.</li>
+    <li>Solutions:
+      <ul>
+        <li>For \(ax=b\) take \(x=a^{-1}b\).</li>
+        <li>For \(ya=b\) take \(y=ba^{-1}\).</li>
+      </ul>
+    </li>
+    <li>These solutions are in fact unique by cancellation.</li>
+  </ul>
+  <p>So the rightward implication is trivial. \(\square\)</p>
+
+  <h2>(⇐) If both equations are solvable for every \(a,b\), then \(G\) is a group</h2>
+  <ul>
+    <li><strong>Goal:</strong> construct a two-sided identity and two-sided inverses for every element.</li>
+
+```
+<li><strong>1. Existence of an identity.</strong>
+  <ul>
+    <li>Fix arbitrary \(a\in G\). By hypothesis (take \(b=a\)) there exists \(u\in G\) with
+      \[
+        a u = a. \tag{1}
+      \]
+    </li>
+    <li>Similarly there exists \(v\in G\) with
+      \[
+        v a = a. \tag{2}
+      \]
+    </li>
+    <li>Compute \(v = v a u\). Using (2) we have \(v a = a\), so
+      \[
+        v = (v a) u = a u.
+      \]
+      By (1) \(a u = a\). Hence \(v=a\). Combining gives \(u=v\); call this element \(e:=u=v\).
+    </li>
+    <li>Now show \(e\) is a two-sided identity for every \(b\in G\). For arbitrary \(b\) pick \(x\) with \(a x = b\) (possible by hypothesis). Then
+      \[
+        e b = e(a x) = (e a)x.
+      \]
+      But \(e a = a\) (since \(e=v\) and \(v a = a\)), so \((e a)x = a x = b\). Thus \(e b = b\).
+    </li>
+    <li>A symmetric argument using a solution of \(ya=b\) shows \(b e = b\). Therefore \(e\) is a two-sided identity for all \(b\in G\).
+    </li>
+  </ul>
+</li>
+
+<li><strong>2. Existence of inverses.</strong>
+  <ul>
+    <li>Fix \(a\in G\). By hypothesis there exists \(s\in G\) with
+      \[
+        a s = e,
+      \]
+      and there exists \(t\in G\) with
+      \[
+        t a = e.
+      \]
+    </li>
+    <li>Compute \(s = s a t = e t = t\). (Here we used \(s a = e\) so \(s a t = e t\), and \(e t = t\).)</li>
+    <li>Thus \(s=t\). Call this common element \(a^{-1}:=s\). Then
+      \[
+        a a^{-1} = e \quad\text{and}\quad a^{-1} a = e,
+      \]
+      so \(a^{-1}\) is a two-sided inverse of \(a\).
+    </li>
+  </ul>
+</li>
+
+<li>Since a two-sided identity \(e\) exists and every element has a two-sided inverse, \(G\) is a group. \(\square\)</li>
+```
+
+  </ul>
+
+  <h2>Remark</h2>
+  <ul>
+    <li>The key idea: solvability for all left- and right-hand linear-type equations lets you manufacture the identity (from the case \(b=a\)) and then manufacture inverses (from the case \(b=e\)).</li>
+  </ul>
+  <p>Summary: the hypothesis that every equation \(ax=b\) and \(ya=b\) is solvable is exactly the condition needed to force the semigroup to admit a global identity and two-sided inverses, i.e. to be a group.</p>
+
+  <h2>Related Concepts & Immediate Consequences</h2>
+  <ul>
+    <li>Once a two-sided identity and inverses exist, standard uniqueness and cancellation results follow:
+      <ul>
+        <li>Identity is unique.</li>
+        <li>Inverses are unique.</li>
+        <li>Cancellation laws hold.</li>
+      </ul>
+    </li>
+    <li>Other equivalent characterizations of groups:
+      <ul>
+        <li>Semigroup + two-sided identity + every element has a two-sided inverse.</li>
+        <li>Semigroup + left identity + left inverses (we proved a variant earlier).</li>
+        <li>Semigroup where every left (or every right) translation is bijective — another common characterization.</li>
+      </ul>
+    </li>
+    <li>Practical takeaway: verifying solvability of these linear-type equations is often an easier route to proving a structure is a group.</li>
+  </ul>
+
+  <h2>Visualizations — Examples Worked Out</h2>
+  <ul>
+    <li><strong>1. Dihedral group \(D_4^*\) (symmetries of the square).</strong>
+      <ul>
+        <li>Label vertices \(1,2,3,4\) around the square. Typical elements in cycle notation include \(R=(1\ 2\ 3\ 4)\), \(R^2=(1\ 3)(2\ 4)\), reflections like \(T_x=(1\ 4)(2\ 3)\), etc.</li>
+        <li>\(|D_4^*|=8\). Nonabelian: e.g. \(R\circ T_x\neq T_x\circ R\) as shown by their different images on vertex \(1\).</li>
+      </ul>
+    </li>
+
+```
+<li><strong>2. Symmetric group \(S_n\).</strong>
+  <ul>
+    <li>The bijections on an \(n\)-element set with composition form the group \(S_n\); \(|S_n|=n!\).</li>
+    <li>For \(n\ge 3\), \(S_n\) is nonabelian.</li>
+  </ul>
+</li>
+
+<li><strong>3. Direct product \(G\times H\).</strong>
+  <ul>
+    <li>Operation \((a,b)(a',b')=(aa',bb')\) yields a group with identity \((e_G,e_H)\) and inverse \((a,b)^{-1}=(a^{-1},b^{-1})\).</li>
+    <li>Abelianness depends on the factors.</li>
+  </ul>
+</li>
+```
+
+  </ul>
+
+  <h2>Other Relevant Points / Suggestions</h2>
+  <ul>
+    <li>Why propositions like 1.4 matter: they let you check fewer or more convenient conditions in practice (e.g., solvability of translation equations) rather than verifying all group axioms directly.</li>
+    <li>Common exercise variants:
+      <ul>
+        <li>Show that if every right translation \(R_a:x\mapsto xa\) is bijective, then the semigroup is a group.</li>
+        <li>Write the full Cayley table of \(D_4^*\) using cycle notation and verify associativity and inverses.</li>
+        <li>In \(S_3\) produce explicit noncommuting elements and compute their products both ways.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>Closing insight: Proposition 1.4 is a compact, powerful criterion — solvability of the two linear equations for every pair \((a,b)\) is both necessary and sufficient to guarantee the full two-sided group structure.</p>
+</section>
+
   </div>
 
 
