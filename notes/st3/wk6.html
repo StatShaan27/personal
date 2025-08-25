@@ -215,7 +215,7 @@
       <li><a href="#6.1"> Case Study: The Challenger Disaster </a></li>
       <li><a href="#6.2"> Main Points and Events </a></li>
       <li><a href="#6.3"> Shuttle System </a></li>
-      <li><a href="#6.3"> Shuttle System </a></li>
+      <li><a href="#6.4"> Data Analysis for Field-Joint O-Rings </a></li>
       <li><a href="#6.3"> Shuttle System </a></li>
       <li><a href="#6.3"> Shuttle System </a></li>
       <li><a href="#6.3"> Shuttle System </a></li>
@@ -608,8 +608,180 @@
 
 
 
-  <div class="glow-box" id="6.0">
-  
+<div class="glow-box" id="6.4">
+  <section>
+  <h2>🚀 Section 3: Data Analysis for Field-Joint O-Rings</h2>
+
+  <h2>3.1 Model Fitting</h2>
+  <h3>Data Setup</h3>
+  <ul>
+    <li>We have <strong>23 shuttle flights</strong> with thermal distress data</li>
+    <li>Each flight has <strong>6 primary O-rings</strong></li>
+    <li>Outcome: number of O-rings showing <strong>thermal distress</strong> (erosion or blowby)</li>
+    <li><strong>Secondary O-rings:</strong> only 1 case of damage, so ignored in modeling</li>
+  </ul>
+
+  <h3>Modeling Framework</h3>
+  <ul>
+    <li>Let X = number of distressed O-rings in a flight</li>
+    <li>Assume Binomial distribution with probability depending on:
+      <ul>
+        <li>Temperature at launch (t)</li>
+        <li>Leak-check pressure (s)</li>
+        <li>Probability of damage per O-ring: p(t,s)</li>
+      </ul>
+    </li>
+    <li>Logistic regression with temperature + pressure:
+      <ul>
+        <li>Intercept: α̂ = 2.52</li>
+        <li>Temperature effect: β̂ = -0.0983 (negative → higher temp = less damage)</li>
+        <li>Pressure effect: γ̂ = 0.00848 (very weak)</li>
+      </ul>
+    </li>
+    <li>Goodness of fit: G² = 16.546 (20 df) → good fit</li>
+  </ul>
+
+  <h3>Dropping Pressure</h3>
+  <ul>
+    <li>Pressure effect not statistically significant</li>
+    <li>Temperature-only model:
+      <ul>
+        <li>α̂ = 5.085</li>
+        <li>β̂ = -0.1156</li>
+      </ul>
+    </li>
+    <li>G² = 18.086 (21 df) → also good fit</li>
+    <li><strong>Conclusion: Temperature is the key predictor</strong></li>
+  </ul>
+
+  <h3>Visualization (described)</h3>
+  <ul>
+    <li>At ~30–40°F: predicted ~4–5 of 6 O-rings distressed</li>
+    <li>At >70°F: predicted ~0 O-rings distressed</li>
+  </ul>
+
+  <h3>Alternative Binary Model</h3>
+  <ul>
+    <li>Defined binary outcome: 1 if ≥1 O-ring incident, 0 otherwise</li>
+    <li>Logistic regression (temperature-only) → results similar to binomial model</li>
+    <li><strong>Interpretation:</strong> low temperature = high risk</li>
+  </ul>
+
+  <h2>3.2 Confidence Intervals</h2>
+  <ul>
+    <li>Method: parametric bootstrap (Efron 1979)</li>
+    <li>Findings:
+      <ul>
+        <li>At low temps (<65°F): intervals wide (high uncertainty)</li>
+        <li>At high temps (>65°F): intervals narrow (more stable)</li>
+        <li>At 30°F: expected # incidents ~1 to 6 O-rings (uncertain but clearly dangerous)</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>3.3 Effect of Data Perturbations</h2>
+  <ul>
+    <li>Sensitivity analysis: remove each flight one by one</li>
+    <li>Key result: Flight 21 (75°F, 2 incidents) was highly influential
+      <ul>
+        <li>Removing it shifted coefficients ~4 SDs</li>
+        <li>Probability of such an event under model < 0.001</li>
+        <li>But it was real → suggests unmodeled factors</li>
+      </ul>
+    </li>
+    <li><strong>Even without Flight 21 → low temperature risk remains very high</strong></li>
+  </ul>
+
+  <h2>🔑 Key Takeaways from Section 3</h2>
+  <ul>
+    <li><strong>Temperature is dominant factor</strong>; pressure negligible</li>
+    <li>Logistic regression confirms: ~31°F → majority of O-rings expected to fail</li>
+    <li>Uncertainty large at very low temps, but always points to high risk</li>
+    <li>Flight 21 anomaly shows model is imperfect but doesn’t change conclusion</li>
+    <li>Statistical evidence strongly supported engineers’ warnings before Challenger</li>
+  </ul>
+
+  <h2>🔎 3.4 The Form of the Model — Detailed Summary</h2>
+
+  <h3>Why check the form?</h3>
+  <ul>
+    <li>Logistic model assumes:
+      <ul>
+        <li>Logit link is correct</li>
+        <li>Logit(probability) vs temperature is linear</li>
+      </ul>
+    </li>
+    <li>With only 23 points, authors preferred simplicity but tested linearity assumption</li>
+  </ul>
+
+  <h3>Testing Quadratic Term</h3>
+  <ul>
+    <li>Quadratic term γ̂ = 0.0041 (not significant)</li>
+    <li>Likelihood ratio = 0.494 (df=1), far below threshold</li>
+    <li><strong>No evidence of curvature → straight line is adequate</strong></li>
+  </ul>
+
+  <h3>Nonparametric Smoothing Check</h3>
+  <ul>
+    <li>Used Cleveland & Devlin (1988) smoothing with f = 0.4</li>
+    <li>Smoothed curve ≈ logistic fit</li>
+    <li><strong>Conclusion: linear logistic model fits well</strong></li>
+  </ul>
+
+  <h3>Residual Diagnostics</h3>
+  <ul>
+    <li>Checked standardized residuals</li>
+    <li>Outliers:
+      <ul>
+        <li>Point 9 (smoothed = 0)</li>
+        <li>Point 21 (anomalous influential flight)</li>
+      </ul>
+    </li>
+    <li>Otherwise: no evidence of systematic nonlinearity</li>
+  </ul>
+
+  <h3>Local Deviance Plots</h3>
+  <ul>
+    <li>Compared local vs global deviance</li>
+    <li>Fit adequate except large jump between points 14 & 15 (due to Flight 21)</li>
+    <li>Removing Flight 21 → diagnostics still support adequacy</li>
+  </ul>
+
+  <h3>ACE Algorithm</h3>
+  <ul>
+    <li>ACE (Breiman & Friedman 1985) checked transformations</li>
+    <li>Found logit(probs) vs temperature ≈ linear</li>
+    <li><strong>Strong evidence logit link is appropriate</strong></li>
+  </ul>
+
+  <h3>Pressure Variable Diagnostics</h3>
+  <ul>
+    <li>Re-introducing pressure failed:
+      <ul>
+        <li>Very few data points</li>
+        <li>Only one case with incident at 50 psi</li>
+        <li>Smoothing unreliable, Newton-Raphson unstable</li>
+      </ul>
+    </li>
+    <li><strong>Conclusion: pressure cannot be modeled reliably</strong></li>
+  </ul>
+
+  <h2>🔑 Final Takeaways from Section 3.4</h2>
+  <ul>
+    <li><strong>Linear logistic model (temperature-only) is adequate</strong></li>
+    <li>Nonparametric smoothing, residuals, and deviance checks confirm adequacy (except Flight 21)</li>
+    <li><strong>Logit link is appropriate</strong>, simpler and stable</li>
+    <li>Pressure variable discarded as unreliable</li>
+  </ul>
+
+  <p>
+    👉 Bottom line: The Challenger O-ring data strongly supported a 
+    <strong>simple, linear logistic regression of failure probability vs temperature</strong>. 
+    The model was statistically sound, stable, and showed clear risk at low temperatures, 
+    despite one influential anomaly.
+  </p>
+</section>
+
 </div>
 
 
