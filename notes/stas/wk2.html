@@ -903,14 +903,16 @@ In Problem 2, write down the recursive updating equation for \(\tau_1\) alone, c
   <h2>Question</h2>
   <p>
     <strong>Q6.</strong><br>
-    Let \(Y_1,\dots,Y_n\) be i.i.d. from the two–component normal mixture
-  </p>
-  \[
-    f(y\mid p,\mu_1,\mu_2,\sigma^2)
-    = p\,\frac{1}{\sigma}\,\phi\!\left(\frac{y-\mu_1}{\sigma}\right)
-    +(1-p)\,\frac{1}{\sigma}\,\phi\!\left(\frac{y-\mu_2}{\sigma}\right),
-    \quad 0<p<1,\; \sigma>0.
-  \]
+    Let $Y_1, \ldots, Y_n$ be i.i.d. from the two–component normal mixture  
+
+\[
+f(y \mid p, \mu_1, \mu_2, \sigma^2) 
+= p \cdot \frac{1}{\sigma} \, \phi\!\left(\frac{y - \mu_1}{\sigma}\right) 
++ (1-p) \cdot \frac{1}{\sigma} \, \phi\!\left(\frac{y - \mu_2}{\sigma}\right), 
+\quad -\infty < y < \infty,
+\]
+
+where $\phi(\cdot)$ is the standard normal density. 
   <p>
     Write down an iterative step of the steepest-ascent method for the MLEs of \(p,\mu_1,\mu_2,\sigma^2\).
   </p>
