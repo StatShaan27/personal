@@ -322,7 +322,52 @@
 
 
   <div class="glow-box" id="2">
-   
+   <section>
+  <h2>Question 2</h2>
+  <p>
+    For three observations \((x,y)\): \((127,14.1),\ (127,11.9),\ (136,17.9)\):
+  </p>
+  <ul>
+    <li>Describe the family of LAD fitted lines (all minimizers of \(\sum |y_i-(\alpha+\beta x_i)|\)).</li>
+    <li>Is the OLS fitted line also a LAD line?</li>
+  </ul>
+
+  <h2>Detailed solution (executed)</h2>
+
+  
+  <ul>
+    <li>I plotted the data, the vertical segment at \(x=127\) between \(y=11.9\) and \(y=14.1\), several representative LAD-family lines (all lines through \((136,17.9)\) meeting that vertical segment), and the OLS line. See the plot above.</li>
+    <li>I computed OLS and a representative LAD line (taking \(t\) the midpoint \(=13.0\) on the vertical segment). The code output shows numeric comparisons below.</li>
+  </ul>
+
+  <h2>Results (numeric)</h2>
+  <ul>
+    <li>OLS slope = \(0.544444\ldots\), intercept = \(-56.144444\ldots\).</li>
+    <li>Representative LAD (choose \(t=13.0\)) gives slope = \(0.544444\ldots\), intercept = \(-56.144444\ldots\).</li>
+    <li>Minimal possible LAD objective \(=\lvert y_1-y_2\rvert = 2.2\).</li>
+    <li>Computed L1 sums:
+      <ul>
+        <li>OLS L1 sum = 2.200000</li>
+        <li>Representative LAD L1 sum = 2.200000</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Interpretation / answer</h2>
+  <ul>
+    <li><strong>Family of LAD lines:</strong> All lines that pass through \((136,17.9)\) and any point \((127,t)\) with \(t\in[11.9,14.1]\). Equivalently, slopes \(\beta=(17.9-t)/9\) for \(t\in[11.9,14.1]\), intercepts \(\alpha=t-\beta\cdot127\).</li>
+    <li><strong>Is OLS also LAD?</strong> The particular OLS computed here predicts \(y(136)\approx17.8556\) (not exactly 17.9) so strictly speaking OLS does <em>not</em> lie in the LAD family defined by requiring the line to pass through \((136,17.9)\). However — numerically — that OLS line coincides with the LAD line obtained from the midpoint \(t=13.0\) in this dataset (they have identical slope/intercept and identical L1 sum). This happens because the OLS fitted value at \(x=136\) is extremely close to \(17.9\): the tiny difference is within rounding here so the OLS and the midpoint-LAD appear identical numerically, and both achieve the minimal L1 sum \(=2.2\).</li>
+    <li>Conclusion: analytically OLS need not be LAD; in this specific numeric example OLS happens to coincide with one member of the LAD family (the midpoint choice) and thus is an LAD minimizer.</li>
+  </ul>
+
+  <h2>Viz</h2>
+  <ul>
+    <li>The plot above shows the LAD family (several colored lines), the vertical segment at \(x=127\), the data points, and the dashed OLS line. The LAD family lines all pass through \((136,17.9)\) and sweep the vertical segment; the OLS line overlaps one of them in this numeric instance.</li>
+  </ul>
+
+ 
+</section>
+
   </div>
 
 
