@@ -197,10 +197,6 @@
   <li><a href="#4">Question 4</a></li>
   <li><a href="#5">Question 5</a></li>
   <li><a href="#6">Question 6</a></li>
-  <li><a href="#7">Question 7</a></li>
-  <li><a href="#8">Question 8</a></li>
-  <li><a href="#9">Question 9</a></li>
-  <li><a href="#10">Question 10</a></li>
 </ul>
   </div>
 
@@ -621,7 +617,7 @@
 
   <div class="glow-box" id="4">
    <section>
-  <h2>Question (restated)</h2>
+  <h2>Question 4</h2>
   <p>
     Consider paired data \((X_i,Y_i),\ i=1,\dots,n\), where the pairs are independent, the marginal distribution of the \(X_i\) is unspecified, and the conditional distribution of \(Y_i\) given \(X_i=x_i\) is
   </p>
@@ -772,7 +768,110 @@
 
 
   <div class="glow-box" id="5">
-      
+      <section>
+  <h2>Question 5</h2>
+  <p>
+    In the regression model
+  </p>
+  <p>\[
+    Y_i \mid X_i = x_i \;\sim\; N(\alpha + \beta x_i,\ \sigma^2), \quad i=1,\dots,n,
+  \]</p>
+  <p>we already showed that the MLEs of \(\alpha\) and \(\beta\) are the least-squares estimators. <strong>Now:</strong> What is the MLE of \(\sigma^2\)? Is this MLE unbiased?</p>
+
+  <h2>Detailed solution</h2>
+  <ul>
+    <li>
+      <h2>Step 1 — log-likelihood (conditional on \(x_i\))</h2>
+      <ul>
+        <li>The conditional likelihood is
+          <p>\[
+            L(\alpha,\beta,\sigma^2) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}}
+            \exp\!\left(-\frac{(y_i-(\alpha+\beta x_i))^2}{2\sigma^2}\right).
+          \]</p>
+        </li>
+        <li>The log-likelihood is
+          <p>\[
+            \ell(\alpha,\beta,\sigma^2) = -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log\sigma^2
+            - \frac{1}{2\sigma^2}\sum_{i=1}^n (y_i - \alpha - \beta x_i)^2.
+          \]</p>
+        </li>
+      </ul>
+    </li>
+
+```
+<li>
+  <h2>Step 2 — profile likelihood for \(\sigma^2\)</h2>
+  <ul>
+    <li>Let \(\displaystyle \mathrm{RSS}=\sum_{i=1}^n (y_i-\hat\alpha-\hat\beta x_i)^2\) denote the residual sum of squares at the MLEs \(\hat\alpha,\hat\beta\).</li>
+    <li>Plugging \(\hat\alpha,\hat\beta\) into \(\ell\) and differentiating w.r.t. \(\sigma^2\) gives
+      <p>\[
+        \frac{\partial \ell}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{\mathrm{RSS}}{2\sigma^4}.
+      \]</p>
+    </li>
+    <li>Setting this to zero and solving yields
+      <p>\[
+        -\frac{n}{2\sigma^2} + \frac{\mathrm{RSS}}{2\sigma^4} = 0
+        \ \Longrightarrow\ -n\sigma^2 + \mathrm{RSS}=0,
+      \]</p>
+      <p>hence</p>
+      <p>\[
+        \boxed{\displaystyle \hat\sigma^2_{\mathrm{MLE}} = \frac{\mathrm{RSS}}{n}.}
+      \]</p>
+    </li>
+  </ul>
+</li>
+
+<li>
+  <h2>Step 3 — unbiasedness check</h2>
+  <ul>
+    <li>From standard linear-regression distributional results,
+      \(\dfrac{\mathrm{RSS}}{\sigma^2}\sim\chi^2_{\,n-2}\), so \(E[\mathrm{RSS}]=(n-2)\sigma^2\).</li>
+    <li>Therefore
+      <p>\[
+        E[\hat\sigma^2_{\mathrm{MLE}}] = E\!\left[\frac{\mathrm{RSS}}{n}\right] = \frac{n-2}{n}\,\sigma^2.
+      \]</p>
+    </li>
+    <li>Conclusion: \(\hat\sigma^2_{\mathrm{MLE}}=\mathrm{RSS}/n\) is biased downward. It underestimates \(\sigma^2\) by the factor \(\dfrac{n-2}{n}\).</li>
+  </ul>
+</li>
+
+<li>
+  <h2>Step 4 — unbiased alternative</h2>
+  <ul>
+    <li>The usual unbiased estimator is
+      <p>\[
+        \boxed{\displaystyle \tilde\sigma^2 = \frac{\mathrm{RSS}}{n-2},}
+      \]</p>
+      which satisfies \(E[\tilde\sigma^2]=\sigma^2\).</li>
+    <li>Note: for a general linear model with \(p\) parameters (including intercept), the unbiased estimator is \(\mathrm{RSS}/(n-p)\) while the MLE is \(\mathrm{RSS}/n\).</li>
+  </ul>
+</li>
+```
+
+  </ul>
+
+  <h2>Related concepts</h2>
+  <ul>
+    <li><strong>Bias of variance MLE.</strong> In normal models with unknown mean parameters, the ML estimator of variance is downward-biased because degrees of freedom are used to estimate the mean(s).</li>
+    <li><strong>Degrees of freedom.</strong> In simple linear regression with intercept and slope, \(p=2\) parameters are estimated, leaving \(n-2\) residual degrees of freedom.</li>
+    <li><strong>Distributional result.</strong> \(\dfrac{\mathrm{RSS}}{\sigma^2}\sim\chi^2_{n-2}\), which yields both expectation and confidence-interval constructions for \(\sigma^2\).</li>
+    <li><strong>Asymptotics.</strong> \(\hat\sigma^2_{\mathrm{MLE}}\) is consistent and asymptotically unbiased; the finite-sample bias vanishes as \(n\to\infty\).</li>
+  </ul>
+
+  <h2>Viz</h2>
+  <ul>
+    <li>Plot \(\hat\sigma^2_{\mathrm{MLE}}=\mathrm{RSS}/n\) vs \(\tilde\sigma^2=\mathrm{RSS}/(n-2)\) as \(n\) varies: for small \(n\) the ML estimator is noticeably smaller; for large \(n\) they converge.</li>
+    <li>Plot the sampling distribution of \(\dfrac{n\hat\sigma^2}{\sigma^2}=\dfrac{\mathrm{RSS}}{\sigma^2}\) which follows \(\chi^2_{n-2}\); compare to the scaled unbiased version.\</li>
+  </ul>
+
+  <h2>Other worthwhile points</h2>
+  <ul>
+    <li>Statistical software typically reports the unbiased estimator \(\mathrm{RSS}/(n-p)\) for inference (t-tests, CI), because those procedures rely on the exact finite-sample \(\chi^2/\)Student-\(t\) calibrations.</li>
+    <li>For likelihood-based comparisons (likelihood-ratio tests, AIC), the ML estimator \(\mathrm{RSS}/n\) often appears naturally because it maximizes the likelihood.</li>
+    <li>Both estimators are consistent; difference matters mainly for small samples and for reporting unbiased variance estimates.</li>
+  </ul>
+</section>
+
   </div>
 
 
@@ -799,7 +898,136 @@
 
 
 <div class="glow-box" id="6">
-  
+  <section>
+  <h2>Question 6</h2>
+  <p>
+    Consider paired data \((X_i,Y_i),\ i=1,\dots,n\), independent, the marginal distribution of the \(X_i\) unspecified, and the conditional density of \(Y_i\) given \(X_i\) is
+  </p>
+  <p>\[
+    f(y\mid X_i,\lambda,\alpha,\beta)=\frac{\lambda}{2}\exp\!\big(-\lambda|y-\alpha-\beta X_i|\big),\qquad -\infty<y<\infty,
+  \]</p>
+  <p>(i.e. a Laplace / double-exponential conditional distribution with scale parameter \(\lambda^{-1}\)). Show that the maximum likelihood estimators (MLEs) of \(\alpha\) and \(\beta\) minimize</p>
+  <p>\[
+    \sum_{i=1}^n |Y_i-\alpha-\beta X_i|.
+  \]</p>
+
+  <h2>Detailed solution</h2>
+  <ul>
+    <li>
+      <h2>Step 1 — conditional likelihood (treat \(x_i\) as given)</h2>
+      <p>
+        The conditional likelihood for \((\lambda,\alpha,\beta)\) is
+      </p>
+      <p>\[
+        L(\lambda,\alpha,\beta)
+        =\prod_{i=1}^n \frac{\lambda}{2}\exp\!\big(-\lambda|y_i-\alpha-\beta x_i|\big)
+        =\Big(\frac{\lambda}{2}\Big)^n \exp\!\Big(-\lambda\sum_{i=1}^n|y_i-\alpha-\beta x_i|\Big).
+      \]</p>
+    </li>
+
+```
+<li>
+  <h2>Step 2 — log-likelihood</h2>
+  <p>
+    The log-likelihood is
+  </p>
+  <p>\[
+    \ell(\lambda,\alpha,\beta)
+    = n\log\lambda - n\log 2 \;-\; \lambda\sum_{i=1}^n|y_i-\alpha-\beta x_i|.
+  \]</p>
+</li>
+
+<li>
+  <h2>Step 3 — maximize w.r.t. \(\alpha,\beta\)</h2>
+  <ul>
+    <li>
+      For fixed \((\alpha,\beta)\) the log-likelihood as a function of \(\lambda\) is
+      <p>\[
+        \ell(\lambda\mid\alpha,\beta)=n\log\lambda - \lambda S(\alpha,\beta) + \text{constant},
+        \qquad S(\alpha,\beta)=\sum_{i=1}^n|y_i-\alpha-\beta x_i|.
+      \]</p>
+    </li>
+    <li>
+      Differentiating w.r.t. \(\lambda\) and equating to zero gives
+      <p>\[
+        \frac{n}{\hat\lambda}-S(\alpha,\beta)=0\quad\Rightarrow\quad \hat\lambda(\alpha,\beta)=\frac{n}{S(\alpha,\beta)}.
+      \]</p>
+    </li>
+    <li>
+      Plugging \(\hat\lambda\) back yields the profile log-likelihood (up to constants)
+      <p>\[
+        \ell_{\text{prof}}(\alpha,\beta) = n\log\!\Big(\frac{n}{S(\alpha,\beta)}\Big) - n\log 2 - n
+        = -\,n\log S(\alpha,\beta) + \text{constant}.
+      \]</p>
+    </li>
+    <li>
+      Since \(-n\log S(\alpha,\beta)\) is a strictly monotone transformation of \(S(\alpha,\beta)>0\), maximizing \(\ell_{\text{prof}}\) over \((\alpha,\beta)\) is equivalent to minimizing
+      <p>\[
+        S(\alpha,\beta)=\sum_{i=1}^n |y_i-\alpha-\beta x_i|.
+      \]</p>
+    </li>
+  </ul>
+</li>
+
+<li>
+  <h2>Step 4 — conclusion</h2>
+  <p>
+    Therefore the MLEs \((\hat\alpha,\hat\beta)\) are exactly the minimizers of the sum of absolute residuals:
+  </p>
+  <p>\[
+    (\hat\alpha,\hat\beta)
+    = \arg\min_{(\alpha,\beta)}\sum_{i=1}^n |Y_i-\alpha-\beta X_i|.
+  \]</p>
+  <p>These are the least absolute deviations (LAD) or L1 regression estimators (equivalently median regression for the conditional median).</p>
+</li>
+
+<li>
+  <h2>Optional — subgradient (first-order) conditions</h2>
+  <p>
+    Let \(r_i(\alpha,\beta)=y_i-\alpha-\beta x_i\) and \(\operatorname{sgn}(u)\) be the sign function with \(\operatorname{sgn}(0)\in[-1,1]\). A minimizer \((\hat\alpha,\hat\beta)\) satisfies the subgradient equations
+  </p>
+  <p>\[
+    \sum_{i=1}^n \operatorname{sgn}\big(r_i(\hat\alpha,\hat\beta)\big)=0,\qquad
+    \sum_{i=1}^n x_i\,\operatorname{sgn}\big(r_i(\hat\alpha,\hat\beta)\big)=0,
+  \]</p>
+  <p>
+    where equalities are interpreted in the subgradient sense if some residuals equal zero. These are the LAD analogues of the normal equations.
+  </p>
+</li>
+```
+
+  </ul>
+
+  <h2>Related concepts</h2>
+  <ul>
+    <li><strong>Least absolute deviations (LAD) / L1 regression:</strong> Minimizes \(\sum|r_i|\); robust to outliers in \(Y\).</li>
+    <li><strong>Median / quantile regression:</strong> LAD is the special case of quantile regression at the 0.5 quantile (conditional median).</li>
+    <li><strong>MLE equivalence:</strong> The Laplace conditional density makes the negative log-likelihood proportional to the L1 loss, hence MLE = LAD.</li>
+    <li><strong>Subgradient vs differentiability:</strong> Because \(|\cdot|\) is nondifferentiable at 0, optimality uses subgradients rather than ordinary gradients.</li>
+    <li><strong>Uniqueness:</strong> The LAD minimizer may not be unique in degenerate data configurations; with \(x_i\) in general position uniqueness typically holds.</li>
+  </ul>
+
+  <h2>Viz</h2>
+  <ul>
+    <li>Scatter plot \((x_i,y_i)\) with both OLS and LAD fit lines to demonstrate robustness: LAD resists vertical outliers.</li>
+    <li>Surface plot of \(S(\alpha,\beta)\) over a grid to visualize kinks where residual signs change; minima occur at intersections of these kinked regions.</li>
+    <li>Sign-balance plot at the LAD fit: the residual signs should balance so the sum of signs (and the weighted sum by \(x_i\)) is approximately zero.</li>
+    <li>Contamination experiment: simulate outliers and compare OLS vs LAD fits to show trade-offs between efficiency and robustness.</li>
+  </ul>
+
+  <h2>Other worthwhile points</h2>
+  <ul>
+    <li><strong>Computation:</strong> LAD can be computed by linear programming (introduce positive/negative parts for residuals), by specialized algorithms (simplex, interior-point), or by IRLS approximations. Many packages implement quantile regression (e.g. <i>rq</i> in R) that computes LAD.</li>
+    <li><strong>Asymptotics:</strong> LAD estimators are consistent and asymptotically normal under mild conditions; asymptotic variance depends on the error density at zero (for Laplace errors one gets closed-form expressions).</li>
+    <li><strong>MLE for \(\lambda\):</strong> Given \((\hat\alpha,\hat\beta)\), the MLE for \(\lambda\) is
+      <p>\[
+        \hat\lambda=\frac{n}{\sum_{i=1}^n|y_i-\hat\alpha-\hat\beta x_i|}.
+      \]</p>
+    </li>
+    <li><strong>Robustness trade-off:</strong> LAD has higher breakdown point and bounded influence compared with OLS, but is typically less efficient under Gaussian errors. Choose method with the error distribution and outlier risk in mind.</li>
+  </ul>
+</section>
+
 </div>
 
 
