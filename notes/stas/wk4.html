@@ -208,7 +208,88 @@
 
   <!-- Notes section boxes -->
   <div class="glow-box" id="1">
-   
+   <section>
+  <h2>Question 1</h2>
+  <p>
+    For a data set with three observations \((X_1,y_1), (X_2,y_2), (X_3,y_3)\) with \(X_2 = X_1 = a\) (two points vertically aligned at \(x=a\)) and \(X_3=b\) (assume \(b\neq a\)), show that <strong>any</strong> line passing through \((b,y_3)\) and any point on the vertical segment between \((a,y_1)\) and \((a,y_2)\) is a LAD (least-absolute-deviations) line — i.e. it minimizes \(\sum_{i=1}^3 |y_i - f(X_i)|\) over all lines \(f(x)=\alpha+\beta x\).
+  </p>
+
+  <h2>Detailed solution</h2>
+  <ul>
+    <li>
+      <p>Write the two coincident \(x\)-values as \(a\) and the third as \(b\). Let \(f\) denote any candidate regression line. Denote \(u=f(a)\) (the predicted value at \(x=a\)) and \(v=f(b)\) (the predicted value at \(x=b\)). The sum of absolute residuals for this line is</p>
+      <p>\[
+        S(f)=|y_1-u| + |y_2-u| + |y_3-v|.
+      \]</p>
+    </li>
+
+```
+<li>
+  <h2>A lower bound</h2>
+  <ul>
+    <li>By the triangle inequality,
+      <p>\[
+        |y_1-y_2| \le |y_1-u| + |u-y_2| = |y_1-u| + |y_2-u|.
+      \]</p>
+    </li>
+    <li>Therefore for any line \(f\),
+      <p>\[
+        S(f) = (|y_1-u|+|y_2-u|) + |y_3-v| \ge |y_1-y_2| + |y_3-v| \ge |y_1-y_2|.
+      \]</p>
+    </li>
+    <li>Thus no line can make the total absolute deviation smaller than \(|y_1-y_2|\).</li>
+  </ul>
+</li>
+
+<li>
+  <h2>Existence of lines attaining the lower bound</h2>
+  <ul>
+    <li>If we take any value \(t\) lying <em>between</em> \(y_1\) and \(y_2\) (inclusive), then
+      <p>\[
+        |y_1-t| + |y_2-t| = |y_1-y_2|,
+      \]</p>
+      a standard property of absolute deviations from two points: the sum is constant and equal to the gap when \(t\) is between them.</li>
+    <li>Consider the unique line \(f_t\) passing through the two points \((a,t)\) and \((b,y_3)\). For this line we have \(u=f_t(a)=t\) and \(v=f_t(b)=y_3\), so its total absolute deviation is
+      <p>\[
+        S(f_t) = |y_1-t| + |y_2-t| + |y_3-y_3| = |y_1-y_2| + 0 = |y_1-y_2|.
+      \]</p>
+    </li>
+    <li>This equals the lower bound found earlier, hence \(f_t\) attains the global minimum of the LAD objective.</li>
+  </ul>
+</li>
+
+<li>
+  <h2>Conclusion</h2>
+  <p>
+    Any line through \((b,y_3)\) and any point \((a,t)\) with \(t\in [\min(y_1,y_2),\max(y_1,y_2)]\) attains the minimal possible \(\sum |\,\cdot\,|\). Therefore every such line is a LAD line. \(\square\)
+  </p>
+</li>
+```
+
+  </ul>
+
+  <h2>Related concepts</h2>
+  <ul>
+    <li>The argument uses only the triangle inequality and the basic property that for two real numbers \(y_1,y_2\) the function \(t\mapsto |y_1-t|+|y_2-t|\) is minimized (and constant) for \(t\) in the closed interval between \(y_1\) and \(y_2\).</li>
+    <li>This is a small-sample illustration of non-uniqueness of LAD fits: when there are fewer constraints than parameters (or special data configurations) the LAD minimizer need not be unique.</li>
+    <li>Geometrically, LAD chooses a line that balances signed counts (subgradient condition) — here the balance is achieved by making the \(x=b\) residual zero and choosing the predicted value at \(x=a\) anywhere between the two observed \(y\)'s so the two vertical residuals sum to the minimal gap.</li>
+  </ul>
+
+  <h2>Viz</h2>
+  <ul>
+    <li>Draw the three points: two at \(x=a\) at heights \(y_1,y_2\) and one at \(x=b\) at height \(y_3\).</li>
+    <li>Draw several lines through \((b,y_3)\) meeting the vertical segment between \((a,y_1)\) and \((a,y_2)\); each of these will have the same total absolute residual equal to \(|y_1-y_2|\).</li>
+    <li>Plot \(S(f)\) as a function of the intercept at \(x=a\) (i.e. \(t=u\)); it is \( |y_1-t|+|y_2-t|+|y_3-v(t)|\) but for the special family with \(v(t)=y_3\) (lines through \((b,y_3)\)) it is constant on the interval between \(y_1,y_2\).</li>
+  </ul>
+
+  <h2>Other worthwhile points</h2>
+  <ul>
+    <li>If \(y_1=y_2\) then any line through \((a,y_1)\) and \((b,y_3)\) is the unique LAD line (no vertical segment). If \(y_1\ne y_2\) we have a <em>continuum</em> of LAD minimizers parameterized by \(t\) between \(y_1\) and \(y_2\).</li>
+    <li>In practice this degeneracy means algorithms for LAD (linear programming, quantile regression solvers) may return one of many solutions depending on tie-breaking; this is normal and acceptable because all are optimal.</li>
+    <li>The subgradient optimality condition for LAD in this example reduces to: the signs at the two \(x=a\) residuals sum to 0 (possible only if they are opposite or one is zero) and the residual at \(x=b\) is zero. That characterization matches the geometric description above.</li>
+  </ul>
+</section>
+
   </div>
 
 
