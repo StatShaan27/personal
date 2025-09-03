@@ -620,7 +620,130 @@
 
 
   <div class="glow-box" id="4">
-   
+   <section>
+  <h2>Question (restated)</h2>
+  <p>
+    Consider paired data \((X_i,Y_i),\ i=1,\dots,n\), where the pairs are independent, the marginal distribution of the \(X_i\) is unspecified, and the conditional distribution of \(Y_i\) given \(X_i=x_i\) is
+  </p>
+  <p>\[
+    Y_i\mid X_i=x_i \sim N(\alpha+\beta x_i,\ \sigma^2).
+  \]</p>
+  <p>Show that the maximum likelihood estimators (MLEs) of \(\alpha\) and \(\beta\) coincide with the ordinary least squares estimators for the linear regression model \(Y=\alpha+\beta X+\varepsilon\).</p>
+
+  <h2>Detailed solution</h2>
+  <ul>
+    <li><strong>Idea.</strong> Because only the conditional distribution of \(Y_i\) given \(X_i\) is specified, the likelihood for \((\alpha,\beta,\sigma^2)\) is the conditional likelihood
+      <p>\[
+        L(\alpha,\beta,\sigma^2)=\prod_{i=1}^n f_{Y\mid X}(y_i\mid x_i)
+        =\prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}}\exp\!\Big(-\frac{(y_i-(\alpha+\beta x_i))^2}{2\sigma^2}\Big).
+      \]</p>
+      <p>Maximizing this over \(\alpha,\beta\) (for fixed \(\sigma^2\)) is equivalent to minimizing the sum of squared residuals</p>
+      <p>\[
+        Q(\alpha,\beta)=\sum_{i=1}^n\big(y_i-(\alpha+\beta x_i)\big)^2.
+      \]</p>
+      <p>Hence the MLEs of \(\alpha,\beta\) are the least-squares estimators.</p>
+    </li>
+
+```
+<li><h2>Step 1 — log-likelihood and equivalence to least squares</h2>
+  <ul>
+    <li>The log-likelihood (conditional on the observed \(x_i\)) is
+      <p>\[
+        \ell(\alpha,\beta,\sigma^2)
+        = -\frac{n}{2}\log(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^n\big(y_i-(\alpha+\beta x_i)\big)^2.
+      \]</p>
+    </li>
+    <li>For fixed \(\sigma^2\), maximizing \(\ell\) w.r.t. \(\alpha,\beta\) is identical to minimizing \(Q(\alpha,\beta)\).</li>
+  </ul>
+</li>
+
+<li><h2>Step 2 — normal equations</h2>
+  <ul>
+    <li>Set partial derivatives of \(Q\) to zero:
+      <p>\[
+        \frac{\partial Q}{\partial \alpha} = -2\sum_{i=1}^n\big(y_i-(\alpha+\beta x_i)\big)=0,
+      \]</p>
+      <p>\[
+        \frac{\partial Q}{\partial \beta} = -2\sum_{i=1}^n x_i\big(y_i-(\alpha+\beta x_i)\big)=0.
+      \]</p>
+    </li>
+    <li>Divide by \(-2\) and rewrite to obtain the normal equations:
+      <p>\[
+        n\alpha + \beta\sum_{i=1}^n x_i = \sum_{i=1}^n y_i,
+      \]</p>
+      <p>\[
+        \alpha\sum_{i=1}^n x_i + \beta\sum_{i=1}^n x_i^2 = \sum_{i=1}^n x_i y_i.
+      \]</p>
+    </li>
+  </ul>
+</li>
+
+<li><h2>Step 3 — solve for \(\hat\alpha,\hat\beta\)</h2>
+  <ul>
+    <li>Let \(\bar x=\dfrac{1}{n}\sum_i x_i\), \(\bar y=\dfrac{1}{n}\sum_i y_i\). Define
+      <p>\[
+        S_{xx}=\sum_{i=1}^n (x_i-\bar x)^2=\sum_i x_i^2 - n\bar x^2,\qquad
+        S_{xy}=\sum_{i=1}^n (x_i-\bar x)(y_i-\bar y)=\sum_i x_i y_i - n\bar x\bar y.
+      \]</p>
+    </li>
+    <li>Solving the normal equations yields the OLS formulas (and hence the MLEs):
+      <p>\[
+        \boxed{\displaystyle
+        \hat\beta \;=\; \frac{S_{xy}}{S_{xx}}, \qquad
+        \hat\alpha \;=\; \bar y - \hat\beta\,\bar x.}
+      \]</p>
+    </li>
+  </ul>
+</li>
+
+<li><h2>Step 4 — MLE for \(\sigma^2\)</h2>
+  <ul>
+    <li>Plugging \(\hat\alpha,\hat\beta\) back into the log-likelihood, the MLE for \(\sigma^2\) is
+      <p>\[
+        \boxed{\displaystyle
+        \hat\sigma^2_{\text{MLE}} \;=\; \frac{1}{n}\sum_{i=1}^n \big(y_i - \hat\alpha - \hat\beta x_i\big)^2.}
+      \]</p>
+      <p>Note: this ML estimator uses division by \(n\); the unbiased estimator uses division by \(n-2\).</p>
+    </li>
+  </ul>
+</li>
+
+<li><h2>Step 5 — second-derivative check (concavity)</h2>
+  <ul>
+    <li>The conditional log-likelihood is quadratic (negative-definite in \(\alpha,\beta\) for fixed \(\sigma^2\)), so the solution above is a global maximizer for \(\alpha,\beta\).</li>
+  </ul>
+</li>
+```
+
+  </ul>
+
+  <p>Thus the MLEs of \(\alpha\) and \(\beta\) coincide exactly with the least-squares estimators.</p>
+
+  <h2>Related concepts</h2>
+  <ul>
+    <li><strong>Conditional likelihood vs joint likelihood.</strong> When the marginal distribution of \(X\) is unspecified, inference about regression parameters is done via the conditional likelihood \(f(y\mid x)\); this is equivalent to treating \(x_i\) as fixed regressors for likelihood purposes.</li>
+    <li><strong>Gauss–Markov theorem.</strong> Under mean-zero, homoscedastic, uncorrelated errors, OLS estimators are the Best Linear Unbiased Estimators (BLUE). With normality they are also MLEs (hence efficient).</li>
+    <li><strong>MLE vs unbiased estimation of \(\sigma^2\).</strong> ML gives \(\hat\sigma^2 = \mathrm{RSS}/n\); the unbiased estimator is \(\mathrm{RSS}/(n-2)\).</li>
+    <li><strong>Fisher information / asymptotic variance.</strong> For known \(\sigma^2\), the exact variances are
+      <p>\[
+        \operatorname{Var}(\hat\beta)=\frac{\sigma^2}{S_{xx}},\qquad
+        \operatorname{Var}(\hat\alpha)=\sigma^2\Big(\frac{1}{n}+\frac{\bar x^2}{S_{xx}}\Big).
+      \]</p>
+    </li>
+    <li><strong>Interpretation when \(X\) random.</strong> If \(X_i\) are random but independent of the error and their distribution does not depend on \(\alpha,\beta\), the conditional-likelihood approach still yields the same estimators as the joint likelihood (which factors as marginal of \(X\) times conditional of \(Y\mid X\)).</li>
+  </ul>
+
+  <h2>Viz</h2>
+  <ul>
+    <li>Scatter plot \((x_i,y_i)\) with fitted regression line \(y=\hat\alpha+\hat\beta x\) and residuals drawn down to the line — checks fit visually.</li>
+    <li>Residual diagnostics: plot residuals vs fitted values and a Q–Q plot of residuals to check homoscedasticity and normality assumptions.</li>
+    <li>Confidence bands: show pointwise confidence intervals for the regression line using the variance formulas above.</li>
+    <li>Profile of log-likelihood: plot \(\ell(\alpha,\beta)\) (or profile \(\ell(\beta)\) fixing \(\alpha=\bar y-\beta\bar x\)) to visualize the quadratic shape and the unique maximum.</li>
+  </ul>
+
+     
+</section>
+
 
   </div>
 
