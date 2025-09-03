@@ -479,7 +479,122 @@
 
 
   <div class="glow-box" id="3">
-      
+      <section>
+  <h2>Question 3</h2>
+  <p>
+    Let \(Y_1,Y_2,Y_3,Y_4\) be counts in four genetic categories. Conditionally on the total
+    \(N=Y_1+Y_2+Y_3+Y_4\) the vector has a multinomial distribution with cell probabilities
+  </p>
+  <p>\[
+    p_1(\pi)=\tfrac12+\tfrac{\pi}{4},\qquad
+    p_2(\pi)=p_3(\pi)=\tfrac{1-\pi}{4},\qquad
+    p_4(\pi)=\tfrac{\pi}{4},
+  \]</p>
+  <p>where the unknown parameter \(\pi\in(0,1)\).  Viewing this as an incomplete-data / latent-allocation problem, the EM algorithm applies. The question: <strong>obtain a closed form expression for the value of \(\pi\) attained at the convergence of the EM algorithm</strong>.</p>
+
+  <h2>Detailed solution — overview</h2>
+  <ul>
+    <li>Introduce notation \(n_1=y_1,\; n_2=y_2+y_3,\; n_4=y_4\) and \(N=n_1+n_2+n_4\).</li>
+    <li>Write the (observed) log-likelihood \(\ell(\pi)\), differentiate (score), clear denominators to obtain a quadratic, and solve it.</li>
+    <li>Choose the root lying in \((0,1)\) — that is the EM fixed-point (the stationary solution of the observed-data likelihood).</li>
+  </ul>
+
+  <h2>Step 1 — write the (observed) log-likelihood</h2>
+  <ul>
+    <li>Up to an additive constant, the log-likelihood is
+      <p>\[
+        \ell(\pi)=y_1\log\!\Big(\tfrac12+\tfrac{\pi}{4}\Big)+(y_2+y_3)\log\!\Big(\tfrac{1-\pi}{4}\Big)+y_4\log\!\Big(\tfrac{\pi}{4}\Big).
+      \]</p>
+    </li>
+    <li>With \(n_1=y_1,\; n_2=y_2+y_3,\; n_4=y_4\) and \(N=n_1+n_2+n_4\), substitute to simplify notation.</li>
+  </ul>
+
+  <h2>Step 2 — stationary equation (score = 0)</h2>
+  <ul>
+    <li>Differentiate \(\ell(\pi)\) w.r.t. \(\pi\). Useful derivatives:
+      <ul>
+        <li>\(\dfrac{d}{d\pi}\log\!\Big(\tfrac12+\tfrac{\pi}{4}\Big)=\dfrac{1}{2+\pi}\).</li>
+        <li>\(\dfrac{d}{d\pi}\log\!\Big(\tfrac{1-\pi}{4}\Big)=-\dfrac{1}{1-\pi}\).</li>
+        <li>\(\dfrac{d}{d\pi}\log\!\Big(\tfrac{\pi}{4}\Big)=\dfrac{1}{\pi}\).</li>
+      </ul>
+    </li>
+    <li>Thus the score equation is
+      <p>\[
+        \frac{n_1}{2+\pi}-\frac{n_2}{1-\pi}+\frac{n_4}{\pi}=0.
+      \]</p>
+    </li>
+  </ul>
+
+  <h2>Step 3 — clear denominators to obtain a polynomial</h2>
+  <ul>
+    <li>Multiply the score equation by \(\pi(1-\pi)(2+\pi)\) to remove denominators:
+      <p>\[
+        n_1\pi(1-\pi)+n_4(1-\pi)(2+\pi)-n_2\pi(2+\pi)=0.
+      \]</p>
+    </li>
+    <li>Expand and collect like powers:
+      <ul>
+        <li>\(n_1\pi(1-\pi)=n_1(\pi-\pi^2)\).</li>
+        <li>\((1-\pi)(2+\pi)=2-\pi-\pi^2\), so \(n_4(1-\pi)(2+\pi)=n_4(2-\pi-\pi^2)\).</li>
+        <li>\(n_2\pi(2+\pi)=n_2(2\pi+\pi^2)\).</li>
+      </ul>
+    </li>
+    <li>Collecting coefficients gives the quadratic:
+      <p>\[
+        - N \pi^2 + (n_1 - n_4 - 2 n_2)\pi + 2 n_4 = 0,
+      \]</p>
+      and multiplying by \(-1\) yields the standard form
+      <p>\[
+        N\pi^2 + (-n_1 + n_4 + 2 n_2)\pi - 2 n_4 = 0.
+      \]</p>
+    </li>
+  </ul>
+
+  <h2>Step 4 — solve the quadratic</h2>
+  <ul>
+    <li>Apply the quadratic formula. The solutions are
+      <p>\[
+        \boxed{ \displaystyle
+        \pi \;=\; \frac{\,n_1 - n_4 - 2 n_2 \;\pm\; \sqrt{( -n_1 + n_4 + 2 n_2)^2 + 8 N n_4}\,}{2N} }.
+      \]</p>
+      <p>(The discriminant simplifies as \(( -n_1 + n_4 + 2 n_2)^2 - 4\cdot N\cdot(-2 n_4) = ( -n_1 + n_4 + 2 n_2)^2 + 8 N n_4\).)</p>
+    </li>
+  </ul>
+
+  <h2>Step 5 — choose the correct root (EM convergence)</h2>
+  <ul>
+    <li>The EM algorithm converges to a stationary point of the observed-data likelihood; the valid parameter must lie in \((0,1)\).</li>
+    <li>Thus \(\pi_{\text{EM}}\) is the root above that lies in \((0,1)\). In practice, when \(n_4>0\) the “\(+\)” branch typically yields the admissible root; choose the sign that gives \(0<\pi<1\).</li>
+  </ul>
+
+  <p>Conclusion / boxed result (explicit):</p>
+  <p>\[
+    \pi_{\star} \;=\; \frac{n_1 - n_4 - 2 n_2 \;\pm\; \sqrt{( -n_1 + n_4 + 2 n_2)^2 + 8 N n_4}}{2N},
+  \]</p>
+  <p>with the sign chosen so that \(0<\pi_\star<1\). This closed-form gives the stationary value that the EM fixed-point must satisfy (hence the EM limit).</p>
+
+  <h2>Related concepts</h2>
+  <ul>
+    <li><strong>EM and stationary equations:</strong> An EM fixed-point satisfies the observed-data score equations whenever the M-step produces a full maximizer; thus the EM limit is a stationary point of the observed log-likelihood.</li>
+    <li><strong>Score equation / MLE:</strong> Here the score reduces to a quadratic in \(\pi\), so the MLE (and EM limit) can be obtained in closed form.</li>
+    <li><strong>Root selection / boundaries:</strong> If no root lies in \((0,1)\) check boundary MLEs at \(\pi=0\) or \(\pi=1\) and inspect the log-likelihood for maxima vs minima.</li>
+    <li><strong>Numerical stability:</strong> Reparametrizations (e.g., \(\pi=(1-\theta)^2\)) can help numerics, though algebra gave an explicit solution here.</li>
+  </ul>
+
+  <h2>Viz</h2>
+  <ul>
+    <li>Plot the observed-data log-likelihood \(\ell(\pi)\) on \(\pi\in[0,1]\) to visualize the stationary point and to confirm the chosen root is a global maximum.</li>
+    <li>Plot the quadratic polynomial \(f(\pi)=N\pi^2 +(-n_1 + n_4 + 2 n_2)\pi -2 n_4\) to see the two roots and where they lie relative to \([0,1]\).</li>
+  </ul>
+
+  <h2>Other points worth mentioning</h2>
+  <ul>
+    <li>If you run EM from different starting values and it always converges to the same root in \((0,1)\), that gives empirical confirmation the root is the global maximizer (for regular data).</li>
+    <li>When \(n_4=0\) the formula simplifies (the discriminant reduces) and one must check boundaries carefully — often the MLE may sit at \(\pi=0\).</li>
+    <li>Everything above preserves the full derivation and the final closed-form expression; substitute \(n_1=y_1,\; n_2=y_2+y_3,\; n_4=y_4\) when applying to data.</li>
+  </ul>
+</section>
+
     </div>
 
 
