@@ -194,8 +194,11 @@
       <li><a href="#1"> Probability Spaces </a></li>
       <li><a href="#2"> Question 1 </a></li>
       <li><a href="#3"> Question 2 </a></li>
-      <li><a href="#4"> </a></li>
-      <li><a href="#0"></a></li>
+      <li><a href="#4"> Question 3</a></li>
+      <li><a href="#5"></a></li>
+      <li><a href="#6"></a></li>
+      <li><a href="#7"></a></li>
+      
       <!-- Add more as you progress -->
     </ul>
   </div>
@@ -473,8 +476,50 @@
 
 
 
-<div class="glow-box" id="0">
-  
+<div class="glow-box" id="4">
+  <section>
+  <h2>Question 3</h2>
+  <p>
+    Let \(\mathcal C_1\) and \(\mathcal C_2\) be two collections of events. If \(\mathcal C_1\subseteq\sigma(\mathcal C_2)\) and \(\mathcal C_2\subseteq\sigma(\mathcal C_1)\), show that \(\sigma(\mathcal C_1)=\sigma(\mathcal C_2)\).
+  </p>
+
+  <h2>1) Rigorous solution</h2>
+
+  <h2>Step 0 — recall a basic fact</h2>
+  <ul>
+    <li>For any collection \(\mathcal C\subseteq\mathcal P(\Omega)\) we have the idempotence property
+      <p>\(\sigma(\sigma(\mathcal C))=\sigma(\mathcal C)\),</p>
+      because \(\sigma(\mathcal C)\) is already a \(\sigma\)-field containing \(\mathcal C\) and \(\sigma(\mathcal C)\) is the smallest such \(\sigma\)-field.</li>
+  </ul>
+
+  <h2>Step 1 — show \(\sigma(\mathcal C_1)\subseteq\sigma(\mathcal C_2)\)</h2>
+  <ul>
+    <li>Assume \(\mathcal C_1\subseteq\sigma(\mathcal C_2)\).</li>
+    <li>Apply the monotone operator \(\sigma(\cdot)\) to both sides to obtain
+      <p>\(\sigma(\mathcal C_1)\subseteq\sigma\big(\sigma(\mathcal C_2)\big).\)</p>
+    </li>
+    <li>By idempotence \(\sigma(\sigma(\mathcal C_2))=\sigma(\mathcal C_2)\). Hence
+      <p>\(\sigma(\mathcal C_1)\subseteq\sigma(\mathcal C_2).\)</p>
+    </li>
+  </ul>
+
+  <h2>Step 2 — show \(\sigma(\mathcal C_2)\subseteq\sigma(\mathcal C_1)\)</h2>
+  <ul>
+    <li>By symmetry, from \(\mathcal C_2\subseteq\sigma(\mathcal C_1)\) we get
+      <p>\(\sigma(\mathcal C_2)\subseteq\sigma\big(\sigma(\mathcal C_1)\big)=\sigma(\mathcal C_1).\)</p>
+    </li>
+  </ul>
+
+  <h2>Step 3 — conclude equality</h2>
+  <ul>
+    <li>Combining inclusions,
+      <p>\(\sigma(\mathcal C_1)\subseteq\sigma(\mathcal C_2)\subseteq\sigma(\mathcal C_1)\),</p>
+      so \(\sigma(\mathcal C_1)=\sigma(\mathcal C_2)\).</li>
+    <li>Justifications used: monotonicity of \(\sigma(\cdot)\) (intersection-of-all-\(\sigma\)-fields construction preserves inclusion) and idempotence (minimality of generated \(\sigma\)-fields).</li>
+  </ul>
+
+  </section>
+
 </div>
 
 
