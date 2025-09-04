@@ -192,7 +192,7 @@
     <h3>Contents</h3>
     <ul>
       <li><a href="#1"> Probability Spaces </a></li>
-      <li><a href="#2"> </a></li>
+      <li><a href="#2"> Question 1 </a></li>
       <li><a href="#3"> </a></li>
       <li><a href="#4"> </a></li>
       <li><a href="#0"></a></li>
@@ -262,7 +262,89 @@
 
 
   <div class="glow-box" id="2">
-    
+    <section>
+  <h2>Question 1</h2>
+  <p>
+    Show that \(\sigma(\mathcal C)\) exists and is unique, where \(\mathcal C\) is a collection of subsets of \(\Omega\) and \(\sigma(\mathcal C)\) denotes the smallest \(\sigma\)-field on \(\Omega\) that contains \(\mathcal C\).
+  </p>
+
+  <h2>1) Rigorous solution (existence and uniqueness)</h2>
+
+  <h2>Step 0 — set-up and notation</h2>
+  <ul>
+    <li>Let \(\Omega\) be a nonempty set and \(\mathcal C\subseteq\mathcal P(\Omega)\) be any collection of subsets of \(\Omega\).</li>
+    <li>Call
+      <p>\(\displaystyle \mathfrak S :=\{\,\mathcal F\subseteq\mathcal P(\Omega)\;:\;\mathcal F\text{ is a }\sigma\text{-field and }\mathcal C\subseteq\mathcal F\,\}\)</p>
+      the family of all \(\sigma\)-fields on \(\Omega\) that contain \(\mathcal C\).</li>
+    <li>We will prove:
+      <ul>
+        <li>(A) \(\mathfrak S\neq\varnothing\).</li>
+        <li>(B) The intersection \(\bigcap_{\mathcal F\in\mathfrak S}\mathcal F\) is a \(\sigma\)-field containing \(\mathcal C\).</li>
+        <li>(C) That intersection is the unique smallest \(\sigma\)-field containing \(\mathcal C\).</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>(A) Non-emptiness of \(\mathfrak S\)</h2>
+  <ul>
+    <li>\(\mathcal P(\Omega)\) (the power set of \(\Omega\)) is a \(\sigma\)-field:
+      <ul>
+        <li>it contains \(\varnothing\) and \(\Omega\),</li>
+        <li>is closed under complements, and</li>
+        <li>is closed under arbitrary unions.</li>
+      </ul>
+    </li>
+    <li>Since \(\mathcal C\subseteq\mathcal P(\Omega)\) trivially, we have \(\mathcal P(\Omega)\in\mathfrak S\). Therefore \(\mathfrak S\neq\varnothing\).</li>
+    <li><p><em>Remark:</em> alternatively, \(\{\varnothing,\Omega\}\) is a \(\sigma\)-field but need not contain \(\mathcal C\); \(\mathcal P(\Omega)\) is the convenient witness showing \(\mathfrak S\) is nonempty.</p></li>
+  </ul>
+
+  <h2>(B) The intersection of all members of \(\mathfrak S\) is a \(\sigma\)-field containing \(\mathcal C\)</h2>
+  <ul>
+    <li>Define
+      <p>\(\displaystyle \mathcal G := \bigcap_{\mathcal F\in\mathfrak S}\mathcal F.\)</p>
+    </li>
+    <li>We check the three axioms of a \(\sigma\)-field for \(\mathcal G\), and also that \(\mathcal C\subseteq\mathcal G\).</li>
+    <li>
+      <ul>
+        <li><strong>\(\varnothing,\Omega\in\mathcal G\).</strong>
+          <p>For every \(\mathcal F\in\mathfrak S\), \(\mathcal F\) is a \(\sigma\)-field so \(\varnothing,\Omega\in\mathcal F\). Hence \(\varnothing,\Omega\) belong to the intersection \(\mathcal G\).</p>
+        </li>
+
+```
+    <li><strong>Closed under complements.</strong>
+      <p>Let \(A\in\mathcal G\). Then \(A\in\mathcal F\) for every \(\mathcal F\in\mathfrak S\). Because each \(\mathcal F\) is a \(\sigma\)-field, \(A^c\in\mathcal F\) for every \(\mathcal F\in\mathfrak S\). Thus \(A^c\in\mathcal G\). So \(\mathcal G\) is closed under complements.</p>
+    </li>
+
+    <li><strong>Closed under countable unions.</strong>
+      <p>Let \((A_n)_{n\ge1}\) be a sequence with each \(A_n\in\mathcal G\). Then for every \(\mathcal F\in\mathfrak S\) we have \(A_n\in\mathcal F\) for all \(n\), and since \(\mathcal F\) is a \(\sigma\)-field, \(\bigcup_{n=1}^\infty A_n\in\mathcal F\). This holds for every \(\mathcal F\in\mathfrak S\), hence \(\bigcup_{n=1}^\infty A_n\in\mathcal G\). Thus \(\mathcal G\) is closed under countable unions.</p>
+    </li>
+
+    <li><strong>\(\mathcal C\subseteq\mathcal G\).</strong>
+      <p>By definition of \(\mathfrak S\), every \(\mathcal F\in\mathfrak S\) contains \(\mathcal C\). Therefore every element of \(\mathcal C\) lies in every \(\mathcal F\in\mathfrak S\), hence \(\mathcal C\subseteq\bigcap_{\mathcal F\in\mathfrak S}\mathcal F=\mathcal G\).</p>
+    </li>
+  </ul>
+</li>
+<li><p>So \(\mathcal G\) is a \(\sigma\)-field containing \(\mathcal C\). In particular \(\mathcal G\in\mathfrak S\).</p></li>
+```
+
+  </ul>
+
+  <h2>(C) Minimality and uniqueness</h2>
+  <ul>
+    <li>Claim: \(\mathcal G\) is the <em>smallest</em> \(\sigma\)-field containing \(\mathcal C\). "Smallest" means: if \(\mathcal H\) is any \(\sigma\)-field with \(\mathcal C\subseteq\mathcal H\), then \(\mathcal G\subseteq\mathcal H\).</li>
+    <li>Proof:
+      <p>By definition \(\mathfrak S\) is the family of all \(\sigma\)-fields that contain \(\mathcal C\). Hence every such \(\mathcal H\) is an element of \(\mathfrak S\). Since \(\mathcal G\) is the intersection of all elements of \(\mathfrak S\), it follows that \(\mathcal G\subseteq\mathcal H\). Thus \(\mathcal G\) is contained in every \(\sigma\)-field that contains \(\mathcal C\); equivalently it is the smallest such \(\sigma\)-field.</p>
+    </li>
+    <li><strong>Uniqueness:</strong>
+      <p>Suppose \(\mathcal G_1\) and \(\mathcal G_2\) are two smallest \(\sigma\)-fields containing \(\mathcal C\). By minimality of \(\mathcal G_1\), \(\mathcal G_1\subseteq\mathcal G_2\). By minimality of \(\mathcal G_2\), \(\mathcal G_2\subseteq\mathcal G_1\). Hence \(\mathcal G_1=\mathcal G_2\). So the smallest \(\sigma\)-field containing \(\mathcal C\) is unique.</p>
+    </li>
+  </ul>
+
+  <p><strong>Conclusion:</strong> \(\displaystyle \sigma(\mathcal C):=\bigcap_{\mathcal F\in\mathfrak S}\mathcal F\) exists and is uniquely determined.</p>
+
+ 
+</section>
+
   </div>
 
 
