@@ -195,7 +195,7 @@
       <li><a href="#2"> Question 1 </a></li>
       <li><a href="#3"> Question 2 </a></li>
       <li><a href="#4"> Question 3</a></li>
-      <li><a href="#5"></a></li>
+      <li><a href="#5"> Question 4</a></li>
       <li><a href="#6"></a></li>
       <li><a href="#7"></a></li>
       
@@ -550,8 +550,79 @@
 
 
 
-<div class="glow-box" id="0">
+<div class="glow-box" id="5">
+  <section>
+  <h2>Question 4</h2>
+  <p>
+    Let \(\Omega=\{0,1\}^{\mathbb N}\). Show that
+  </p>
+  <p>
+    \[
+      \mathcal C=\{\,A\times\Omega:\ A\subseteq\{0,1\}^n,\ n\in\mathbb N\,\}\cup\{\varnothing\}
+    \]
+  </p>
+  <p>
+    (the class of finite-dimensional cylinder sets together with \(\varnothing\)) is closed under complements and finite unions.
+  </p>
+
+  <h2>Detailed solution (rigorous)</h2>
+
+  <h2>Notation & precise meaning</h2>
+  <ul>
+    <li>Write an element \(\omega\in\Omega\) as a sequence \(\omega=(\omega_1,\omega_2,\dots)\) with \(\omega_i\in\{0,1\}\).</li>
+    <li>For each \(n\in\mathbb N\) and each \(A\subseteq\{0,1\}^n\) define the corresponding cylinder set
+      <p>\(C(A,n):=\{\,\omega\in\Omega:\;(\omega_1,\dots,\omega_n)\in A\,\}.\)</p>
+    </li>
+    <li>Equivalently \(C(A,n)=A\times\{0,1\}^{\{n+1,n+2,\dots\}}\), but we work with the coordinate description \(C(A,n)=\{\omega:(\omega_1,\dots,\omega_n)\in A\}\).</li>
+    <li>The family \(\mathcal C\) is the set of all such \(C(A,n)\) together with \(\varnothing\).</li>
+    <li>We must prove two things:
+      <ul>
+        <li>(I) Closed under complements: for every \(n\) and \(A\subseteq\{0,1\}^n\), \(C(A,n)^c\in\mathcal C\).</li>
+        <li>(II) Closed under finite unions: for any two cylinder sets \(C(A,m),C(B,n)\in\mathcal C\) their union belongs to \(\mathcal C\). From the pairwise case finite unions follow by induction.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>(I) Proof — complements</h2>
+  <ul>
+    <li>Fix \(n\) and \(A\subseteq\{0,1\}^n\). By definition
+      <p>\(C(A,n)=\{\omega\in\Omega : (\omega_1,\dots,\omega_n)\in A\}.\)</p>
+    </li>
+    <li>Hence
+      <p>\(C(A,n)^c=\{\omega\in\Omega : (\omega_1,\dots,\omega_n)\notin A\} =\{\omega\in\Omega : (\omega_1,\dots,\omega_n)\in A^c\}=C(A^c,n).\)</p>
+    </li>
+    <li>Since \(A^c\subseteq\{0,1\}^n\), \(C(A^c,n)\) is a cylinder set of the same form and therefore belongs to \(\mathcal C\). This holds for every \(A,n\).</li>
+    <li>Also \(\varnothing^c=\Omega\) and \(\Omega\) is the cylinder corresponding to \(A=\{0,1\}^n\) for any \(n\). Thus \(\mathcal C\) is closed under complements.</li>
+  </ul>
+
+  <h2>(II) Proof — finite unions</h2>
+  <ul>
+    <li>Let \(C(A,m)\) and \(C(B,n)\) be given with \(A\subseteq\{0,1\}^m\), \(B\subseteq\{0,1\}^n\). Put \(k=\max\{m,n\}\).</li>
+    <li>We produce subsets \(A',B'\) of \(\{0,1\}^k\) such that
+      <p>\(C(A,m)=C(A',k),\qquad C(B,n)=C(B',k).\)</p>
+    </li>
+    <li>Define for \(x=(x_1,\dots,x_k)\in\{0,1\}^k\) the projection \(\pi_m(x)=(x_1,\dots,x_m)\in\{0,1\}^m\). Set
+      <p>\(A' := \{x\in\{0,1\}^k:\ \pi_m(x)\in A\},\qquad B' := \{x\in\{0,1\}^k:\ \pi_n(x)\in B\}.\)</p>
+      (By convention if \(m=k\) then \(\pi_m\) is the identity and \(A'=A\), and similarly for \(n\).)
+    </li>
+    <li><strong>Claim:</strong> \(C(A,m)=C(A',k)\).</li>
+    <li><strong>Proof of claim:</strong>
+      <p>\(\omega\in C(A,m)\) iff \((\omega_1,\dots,\omega_m)\in A\). Writing \(x=(\omega_1,\dots,\omega_k)\in\{0,1\}^k\) (note \(k\ge m\)), this is equivalent to \(\pi_m(x)\in A\), i.e. \(x\in A'\). Thus \(\omega\in C(A',k)\). The reverse implication is identical. So equality holds. The same argument gives \(C(B,n)=C(B',k)\).</p>
+    </li>
+    <li>Therefore
+      <p>\(C(A,m)\cup C(B,n)=C(A',k)\cup C(B',k)=C(A'\cup B',k).\)</p>
+    </li>
+    <li>Since \(A'\cup B'\subseteq\{0,1\}^k\), the right-hand side is a cylinder set belonging to \(\mathcal C\). Thus the union of the two arbitrary cylinder sets is again in \(\mathcal C\). By induction on the number of sets this argument extends to any finite union.</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <ul>
+    <li>Combining (I) and (II) we conclude that \(\mathcal C\) is closed under complements and finite unions, as required. (Trivially \(\varnothing\in\mathcal C\).)</li>
+  </ul>
+
   
+</section>
+
 </div>
 
 
