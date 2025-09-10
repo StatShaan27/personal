@@ -641,55 +641,67 @@
 
 
 <div class="glow-box" id="2.6">
-<section>
-  <h4>🧠 Cramér–Rao Bound for Vector Parameters</h4>
-  <p>Excellent — you’re now stepping into the <strong>multivariate (vector parameter) version</strong> of the Cramér–Rao Lower Bound (CRLB), which generalizes the scalar case using <strong>matrix calculus and Fisher information matrices</strong>.</p>
-  <p>Let’s break it down.</p>
-  <hr>
+  <section>
+    <h4>🧠 Cramér–Rao Bound for Vector Parameters</h4>
+    <p>
+      Excellent — you’re now stepping into the <strong>multivariate (vector parameter) version</strong> 
+      of the Cramér–Rao Lower Bound (CRLB), which generalizes the scalar case using 
+      <strong>matrix calculus and Fisher information matrices</strong>.
+    </p>
+    <p>Let’s break it down.</p>
+    <hr>
 
-  <p>Let:</p>
-  <ul>
-    <li>\(\boldsymbol{\theta} \in \mathbb{R}^k\): vector parameter</li>
-    <li>\(\mathbf{X} \sim f(\mathbf{x}|\boldsymbol{\theta})\)</li>
-    <li>\(\mathbf{W}(\mathbf{X}) \in \mathbb{R}^m\): vector-valued statistic</li>
-    <li>\(\mathbf{W}(\mathbf{X})\) has finite variance and differentiable expectation w.r.t. \(\boldsymbol{\theta}\)</li>
-  </ul>
+    <p>Let:</p>
+    <ul>
+      <li><span>\(\boldsymbol{\theta} \in \mathbb{R}^k\)</span>: vector parameter</li>
+      <li><span>\(\mathbf{X} \sim f(\mathbf{x}|\boldsymbol{\theta})\)</span></li>
+      <li><span>\(\mathbf{W}(\mathbf{X}) \in \mathbb{R}^m\)</span>: vector-valued statistic</li>
+      <li><span>\(\mathbf{W}(\mathbf{X})\)</span> has finite variance and differentiable expectation w.r.t. <span>\(\boldsymbol{\theta}\)</span></li>
+    </ul>
 
-  <h4>📘 Multivariate CRLB (Matrix Form):</h4>
-  \[
-  \operatorname{Var}_{\boldsymbol{\theta}}(\mathbf{W}(\mathbf{X})) \succeq 
-  \left( \frac{d}{d\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] \right)^\top 
-  \cdot \mathcal{I}(\boldsymbol{\theta})^{-1} \cdot 
-  \left( \frac{d}{d\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] \right)
-  \]
+    <h4>📘 Multivariate CRLB (Matrix Form):</h4>
+    <div class="math">
+      \[
+      \operatorname{Var}_{\boldsymbol{\theta}}(\mathbf{W}(\mathbf{X})) \succeq 
+      \left( \frac{d}{d\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] \right)^\top 
+      \cdot \mathcal{I}(\boldsymbol{\theta})^{-1} \cdot 
+      \left( \frac{d}{d\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] \right)
+      \]
+    </div>
 
-  <h4>📌 Notation Breakdown:</h4>
-  <ul>
-    <li>\(\operatorname{Var}_{\boldsymbol{\theta}}(\mathbf{W}) \in \mathbb{R}^{m \times m}\): Covariance matrix of the estimator</li>
-    <li>\(\frac{d}{d\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}] \in \mathbb{R}^{m \times k}\): Jacobian matrix of expectation</li>
-    <li>\(\mathcal{I}(\boldsymbol{\theta}) \in \mathbb{R}^{k \times k}\): Fisher Information matrix</li>
-    <li>\(\succeq\): Matrix inequality meaning the difference is positive semi-definite</li>
-  </ul>
+    <h4>📌 Notation Breakdown:</h4>
+    <ul>
+      <li><span>\(\operatorname{Var}_{\boldsymbol{\theta}}(\mathbf{W}) \in \mathbb{R}^{m \times m}\)</span>: Covariance matrix of the estimator</li>
+      <li><span>\(\frac{d}{d\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}] \in \mathbb{R}^{m \times k}\)</span>: Jacobian matrix of expectation</li>
+      <li><span>\(\mathcal{I}(\boldsymbol{\theta}) \in \mathbb{R}^{k \times k}\)</span>: Fisher Information matrix</li>
+      <li><span>\(\succeq\)</span>: Matrix inequality meaning the difference is positive semi-definite</li>
+    </ul>
 
-  <h4>⚙️ Meaning:</h4>
-  <p>This inequality tells you that the <strong>covariance matrix of any estimator</strong> of a vector parameter is bounded <strong>from below</strong> by a matrix formed from:</p>
-  <ul>
-    <li>The sensitivity of the estimator (Jacobian of expectation)</li>
-    <li>The inverse Fisher Information matrix</li>
-  </ul>
+    <h4>⚙️ Meaning:</h4>
+    <p>
+      This inequality tells you that the <strong>covariance matrix of any estimator</strong> 
+      of a vector parameter is bounded <strong>from below</strong> by a matrix formed from:
+    </p>
+    <ul>
+      <li>The sensitivity of the estimator (Jacobian of expectation)</li>
+      <li>The inverse Fisher Information matrix</li>
+    </ul>
 
-  <h4>✅ Special Case: Unbiased Estimator</h4>
-  <p>If \(\mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] = \boldsymbol{\theta}\), then:</p>
-  <ul>
-    <li>Jacobian = Identity matrix \(I_k\)</li>
-  </ul>
-  <p>So, the bound becomes:</p>
-  \[
-  \operatorname{Var}_{\boldsymbol{\theta}}(\mathbf{W}(\mathbf{X})) \succeq \mathcal{I}(\boldsymbol{\theta})^{-1}
-  \]
-  <p>Just like in the scalar case, but extended to full matrix structure.</p>
-</section>
+    <h4>✅ Special Case: Unbiased Estimator</h4>
+    <p>If <span>\(\mathbb{E}_{\boldsymbol{\theta}}[\mathbf{W}(\mathbf{X})] = \boldsymbol{\theta}\)</span>, then:</p>
+    <ul>
+      <li>Jacobian = Identity matrix <span>\(I_k\)</span></li>
+    </ul>
+    <p>So, the bound becomes:</p>
+    <div class="math">
+      \[
+      \operatorname{Var}_{\boldsymbol{\theta}}(\mathbf{W}(\mathbf{X})) \succeq \mathcal{I}(\boldsymbol{\theta})^{-1}
+      \]
+    </div>
+    <p>Just like in the scalar case, but extended to full matrix structure.</p>
+  </section>
 </div>
+
 
 
 
