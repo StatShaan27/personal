@@ -213,7 +213,7 @@
     <h3>Contents</h3>
     <ul>
       <li><a href="#5.1"> Motivation for LAD: Why look beyond OLS?</a></li>
-      <li><a href="#4.2"> Genetics Example of EM (Dempster–Laird–Rubin, 1977) </a></li>
+      <li><a href="#5.2">Huber's Work and IRLS </a></li>
       <li><a href="#4.3"> Report on the EM Algorithm in Genetics, Genomics, and Public Health </a></li>
       
       
@@ -322,7 +322,127 @@
 
 
     <div class="glow-box" id="5.2">
-      
+      <section>
+
+<h2>1. The Big Question</h2>
+<p>Huber asked: <i>when we fit a regression line, should we prioritize fitting the majority of the data well, or should we also give weight to the few outliers?</i></p>
+<ul>
+  <li>OLS (least squares) gives a <b>lot of importance to outliers</b> because squaring residuals makes big errors dominate.</li>
+  <li>LAD (least absolute deviation) ignores outliers more, but may sometimes be too blunt.</li>
+  <li>Huber’s idea: design a <b>compromise</b> — treat small errors like OLS (quadratic penalty, smooth), but treat large errors more gently (linear penalty).</li>
+</ul>
+<p>Think of it like having a <b>shock absorber</b>: normal bumps are treated smoothly (like OLS), but when the road gets too rough (big outliers), the absorber prevents the car (our model) from jumping violently.</p>
+
+<h2>2. General M-estimation setup</h2>
+<p>We write the objective function as:</p>
+<p>\[
+C(\beta_0, \beta_1) = \sum_{i=1}^n \rho(y_i - \beta_0 - \beta_1 x_i)
+\]</p>
+<ul>
+  <li>Here \(\rho\) is a <b>loss function</b> that measures how bad a residual is.</li>
+  <li>Choice of \(\rho\):
+    <ul>
+      <li>\(\rho(u) = u^2\) → OLS.</li>
+      <li>\(\rho(u) = |u|\) → LAD.</li>
+      <li>\(\rho(u) =\) Huber’s function (quadratic for small \(u\), linear for large \(u\)) → Robust regression.</li>
+    </ul>
+  </li>
+</ul>
+<p>So the framework is: <b>pick a \(\rho\), minimize the sum, get your regression line.</b></p>
+
+<h2>3. First-order conditions (derivatives)</h2>
+<p>To minimize, take derivatives with respect to the coefficients:</p>
+<ul>
+  <li>For \(\beta_0\):
+    <p>\[
+    \frac{\partial C}{\partial \beta_0} = -\sum_{i=1}^n \rho'(y_i - \beta_0 - \beta_1 x_i)
+    \]</p>
+  </li>
+  <li>For \(\beta_1\):
+    <p>\[
+    \frac{\partial C}{\partial \beta_1} = -\sum_{i=1}^n \rho'(y_i - \beta_0 - \beta_1 x_i) \cdot x_i
+    \]</p>
+  </li>
+</ul>
+<p>Here \(\rho'(u)\) is called the <b>influence function</b> or <b>ψ-function</b>. It tells us how strongly each residual \(u\) “pulls” on the fit.</p>
+<ul>
+  <li>For OLS: \(\rho(u) = u^2\), so \(\rho'(u) = 2u\). Large residuals exert a very strong pull.</li>
+  <li>For LAD: \(\rho(u) = |u|\), so \(\rho'(u) = \text{sign}(u)\). Every point, no matter how large, pulls with the same unit force.</li>
+  <li>For Huber: \(\rho'(u)\) grows linearly for small \(u\), but is capped for large \(u\). Outliers can’t pull infinitely.</li>
+</ul>
+<p><b>Analogy:</b> Imagine each data point attached to the regression line with a spring. In OLS, the spring force grows stronger the more it’s stretched (quadratic). In LAD, every spring pulls with the same constant tension. In Huber’s, springs behave normally at first, but once stretched beyond a threshold, they lock at a maximum pull.</p>
+
+<h2>4. Defining weights</h2>
+<p>We introduce weights:</p>
+<p>\[
+w_i = \frac{\rho'(y_i - \beta_0 - \beta_1 x_i)}{y_i - \beta_0 - \beta_1 x_i}
+\]</p>
+<p>This formula is clever:</p>
+<ul>
+  <li>The numerator is the “influence” of a point.</li>
+  <li>The denominator is the residual itself.</li>
+  <li>So \(w_i\) tells us how much importance the point gets relative to its size.</li>
+</ul>
+<p>Check special cases:</p>
+<ul>
+  <li><b>OLS:</b> \(\rho'(u) = 2u\). So \(w_i = \frac{2u}{u} = 2\). Constant weight → all points are equally trusted.</li>
+  <li><b>LAD:</b> \(\rho'(u) = \text{sign}(u)\). So \(w_i = \frac{\pm1}{u}\). Big residuals → tiny weights.</li>
+  <li><b>Huber:</b> \(w_i\) depends on whether \(u\) is small (weight ≈ 2) or big (weight shrinks).</li>
+</ul>
+<p>So OLS = equal trust, LAD = diminishing trust, Huber = adaptive trust.</p>
+
+<h2>5. Why the equations become nonlinear</h2>
+<ul>
+  <li>For OLS, weights are constant, so the equations reduce to neat linear formulas.</li>
+  <li>For Huber/LAD, weights depend on the residuals, which themselves depend on the unknown parameters \(\beta_0, \beta_1\). That makes the system <b>nonlinear</b> and hard to solve directly.</li>
+</ul>
+<p>So we cheat: we <b>linearize</b> the problem by temporarily fixing the weights at some guess of \(\beta\), then updating \(\beta\), then recalculating weights, and so on.</p>
+
+<h2>6. Iteratively Reweighted Least Squares (IRLS)</h2>
+<p>The procedure is:</p>
+<ol>
+  <li>Start with an initial guess of \(\beta_0, \beta_1\) (often OLS estimates).</li>
+  <li>Compute residuals.</li>
+  <li>Compute weights \(w_i\) based on those residuals.</li>
+  <li>Solve a <b>weighted least squares problem</b>:
+    <p>\[
+    \hat{\beta}^{(n+1)} = \arg\min_{\beta_0,\beta_1} \sum_{i=1}^n w_i^{(n)} (y_i - \beta_0 - \beta_1 x_i)^2
+    \]</p>
+    <p>This is just like OLS, but each point gets a different importance.</p>
+  </li>
+  <li>Repeat until the estimates stop changing.</li>
+</ol>
+<p>This is why it’s called <b>Iteratively Reweighted Least Squares</b>: each step is OLS with weights, but the weights are updated iteratively.</p>
+
+<h2>7. Normal equations in IRLS</h2>
+<p>If we differentiate the weighted sum with respect to the coefficients, we get:</p>
+<ul>
+  <li>For \(\beta_0\):
+    <p>\[
+    -2 \sum w_i (y_i - \beta_0 - \beta_1 x_i) = 0
+    \]</p>
+  </li>
+  <li>For \(\beta_1\):
+    <p>\[
+    -2 \sum w_i (y_i - \beta_0 - \beta_1 x_i)(-x_i) = 0
+    \]</p>
+  </li>
+</ul>
+<p>These are just like OLS normal equations, but each term is multiplied by a weight.</p>
+
+<h2>8. Related Concepts</h2>
+<ul>
+  <li><b>Huber’s ψ-function:</b> the derivative of the loss. Defines influence of residuals.</li>
+  <li><b>Breakdown point:</b> the proportion of contaminated data the estimator can tolerate. OLS has breakdown point 0% (one bad outlier can ruin it). LAD has 50%. Huber is in between.</li>
+  <li><b>Robust statistics:</b> field focused on methods that resist outliers and model misspecification.</li>
+  <li><b>M-estimation:</b> generalization of maximum likelihood, where we minimize a sum of some function of residuals. Huber pioneered this.</li>
+</ul>
+
+<h2>Summary</h2>
+<p>Huber’s work showed that we don’t have to choose between being “too harsh on outliers” (OLS) and “ignoring them completely” (LAD). His M-estimator is a <b>middle path</b>: quadratic penalty for small residuals (like OLS), linear for big ones (like LAD). This leads naturally to <b>IRLS</b>, where we keep updating weights until the regression line stabilizes.</p>
+
+</section>
+
     </div>
 
 
