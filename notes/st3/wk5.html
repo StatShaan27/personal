@@ -212,7 +212,7 @@
   <div class="toc">
     <h3>Contents</h3>
     <ul>
-      <li><a href="#4.1"> General EM Framework</a></li>
+      <li><a href="#5.1"> Motivation for LAD: Why look beyond OLS?</a></li>
       <li><a href="#4.2"> Genetics Example of EM (Dempster–Laird–Rubin, 1977) </a></li>
       <li><a href="#4.3"> Report on the EM Algorithm in Genetics, Genomics, and Public Health </a></li>
       
@@ -222,7 +222,92 @@
 
   <!-- Notes section boxes -->
   <div class="glow-box" id="5.1">
-    
+    <section>
+
+<h2>1. Motivation: Why look beyond OLS?</h2>
+<ul>
+  <li><b>OLS (Ordinary Least Squares)</b> is the standard regression method. It minimizes the sum of squared residuals.</li>
+  <li>But squaring makes large errors (outliers) extremely influential. A single extreme data point can drag the fitted line towards itself.</li>
+</ul>
+<p><b>Visualization:</b> Imagine a scatter plot with one point far above the main cluster. The OLS line bends upward to reduce the squared error of that outlier.</p>
+
+<h2>2. LAD (Least Absolute Deviation) regression</h2>
+<ul>
+  <li>LAD minimizes the sum of absolute residuals, instead of squared residuals.</li>
+  <li>The formula becomes: “Choose \( \beta_0, \beta_1 \) to minimize \(\sum |y_i - \beta_0 - \beta_1 x_i|\).”</li>
+  <li>Geometrically, this means we are fitting a line that makes the <i>absolute vertical distances</i> as small as possible.</li>
+</ul>
+<p><b>Visualization:</b> On the same scatter plot, the LAD line passes closer to the cluster and ignores the influence of the outlier.</p>
+
+<h2>3. Comparing OLS and LAD</h2>
+<ul>
+  <li><b>OLS loss function</b> is quadratic (\(x^2\)), a smooth parabola.</li>
+  <li><b>LAD loss function</b> is linear (\(|x|\)), a sharp V-shape.</li>
+  <li>This small difference changes everything:
+    <ul>
+      <li>OLS → sensitive to outliers, mean-based.</li>
+      <li>LAD → robust to outliers, median-based.</li>
+    </ul>
+  </li>
+</ul>
+<p><b>Visualization:</b> Plot two curves against \(x\):</p>
+<ul>
+  <li>Parabola \(x^2\), showing steep growth for large deviations.</li>
+  <li>V-shape \(|x|\), showing slower, linear growth.</li>
+</ul>
+
+<h2>4. Practical meaning</h2>
+<ul>
+  <li>In OLS, a huge error from one observation dominates the objective function.</li>
+  <li>In LAD, all errors contribute more equally — so the largest deviation doesn’t overwhelm the model.</li>
+</ul>
+<p>This robustness is why LAD is often called a “robust regression method.”</p>
+
+<h2>5. Estimation procedure</h2>
+<ul>
+  <li>The general regression problem is written as: “Minimize \(\sum \rho(y_i - \beta_0 - \beta_1 x_i)\), where \(\rho\) is a chosen loss function.”</li>
+  <li>Special cases:
+    <ul>
+      <li>\(\rho(x) = x^2\) → OLS.</li>
+      <li>\(\rho(x) = |x|\) → LAD.</li>
+    </ul>
+  </li>
+</ul>
+<p>So LAD is just one member of a family of “M-estimators,” where you choose different functions \(\rho\) to control how much you penalize large errors.</p>
+
+<h2>6. Computation: Why LAD is harder</h2>
+<ul>
+  <li>For OLS: we can take derivatives and get closed-form solutions.</li>
+  <li>For LAD: the absolute value function is not differentiable at zero, so we can’t use simple calculus.</li>
+  <li>Instead, LAD is solved using:
+    <ol>
+      <li><b>Linear programming</b> methods.</li>
+      <li><b>Iteratively Reweighted Least Squares (IRLS)</b>.</li>
+      <li><b>Geometric median ideas</b> (median instead of mean).</li>
+    </ol>
+  </li>
+</ul>
+
+<h2>7. Related concepts</h2>
+<ul>
+  <li><b>Median vs Mean:</b> OLS → mean, LAD → median. This is the one-dimensional analogue.</li>
+  <li><b>Robustness:</b> LAD is less sensitive to extreme values.</li>
+  <li><b>Quantile regression:</b> LAD regression is a special case (median regression). More generally, quantile regression fits other quantiles (like the 25th or 75th percentile).</li>
+  <li><b>M-estimators:</b> General framework of estimators defined by minimizing different \(\rho\)-functions.</li>
+</ul>
+
+<h2>Quick descriptive summary</h2>
+<ul>
+  <li>OLS and LAD differ only in how they measure error.</li>
+  <li>Squared error (OLS) exaggerates the importance of outliers.</li>
+  <li>Absolute error (LAD) keeps all points on a more equal footing.</li>
+  <li>The geometry of their loss functions explains this difference.</li>
+  <li>LAD is computationally harder but conceptually simple: it finds a regression line that “balances” residuals in a median-like fashion.</li>
+  <li>This makes LAD a robust alternative to OLS and a gateway to broader robust regression methods.</li>
+</ul>
+
+</section>
+
   </div>
 
 
