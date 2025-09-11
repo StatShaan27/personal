@@ -214,7 +214,10 @@
     <ul>
       <li><a href="#5.1"> Motivation for LAD: Why look beyond OLS?</a></li>
       <li><a href="#5.2">Huber's Work and IRLS </a></li>
-      <li><a href="#4.3"> Report on the EM Algorithm in Genetics, Genomics, and Public Health </a></li>
+      <li><a href="#5.3"> Logistic Regression: The Trial Model </a></li>
+      <li><a href="#5.3"> Logistic Regression: The Trial Model </a></li>
+      <li><a href="#5.3"> Logistic Regression: The Trial Model </a></li>
+      <li><a href="#5.3"> Logistic Regression: The Trial Model </a></li>
       
       
     </ul>
@@ -484,8 +487,103 @@ w_i = \frac{\rho'(y_i - \beta_0 - \beta_1 x_i)}{y_i - \beta_0 - \beta_1 x_i}
 
 
 
-   <div class="glow-box" id="5.2">
-      
+   <div class="glow-box" id="5.3">
+      <section>
+
+<h2>1. Logistic Regression: The Trial Model</h2>
+<p>You start with:</p>
+<p>\[
+E(y_i | x=x_i) = \beta_0 + \beta_1 x_i
+\]</p>
+<ul>
+  <li>Here, \(y_i\) can only be <b>0 or 1</b>.</li>
+  <li>But \(\beta_0 + \beta_1 x_i\) can take any real value \((-\infty, \infty)\).</li>
+</ul>
+<p><b>Problem:</b> This means for some \(x\), the model might predict probabilities &lt;0 or &gt;1, which makes no sense.</p>
+<p><b>Visual intuition:</b> Imagine you have data points where \(y_i\) is only at the levels 0 or 1. If you try to fit a straight line through them, some predictions fall outside the [0,1] band. That’s the reason linear regression doesn’t work well for binary outcomes.</p>
+
+<h2>2. The Fix — A Transformation</h2>
+<p>We want a mapping:</p>
+<p>\[
+g: \mathbb{R} \to [0,1]
+\]</p>
+<p>So instead of saying:</p>
+<p>\[
+E(y_i|x=x_i) = \beta_0 + \beta_1 x_i,
+\]</p>
+<p>we say:</p>
+<p>\[
+E(y_i|x=x_i) = g(\beta_0 + \beta_1 x_i).
+\]</p>
+<p>This ensures the predicted mean is always between 0 and 1 — a valid probability.</p>
+
+<h2>3. The Logistic Function</h2>
+<p>A popular choice of \(g\) is the <b>logistic function</b>:</p>
+<p>\[
+g(z) = \frac{e^z}{1+e^z}, \quad z \in \mathbb{R}.
+\]</p>
+<ul>
+  <li>Always between 0 and 1.</li>
+  <li>S-shaped (sigmoid curve).</li>
+  <li>As \(z \to -\infty\), \(g(z) \to 0\).</li>
+  <li>As \(z \to +\infty\), \(g(z) \to 1\).</li>
+</ul>
+<p><b>Why CDF?</b> Because it looks like the CDF of a standard logistic distribution — smooth, monotone, bounded between 0 and 1.</p>
+<p>So now:</p>
+<p>\[
+P(y_i=1|x_i=x) = \frac{e^{\beta_0 + \beta_1 x}}{1+e^{\beta_0 + \beta_1 x}},
+\]</p>
+<p>\[
+P(y_i=0|x_i=x) = \frac{1}{1+e^{\beta_0 + \beta_1 x}}.
+\]</p>
+
+<h2>4. The Odds and Log-Odds</h2>
+<p>The <b>odds</b> of success (y=1) are:</p>
+<p>\[
+\frac{P(y_i=1|x_i=x)}{P(y_i=0|x_i=x)} = e^{\beta_0 + \beta_1 x}.
+\]</p>
+<p>Taking log:</p>
+<p>\[
+\ln \left(\frac{P(y_i=1|x_i=x)}{P(y_i=0|x_i=x)}\right) = \beta_0 + \beta_1 x.
+\]</p>
+<p>This is called the <b>logit transform</b>.</p>
+<ul>
+  <li>It maps probabilities (0–1) into the whole real line.</li>
+  <li>And importantly, it’s <b>linear in parameters</b> (\(\beta_0, \beta_1\)).</li>
+</ul>
+
+<h2>5. Interpretation of Parameters</h2>
+<ul>
+  <li>\(\beta_0\): log-odds when \(x=0\).
+    <ul>
+      <li>If \(\beta_0 = 0\), then odds = 1, meaning probability = 0.5.</li>
+    </ul>
+  </li>
+  <li>\(\beta_1\): change in log-odds for a one-unit increase in \(x\).
+    <ul>
+      <li>If \(\beta_1 &gt; 0\), higher \(x\) increases the probability of success.</li>
+      <li>If \(\beta_1 &lt; 0\), higher \(x\) decreases it.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>6. Visual Picture</h2>
+<ul>
+  <li>Imagine your \(x\)-axis is a continuous variable (say, test score).</li>
+  <li>Your \(y\)-values are only 0 (fail) or 1 (pass).</li>
+  <li>A straight line through them doesn’t make sense, because it might predict values like -0.3 or 1.4.</li>
+  <li>The logistic curve bends to stay between 0 and 1, capturing the S-shaped relationship: at low \(x\), probability near 0; at high \(x\), probability near 1.</li>
+</ul>
+
+<h2>7. Related Concepts</h2>
+<ul>
+  <li><b>Probit regression:</b> uses the normal CDF instead of logistic CDF. Similar S-shape but slightly different tails.</li>
+  <li><b>Linear Probability Model (LPM):</b> the initial trial (\(\beta_0 + \beta_1 x\)) — easy to compute but flawed.</li>
+  <li><b>Odds Ratio:</b> \(e^{\beta_1}\) is the multiplicative change in odds for a unit increase in \(x\).</li>
+</ul>
+
+</section>
+
     </div>
 
 
