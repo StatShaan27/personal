@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Week-5 | Shaan</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: #6effe0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      background: #1e1e1e;
+      border-bottom: 2px solid #333;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0;
+    }
+
+    header nav ul li {
+      display: inline;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: #6effe0;
+      font-weight: 500;
+      border: 1px solid transparent;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      border-color: #6effe0;
+      background-color: #6effe0;
+      color: #000;
+    }
+
+    .notes-wrapper {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .info-block {
+      margin-bottom: 2rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .info-block strong {
+      color: #6effe0;
+    }
+
+    .toc {
+      background-color: #1e1e1e;
+      border-left: 4px solid #6effe0;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+    }
+
+    .toc ul {
+      padding-left: 1rem;
+    }
+
+    .toc ul li {
+      padding: 0.3rem 0;
+    }
+
+    .toc a {
+      color: #c9d1d9;
+      text-decoration: none;
+      border-bottom: 1px dashed #6effe0;
+    }
+
+    .toc a:hover {
+      color: #6effe0;
+    }
+
+    .glow-box {
+      border: 2px solid #6effe0;
+      box-shadow: 0 0 20px rgba(110, 255, 224, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background-color: #1e1e1e;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(110, 255, 224, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(110, 255, 224, 0.4); }
+    }
+
+    ul {
+      line-height: 1.6;
+      padding-left: 1.2rem;
+    }
+
+    code, pre {
+      background-color: #222;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      color: #6effe0;
+      display: block;
+      overflow-x: auto;
+    }
+
+    .next-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #6effe0;
+      color: #000;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #6effe0;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+
+
+    .prev-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #6effe0;
+    color: #000;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold
+    cursor: pointer;
+    box-shadow: 0 0 10px #6effe0;
+    transition: background-color 0.3s ease;
+    z-index: 100;
+    }
+
+    .next-btn:hover {
+      background-color: #00ffcc;
+    }
+
+    .prev-btn:hover {
+      background-color: #00ffcc;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
+  </style>
+  <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</head>
+<body>
+
+<header>
+  <h1>Statistical Methods III: Week-5</h1>
+  <p>AY 2025–26</p>
+  <nav>
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../../sections/projects.html">Projects</a></li>
+      <li><a href="../../sections/education.html">Education</a></li>
+      <li><a href="../../sections/misc.html">Misc</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="notes-wrapper">
+
+  <div class="info-block">
+    <p><strong>Instructor:</strong> Debasis Sengupta </p>
+    <p><strong>Office / Department:</strong> ASU</p>
+    <p><strong>Email:</strong> sdebasis@isical.ac.in</p>
+    <p><strong>Marking Scheme:</strong><br>
+      Assignments: 20% | Midterm Test: 30% | End Semester: 50%
+    </p>
+  </div>
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul>
+      <li><a href="#4.1"> General EM Framework</a></li>
+      <li><a href="#4.2"> Genetics Example of EM (Dempster–Laird–Rubin, 1977) </a></li>
+      <li><a href="#4.3"> Report on the EM Algorithm in Genetics, Genomics, and Public Health </a></li>
+      
+      
+    </ul>
+  </div>
+
+  <!-- Notes section boxes -->
+  <div class="glow-box" id="5.1">
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="glow-box" id="5.2">
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div class="glow-box" id="5.2">
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div class="glow-box" id="5.2">
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div class="glow-box" id="5.2">
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div class="glow-box" id="5.2">
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div class="glow-box" id="5.2">
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div class="glow-box" id="5.2">
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+  
+
+
+
+
+
+
+
+
+
+<div class="glow-box" id="4.3">
+  <h2>Report on the EM Algorithm in Genetics, Genomics, and Public Health</h2>
+<p>
+These notes are based on the report by <strong>Nan M. Laird</strong>.  
+The full document can be accessed here:
+</p>
+<ul>
+  <li><a href="wk4.pdf" target="_blank">Download: EM Algorithm in Genetics, Genomics, and Public Health</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</section>
+<button class="prev-btn" onclick="location.href='wk4.html'"> ← Previous Section </button>
+
+<button class="next-btn" onclick="location.href='wk6.html'">Next Section →</button>
+
+<footer>
+  <p>&copy; 2025 Shaan | Built with purpose</p>
+</footer>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+</body>
+</html>
