@@ -215,7 +215,7 @@
       <li><a href="#5.1"> Motivation for LAD: Why look beyond OLS?</a></li>
       <li><a href="#5.2">Huber's Work and IRLS </a></li>
       <li><a href="#5.3"> Logistic Regression: The Trial Model </a></li>
-      <li><a href="#5.3"> Logistic Regression: The Trial Model </a></li>
+      <li><a href="#5.3"> The Idea of the Probit Model </a></li>
       <li><a href="#5.3"> Logistic Regression: The Trial Model </a></li>
       <li><a href="#5.3"> Logistic Regression: The Trial Model </a></li>
       
@@ -617,8 +617,86 @@ P(y_i=0|x_i=x) = \frac{1}{1+e^{\beta_0 + \beta_1 x}}.
 
 
 
-   <div class="glow-box" id="5.2">
-      
+   <div class="glow-box" id="5.4">
+      <section>
+  <h2>1. The Idea of the Probit Model</h2>
+  <p>The logistic regression used the logistic CDF as the link function. The probit model instead uses the standard normal CDF:</p>
+  <p>\[
+  g(x) = \Phi(x), \quad \text{where } \Phi(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}} e^{-t^2/2}\, dt.
+  \]</p>
+  <p>So in probit regression:</p>
+  <p>\[
+  P(y_i=1|x_i=x) = \Phi(\beta_0 + \beta_1 x).
+  \]</p>
+
+  <h2>2. Latent Variable Motivation</h2>
+  <p>Instead of modeling probabilities directly, the probit model assumes there is a hidden (“latent”) continuous variable \(Z_i\) that drives the binary outcome.</p>
+  <ul>
+    <li>Assume:
+      <p>\[
+      Z_i | x_i \sim N(\beta_0 + \beta_1 x_i, 1).
+      \]</p>
+    </li>
+    <li>Then define observed outcome:
+      <p>\[
+      y_i = \begin{cases} 
+      1 & \text{if } Z_i > 0, \\ 
+      0 & \text{if } Z_i \leq 0.
+      \end{cases}
+      \]</p>
+    </li>
+  </ul>
+  <p>Interpretation: there is some unobserved "propensity" \(Z_i\) (say, propensity to buy a product). You only see the binary decision (buy = 1, not buy = 0), but in reality there’s a continuous tendency behind it.</p>
+
+  <h2>3. Probability Derivation</h2>
+  <p>We want:</p>
+  <p>\[
+  P(y_i = 1 | x_i=x) = P(Z_i > 0 | x_i=x).
+  \]</p>
+  <p>Since \(Z_i \sim N(\beta_0 + \beta_1 x, 1)\):</p>
+  <p>\[
+  P(Z_i > 0 | x_i=x) = 1 - \Phi\left(\frac{0 - (\beta_0 + \beta_1 x)}{1}\right).
+  \]</p>
+  <p>Simplify:</p>
+  <p>\[
+  = 1 - \Phi(-(\beta_0 + \beta_1 x)).
+  \]</p>
+  <p>Using symmetry of the normal CDF (\(\Phi(-z) = 1 - \Phi(z)\)):</p>
+  <p>\[
+  = \Phi(\beta_0 + \beta_1 x).
+  \]</p>
+  <p>So:</p>
+  <p>\[
+  P(y_i = 1 | x_i=x) = \Phi(\beta_0 + \beta_1 x).
+  \]</p>
+
+  <h2>4. Interpretation</h2>
+  <ul>
+    <li>\(\beta_0\): shift in the threshold — the baseline tendency when \(x=0\).</li>
+    <li>\(\beta_1\): slope — how strongly \(x\) affects the underlying latent variable \(Z_i\), and hence the probability of success.</li>
+  </ul>
+
+  <h2>5. Visualization (mental picture)</h2>
+  <ul>
+    <li>Imagine a bell-shaped normal curve centered at \(\beta_0 + \beta_1 x\).</li>
+    <li>You’re asking: what is the probability mass to the right of 0?</li>
+    <li>If \(\beta_0 + \beta_1 x\) is very negative, the normal curve is mostly left of 0 → probability near 0.</li>
+    <li>If \(\beta_0 + \beta_1 x\) is very positive, most of the curve is right of 0 → probability near 1.</li>
+    <li>As \(x\) increases, the curve shifts right, smoothly increasing the probability.</li>
+  </ul>
+  <p>This gives you the familiar S-shaped curve, but now shaped by the normal distribution instead of the logistic.</p>
+
+  <h2>6. Logistic vs. Probit</h2>
+  <ul>
+    <li>Both map real numbers to probabilities in [0,1].</li>
+    <li>Logistic CDF has slightly heavier tails → probabilities change a bit more gradually for extreme \(x\).</li>
+    <li>Probit CDF is tied directly to the normal distribution → convenient if you believe the latent mechanism is Gaussian.</li>
+    <li>In practice, they give very similar results (coefficients differ by about a scaling factor of 1.6).</li>
+  </ul>
+
+  <p>So the Probit model is essentially a latent-variable threshold model: the binary outcome is determined by whether an unobserved continuous Gaussian variable exceeds zero.</p>
+</section>
+
     </div>
 
 
