@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notes | Shaan</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+
+  <style>
+    .notes-wrapper {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .notes-wrapper h2 {
+      color: #6effe0;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.6rem;
+    }
+
+    .notes-wrapper p {
+      color: #bbb;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .note-card {
+      border: 2px solid #6effe0;
+      border-radius: 16px;
+      padding: 1.5rem;
+      background-color: #1e1e1e;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .note-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(110, 255, 224, 0.2);
+    }
+
+    .note-card h3 {
+      margin-bottom: 0.5rem;
+      font-family: 'Playfair Display', serif;
+      color: #6effe0;
+    }
+
+    .note-card p {
+      font-size: 0.9rem;
+      color: #bbb;
+      margin-bottom: 1rem;
+    }
+
+    .note-link {
+      display: block;
+      margin: 0.8rem auto;
+      font-size: 1.05rem;
+      color: #c9d1d9;
+      text-decoration: none;
+      border: 2px solid #6effe0;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
+
+    .note-link:hover {
+      background-color: #6effe0;
+      color: #000;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Lecture Notes</h1>
+  <p>Concept Building • Problem Solving • Topic-wise Resources</p>
+
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../sections/projects.html">Projects</a></li>
+      <li><a href="../sections/education.html">Education</a></li>
+      <li><a href="../sections/notes.html">Notes</a></li>
+    </ul>
+  </nav>
+
+  <div style="text-align: center; margin-top: 1rem;">
+    <a class="note-link" href="../sections/teaching.html">Back to Teaching Page</a>
+  </div>
+</header>
+
+<section class="notes-wrapper">
+
+  <h2>Weekly Class Structure</h2>
+  <p>
+    Classes each week are divided into two focused sessions:<br>
+    <strong>1) Concept Building</strong> — understanding fundamentals clearly.<br>
+    <strong>2) Problem Solving</strong> — applying concepts to structured exercises.<br><br>
+    Topic-wise lecture slides and practice materials will be uploaded regularly.  
+    Every two weeks, students receive structured assignments, and every four weeks,  
+    a cumulative exam is conducted.
+  </p>
+
+  <h2>Topic-wise Notes</h2>
+
+  <div class="notes-grid">
+
+    <div class="note-card">
+      <h3>Arithmetic</h3>
+      <p>Weekly slides + problem-solving sheets</p>
+      <a class="note-link" href="notes/arithmetic.html">Open Folder</a>
+    </div>
+
+    <div class="note-card">
+      <h3>Algebra</h3>
+      <p>Concept building through examples</p>
+      <a class="note-link" href="notes/algebra.html">Open Folder</a>
+    </div>
+
+    <div class="note-card">
+      <h3>Geometry</h3>
+      <p>Class notes + diagram problems</p>
+      <a class="note-link" href="notes/geometry.html">Open Folder</a>
+    </div>
+
+    <div class="note-card">
+      <h3>Number Systems</h3>
+      <p>Properties, tricks, higher-order thinking</p>
+      <a class="note-link" href="notes/numbers.html">Open Folder</a>
+    </div>
+
+    <div class="note-card">
+      <h3>Basic Algebraic Thinking</h3>
+      <p>Patterns • Expressions • Foundations</p>
+      <a class="note-link" href="notes/basic_algebra.html">Open Folder</a>
+    </div>
+
+    <div class="note-card">
+      <h3>Data Handling</h3>
+      <p>Tables • Graphs • Computation</p>
+      <a class="note-link" href="notes/data.html">Open Folder</a>
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  <p>&copy; 2025 Shaan | Built with purpose</p>
+</footer>
+
+</body>
+</html>
