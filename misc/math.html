@@ -21,13 +21,41 @@
       margin-bottom: 1.5rem;
     }
 
-    .notes-section {
-      margin-bottom: 3rem;
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .note-card {
+      border: 2px solid #6effe0;
+      border-radius: 16px;
+      padding: 1.5rem;
+      background-color: #1e1e1e;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .note-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(110, 255, 224, 0.2);
+    }
+
+    .note-card h3 {
+      margin-bottom: 0.5rem;
+      font-family: 'Playfair Display', serif;
+      color: #6effe0;
+    }
+
+    .note-card p {
+      font-size: 0.9rem;
+      color: #bbb;
+      margin-bottom: 1rem;
     }
 
     .note-link {
       display: block;
-      margin: 0.8rem 0;
+      margin: 0.8rem auto;
       font-size: 1.05rem;
       color: #c9d1d9;
       text-decoration: none;
@@ -36,8 +64,6 @@
       padding: 0.6rem 1.2rem;
       transition: all 0.3s ease;
       width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     .note-link:hover {
@@ -45,53 +71,16 @@
       color: #000;
       transform: scale(1.05);
     }
-
-    .coming-soon {
-      color: #888;
-      font-style: italic;
-      font-size: 0.95rem;
-      margin-top: 0.5rem;
-    }
-    .notes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.note-card {
-  border: 2px solid #6effe0;
-  border-radius: 16px;
-  padding: 1.5rem;
-  background-color: #1e1e1e;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.note-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(110, 255, 224, 0.2);
-}
-
-.note-card h3 {
-  margin-bottom: 0.5rem;
-  font-family: 'Playfair Display', serif;
-  color: #6effe0;
-}
-
-.note-card p {
-  font-size: 0.9rem;
-  color: #bbb;
-  margin-bottom: 1rem;
-}
-
   </style>
 </head>
+
 <body>
 
-  <header>
-    <h1>Teaching</h1>
-    <p>Notes, Assignments, Practice problems and more - Organized topic wise </p>
-      <nav>
+<header>
+  <h1>Teaching</h1>
+  <p>Notes, Assignments, Practice problems and more — Organized topic wise</p>
+
+  <nav>
     <ul>
       <li><a href="../index.html">Home</a></li>
       <li><a href="../assets/Shaan_CV.pdf">CV</a></li>
@@ -104,46 +93,49 @@
   <div style="text-align: center; margin-top: 1rem;">
     <a class="note-link" href="../sections/misc.html">Back to Misc Page</a>
   </div>
+</header>
 
-  </header>
-
- <section class="notes-wrapper">
-  <h2>Session: 2025-2026</h2>
+<section class="notes-wrapper">
+  <h2>Session: 2025–2026</h2>
 
   <div class="notes-grid">
+
     <div class="note-card">
-      <h3>School Curriculum (6th Std)</h3>
-      <a class="note-link" href="school.html" >Visit Notes</a>
+      <h3>Notes (Lecture Slides)</h3>
+      <p>Concept Building + Problem Solving | Weekly uploads</p>
+      <a class="note-link" href="notes_main.html">Visit Notes</a>
     </div>
 
     <div class="note-card">
-      <h3>Olympiad Content</h3>
-      <a class="note-link" href="oly.html" >Visit Notes</a>
+      <h3>School Curriculum</h3>
+      <p>Aligned with 6th Std syllabus | Structured progression</p>
+      <a class="note-link" href="school_main.html">Visit Notes</a>
     </div>
 
     <div class="note-card">
-      <h3>Assignments</h3>
-      <a class="note-link" href="ast.html" >Visit Notes</a>
+      <h3>Olympiad & Higher Math</h3>
+      <p>Advanced topics and enrichment material</p>
+      <a class="note-link" href="oly_main.html">Visit Notes</a>
     </div>
 
     <div class="note-card">
-      <h3>Exam papers</h3>
-      <p>Mrinal Kanti Das | SMU</p>
-      <a class="note-link" href="alg.html" >Visit Notes</a>
+      <h3>Biweekly Assignments</h3>
+      <p>Assessing understanding every two weeks</p>
+      <a class="note-link" href="assign_main.html">Visit Notes</a>
     </div>
 
     <div class="note-card">
-      <h3>Molecular Biology (Elective)</h3>
-      <p>Suparna Mondal Biswas (AERU)<br>Aritra Bhattacharya (HGU)</p>
-      <a class="note-link" href="bio.html" target="_blank">Visit Notes</a>
+      <h3>Exams</h3>
+      <p>Monthly exams based on 4-week cycle</p>
+      <a class="note-link" href="exam_main.html">Visit Notes</a>
     </div>
+
   </div>
 </section>
 
-
-  <footer>
-    <p>&copy; 2025 Shaan | Built with purpose</p>
-  </footer>
+<footer>
+  <p>&copy; 2025 Shaan | Built with purpose</p>
+</footer>
 
 </body>
 </html>
