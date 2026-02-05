@@ -730,6 +730,279 @@ F_\varepsilon = (1-\varepsilon)F + \varepsilon \Delta_x
 
 
 
+<!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="2.8">
+<section>
+
+<h2>Deriving the influence function by linearization</h2>
+
+<h3>1. The equation we want to linearize</h3>
+
+<p>The median is defined by the <strong>estimating equation</strong>:</p>
+
+<p>
+\[
+\Psi(t, F) := \mathbb{E}_F\big[S(X - t)\big] = 0
+\]
+</p>
+
+<p>The true median <span>\(\mu\)</span> satisfies:</p>
+
+<p>
+\[
+\Psi(\mu, F) = 0.
+\]
+</p>
+
+<p>Now contaminate the distribution:</p>
+
+<p>
+\[
+F_\varepsilon = (1-\varepsilon)F + \varepsilon \Delta_x,
+\]
+</p>
+
+<p>and let the corresponding median be:</p>
+
+<p>
+\[
+t_\varepsilon := T(F_\varepsilon).
+\]
+</p>
+
+<p>By definition, <span>\(t_\varepsilon\)</span> satisfies:</p>
+
+<p>
+\[
+\Psi(t_\varepsilon, F_\varepsilon) = 0.
+\]
+</p>
+
+<p>This is the equation we will <strong>linearize around</strong> <span>\((\mu,0)\)</span>.</p>
+
+<hr>
+
+<h3>2. What “linearize” means here</h3>
+
+<p>“Linearize” means:</p>
+
+<blockquote>
+  <p>Take a first-order Taylor expansion of <span>\(\Psi(t_\varepsilon, F_\varepsilon)\)</span> around <span>\(t=\mu\)</span> and <span>\(\varepsilon=0\)</span>.</p>
+</blockquote>
+
+<p>Nothing more than first-order calculus.</p>
+
+<hr>
+
+<h3>3. Expansion with respect to both arguments</h3>
+
+<p>Write:</p>
+
+<p>
+\[
+0
+=
+\Psi(t_\varepsilon, F_\varepsilon)
+\approx
+\Psi(\mu, F)
++
+\frac{\partial \Psi}{\partial t}\Big|_{\mu,F}
+(t_\varepsilon-\mu)
++
+\frac{\partial \Psi}{\partial \varepsilon}\Big|_{\mu,0}\varepsilon
+\]
+</p>
+
+<p>Since <span>\(\Psi(\mu,F)=0\)</span>, this reduces to:</p>
+
+<p>
+\[
+0
+\approx
+\frac{\partial \Psi}{\partial t}(\mu,F)(t_\varepsilon-\mu)
++
+\frac{\partial \Psi}{\partial \varepsilon}(\mu,0)\varepsilon.
+\]
+</p>
+
+<p>We now compute both derivatives explicitly.</p>
+
+<hr>
+
+<h3>4. Derivative with respect to <span>\(t\)</span></h3>
+
+<p>Recall:</p>
+
+<p>
+\[
+\Psi(t,F)=\mathbb{E}_F[S(X-t)].
+\]
+</p>
+
+<p>As <span>\(t\)</span> increases, the sign function flips at <span>\(X=t\)</span>. The derivative comes from this jump:</p>
+
+<p>
+\[
+\frac{\partial}{\partial t}\Psi(t,F)
+=
+-2f(t).
+\]
+</p>
+
+<p>Evaluated at <span>\(t=\mu\)</span>:</p>
+
+<p>
+\[
+\frac{\partial \Psi}{\partial t}(\mu,F)
+=
+-2f(\mu)
+=
+-\delta.
+\]
+</p>
+
+<p>This is exactly where the constant <span>\(\delta=2f(\mu)\)</span> comes from.</p>
+
+<hr>
+
+<h3>5. Derivative with respect to <span>\(\varepsilon\)</span></h3>
+
+<p>Using the contaminated distribution:</p>
+
+<p>
+\[
+\Psi(t,F_\varepsilon)
+=
+(1-\varepsilon)\mathbb{E}_F[S(X-t)]
++
+\varepsilon S(x-t).
+\]
+</p>
+
+<p>Differentiate with respect to <span>\(\varepsilon\)</span>:</p>
+
+<p>
+\[
+\frac{\partial \Psi}{\partial \varepsilon}
+=
+-\mathbb{E}_F[S(X-t)] + S(x-t).
+\]
+</p>
+
+<p>At <span>\(t=\mu\)</span>, since <span>\(\mathbb{E}_F[S(X-\mu)]=0\)</span>:</p>
+
+<p>
+\[
+\frac{\partial \Psi}{\partial \varepsilon}(\mu,0)
+=
+S(x-\mu).
+\]
+</p>
+
+<hr>
+
+<h3>6. Putting the pieces together</h3>
+
+<p>Insert both derivatives into the linearized equation:</p>
+
+<p>
+\[
+0
+\approx
+(-2f(\mu))(t_\varepsilon-\mu)
++
+\varepsilon S(x-\mu).
+\]
+</p>
+
+<p>Solving for <span>\(t_\varepsilon-\mu\)</span>:</p>
+
+<p>
+\[
+t_\varepsilon-\mu
+\approx
+\frac{\varepsilon}{2f(\mu)}S(x-\mu).
+\]
+</p>
+
+<hr>
+
+<h3>7. Definition of the influence function</h3>
+
+<p>By definition:</p>
+
+<p>
+\[
+\mathrm{IF}(x;T,F)
+=
+\left.
+\frac{d}{d\varepsilon}t_\varepsilon
+\right|_{\varepsilon=0}.
+\]
+</p>
+
+<p>From the expansion above:</p>
+
+<p>
+\[
+\boxed{
+\mathrm{IF}(x;T,F)
+=
+\frac{1}{2f(\mu)}S(x-\mu)
+}
+\]
+</p>
+
+<hr>
+
+<h3>8. What “standard M-estimator calculus” really means</h3>
+
+<p>Whenever an estimator <span>\(T(F)\)</span> is defined by:</p>
+
+<p>
+\[
+\mathbb{E}_F[\psi(X,T(F))]=0,
+\]
+</p>
+
+<p>the influence function is:</p>
+
+<p>
+\[
+\mathrm{IF}(x)
+=
+\left(
+\mathbb{E}\Big[\frac{\partial}{\partial t}\psi(X,t)\Big|_{t=\mu}\Big]
+\right)^{-1}
+\psi(x,\mu).
+\]
+</p>
+
+<p>For the median:</p>
+
+<ul>
+  <li><span>\(\psi(x,t)=S(x-t)\)</span></li>
+  <li>The derivative equals <span>\(-2f(\mu)\)</span></li>
+</ul>
+
+<p>Everything above is a concrete instance of this general rule.</p>
+
+<hr>
+
+<h3>9. Intuition check</h3>
+
+<blockquote>
+  <p>A tiny contamination moves the median proportionally to the sign of the contaminating point, scaled by how steep the CDF is at the median.</p>
+</blockquote>
+
+<p>No higher-order effects matter at first order. That is the entire point of linearization.</p>
+
+</section>
+</div>
+
+
+
 
 
 
