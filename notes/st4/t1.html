@@ -1965,6 +1965,295 @@ N_p\bigl(0,\Gamma^{-1}\Omega\Gamma^{-1}\bigr).
 </section>
 </div>
 
+<!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="4.2">
+<section>
+
+<h2>Estimation of the Covariance Matrix; Affine Equivariance; TR Spatial Median</h2>
+
+<h3>1. Asymptotic covariance of the spatial median</h3>
+
+<h4>Formal result recalled</h4>
+
+<p>From earlier theory, the spatial median <span>\(\hat\mu\)</span> satisfies</p>
+
+<p>
+\[
+\sqrt{n}(\hat\mu-\mu)
+\xrightarrow{d}
+N_p\!\left(0,\; \Gamma^{-1}\Omega\Gamma^{-1}\right),
+\]
+</p>
+
+<p>where</p>
+
+<p>
+\[
+\Gamma
+=
+\mathbb{E}\!\left[
+\frac{1}{|X-\mu|}
+\Bigl(
+I_p - \frac{(X-\mu)(X-\mu)^\top}{|X-\mu|^2}
+\Bigr)
+\right],
+\qquad
+\Omega
+=
+\mathbb{E}\!\left[
+\frac{(X-\mu)(X-\mu)^\top}{|X-\mu|^2}
+\right].
+\]
+</p>
+
+<p>Therefore, an <strong>approximate covariance matrix</strong> for <span>\(\hat\mu\)</span> is</p>
+
+<p>
+\[
+\boxed{
+\operatorname{Cov}(\hat\mu)
+\approx
+\frac{1}{n}\,\Gamma^{-1}\Omega\Gamma^{-1}.
+}
+\]
+</p>
+
+<hr>
+
+<h3>2. Sample estimators <span>\(\hat\Gamma\)</span> and <span>\(\hat\Omega\)</span></h3>
+
+<h4>Plug-in principle</h4>
+
+<p>Since <span>\(\Gamma\)</span> and <span>\(\Omega\)</span> are expectations under <span>\(F_X\)</span>, we estimate them by empirical averages, replacing</p>
+
+<ul>
+  <li><span>\(\mu\)</span> with <span>\(\hat\mu\)</span></li>
+  <li>expectations with sample means</li>
+</ul>
+
+<p>Thus,</p>
+
+<p>
+\[
+\boxed{
+\hat\Gamma
+=
+\frac{1}{n}
+\sum_{i=1}^n
+\frac{1}{|x_i-\hat\mu|}
+\left[
+I_p
+-
+\frac{(x_i-\hat\mu)(x_i-\hat\mu)^\top}{|x_i-\hat\mu|^2}
+\right]
+}
+\]
+</p>
+
+<p>and</p>
+
+<p>
+\[
+\boxed{
+\hat\Omega
+=
+\frac{1}{n}
+\sum_{i=1}^n
+\frac{(x_i-\hat\mu)(x_i-\hat\mu)^\top}{|x_i-\hat\mu|^2}
+}
+\]
+</p>
+
+<p>The resulting covariance estimator is</p>
+
+<p>
+\[
+\boxed{
+\widehat{\operatorname{Cov}}(\hat\mu)
+=
+\frac{1}{n}\,\hat\Gamma^{-1}\hat\Omega\hat\Gamma^{-1}.
+}
+\]
+</p>
+
+<h4>Why these formulas are correct</h4>
+
+<ul>
+  <li>Each summand is bounded whenever <span>\(x_i\neq\hat\mu\)</span></li>
+  <li>Expectations exist under the stated density assumptions</li>
+  <li>The law of large numbers ensures consistency</li>
+  <li>The estimator mirrors the asymptotic variance exactly</li>
+</ul>
+
+<p>This is direct M-estimation theory, not heuristic adjustment.</p>
+
+<h4>Intuition: what <span>\(\Gamma\)</span> and <span>\(\Omega\)</span> mean</h4>
+
+<ul>
+  <li><span>\(\Omega\)</span>: <strong>directional scatter</strong> — only directions matter, distances are normalized</li>
+  <li><span>\(\Gamma\)</span>: <strong>local curvature</strong> — resistance of the objective to movement</li>
+</ul>
+
+<p>Think of <span>\(\Omega\)</span> as random force and <span>\(\Gamma^{-1}\)</span> as mechanical compliance.</p>
+
+<hr>
+
+<h3>3. Why the spatial median is <em>not</em> affine equivariant</h3>
+
+<h4>Formal statement</h4>
+
+<p>The spatial median satisfies</p>
+
+<p>
+\[
+T(F_{AX+b}) = A T(F_X) + b
+\]
+</p>
+
+<p><strong>only if</strong> <span>\(A\)</span> is orthogonal, i.e.</p>
+
+<p>
+\[
+A^\top A = I_p.
+\]
+</p>
+
+<h4>Why this fails in general</h4>
+
+<p>The spatial median minimizes</p>
+
+<p>
+\[
+\mathbb{E}|X-t|,
+\]
+</p>
+
+<p>which depends explicitly on the <strong>Euclidean norm</strong>.</p>
+
+<p>If <span>\(A\)</span> is not orthogonal,</p>
+
+<p>
+\[
+|AX| \neq |X|,
+\]
+</p>
+
+<p>so the objective itself changes shape under general affine maps.</p>
+
+<h4>Intuition</h4>
+
+<p>The spatial median is</p>
+
+<ul>
+  <li>rotation invariant</li>
+  <li>reflection invariant</li>
+  <li>translation invariant</li>
+</ul>
+
+<p>but <strong>not</strong> scale- or shear-invariant. It respects angles, not full linear geometry.</p>
+
+<hr>
+
+<h3>4. Transformation–Retransformation (TR) spatial median</h3>
+
+<h4>Motivation</h4>
+
+<p>Fix the geometry <em>before</em> computing the median.</p>
+
+<hr>
+
+<h3>5. Construction of the TR spatial median</h3>
+
+<h4>Step 1: choose a scatter functional</h4>
+
+<p>Let <span>\(S(F)\)</span> be a <strong>scatter functional</strong> (e.g. Tyler’s shape matrix). Define</p>
+
+<p>
+\[
+G(F) = S(F)^{-1/2}.
+\]
+</p>
+
+<p>This standardizes the data.</p>
+
+<h4>Step 2: normalization property</h4>
+
+<p>By construction,</p>
+
+<p>
+\[
+\boxed{
+G(F)\,S(F)\,G(F)^\top = I_p.
+}
+\]
+</p>
+
+<p>The transformed data are therefore spherical.</p>
+
+<h4>Step 3: define the TR estimator</h4>
+
+<p>
+\[
+\boxed{
+T_{\mathrm{TR}}(F_X)
+=
+G(F_X)^{-1}
+\,
+T\!\left(F_{\,G(F_X)X}\right).
+}
+\]
+</p>
+
+<p>Compute the spatial median after standardization, then map it back.</p>
+
+<hr>
+
+<h3>6. Why TR restores affine equivariance</h3>
+
+<h4>Formal logic</h4>
+
+<ul>
+  <li><span>\(S(F_{AX+b}) = A S(F_X) A^\top\)</span></li>
+  <li><span>\(G(F_{AX+b}) = G(F_X)A^{-1}\)</span></li>
+  <li>The standardized geometry is invariant</li>
+  <li>Retransformation restores the affine structure</li>
+</ul>
+
+<p>Hence,</p>
+
+<p>
+\[
+\boxed{
+T_{\mathrm{TR}}(F_{AX+b}) = A T_{\mathrm{TR}}(F_X) + b.
+}
+\]
+</p>
+
+<h4>Intuition</h4>
+
+<p>The spatial median fails because it trusts raw coordinates.</p>
+
+<blockquote>
+  <p>Coordinates are negotiable. Geometry is not.</p>
+</blockquote>
+
+<hr>
+
+<h3>7. Relationship to known estimators</h3>
+
+<p>The <strong>Hettmansperger–Randles median</strong> combines</p>
+
+<ul>
+  <li>the spatial median (robust location)</li>
+  <li>Tyler’s scatter (robust shape)</li>
+  <li>TR geometry correction</li>
+</ul>
+
+<p>This is not ad hoc. It is the canonical way to unite robustness with affine invariance.</p>
+
+</section>
+</div>
 
 
 
@@ -1994,7 +2283,7 @@ N_p\bigl(0,\Gamma^{-1}\Omega\Gamma^{-1}\bigr).
 <button class="next-btn" onclick="location.href='t2.html'">Next Section →</button>
 
 <footer>
-  <p>&copy; 2025 Shaan | Built with purpose</p>
+  <p>&copy; 2026 Shaan | Built with purpose</p>
 </footer>
 <script>
 MathJax = {
