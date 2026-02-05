@@ -2255,6 +2255,359 @@ T_{\mathrm{TR}}(F_{AX+b}) = A T_{\mathrm{TR}}(F_X) + b.
 </section>
 </div>
 
+<!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="5.1">
+<section>
+
+<h2>The Oja Median: a geometric notion of multivariate location</h2>
+
+<h3>Restatement of the problem context</h3>
+
+<p>We are in <strong>multivariate statistics</strong>, studying a notion of multivariate location called the <strong>Oja median</strong>. The construction is geometric: it measures how a candidate point <span>\(t \in \mathbb{R}^p\)</span> relates to the data cloud via volumes of simplices.</p>
+
+<p>The goals are:</p>
+
+<ul>
+  <li>Define the <strong>sample Oja median</strong> via a minimization problem</li>
+  <li>Define the corresponding <strong>population (functional) version</strong></li>
+  <li>Introduce the <strong>multivariate sign and rank functions</strong> needed for asymptotic analysis</li>
+</ul>
+
+<p>The development proceeds from geometry to probability, step by step.</p>
+
+<hr>
+
+<h3>1. Data, distribution, and notation</h3>
+
+<h4>Formal setup</h4>
+
+<p>Let</p>
+
+<p>
+\[
+X = (x_1, x_2, \dots, x_n)' \quad \text{with } x_i \in \mathbb{R}^p
+\]
+</p>
+
+<p>be a random sample from a <span>\(p\)</span>-variate distribution with cumulative distribution function</p>
+
+<p>
+\[
+F : \mathbb{R}^p \to [0,1].
+\]
+</p>
+
+<p>Here <span>\(p\)</span> is the dimension and <span>\(n\)</span> the sample size.</p>
+
+<h4>Intuition</h4>
+
+<p>Think of <span>\(x_1,\dots,x_n\)</span> as points in <span>\(\mathbb{R}^p\)</span>. We seek a notion of “center” that is robust and intrinsic to their geometry.</p>
+
+<hr>
+
+<h3>2. Volume of a <span>\(p\)</span>-simplex</h3>
+
+<h4>Definition</h4>
+
+<p>Given <span>\(p+1\)</span> points</p>
+
+<p>
+\[
+t_1, t_2, \dots, t_{p+1} \in \mathbb{R}^p,
+\]
+</p>
+
+<p>the volume of the simplex they determine is</p>
+
+<p>
+\[
+V(t_1, \dots, t_{p+1})
+=
+\frac{1}{p!}
+\left|
+\det
+\begin{pmatrix}
+1 & \cdots & 1 \\
+t_1 & \cdots & t_{p+1}
+\end{pmatrix}
+\right|.
+\]
+</p>
+
+<h4>Why this formula is valid</h4>
+
+<ul>
+  <li>The determinant computes signed volume of a parallelepiped</li>
+  <li>The row of ones converts points to an affine representation</li>
+  <li>Division by <span>\(p!\)</span> converts parallelepiped volume to simplex volume</li>
+  <li>The absolute value removes orientation</li>
+</ul>
+
+<h4>Low-dimensional intuition</h4>
+
+<ul>
+  <li><strong><span>\(p=1\)</span></strong>: two points define an interval, and
+    <p>
+    \[
+    V(t_1,t_2)=|t_2-t_1|.
+    \]
+    </p>
+  </li>
+  <li><strong><span>\(p=2\)</span></strong>: three points form a triangle, and <span>\(V\)</span> is its area</li>
+</ul>
+
+<p>This confirms the formula generalizes length and area.</p>
+
+<hr>
+
+<h3>3. Sample Oja objective function</h3>
+
+<h4>Definition</h4>
+
+<p>For a candidate location <span>\(t \in \mathbb{R}^p\)</span>, define</p>
+
+<p>
+\[
+D_n(t)
+=
+\binom{n}{p}^{-1}
+\sum_{1 \le i_1 < \cdots < i_p \le n}
+V(x_{i_1}, \dots, x_{i_p}, t).
+\]
+</p>
+
+<h4>Explanation of components</h4>
+
+<ul>
+  <li>The sum runs over all <span>\(p\)</span>-subsets of the sample</li>
+  <li>Each term is the volume of the simplex formed by those points and <span>\(t\)</span></li>
+  <li>The binomial factor normalizes the sum to an average</li>
+</ul>
+
+<h4>Intuition</h4>
+
+<p>If <span>\(t\)</span> is central, simplices formed with the data tend to have small volume on average.</p>
+
+<hr>
+
+<h3>4. Sample Oja median</h3>
+
+<h4>Definition</h4>
+
+<p>The <strong>Oja median</strong> <span>\(T(X)\)</span> is any minimizer of</p>
+
+<p>
+\[
+D_n(t),
+\quad\text{i.e.}\quad
+T(X) \in \arg\min_{t \in \mathbb{R}^p} D_n(t).
+\]
+</p>
+
+<h4>Intuition</h4>
+
+<ul>
+  <li>In one dimension, this reduces to the usual median</li>
+  <li>In higher dimensions, it minimizes average simplex volume</li>
+</ul>
+
+<hr>
+
+<h3>5. Population (functional) version</h3>
+
+<h4>Definition</h4>
+
+<p>Define the population objective</p>
+
+<p>
+\[
+D(t) = E_F\big[V(X_1,\dots,X_p,t)\big],
+\]
+</p>
+
+<p>where <span>\(X_1,\dots,X_p\)</span> are i.i.d. with distribution <span>\(F\)</span>.</p>
+
+<p>The <strong>Oja functional</strong> <span>\(T(F)\)</span> is any minimizer of <span>\(D(t)\)</span>.</p>
+
+<h4>Existence of expectations</h4>
+
+<ul>
+  <li><span>\(V(\cdot)\)</span> grows at most linearly</li>
+  <li>Finite first moments of <span>\(F\)</span> suffice for finiteness</li>
+</ul>
+
+<hr>
+
+<h3>6. Assumptions for asymptotic theory</h3>
+
+<ul>
+  <li><strong>Uniqueness</strong>: the minimizer <span>\(\mu=T(F)\)</span> is unique</li>
+  <li><strong>Second moments</strong>: <span>\(E|X|^2&lt;\infty\)</span></li>
+</ul>
+
+<p>These guarantee differentiability and quadratic approximation of <span>\(D(t)\)</span>.</p>
+
+<hr>
+
+<h3>7. Quadratic expansion of <span>\(D(t)\)</span></h3>
+
+<h4>Formal statement</h4>
+
+<p>Near <span>\(\mu\)</span>,</p>
+
+<p>
+\[
+D(t)
+=
+D(\mu)
++
+\frac{1}{2}(t-\mu)' \Delta (t-\mu)
++
+o(|t-\mu|^2),
+\]
+</p>
+
+<p>where</p>
+
+<p>
+\[
+\Delta
+=
+\left.
+\frac{\partial^2}{\partial t\,\partial t'}
+D(t)
+\right|_{t=\mu}.
+\]
+</p>
+
+<h4>Interpretation</h4>
+
+<p><span>\(\Delta\)</span> is the Hessian of the objective; locally, <span>\(D(t)\)</span> behaves like a quadratic bowl.</p>
+
+<hr>
+
+<h3>8. Indexing subsets</h3>
+
+<p>Define</p>
+
+<p>
+\[
+Q = \{(i_1,\dots,i_{p-1}) : 1\le i_1&lt;\cdots&lt;i_{p-1}\le n\},
+\quad
+P = \{(i_1,\dots,i_p) : 1\le i_1&lt;\cdots&lt;i_p\le n\}.
+\]
+</p>
+
+<p>These index simplices of different orders.</p>
+
+<hr>
+
+<h3>9. Determinant decompositions</h3>
+
+<h4>Definition</h4>
+
+<p>For <span>\(q\in Q\)</span>, define <span>\(e_q\in\mathbb{R}^p\)</span> by</p>
+
+<p>
+\[
+\det(x_{i_1},\dots,x_{i_{p-1}},x)=e_q' x.
+\]
+</p>
+
+<p>Similarly, for <span>\(p\in P\)</span>,</p>
+
+<p>
+\[
+\det
+\begin{pmatrix}
+1 & \cdots & 1 & 1 \\
+x_{i_1} & \cdots & x_{i_p} & x
+\end{pmatrix}
+=
+d_{0p}+d_p' x.
+\]
+</p>
+
+<h4>Interpretation</h4>
+
+<p>Linearity of the determinant reduces volume calculations to linear forms.</p>
+
+<hr>
+
+<h3>10. Sample sign and rank functions</h3>
+
+<h4>Definitions</h4>
+
+<p>
+\[
+\hat S(t)
+=
+\binom{n}{p}^{-1}
+\sum_{q\in Q}
+\operatorname{sign}(e_q' t)\, e_q,
+\]
+</p>
+
+<p>
+\[
+\hat R(t)
+=
+\binom{n}{p}^{-1}
+\sum_{p\in P}
+\operatorname{sign}(d_{0p}+d_p' t)\, d_p.
+\]
+</p>
+
+<h4>Sign function</h4>
+
+<p>
+\[
+\operatorname{sign}(u)=
+\begin{cases}
++1,&u&gt;0,\\
+0,&u=0,\\
+-1,&u&lt;0.
+\end{cases}
+\]
+</p>
+
+<h4>Role</h4>
+
+<p>These act as generalized gradients; the Oja median satisfies <span>\(\hat R(t)\approx0\)</span>.</p>
+
+<hr>
+
+<h3>11. Population versions</h3>
+
+<p>
+\[
+S(t)=E[\operatorname{sign}(e_q' t)e_q],
+\quad
+R(t)=E[\operatorname{sign}(d_{0p}+d_p' t)d_p].
+\]
+</p>
+
+<p>These are theoretical objects used in asymptotic analysis.</p>
+
+<hr>
+
+<h3>Big picture intuition</h3>
+
+<p>The Oja median asks:</p>
+
+<blockquote>
+  <p>How small are the simplices formed when this point is included?</p>
+</blockquote>
+
+<p>The sign and rank functions translate geometry into algebra suitable for probability theory.</p>
+
+<p>This is geometry wearing a statistics hat—and doing it properly.</p>
+
+</section>
+</div>
+
+
 
 
 
