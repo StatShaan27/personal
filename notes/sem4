@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notes | Shaan</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    .notes-wrapper {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .notes-wrapper h2 {
+      color: #6effe0;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1.5rem;
+    }
+
+    .notes-section {
+      margin-bottom: 3rem;
+    }
+
+    .note-link {
+      display: block;
+      margin: 0.8rem 0;
+      font-size: 1.05rem;
+      color: #c9d1d9;
+      text-decoration: none;
+      border: 2px solid #6effe0;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      transition: all 0.3s ease;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .note-link:hover {
+      background-color: #6effe0;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .coming-soon {
+      color: #888;
+      font-style: italic;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+    .notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.note-card {
+  border: 2px solid #6effe0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  background-color: #1e1e1e;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(110, 255, 224, 0.2);
+}
+
+.note-card h3 {
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+  color: #6effe0;
+}
+
+.note-card p {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 1rem;
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Notes</h1>
+    <p>Compiled notes from my B.Stat coursework — organized by semester.</p>
+      <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../sections/projects.html">Projects</a></li>
+      <li><a href="../sections/education.html">Education</a></li>
+      <li><a href="../sections/misc.html">Misc</a></li>
+    </ul>
+  </nav>
+
+  <div style="text-align: center; margin-top: 1rem;">
+    <a class="note-link" href="../sections/notes.html">Back to Notes Page</a>
+  </div>
+
+  </header>
+
+ <section class="notes-wrapper">
+  <h2>Semester 4 Notes</h2>
+
+  <div class="notes-grid">
+    <div class="note-card">
+      <h3>SEMESTER-4 TRELLO</h3>
+      <p>AY:2025-26</p>
+      <a class="note-link" href="https://trello.com/b/W0x7OUuH/semester-4" target="_blank">Visit Site</a>
+    </div>
+    <div class="note-card">
+      <h3>Discrete Maths (Core)</h3>
+      <p>Mridul Nandi (CT) | ASU</p>
+      <a class="note-link" href="https://sites.google.com/view/discrete-maths-b2/home" >Visit Notes</a>
+    </div>
+
+    <div class="note-card">
+      <h3>Introduction to Stohastic Processes (Core)</h3>
+      <p>Krishanu Maulik | SMU</p>
+      <a class="note-link" href="stoc.html" >Visit Notes</a>
+    </div>
+
+    <div class="note-card">
+      <h3>Statistical Methods IV (Core)</h3>
+      <p>Shyamal K De | ASU</p>
+      <a class="note-link" href="st4.html" >Visit Notes</a>
+    </div>
+
+    <div class="note-card">
+      <h3>Differential Equations (Core)</h3>
+      <p>Ramij Rahman | PAMU</p>
+      <a class="note-link" href="de.html" >Visit Notes</a>
+    </div>
+
+    <div class="note-card">
+      <h3>Agriculture (Elective)</h3>
+      <p>Abhishek Mukherjee | AERU Giridih</p>
+      <a class="note-link" href="agri.html" target="_blank">Visit Notes</a>
+    </div>
+  </div>
+</section>
+
+
+  <footer>
+    <p>&copy; 2025 Shaan | Built with purpose</p>
+  </footer>
+
+</body>
+</html>
