@@ -1630,6 +1630,341 @@ TR is geometry-aware robustness.</strong></p>
 </section>
 </div>
 
+  <!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="4.1">
+<section>
+
+<h2>The spatial median: geometry-aware robustness in <span>\(\mathbb{R}^p\)</span></h2>
+
+<h3>1. What the spatial median is—and why it exists</h3>
+
+<h4>Formal definition (sample version)</h4>
+
+<p>Given data points <span>\(x_1,\dots,x_n \in \mathbb{R}^p\)</span>, define</p>
+
+<p>
+\[
+D_n(t)
+=
+\frac{1}{n}\sum_{i=1}^n \bigl(|x_i - t| - |x_i|\bigr),
+\quad t \in \mathbb{R}^p,
+\]
+</p>
+
+<p>where <span>\(|\cdot|\)</span> denotes the Euclidean norm.</p>
+
+<p>The <strong>spatial median</strong> <span>\(\hat\mu\)</span> is any minimizer of <span>\(D_n(t)\)</span>.</p>
+
+<p>The subtraction of <span>\(|x_i|\)</span> is constant in <span>\(t\)</span> and does <strong>not</strong> affect the minimizer. It is included solely to ensure finiteness of expectations in the population version.</p>
+
+<h4>Population version</h4>
+
+<p>Let <span>\(X\sim F_X\)</span>. Define</p>
+
+<p>
+\[
+D(t) = \mathbb{E}\bigl[|X-t| - |X|\bigr].
+\]
+</p>
+
+<p>The <strong>spatial median functional</strong></p>
+
+<p>
+\[
+\mu = T(F_X)
+\]
+</p>
+
+<p>is the unique minimizer of <span>\(D(t)\)</span>, under the stated assumptions.</p>
+
+<h4>Intuition</h4>
+
+<p>The spatial median minimizes the <strong>average distance</strong> to the data cloud.</p>
+
+<ul>
+  <li>The mean minimizes average <em>squared</em> distance</li>
+  <li>The spatial median minimizes average <em>distance</em></li>
+</ul>
+
+<p>This single change replaces sensitivity to magnitude by sensitivity to geometry.</p>
+
+<hr>
+
+<h3>2. Assumptions and why they matter</h3>
+
+<h4>Assumption 1: uniqueness</h4>
+
+<blockquote>
+  <p>The minimizer <span>\(\mu\)</span> of <span>\(D(t)\)</span> is unique.</p>
+</blockquote>
+
+<p><strong>Why needed:</strong> Without uniqueness, asymptotic expansions and limiting distributions are not well-defined.</p>
+
+<p><strong>Geometric intuition:</strong> In dimension <span>\(\ge 2\)</span>, surrounding geometry pins the center down; on a line, it can slide.</p>
+
+<h4>Assumption 2: smoothness of the density</h4>
+
+<blockquote>
+  <p><span>\(F_X\)</span> has a bounded and continuous density at <span>\(\mu\)</span>.</p>
+</blockquote>
+
+<p><strong>Why needed:</strong> Ensures Taylor expansion of <span>\(D(t)\)</span> and finiteness of expectations involving <span>\(|X-\mu|^{-1}\)</span>.</p>
+
+<hr>
+
+<h3>3. Local quadratic expansion of the objective</h3>
+
+<h4>Formal expansion</h4>
+
+<p>Under the assumptions,</p>
+
+<p>
+\[
+D(t)
+=
+D(\mu)
++
+\frac{1}{2}(t-\mu)^\top \Gamma (t-\mu)
++
+o(|t-\mu|^2),
+\]
+</p>
+
+<p>where</p>
+
+<p>
+\[
+\Gamma
+=
+\mathbb{E}\left[
+\frac{1}{|X-\mu|}
+\left(
+I_p
+-
+\frac{(X-\mu)(X-\mu)^\top}{|X-\mu|^2}
+\right)
+\right].
+\]
+</p>
+
+<h4>Why this matrix appears</h4>
+
+<p>The gradient of <span>\(|x-t|\)</span> is</p>
+
+<p>
+\[
+\nabla_t |x-t| = -\frac{x-t}{|x-t|},
+\]
+</p>
+
+<p>and the Hessian introduces the projection matrix</p>
+
+<p>
+\[
+I_p - \frac{(x-\mu)(x-\mu)^\top}{|x-\mu|^2},
+\]
+</p>
+
+<p>which projects orthogonally to the direction <span>\(x-\mu\)</span>.</p>
+
+<h4>Intuition</h4>
+
+<p>Near the spatial median, the objective is quadratic—but curvature depends on direction. The bowl is anisotropic and reflects how points surround the center.</p>
+
+<hr>
+
+<h3>4. Spatial sign and centered rank</h3>
+
+<h4>Spatial sign</h4>
+
+<p>
+\[
+S(t)
+=
+\begin{cases}
+t/|t|, & t\neq 0,\\
+0, & t=0.
+\end{cases}
+\]
+</p>
+
+<p>This is a <strong>direction-only</strong> object.</p>
+
+<h4>Centered rank</h4>
+
+<p>
+\[
+\hat R(t)
+=
+\frac{1}{n}\sum_{i=1}^n S(t - x_i).
+\]
+</p>
+
+<h4>Key properties</h4>
+
+<ul>
+  <li>Lies inside the unit <span>\(p\)</span>-ball</li>
+  <li>Ignores magnitude completely</li>
+  <li>Retains geometric direction</li>
+</ul>
+
+<p>Each observation pulls with <strong>unit force</strong>, no matter how far away it is.</p>
+
+<hr>
+
+<h3>5. Spatial median as a zero of the rank function</h3>
+
+<p>The spatial median satisfies</p>
+
+<p>
+\[
+\hat R(\hat\mu) = 0.
+\]
+</p>
+
+<p>This is the multivariate analogue of balancing signs to the left and right in one dimension.</p>
+
+<hr>
+
+<h3>6. Asymptotic distribution</h3>
+
+<h4>Central limit theorem for ranks</h4>
+
+<p>
+\[
+\sqrt{n}\,\hat R(\mu)
+\xrightarrow{d}
+N_p(0,\Omega),
+\quad
+\Omega
+=
+\mathbb{E}\left[
+\frac{(X-\mu)(X-\mu)^\top}{|X-\mu|^2}
+\right].
+\]
+</p>
+
+<h4>Asymptotic normality of the estimator</h4>
+
+<p>
+\[
+\hat\mu
+=
+\mu
++
+\Gamma^{-1}\hat R(\mu)
++
+o_P(n^{-1/2}),
+\]
+</p>
+
+<p>hence</p>
+
+<p>
+\[
+\sqrt{n}(\hat\mu-\mu)
+\xrightarrow{d}
+N_p\bigl(0,\Gamma^{-1}\Omega\Gamma^{-1}\bigr).
+\]
+</p>
+
+<h4>Intuition</h4>
+
+<ul>
+  <li><span>\(\Omega\)</span> measures directional variability</li>
+  <li><span>\(\Gamma^{-1}\)</span> converts force imbalance into displacement</li>
+</ul>
+
+<p>Think: <strong>force → motion</strong>, governed by curvature.</p>
+
+<hr>
+
+
+<h4>What to see</h4>
+
+<ul>
+  <li>The spatial median sits where directional pulls cancel</li>
+  <li>Distant outliers barely move it</li>
+  <li>The center reflects shape, not extremes</li>
+</ul>
+
+<hr>
+
+<h3>7. Computation: Weiszfeld algorithm</h3>
+
+<h4>Iteration step</h4>
+
+<p>
+\[
+\mu \leftarrow
+\mu
++
+\left(
+\sum_{i=1}^n \frac{1}{|x_i-\mu|}
+\right)^{-1}
+\hat R(\mu).
+\]
+</p>
+
+<p>This is a fixed-point iteration derived from the estimating equation.</p>
+
+<h4>Practical note</h4>
+
+<p>The classical algorithm may fail if <span>\(\mu\)</span> coincides with a data point. Modified variants guarantee monotone convergence.</p>
+
+<hr>
+
+<h3>8. Robustness properties</h3>
+
+<h4>Breakdown point</h4>
+
+<p>The spatial median has asymptotic breakdown point <span>\(1/2\)</span>. No location estimator can do better.</p>
+
+<h4>Influence function</h4>
+
+<p>
+\[
+\mathrm{IF}(x;T,F)
+=
+-\Gamma^{-1}S(x-\mu).
+\]
+</p>
+
+<p>This influence function is <strong>bounded</strong>.</p>
+
+<h4>Intuition</h4>
+
+<p>Magnitude is ignored; only direction matters. One bad point cannot dominate.</p>
+
+<hr>
+
+<h3>9. Efficiency tradeoff</h3>
+
+<p>If the covariance matrix <span>\(\Sigma\)</span> exists, the ARE relative to the mean is</p>
+
+<p>
+\[
+\mathrm{ARE}
+=
+\frac{1}{p}
+\frac{|\Sigma|}
+{|\Gamma^{-1}\Omega\Gamma^{-1}|}.
+\]
+</p>
+
+<h4>Meaning</h4>
+
+<ul>
+  <li>Some efficiency is lost under perfect Gaussianity</li>
+  <li>Massive stability is gained under contamination</li>
+</ul>
+
+<p>This is not a defect—it is a deliberate design choice.</p>
+
+</section>
+</div>
+
 
 
 
