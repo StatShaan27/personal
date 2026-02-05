@@ -1478,6 +1478,178 @@ we <strong>teach geometry first</strong>, then compute medians, then come back.<
 </section>
 </div>
 
+<!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="3.2">
+<section>
+
+<h2>Why the Transformation–Retransformation (TR) concept matters</h2>
+
+<p>The <strong>Transformation–Retransformation (TR)</strong> idea is not cosmetic. It fixes a <em>structural flaw</em> in naïve multivariate robust estimators and does so in a way that is mathematically principled, geometrically honest, and practically useful.</p>
+
+<hr>
+
+<h3>1. What problem does TR actually solve?</h3>
+
+<h4>The blunt truth</h4>
+
+<p>Most “simple” multivariate robust estimators (such as the vector of marginal medians) are <strong>coordinate artifacts</strong>. Their output depends on how you choose your axes, not on the intrinsic geometry of the data cloud.</p>
+
+<p>This is unacceptable when data live in <span>\(\mathbb{R}^p\)</span> as geometry, not as <span>\(p\)</span> unrelated columns.</p>
+
+<h4>What affine equivariance really buys you</h4>
+
+<blockquote>
+  <p>Two analysts using different linear coordinate systems will report the same center, up to the same transformation.</p>
+</blockquote>
+
+<p>This is not philosophical. It is <strong>statistical reproducibility under reparameterization</strong>.</p>
+
+<p>Without affine equivariance:</p>
+
+<ul>
+  <li>Rotating the data changes the estimator</li>
+  <li>Mixing variables changes the estimator</li>
+  <li>Scientific conclusions depend on arbitrary preprocessing</li>
+</ul>
+
+<p>TR restores this invariance <strong>without sacrificing robustness</strong>.</p>
+
+<hr>
+
+<h3>2. What TR is doing conceptually</h3>
+
+<p>TR is a <strong>change-of-coordinates strategy</strong>:</p>
+
+<ol>
+  <li><strong>Find the geometry of the data</strong><br>
+      Use an ICS functional <span>\(G(F)\)</span> to identify directions, scales, and shape.</li>
+  <li><strong>Move to canonical coordinates</strong><br>
+      Transform the data so the cloud is standardized (often spherical or axis-aligned).</li>
+  <li><strong>Apply a simple robust estimator</strong><br>
+      Compute marginal medians where they actually make sense.</li>
+  <li><strong>Transform back</strong><br>
+      Return to the original space.</li>
+</ol>
+
+<p>The estimator stays simple. The <em>space</em> is made intelligent.</p>
+
+<hr>
+
+<h3>3. Visual example: why marginal medians fail</h3>
+
+![Image](https://blogs.sas.com/content/iml/files/2023/08/randEllipse3.png)
+
+![Image](https://www.wolframcloud.com/obj/resourcesystem/published/DemonstrationRepository/deployments/RotationalSymmetryOfMultivariateUncorrelatedStandardNormalDi/img/RotationalSymmetryOfMultivariateUncorrelatedStandardNormalDi_Snapshot-2.png)
+
+![Image](https://www.researchgate.net/publication/288344932/figure/fig2/AS%3A649633349001218%401531896068059/The-error-ellipse-for-correlated-errors-is-rotated-and-has-a-smaller-area-than-the-error.png)
+
+<h4>Mental picture</h4>
+
+<p>Imagine a <strong>tilted elliptical cloud</strong> of points in 2D:</p>
+
+<ul>
+  <li>The true center is the center of the ellipse</li>
+  <li>The cloud is rotated by, say, 30°</li>
+</ul>
+
+<p>Now compute:</p>
+
+<ul>
+  <li>The median of <span>\(X_1\)</span></li>
+  <li>The median of <span>\(X_2\)</span></li>
+</ul>
+
+<p>These medians are taken <strong>along the coordinate axes</strong>, not along the geometry of the cloud.</p>
+
+<h4>What goes wrong</h4>
+
+<ul>
+  <li>Correlation is ignored</li>
+  <li>Rotating the cloud changes the reported “center”</li>
+  <li>The estimator is not intrinsic to the data</li>
+</ul>
+
+<p>This is the concrete failure of affine equivariance.</p>
+
+<hr>
+
+<h3>4. Visual example: what TR fixes</h3>
+
+![Image](https://www.researchgate.net/publication/347987699/figure/fig2/AS%3A974263238529024%401609293865129/Affine-transformation-of-a-unit-circle-and-its-bounding-square-to-an-ellipse-and-its.ppm)
+
+![Image](https://joelouismarino.github.io/images/blog_images/blog_whitening/two_d_vis.png)
+
+![Image](https://kenndanielso.github.io/mlrefined/mlrefined_images/unsupervised_images/pca_sphereing.png)
+
+<h4>Step-by-step visual logic</h4>
+
+<ol>
+  <li><strong>Before TR</strong><br>
+      The data cloud is elongated and rotated.</li>
+  <li><strong>Apply <span>\(G(F)\)</span></strong><br>
+      Rotation and scaling are undone; the ellipse becomes roughly spherical.</li>
+  <li><strong>Compute marginal medians</strong><br>
+      Axes now align with structure; medians behave sensibly.</li>
+  <li><strong>Retransform</strong><br>
+      The center is mapped back to the original geometry.</li>
+</ol>
+
+<p>The final point:</p>
+
+<ul>
+  <li>Sits at the geometric center</li>
+  <li>Moves correctly under affine transformations</li>
+  <li>Remains robust to outliers</li>
+</ul>
+
+<hr>
+
+<h3>5. Why this matters statistically</h3>
+
+<h4>Robustness plus equivariance is rare</h4>
+
+<ul>
+  <li><strong>Mean</strong>: affine equivariant, not robust</li>
+  <li><strong>Marginal medians</strong>: robust, not affine equivariant</li>
+</ul>
+
+<p>TR delivers <strong>both</strong>, provided the ICS functional is well chosen.</p>
+
+<h4>In practice, TR enables</h4>
+
+<ul>
+  <li>Meaningful multivariate medians</li>
+  <li>Robust PCA-like constructions</li>
+  <li>Coordinate-free comparison across studies</li>
+  <li>Geometrically honest inference</li>
+</ul>
+
+<p>This is why TR ideas appear repeatedly in robust multivariate analysis, outlier detection, and high-dimensional statistics.</p>
+
+<hr>
+
+<h3>6. A clean intuition to remember</h3>
+
+<blockquote>
+  <p><strong>TR does not fix the estimator.<br>
+     It fixes the coordinate system in which the estimator is allowed to act.</strong></p>
+</blockquote>
+
+<p>Once you see it this way, the idea stops looking clever and starts looking inevitable.</p>
+
+<p>The deeper lesson is simple:</p>
+
+<p><strong>Robust statistics fails when it ignores geometry.  
+TR is geometry-aware robustness.</strong></p>
+
+</section>
+</div>
+
+
+
+
+
 
 
 
