@@ -1001,6 +1001,155 @@ t_\varepsilon-\mu
 </section>
 </div>
 
+<!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="2.9">
+<section>
+
+<h2>What is ARE (Asymptotic Relative Efficiency)?</h2>
+
+<p><strong>ARE — Asymptotic Relative Efficiency</strong> — is a precise, asymptotic way to compare two estimators <em>when the sample size is large</em>. It answers one sharp question:</p>
+
+<blockquote>
+  <p>How many samples does estimator A need to match the precision of estimator B?</p>
+</blockquote>
+
+<hr>
+
+<h3>The formal definition</h3>
+
+<p>Suppose two estimators <span>\(\hat\theta_1\)</span> and <span>\(\hat\theta_2\)</span> estimate the same parameter <span>\(\theta\)</span>, and both are <span>\(\sqrt{n}\)</span>-consistent and asymptotically normal:</p>
+
+<p>
+\[
+\sqrt{n}(\hat\theta_i-\theta)\xrightarrow{d}N(0,V_i),\quad i=1,2.
+\]
+</p>
+
+<p>Then the <strong>ARE of <span>\(\hat\theta_1\)</span> relative to <span>\(\hat\theta_2\)</span></strong> is defined as:</p>
+
+<p>
+\[
+\boxed{
+\mathrm{ARE}(\hat\theta_1,\hat\theta_2)=\frac{V_2}{V_1}
+}
+\]
+</p>
+
+<h4>Interpretation</h4>
+
+<ul>
+  <li>ARE = 1: equally efficient</li>
+  <li>ARE &lt; 1: <span>\(\hat\theta_1\)</span> is less efficient</li>
+  <li>ARE &gt; 1: <span>\(\hat\theta_1\)</span> is more efficient</li>
+</ul>
+
+<hr>
+
+<h3>Why it’s called <em>relative</em></h3>
+
+<p>If <span>\(\mathrm{ARE}=0.64\)</span>, estimator 1 needs about:</p>
+
+<p>
+\[
+\frac{1}{0.64}\approx1.56
+\]
+</p>
+
+<p>times <strong>more data</strong> to achieve the same asymptotic accuracy as estimator 2.</p>
+
+<p>So ARE is literally a <strong>sample-size exchange rate</strong>.</p>
+
+<hr>
+
+<h3>ARE for median vs mean</h3>
+
+<p>For a symmetric distribution <span>\(F\)</span>:</p>
+
+<ul>
+  <li>
+    Mean:
+    <p>
+    \[
+    \sqrt{n}(\bar X-\mu)\to N(0,\sigma^2)
+    \]
+    </p>
+  </li>
+  <li>
+    Median:
+    <p>
+    \[
+    \sqrt{n}(\hat\mu-\mu)\to N\!\left(0,\frac{1}{4f(\mu)^2}\right)
+    \]
+    </p>
+  </li>
+</ul>
+
+<p>Therefore:</p>
+
+<p>
+\[
+\boxed{
+\mathrm{ARE}(\text{median},\text{mean})
+=
+\frac{\sigma^2}{\frac{1}{4f(\mu)^2}}
+=
+4f(\mu)^2\sigma^2
+}
+\]
+</p>
+
+<hr>
+
+<h3>Concrete examples</h3>
+
+<ul>
+  <li>
+    <strong>Normal distribution</strong> <span>\(N(\mu,\sigma^2)\)</span><br>
+    <span>\(f(\mu)=\frac{1}{\sqrt{2\pi}\sigma}\)</span>
+    <p>
+    \[
+    \mathrm{ARE}=\frac{2}{\pi}\approx0.64
+    \]
+    </p>
+    <p>The median loses efficiency under Gaussian noise.</p>
+  </li>
+
+  <li>
+    <strong>Heavy-tailed distributions</strong>
+    <ul>
+      <li><span>\(t_3\)</span>: ARE ≈ <strong>1.62</strong></li>
+      <li>Laplace: ARE = <strong>2</strong></li>
+    </ul>
+    <p>The median wins decisively.</p>
+  </li>
+</ul>
+
+<hr>
+
+<h3>What ARE is <em>not</em></h3>
+
+<ul>
+  <li>Not a finite-sample guarantee</li>
+  <li>Not a robustness measure</li>
+  <li>Not about bias</li>
+</ul>
+
+<p>ARE is <strong>purely about asymptotic variance</strong>.</p>
+
+<hr>
+
+<h3>Takeaway</h3>
+
+<p>ARE quantifies the classic tradeoff:</p>
+
+<blockquote>
+  <p>The mean is optimal under Gaussian noise.<br>
+     The median sacrifices efficiency to gain robustness — and under heavy tails, that sacrifice becomes a win.</p>
+</blockquote>
+
+</section>
+</div>
 
 
 
