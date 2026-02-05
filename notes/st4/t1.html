@@ -512,6 +512,221 @@ T(F_{g(X)}) = g(T(F_X))
 </section>
 </div>
 
+<!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="2.7">
+<section>
+
+<h2>Influence Function: why the median resists outliers</h2>
+
+<h3>1. What is the influence function, conceptually?</h3>
+
+<p>The <strong>influence function (IF)</strong> answers one precise question:</p>
+
+<blockquote>
+  <p>If I contaminate the distribution <span>\(F\)</span> by an infinitesimal amount of mass at the point <span>\(x\)</span>, how much does my estimator move?</p>
+</blockquote>
+
+<p>Formally:</p>
+
+<p>
+\[
+\mathrm{IF}(x;T,F)
+=
+\left.
+\frac{d}{d\varepsilon}
+T\big((1-\varepsilon)F + \varepsilon \Delta_x\big)
+\right|_{\varepsilon=0}
+\]
+</p>
+
+<p>where:</p>
+
+<ul>
+  <li><span>\(T\)</span> = estimator viewed as a functional (here: the median)</li>
+  <li><span>\(\Delta_x\)</span> = point mass at <span>\(x\)</span></li>
+</ul>
+
+<p>Think of the influence function as the <strong>first-order sensitivity</strong> of the estimator to a single outlier at <span>\(x\)</span>.</p>
+
+<hr>
+
+<h3>2. Why the sign function appears for the median</h3>
+
+<p>The population median <span>\(\mu = T(F)\)</span> satisfies the estimating equation:</p>
+
+<p>
+\[
+\mathbb{E}_F[S(X-\mu)] = 0
+\]
+</p>
+
+<p>This equation <em>defines</em> the median.</p>
+
+<p>Now contaminate the distribution slightly:</p>
+
+<p>
+\[
+F_\varepsilon = (1-\varepsilon)F + \varepsilon \Delta_x
+\]
+</p>
+
+<p>The new median <span>\(T(F_\varepsilon)\)</span> must still satisfy:</p>
+
+<p>
+\[
+\mathbb{E}_{F_\varepsilon}
+\big[S(X - T(F_\varepsilon))\big] = 0
+\]
+</p>
+
+<p>Linearizing this equation around <span>\(\varepsilon=0\)</span> is standard <strong>M-estimator calculus</strong>. The structure of the estimating equation forces the <strong>sign function</strong> to appear.</p>
+
+<hr>
+
+<h3>3. Where the constant <span>\(\delta = 2f(\mu)\)</span> comes from</h3>
+
+<p>Differentiate the estimating equation with respect to <span>\(t\)</span>:</p>
+
+<p>
+\[
+\frac{d}{dt}\mathbb{E}[S(X-t)]\Big|_{t=\mu}
+= -2f(\mu)
+\]
+</p>
+
+<h4>Explanation</h4>
+
+<ul>
+  <li><span>\(S(X-t)\)</span> jumps at <span>\(X=t\)</span></li>
+  <li>The derivative picks up mass from the density at <span>\(t=\mu\)</span></li>
+  <li>The slope is exactly <span>\(-2f(\mu)\)</span></li>
+</ul>
+
+<p>Conclusion: the median reacts <strong>more strongly</strong> when the density at the median is small (a flat region).</p>
+
+<hr>
+
+<h3>4. The final influence function for the median</h3>
+
+<p>Putting everything together:</p>
+
+<p>
+\[
+\boxed{
+\mathrm{IF}(x;T,F)
+=
+\frac{1}{2f(\mu)}\, S(x-\mu)
+}
+\]
+</p>
+
+<p>Explicitly:</p>
+
+<p>
+\[
+\mathrm{IF}(x;T,F)
+=
+\begin{cases}
++\dfrac{1}{2f(\mu)} & x > \mu \\
+0 & x = \mu \\
+-\dfrac{1}{2f(\mu)} & x < \mu
+\end{cases}
+\]
+</p>
+
+<hr>
+
+<h3>5. Why this is a <em>big deal</em></h3>
+
+<h4>(a) The influence function is bounded</h4>
+
+<p>No matter how large <span>\(x\)</span> is:</p>
+
+<p>
+\[
+|\mathrm{IF}(x;T,F)| \le \frac{1}{2f(\mu)}
+\]
+</p>
+
+<p>This is the <strong>formal reason</strong> the median is robust.</p>
+
+<p>Compare with the mean:</p>
+
+<p>
+\[
+\mathrm{IF}_{\text{mean}}(x) = x - \mu
+\]
+</p>
+
+<p>which diverges as <span>\(|x|\to\infty\)</span>.</p>
+
+<h4>(b) Interpretation in plain language</h4>
+
+<ul>
+  <li>An observation far above the median pushes it up by a <em>fixed amount</em></li>
+  <li>An observation far below the median pushes it down by the <em>same fixed amount</em></li>
+  <li>Extreme values are <strong>automatically clipped</strong></li>
+</ul>
+
+<p>The median does not care <em>how far</em> the outlier is — only <strong>which side</strong> it lies on.</p>
+
+<hr>
+
+<h3>6. Connection to breakdown point</h3>
+
+<p>Because the influence function is bounded:</p>
+
+<ul>
+  <li>A single outlier cannot destroy the estimator</li>
+  <li>You need <strong>half the data</strong> on one side to move the median arbitrarily</li>
+</ul>
+
+<p>This is why the breakdown point equals <strong>1/2</strong>.</p>
+
+<hr>
+
+<h3>7. Mental picture (very important)</h3>
+
+<p>Visualize the median as a <strong>balance point</strong>:</p>
+
+<ul>
+  <li>Points to the right push right</li>
+  <li>Points to the left push left</li>
+  <li>Push strength is constant</li>
+  <li>Only the <em>number</em> of points matters, not their magnitude</li>
+</ul>
+
+<p>This geometric intuition is exactly encoded by the <strong>sign function</strong> in the influence function.</p>
+
+<hr>
+
+<h3>8. Why <span>\(f(\mu)\)</span> matters</h3>
+
+<ul>
+  <li>If <span>\(f(\mu)\)</span> is small:
+    <ul>
+      <li>The distribution is flat near the median</li>
+      <li>A small perturbation shifts the median a lot</li>
+    </ul>
+  </li>
+  <li>If <span>\(f(\mu)\)</span> is large:
+    <ul>
+      <li>The median is well-anchored</li>
+    </ul>
+  </li>
+</ul>
+
+<p>This also explains the variance formula:</p>
+
+<p>
+\[
+\operatorname{Var}(\hat\mu) \approx \frac{1}{4n f(\mu)^2}
+\]
+</p>
+
+</section>
+</div>
 
 
 
