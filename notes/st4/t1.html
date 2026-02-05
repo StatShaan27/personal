@@ -1151,6 +1151,332 @@ t_\varepsilon-\mu
 </section>
 </div>
 
+<!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="3.1">
+<section>
+
+<h2>Affine Equivariance of the Estimate; Transformation–Retransformation (TR) Median</h2>
+
+<h3>1. Formal setup and definitions</h3>
+
+<p>Let <span>\(X \in \mathbb{R}^p\)</span> be a random vector with distribution <span>\(F_X\)</span>.</p>
+
+<h4>1.1 Multivariate location functional</h4>
+
+<p>A <strong>multivariate location functional</strong> is a mapping</p>
+
+<p>
+\[
+T : \mathcal{F}_p \to \mathbb{R}^p,
+\]
+</p>
+
+<p>where <span>\(\mathcal{F}_p\)</span> is a suitable class of distributions on <span>\(\mathbb{R}^p\)</span>.</p>
+
+<p>Examples:</p>
+
+<ul>
+  <li>Mean vector: <span>\(T(F_X) = \mathbb{E}[X]\)</span></li>
+  <li>Vector of marginal medians:
+    <p>
+    \[
+    T(F_X) = (\operatorname{med}(X_1), \ldots, \operatorname{med}(X_p))^\top
+    \]
+    </p>
+  </li>
+</ul>
+
+<h4>1.2 Affine transformations of distributions</h4>
+
+<p>For a full-rank matrix <span>\(A \in \mathbb{R}^{p\times p}\)</span> and vector <span>\(b \in \mathbb{R}^p\)</span>, define</p>
+
+<p>
+\[
+Y = AX + b.
+\]
+</p>
+
+<p>The distribution of <span>\(Y\)</span> is denoted by <span>\(F_{AX+b}\)</span>.</p>
+
+<h4>1.3 Affine equivariance (formal definition)</h4>
+
+<p>A location functional <span>\(T\)</span> is <strong>affine equivariant</strong> if</p>
+
+<p>
+\[
+\boxed{
+T(F_{AX+b}) = A\,T(F_X) + b
+}
+\]
+</p>
+
+<p>for all full-rank <span>\(A\)</span> and all <span>\(b\)</span>.</p>
+
+<p>This is a <strong>structural requirement</strong>, not a statistical convenience.</p>
+
+<hr>
+
+<h3>2. Why affine equivariance is expected</h3>
+
+<h4>Formal meaning</h4>
+
+<p>Affine transformations include:</p>
+
+<ul>
+  <li>translations</li>
+  <li>rescalings</li>
+  <li>rotations</li>
+  <li>shears</li>
+  <li>any composition of the above</li>
+</ul>
+
+<p>Affine equivariance ensures that the estimator <strong>respects the geometry of the data</strong>.</p>
+
+<h4>Intuition</h4>
+
+<p>If you rotate your coordinate system, your notion of “center” should rotate with it.  
+If you stretch the axes, the center should stretch accordingly.</p>
+
+<p>If this fails, the estimator is coordinate-dependent and geometrically inconsistent.</p>
+
+<hr>
+
+<h3>3. The vector of marginal medians is <em>not</em> affine equivariant</h3>
+
+<h4>3.1 Definition of the marginal median vector</h4>
+
+<p>
+\[
+T(F_X) =
+\begin{pmatrix}
+\operatorname{med}(X_1) \\
+\vdots \\
+\operatorname{med}(X_p)
+\end{pmatrix}.
+\]
+</p>
+
+<p>Each component is computed <strong>independently</strong>, ignoring dependence among coordinates.</p>
+
+<h4>3.2 Failure of affine equivariance (formal argument)</h4>
+
+<p>Consider an affine transformation:</p>
+
+<p>
+\[
+Y = AX + b,
+\quad A = (a_{ij})_{i,j=1}^p.
+\]
+</p>
+
+<p>Then</p>
+
+<p>
+\[
+Y_i = \sum_{j=1}^p a_{ij} X_j + b_i.
+\]
+</p>
+
+<p>The median of <span>\(Y_i\)</span> satisfies</p>
+
+<p>
+\[
+\operatorname{med}(Y_i)
+=
+\operatorname{med}\!\left(\sum_{j=1}^p a_{ij} X_j\right) + b_i.
+\]
+</p>
+
+<p>In general,</p>
+
+<p>
+\[
+\operatorname{med}\!\left(\sum_{j=1}^p a_{ij} X_j\right)
+\neq
+\sum_{j=1}^p a_{ij} \operatorname{med}(X_j),
+\]
+</p>
+
+<p>unless <strong>only one term is present</strong>.</p>
+
+<p>Hence,</p>
+
+<p>
+\[
+T(F_{AX+b}) \neq A T(F_X) + b
+\]
+</p>
+
+<p>for general <span>\(A\)</span>.</p>
+
+<h4>3.3 Special case where it works</h4>
+
+<p>If <span>\(A\)</span> is diagonal with nonzero entries,</p>
+
+<p>
+\[
+A = \mathrm{diag}(a_1,\dots,a_p),
+\]
+</p>
+
+<p>then</p>
+
+<p>
+\[
+Y_i = a_i X_i + b_i,
+\]
+</p>
+
+<p>and since univariate medians are affine equivariant,</p>
+
+<p>
+\[
+\operatorname{med}(Y_i) = a_i \operatorname{med}(X_i) + b_i.
+\]
+</p>
+
+<p>Thus affine equivariance holds <strong>only for diagonal</strong> <span>\(A\)</span>.</p>
+
+<h4>Intuition</h4>
+
+<p>Marginal medians treat each axis as sacred.  
+The moment you mix coordinates (rotation, shear), the estimator refuses to cooperate.</p>
+
+<p>This is not a bug—it is a <strong>structural limitation</strong> of marginal thinking in multivariate space.</p>
+
+<hr>
+
+<h3>4. Invariant Coordinate System (ICS) functional</h3>
+
+<p>To repair this, we introduce a <strong>coordinate-aware transformation</strong>.</p>
+
+<h4>4.1 Definition (formal)</h4>
+
+<p>A matrix-valued functional</p>
+
+<p>
+\[
+G : \mathcal{F}_p \to \mathbb{R}^{p\times p}
+\]
+</p>
+
+<p>is called an <strong>Invariant Coordinate System (ICS)</strong> functional if</p>
+
+<p>
+\[
+\boxed{
+G(F_{AX+b}) = G(F_X) A^{-1}
+}
+\]
+</p>
+
+<p>for all full-rank <span>\(A\)</span> and <span>\(b\)</span>.</p>
+
+<h4>4.2 Interpretation</h4>
+
+<ul>
+  <li><span>\(G(F_X)\)</span> chooses a <strong>data-dependent coordinate system</strong></li>
+  <li>Under affine transformation, the coordinate system adapts <strong>contragrediently</strong></li>
+</ul>
+
+<h4>Intuition</h4>
+
+<p>Think of <span>\(G(F_X)\)</span> as saying:</p>
+
+<blockquote>
+  <p>“Before doing anything, I’ll rotate and scale the data into a canonical position.”</p>
+</blockquote>
+
+<p>If the data are transformed, the canonicalizer compensates exactly.</p>
+
+<hr>
+
+<h3>5. Transformation–Retransformation (TR) median</h3>
+
+<h4>5.1 Definition (formal)</h4>
+
+<p>Let <span>\(T\)</span> be the <strong>vector of marginal medians</strong>.</p>
+
+<p>Define the <strong>TR median functional</strong>:</p>
+
+<p>
+\[
+\boxed{
+T_{\mathrm{TR}}(F_X)
+=
+G(F_X)^{-1}
+\,
+T\!\left(F_{\,G(F_X)X}\right)
+}
+\]
+</p>
+
+<p>This is a three-step procedure:</p>
+
+<ol>
+  <li>Transform the data using <span>\(G(F_X)\)</span></li>
+  <li>Compute marginal medians</li>
+  <li>Retransform back</li>
+</ol>
+
+<h4>5.2 Proof of affine equivariance</h4>
+
+<p>Let <span>\(Y = AX + b\)</span>. Then:</p>
+
+<p>
+\[
+\begin{aligned}
+T_{\mathrm{TR}}(F_Y)
+&= G(F_Y)^{-1} \, T(F_{G(F_Y)Y}) \\
+&= (G(F_X)A^{-1})^{-1}
+\, T(F_{G(F_X)A^{-1}(AX+b)}) \\
+&= A G(F_X)^{-1}
+\, T(F_{G(F_X)X + G(F_X)A^{-1}b})
+\end{aligned}
+\]
+</p>
+
+<p>Using translation equivariance of marginal medians,</p>
+
+<p>
+\[
+T(F_{Z+c}) = T(F_Z) + c,
+\]
+</p>
+
+<p>we obtain</p>
+
+<p>
+\[
+T_{\mathrm{TR}}(F_Y)
+= A T_{\mathrm{TR}}(F_X) + b.
+\]
+</p>
+
+<p>Thus <span>\(T_{\mathrm{TR}}\)</span> is <strong>affine equivariant</strong>.</p>
+
+<h4>Intuition</h4>
+
+<p>This is “median, but done in the right coordinates.”</p>
+
+<p>Instead of forcing medians to understand geometry,  
+we <strong>teach geometry first</strong>, then compute medians, then come back.</p>
+
+<hr>
+
+<h3>6. Common pitfalls</h3>
+
+<ul>
+  <li>Believing marginal robustness implies multivariate robustness</li>
+  <li>Ignoring coordinate dependence</li>
+  <li>Assuming medians behave like means under linear mixing</li>
+</ul>
+
+<p>The TR construction fixes all three.</p>
+
+</section>
+</div>
 
 
 
