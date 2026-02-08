@@ -716,6 +716,185 @@ C_2 \subseteq C_1^\varepsilon
 </section>
 </div>
 
+<!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="2.3">
+<section>
+
+<h2>2.3 Multivariate Depth Functions</h2>
+
+<h3>What this section is really about</h3>
+
+<p>Up to this point, depth has been defined <strong>axiomatically</strong>. Section 2.3 addresses the natural next question:</p>
+
+<blockquote>
+  <p><em>Which concrete depth functions actually exist, and how do they relate to the geometry of distributions?</em></p>
+</blockquote>
+
+<p>The central insight is that depth functions are not universal. Their behavior is tightly coupled to distributional shape, especially ellipticity, and to the invariance structure they satisfy.</p>
+
+<h3>Step 1: Why ellipticity matters</h3>
+
+<h4>Definition</h4>
+
+<p>A random vector <span>\(X \in \mathbb{R}^d\)</span> has a <strong>spherical distribution</strong> if</p>
+
+<p>
+\[
+AX \stackrel{d}{=} X
+\quad \text{for every orthogonal matrix } A.
+\]
+</p>
+
+<p>It has an <strong>elliptical distribution</strong> if</p>
+
+<p>
+\[
+X = \mu + B Y,
+\]
+</p>
+
+<p>where:</p>
+
+<ul>
+  <li><span>\(Y\)</span> is spherical</li>
+  <li><span>\(B\)</span> is a nonsingular <span>\(d \times d\)</span> matrix</li>
+  <li><span>\(\mu \in \mathbb{R}^d\)</span></li>
+</ul>
+
+<p>This class includes multivariate normal, multivariate <span>\(t\)</span>, and many heavy-tailed models.</p>
+
+<h4>Geometric meaning</h4>
+
+<ul>
+  <li>Spherical distributions have spherical level sets</li>
+  <li>Elliptical distributions have ellipsoidal level sets</li>
+</ul>
+
+<p>This geometry determines what any affine invariant depth can detect.</p>
+
+<h3>Step 2: Depth under ellipticity</h3>
+
+<p>Assume:</p>
+
+<ul>
+  <li><span>\(X\)</span> is elliptically distributed</li>
+  <li><span>\(D(\cdot \mid P)\)</span> satisfies affine invariance (D2)</li>
+</ul>
+
+<h4>Key consequence</h4>
+
+<p>All depth contours <span>\(D_\alpha(P)\)</span> are ellipsoids with the same shape matrix as the distribution.</p>
+
+<p>Equivalently, depth reduces to a radial function:</p>
+
+<p>
+\[
+D(x \mid P)
+=
+f\!\left((x-\mu)'\Sigma^{-1}(x-\mu)\right),
+\]
+</p>
+
+<p>for some decreasing function <span>\(f\)</span>.</p>
+
+<h4>Why this is forced</h4>
+
+<ul>
+  <li>Elliptical distributions are affine images of spherical ones</li>
+  <li>Affine invariance forces depth contours to transform accordingly</li>
+  <li>Spherical symmetry forces contours to be spheres</li>
+  <li>Affine images of spheres are ellipsoids</li>
+</ul>
+
+<p>No additional assumptions are required.</p>
+
+<h4>Crucial implication</h4>
+
+<p>For elliptically distributed data, <strong>all affine invariant depth functions induce the same ordering</strong>.</p>
+
+<p>They may differ numerically, but they rank points identically. In particular, Tukey depth, simplicial depth, Oja depth, and projection depth are equivalent as orderings under ellipticity.</p>
+
+<h3>Step 3: Consequences for inference</h3>
+
+<p>If <span>\(P\)</span> is elliptically symmetric and unimodal:</p>
+
+<ul>
+  <li>All affine invariant depths identify the same center <span>\(\mu\)</span></li>
+  <li>All central regions have the same shape</li>
+  <li>All depths reduce to monotone functions of Mahalanobis distance</li>
+</ul>
+
+<p>This explains why classical Gaussian methods perform well under ellipticity and why depth methods differ meaningfully only outside this regime.</p>
+
+<h3>Step 4: Beyond ellipticity</h3>
+
+<p>For non-elliptical distributions:</p>
+
+<ul>
+  <li>Different depths produce different central regions</li>
+  <li>They respond differently to skewness and multimodality</li>
+  <li>They may or may not uniquely determine the distribution</li>
+</ul>
+
+<p>Depth functions then differ in robustness, sensitivity to asymmetry, geometry, and computational feasibility.</p>
+
+<h3>Step 5: Three main construction principles</h3>
+
+<p>The text identifies three fundamental ways to construct multivariate depths.</p>
+
+<h4>(I) Distance-based depths</h4>
+
+<p>Core idea: outlyingness is distance from a suitable center.</p>
+
+<p>
+\[
+D(x) = g\!\left(\mathrm{dist}(x,\text{center})\right).
+\]
+</p>
+
+<p>Centers may be means, medians, or deepest points; distances may be Euclidean, Mahalanobis, or robust.</p>
+
+<p>These depths are intuitive and computationally simple, but often center-dependent and sensitive to shape misspecification.</p>
+
+<h4>(II) Weighted-mean depths</h4>
+
+<p>Core idea: central points balance the data.</p>
+
+<p>
+\[
+D(x) = \left\lVert \sum_i w_i(x)(x_i - x) \right\rVert^{-1}.
+\]
+</p>
+
+<p>This class includes spatial depth and <span>\(L_1\)</span>-type constructions. They are smooth and robust but may lack strong geometric guarantees or affine invariance.</p>
+
+<h4>(III) Simplicial and halfspace depths</h4>
+
+<p>Core idea: central points participate in many balanced geometric configurations.</p>
+
+<ul>
+  <li>Halfspace (Tukey) depth</li>
+  <li>Simplicial depth</li>
+  <li>Oja depth</li>
+</ul>
+
+<p>These depths have strong geometric meaning and robustness, but are computationally expensive and have more complex asymptotics.</p>
+
+<h3>Step 6: No universally optimal depth</h3>
+
+<p>No depth function satisfies all desirable properties simultaneously. Trade-offs are unavoidable:</p>
+
+<ul>
+  <li>Robustness versus computability</li>
+  <li>Smoothness versus exact geometry</li>
+  <li>Affine invariance versus sensitivity to shape</li>
+</ul>
+
+<p>Depth theory is therefore a theory of principled choices rather than optimization.</p>
+
+</section>
+</div>
 
 
 
