@@ -2581,6 +2581,219 @@ D^{\mathrm{proj}}(z\mid X)=(1+O(z))^{-1}.
 </section>
 </div>
 
+<div class="glow-box" id="oja-depth">
+<section>
+
+<h3>Oja Depth</h3>
+
+<h4>Depth under study</h4>
+
+<p>Let <span>\(X \sim P\)</span> be an <span>\(\mathbb{R}^d\)</span>-valued random vector. Let <span>\(X_1,\dots,X_d\)</span> be i.i.d. copies of <span>\(X\)</span>. Denote by <span>\(\operatorname{co}(\cdot)\)</span> the convex hull and by <span>\(\operatorname{Vol}_d(\cdot)\)</span> the <span>\(d\)</span>-dimensional volume.</p>
+
+<p>Let <span>\(\Sigma_X\)</span> be a positive definite scatter matrix. The <strong>Oja depth</strong> is defined as</p>
+
+<p>
+\[
+D^{\mathrm{Oja}}(z\mid X)
+=
+\left(
+1+
+\frac{
+\mathbb{E}\bigl[
+\operatorname{Vol}_d(\operatorname{co}(z,X_1,\dots,X_d))
+\bigr]
+}
+{\sqrt{\det\Sigma_X}}
+\right)^{-1}.
+\]
+</p>
+
+<p>Assume that <span>\(\Sigma_X\)</span> exists and is positive definite, and that <span>\(\mathbb{E}\operatorname{Vol}_d(\operatorname{co}(z,X_1,\dots,X_d))<\infty\)</span>.</p>
+
+<h4>Axiom D1 — Translation invariance</h4>
+
+<p>Let <span>\(b\in\mathbb{R}^d\)</span> and define <span>\(z'=z+b\)</span>, <span>\(X_i'=X_i+b\)</span>.</p>
+
+<p>By translation invariance of volume,</p>
+
+<p>
+\[
+\operatorname{Vol}_d(A+b)=\operatorname{Vol}_d(A)
+\quad \text{for all } A\subset\mathbb{R}^d.
+\]
+</p>
+
+<p>Hence,</p>
+
+<p>
+\[
+\operatorname{Vol}_d(\operatorname{co}(z',X_1',\dots,X_d'))
+=
+\operatorname{Vol}_d(\operatorname{co}(z,X_1,\dots,X_d)).
+\]
+</p>
+
+<p>Since <span>\(\Sigma_{X+b}=\Sigma_X\)</span>, it follows that</p>
+
+<p>
+\[
+D^{\mathrm{Oja}}(z+b\mid X+b)=D^{\mathrm{Oja}}(z\mid X).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> Oja depth satisfies D1.</p>
+
+<h4>Axiom D2 — Linear (Affine) invariance</h4>
+
+<p>Let <span>\(A\)</span> be invertible and define <span>\(z'=Az\)</span>, <span>\(X_i'=AX_i\)</span>.</p>
+
+<p>Under linear maps, volume transforms as</p>
+
+<p>
+\[
+\operatorname{Vol}_d(A A_0)=|\det A|\operatorname{Vol}_d(A_0).
+\]
+</p>
+
+<p>Therefore,</p>
+
+<p>
+\[
+\operatorname{Vol}_d(\operatorname{co}(z',X_1',\dots,X_d'))
+=
+|\det A|\operatorname{Vol}_d(\operatorname{co}(z,X_1,\dots,X_d)).
+\]
+</p>
+
+<p>By affine equivariance of covariance,</p>
+
+<p>
+\[
+\Sigma_{AX}=A\Sigma_XA^\top,
+\qquad
+\det\Sigma_{AX}=(\det A)^2\det\Sigma_X.
+\]
+</p>
+
+<p>Thus the normalization by <span>\(\sqrt{\det\Sigma_X}\)</span> cancels the factor <span>\(|\det A|\)</span>, and taking expectations yields</p>
+
+<p>
+\[
+D^{\mathrm{Oja}}(Az\mid AX)=D^{\mathrm{Oja}}(z\mid X).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> Oja depth satisfies D2.</p>
+
+<h4>Axiom D3 — Null at infinity</h4>
+
+<p>Fix <span>\(X_1,\dots,X_d\)</span>. As <span>\(|z|\to\infty\)</span>, the volume</p>
+
+<p>
+\[
+\operatorname{Vol}_d(\operatorname{co}(z,X_1,\dots,X_d))
+\]
+</p>
+
+<p>grows at least linearly in <span>\(|z|\)</span>, since the height of the simplex diverges.</p>
+
+<p>Hence,</p>
+
+<p>
+\[
+\mathbb{E}\operatorname{Vol}_d(\operatorname{co}(z,X_1,\dots,X_d))
+\longrightarrow \infty,
+\]
+</p>
+
+<p>and therefore</p>
+
+<p>
+\[
+D^{\mathrm{Oja}}(z\mid X)\to 0
+\quad \text{as } |z|\to\infty.
+\]
+</p>
+
+<p><strong>Conclusion:</strong> Oja depth satisfies D3.</p>
+
+<h4>Axiom D4 — Monotonicity on rays</h4>
+
+<p>Define the Oja objective</p>
+
+<p>
+\[
+O(z)
+:=
+\mathbb{E}\operatorname{Vol}_d(\operatorname{co}(z,X_1,\dots,X_d)).
+\]
+</p>
+
+<p>For fixed <span>\(x_1,\dots,x_d\)</span>, the mapping</p>
+
+<p>
+\[
+z \mapsto \operatorname{Vol}_d(\operatorname{co}(z,x_1,\dots,x_d))
+\]
+</p>
+
+<p>is convex, since simplex volume is the absolute value of a determinant. Expectation preserves convexity, so <span>\(O(z)\)</span> is convex.</p>
+
+<p>If <span>\(z^\ast\)</span> minimizes <span>\(O(z)\)</span>, then convexity implies</p>
+
+<p>
+\[
+O(z^\ast+t(z-z^\ast))\le O(z)
+\quad \forall t\in[0,1].
+\]
+</p>
+
+<p>Since depth is a decreasing function of <span>\(O(z)\)</span>,</p>
+
+<p>
+\[
+D^{\mathrm{Oja}}(z^\ast+t(z-z^\ast)\mid X)
+\ge
+D^{\mathrm{Oja}}(z\mid X).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> Oja depth satisfies D4.</p>
+
+<h4>Axiom D5 — Upper semicontinuity</h4>
+
+<p>For fixed <span>\(x_1,\dots,x_d\)</span>, the volume function is continuous in <span>\(z\)</span>. Under the assumed integrability, dominated convergence implies continuity of</p>
+
+<p>
+\[
+z\mapsto \mathbb{E}\operatorname{Vol}_d(\operatorname{co}(z,X_1,\dots,X_d)).
+\]
+</p>
+
+<p>Therefore <span>\(D^{\mathrm{Oja}}(z\mid X)\)</span> is continuous and hence upper semicontinuous.</p>
+
+<p><strong>Conclusion:</strong> Oja depth satisfies D5.</p>
+
+<h4>Final status — Oja depth</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Axiom</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>D1</td><td>✔️</td></tr>
+    <tr><td>D2</td><td>✔️</td></tr>
+    <tr><td>D3</td><td>✔️</td></tr>
+    <tr><td>D4</td><td>✔️</td></tr>
+    <tr><td>D5</td><td>✔️</td></tr>
+  </tbody>
+</table>
+
+</section>
+</div>
 
 
 
