@@ -2402,6 +2402,184 @@ D^{\mathrm{Mah}}(z \mid X)
 </section>
 </div>
 
+<div class="glow-box" id="projection-depth">
+<section>
+
+<h3>Projection Depth</h3>
+
+<h4>Depth under study</h4>
+
+<p>Let <span>\(X \sim P\)</span> be an <span>\(\mathbb{R}^d\)</span>-valued random vector, and let</p>
+
+<p>
+\[
+S^{d-1}=\{p\in\mathbb{R}^d:\ |p|=1\}.
+\]
+</p>
+
+<p>For a real-valued random variable <span>\(U\)</span>:</p>
+
+<ul>
+  <li><span>\(\operatorname{med}(U)\)</span> denotes a median</li>
+  <li><span>\(\operatorname{Dmed}(U):=\operatorname{med}(|U-\operatorname{med}(U)|)\)</span> denotes the MAD</li>
+</ul>
+
+<p>Assume <span>\(\operatorname{Dmed}(\langle p,X\rangle)>0\)</span> for all <span>\(p\in S^{d-1}\)</span>.</p>
+
+<p>The <strong>projection depth</strong> is defined by</p>
+
+<p>
+\[
+D^{\mathrm{proj}}(z\mid X)
+=
+\Bigl(1+\sup_{p\in S^{d-1}}
+\frac{\bigl|\langle p,z\rangle-\operatorname{med}(\langle p,X\rangle)\bigr|}
+{\operatorname{Dmed}(\langle p,X\rangle)}
+\Bigr)^{-1}.
+\]
+</p>
+
+<h4>Axiom D1 — Translation invariance</h4>
+
+<p>Let <span>\(b\in\mathbb{R}^d\)</span> and define <span>\(z'=z+b\)</span>, <span>\(X'=X+b\)</span>. For any <span>\(p\in S^{d-1}\)</span>,</p>
+
+<p>
+\[
+\langle p,z'\rangle-\operatorname{med}(\langle p,X'\rangle)
+=
+\langle p,z\rangle-\operatorname{med}(\langle p,X\rangle).
+\]
+</p>
+
+<p>Moreover, <span>\(\operatorname{Dmed}(\langle p,X'\rangle)=\operatorname{Dmed}(\langle p,X\rangle)\)</span>. Hence the standardized deviations coincide for all <span>\(p\)</span>, so</p>
+
+<p>
+\[
+D^{\mathrm{proj}}(z+b\mid X+b)=D^{\mathrm{proj}}(z\mid X).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> projection depth satisfies D1.</p>
+
+<h4>Axiom D2 — Linear (Affine) invariance</h4>
+
+<p>Let <span>\(A\)</span> be invertible and define <span>\(z'=Az\)</span>, <span>\(X'=AX\)</span>. For <span>\(p\in S^{d-1}\)</span>,</p>
+
+<p>
+\[
+\langle p,Az\rangle=\langle A^\top p,z\rangle.
+\]
+</p>
+
+<p>Define <span>\(q:=\frac{A^\top p}{|A^\top p|}\in S^{d-1}\)</span>. Then</p>
+
+<p>
+\[
+\langle p,Az\rangle=|A^\top p|\langle q,z\rangle,
+\qquad
+\langle p,AX\rangle=|A^\top p|\langle q,X\rangle.
+\]
+</p>
+
+<p>Using the scaling properties of the median and MAD,</p>
+
+<p>
+\[
+\frac{|\langle p,Az\rangle-\operatorname{med}(\langle p,AX\rangle)|}
+{\operatorname{Dmed}(\langle p,AX\rangle)}
+=
+\frac{|\langle q,z\rangle-\operatorname{med}(\langle q,X\rangle)|}
+{\operatorname{Dmed}(\langle q,X\rangle)}.
+\]
+</p>
+
+<p>As <span>\(p\)</span> ranges over <span>\(S^{d-1}\)</span>, so does <span>\(q\)</span>. Therefore,</p>
+
+<p>
+\[
+D^{\mathrm{proj}}(Az\mid AX)=D^{\mathrm{proj}}(z\mid X).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> projection depth satisfies D2.</p>
+
+<h4>Axiom D3 — Null at infinity</h4>
+
+<p>Fix any <span>\(p\in S^{d-1}\)</span>. As <span>\(|z|\to\infty\)</span>, we have <span>\(|\langle p,z\rangle|\to\infty\)</span>. Since <span>\(\operatorname{med}(\langle p,X\rangle)\)</span> and <span>\(\operatorname{Dmed}(\langle p,X\rangle)\)</span> are finite and positive, the standardized deviation diverges, and hence</p>
+
+<p>
+\[
+D^{\mathrm{proj}}(z\mid X)\to 0.
+\]
+</p>
+
+<p><strong>Conclusion:</strong> projection depth satisfies D3.</p>
+
+<h4>Axiom D4 — Monotonicity on rays</h4>
+
+<p>Define the outlyingness function</p>
+
+<p>
+\[
+O(z):=\sup_{p\in S^{d-1}}
+\frac{|\langle p,z\rangle-\operatorname{med}(\langle p,X\rangle)|}
+{\operatorname{Dmed}(\langle p,X\rangle)}.
+\]
+</p>
+
+<p>For fixed <span>\(p\)</span>, the mapping in <span>\(z\)</span> is convex. The supremum of convex functions is convex, hence <span>\(O(z)\)</span> is convex. If <span>\(z^\ast\)</span> minimizes <span>\(O\)</span>, then convexity yields</p>
+
+<p>
+\[
+O(z^\ast+t(z-z^\ast))\le O(z)
+\quad \forall\, t\in[0,1].
+\]
+</p>
+
+<p>Since <span>\(D^{\mathrm{proj}}=(1+O)^{-1}\)</span> is decreasing in <span>\(O\)</span>,</p>
+
+<p>
+\[
+D^{\mathrm{proj}}(z^\ast+t(z-z^\ast)\mid X)\ge D^{\mathrm{proj}}(z\mid X).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> projection depth satisfies D4.</p>
+
+<h4>Axiom D5 — Upper semicontinuity</h4>
+
+<p>For each fixed <span>\(p\)</span>, the standardized deviation is continuous in <span>\(z\)</span>. The supremum over <span>\(p\in S^{d-1}\)</span> of continuous functions is upper semicontinuous. Therefore <span>\(O(z)\)</span> is upper semicontinuous, and so is</p>
+
+<p>
+\[
+D^{\mathrm{proj}}(z\mid X)=(1+O(z))^{-1}.
+\]
+</p>
+
+<p>Upper level sets are closed.</p>
+
+<p><strong>Conclusion:</strong> projection depth satisfies D5.</p>
+
+<h4>Final status — Projection depth</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Axiom</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>D1</td><td>✔️</td></tr>
+    <tr><td>D2</td><td>✔️</td></tr>
+    <tr><td>D3</td><td>✔️</td></tr>
+    <tr><td>D4</td><td>✔️</td></tr>
+    <tr><td>D5</td><td>✔️</td></tr>
+  </tbody>
+</table>
+
+</section>
+</div>
 
 
 
