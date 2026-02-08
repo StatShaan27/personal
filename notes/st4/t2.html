@@ -1403,6 +1403,160 @@ D^{L_2}(Az \mid AX) \neq D^{L_2}(z \mid X)
 </section>
 </div>
 
+<div class="glow-box" id="l2-depth-d3">
+<section>
+
+<h3><span>\(L_2\)</span>-Depth and Axiom D3 (Null at Infinity)</h3>
+
+<h4>Axiom D3: Formal statement</h4>
+
+<p>Let <span>\(X\)</span> be an <span>\(\mathbb{R}^d\)</span>-valued random vector with distribution <span>\(P\)</span>. A depth function <span>\(D(\cdot \mid X)\)</span> satisfies <strong>Axiom D3 (Null at Infinity)</strong> if</p>
+
+<p>
+\[
+|z| \longrightarrow \infty
+\quad \Longrightarrow \quad
+D(z \mid X) \longrightarrow 0.
+\]
+</p>
+
+<p>Equivalently, for every sequence <span>\((z_n) \subset \mathbb{R}^d\)</span> such that <span>\(|z_n| \to \infty\)</span>,</p>
+
+<p>
+\[
+\lim_{n\to\infty} D(z_n \mid X) = 0.
+\]
+</p>
+
+<h4>Meaning of Axiom D3</h4>
+
+<p>Null at infinity requires that points arbitrarily far away from the data cloud must have negligible depth. No point at infinity can be regarded as central. Depth must decay as one moves away from the bulk of the distribution.</p>
+
+<h4>Why Axiom D3 is desirable</h4>
+
+<p>Without D3:</p>
+
+<ul>
+  <li>Remote points could retain nontrivial depth</li>
+  <li>Central regions might be unbounded</li>
+  <li>Depth would fail to encode outlyingness</li>
+</ul>
+
+<p>Statistically, D3 enforces a strict separation between center and extremes.</p>
+
+<h4>Verification for the <span>\(L_2\)</span>-depth</h4>
+
+<h5>Step 1: Definition</h5>
+
+<p>The <span>\(L_2\)</span>-depth of <span>\(z \in \mathbb{R}^d\)</span> with respect to <span>\(X\)</span> is</p>
+
+<p>
+\[
+D^{L_2}(z \mid X)
+=
+\bigl(1 + \mathbb{E}|z - X|\bigr)^{-1}.
+\]
+</p>
+
+<p>Assume <span>\(\mathbb{E}|X| < \infty\)</span>, which is required for the definition to be well defined.</p>
+
+<h5>Step 2: Lower bound on <span>\(\mathbb{E}|z - X|\)</span></h5>
+
+<p>By the reverse triangle inequality, for all <span>\(a,b \in \mathbb{R}^d\)</span>,</p>
+
+<p>
+\[
+|a-b| \ge \bigl||a| - |b|\bigr|.
+\]
+</p>
+
+<p>Applying this with <span>\(a=z\)</span> and <span>\(b=X\)</span>,</p>
+
+<p>
+\[
+|z - X| \ge |z| - |X|.
+\]
+</p>
+
+<p>This inequality holds pointwise and hence almost surely.</p>
+
+<h5>Step 3: Take expectations</h5>
+
+<p>Taking expectations yields</p>
+
+<p>
+\[
+\mathbb{E}|z - X|
+\ge
+\mathbb{E}(|z| - |X|)
+=
+|z| - \mathbb{E}|X|.
+\]
+</p>
+
+<h5>Step 4: Let <span>\(|z| \to \infty\)</span></h5>
+
+<p>Since <span>\(\mathbb{E}|X| < \infty\)</span> is fixed,</p>
+
+<p>
+\[
+|z| - \mathbb{E}|X| \longrightarrow \infty
+\quad \text{as } |z| \to \infty.
+\]
+</p>
+
+<p>Hence,</p>
+
+<p>
+\[
+\mathbb{E}|z - X| \longrightarrow \infty.
+\]
+</p>
+
+<h5>Step 5: Conclude decay of depth</h5>
+
+<p>Recalling</p>
+
+<p>
+\[
+D^{L_2}(z \mid X)
+=
+\frac{1}{1 + \mathbb{E}|z - X|},
+\]
+</p>
+
+<p>divergence of the denominator implies</p>
+
+<p>
+\[
+|z| \to \infty
+\quad \Longrightarrow \quad
+D^{L_2}(z \mid X) \to 0.
+\]
+</p>
+
+<h4>Conclusion</h4>
+
+<p>The <span>\(L_2\)</span>-depth satisfies <strong>Axiom D3 (Null at Infinity)</strong>:</p>
+
+<p>
+\[
+\boxed{
+|z| \to \infty
+\;\Longrightarrow\;
+D^{L_2}(z \mid X) \to 0
+}
+\]
+</p>
+
+<h4>Geometric intuition</h4>
+
+<p>The <span>\(L_2\)</span>-depth is the reciprocal of one plus the average distance from the data cloud. As <span>\(z\)</span> moves farther away, all observations become increasingly distant. Even the closest data points cannot offset this growing baseline distance.</p>
+
+<p>This decay occurs in one dimension, in the plane, and in higher dimensions alike. Depth therefore fades smoothly and inevitably at infinity.</p>
+
+</section>
+</div>
 
 
   
