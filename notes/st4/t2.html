@@ -2990,6 +2990,192 @@ D^{\mathrm{loc}}_\alpha(X)
 </div>
 
 
+<div class="glow-box" id="tukey-affine-equivariance">
+<section>
+
+<h3>Tukey (Halfspace) Depth — Affine Equivariance</h3>
+
+<h4>What is being proved</h4>
+
+<p>We prove the following statement:</p>
+
+<p>
+\[
+D^{\text{Tukey}}(z \mid X)
+=
+D^{\text{Tukey}}(Az+b \mid AX+b)
+\]
+</p>
+
+<p>for every point <span>\(z \in \mathbb{R}^d\)</span>, every invertible matrix <span>\(A\)</span>, and every vector <span>\(b \in \mathbb{R}^d\)</span>. This property is called <strong>affine equivariance</strong>.</p>
+
+<h4>Ambient setting</h4>
+
+<p>We work in <span>\(\mathbb{R}^d\)</span>. Let</p>
+
+<p>
+\[
+X : \Omega \to \mathbb{R}^d
+\]
+</p>
+
+<p>be a random vector with distribution <span>\(P\)</span>, defined by</p>
+
+<p>
+\[
+P(B) = \mathbb{P}(X \in B)
+\]
+</p>
+
+<p>for every Borel set <span>\(B \subset \mathbb{R}^d\)</span>.</p>
+
+<h4>Closed halfspaces</h4>
+
+<p>A <strong>closed halfspace</strong> in <span>\(\mathbb{R}^d\)</span> is any set of the form</p>
+
+<p>
+\[
+H(u,t) := \{ x \in \mathbb{R}^d : u^\top x \le t \},
+\]
+</p>
+
+<p>where <span>\(u \in \mathbb{R}^d \setminus \{0\}\)</span> and <span>\(t \in \mathbb{R}\)</span>.</p>
+
+<p>Halfspaces are closed, convex, and every point belongs to infinitely many halfspaces.</p>
+
+<h4>Definition of Tukey depth</h4>
+
+<p>The <strong>Tukey (halfspace) depth</strong> of a point <span>\(z \in \mathbb{R}^d\)</span> is</p>
+
+<p>
+\[
+D^{\text{Tukey}}(z \mid X)
+=
+\inf
+\left\{
+P(H) :
+\begin{array}{l}
+H \text{ is a closed halfspace} \\
+z \in H
+\end{array}
+\right\}.
+\]
+</p>
+
+<p>It is the smallest probability mass of any halfspace that still contains <span>\(z\)</span>.</p>
+
+<h4>Affine transformations</h4>
+
+<p>An <strong>affine transformation</strong> is a map</p>
+
+<p>
+\[
+T(x) = Ax + b,
+\]
+</p>
+
+<p>where <span>\(A\)</span> is invertible and <span>\(b \in \mathbb{R}^d\)</span>.</p>
+
+<p>If <span>\(X\)</span> is a random vector, then <span>\(AX+b\)</span> has distribution <span>\(P_{AX+b}\)</span> defined by</p>
+
+<p>
+\[
+P_{AX+b}(B) = P(T^{-1}(B)).
+\]
+</p>
+
+<h4>Lemma 1 — Affine images of halfspaces</h4>
+
+<p>Let</p>
+
+<p>
+\[
+H = \{ x : u^\top x \le t \}
+\]
+</p>
+
+<p>be a halfspace. Its affine image is</p>
+
+<p>
+\[
+T(H) = \{ y : y = Ax + b \text{ for some } x \in H \}.
+\]
+</p>
+
+<p>Substituting <span>\(x = A^{-1}(y-b)\)</span> yields</p>
+
+<p>
+\[
+(A^{-\top}u)^\top y \le t + u^\top A^{-1}b,
+\]
+</p>
+
+<p>which is again the defining inequality of a closed halfspace.</p>
+
+<p><strong>Conclusion:</strong> affine transformations map halfspaces bijectively to halfspaces.</p>
+
+<h4>Lemma 2 — Probability preservation</h4>
+
+<p>For any halfspace <span>\(H\)</span>,</p>
+
+<p>
+\[
+P_{AX+b}(T(H)) = P(H).
+\]
+</p>
+
+<p>This follows directly from the definition of the pushforward distribution.</p>
+
+<h4>Main proof</h4>
+
+<p>By definition,</p>
+
+<p>
+\[
+D^{\text{Tukey}}(Az+b \mid AX+b)
+=
+\inf_{\substack{H' \text{ halfspace} \\ Az+b \in H'}} P_{AX+b}(H').
+\]
+</p>
+
+<p>By Lemma 1, every such <span>\(H'\)</span> can be written uniquely as <span>\(H' = T(H)\)</span> for a halfspace <span>\(H\)</span> containing <span>\(z\)</span>. By Lemma 2, <span>\(P_{AX+b}(H') = P(H)\)</span>.</p>
+
+<p>Therefore,</p>
+
+<p>
+\[
+\inf_{H' \ni Az+b} P_{AX+b}(H')
+=
+\inf_{H \ni z} P(H)
+=
+D^{\text{Tukey}}(z \mid X).
+\]
+</p>
+
+<h4>Final conclusion</h4>
+
+<p>
+\[
+\boxed{
+D^{\text{Tukey}}(Az+b \mid AX+b)
+=
+D^{\text{Tukey}}(z \mid X)
+}
+\]
+</p>
+
+<p>This proves affine equivariance of Tukey depth.</p>
+
+<h4>Geometric intuition</h4>
+
+<p>Tukey depth depends only on sidedness with respect to hyperplanes and the probability mass on each side. Affine transformations preserve sidedness and probability ordering, merely relabeling coordinates. Hence the most unfavorable halfspace before transformation remains equally unfavorable afterward.</p>
+
+<h4>Exam-ready takeaway</h4>
+
+<p>Tukey depth is affine equivariant because affine maps send halfspaces bijectively to halfspaces and preserve probability mass. Therefore, the infimum over halfspaces containing a point is unchanged.</p>
+
+</section>
+</div>
 
   
   
