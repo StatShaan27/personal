@@ -3705,6 +3705,260 @@ In a centrally symmetric distribution, any point off-center has an equally deep 
 
 </section>
 
+<!-- INDEX_TOPIC -->
+<section>
+
+<h2>Variants of the Depth Axioms</h2>
+
+<p>
+We work throughout in \(\mathbb{R}^d\). Let \(D(\cdot \mid X)\) be a statistical depth function.
+</p>
+
+<h3>Part A — D4con (Quasiconcavity / Convexity)</h3>
+
+<h4>A.1 Motivation</h4>
+
+<p>
+Axiom D4 (monotonicity on rays) guarantees star-shaped central regions. However, star-shaped sets may still be non-convex, exhibiting dents or flat sides.
+</p>
+
+<p>
+Many commonly used depth functions (Tukey, projection, Mahalanobis) have convex central regions. This motivates a stronger axiom.
+</p>
+
+<h4>A.2 Definition of D4con</h4>
+
+<p>
+A depth function satisfies <strong>D4con</strong> if, for every \(\alpha\),
+</p>
+
+<p>
+\[
+D_\alpha(X) := \{ z : D(z \mid X) \ge \alpha \}
+\]
+</p>
+
+<p>
+is a <strong>convex set</strong>.
+</p>
+
+<h4>Reminder: Convex set</h4>
+
+<p>
+A set \(C \subset \mathbb{R}^d\) is convex if
+</p>
+
+<p>
+\[
+\forall x,y \in C,\ \forall t \in [0,1],\quad
+tx + (1-t)y \in C.
+\]
+</p>
+
+<h4>A.3 Convexity implies star-shapedness</h4>
+
+<p>
+If a set \(C\) is convex and contains a point \(x_0\), then it is star-shaped about \(x_0\).
+</p>
+
+<p>
+Indeed, for any \(x \in C\) and any \(t \in [0,1]\),
+\[
+tx + (1-t)x_0 \in C,
+\]
+which is exactly the definition of star-shapedness.
+</p>
+
+<p>
+\[
+\boxed{\text{Convex} \;\Rightarrow\; \text{star-shaped}}
+\]
+</p>
+
+<p>
+Therefore,
+\[
+\text{D4con} \;\Rightarrow\; \text{D4},
+\]
+but not conversely.
+</p>
+
+<h4>A.4 Which depths satisfy D4con?</h4>
+
+<ul>
+  <li><strong>Tukey (halfspace) depth</strong>: central regions are intersections of halfspaces</li>
+  <li><strong>Projection depth</strong>: upper level sets are intersections of slabs</li>
+  <li><strong>Mahalanobis depth</strong>: upper level sets are ellipsoids</li>
+  <li><strong>Affine-invariant \(L_2\)-depth</strong>: sublevel sets of convex functions</li>
+</ul>
+
+<p>
+Depths that generally do <strong>not</strong> satisfy D4con include simplicial depth (under discreteness) and Oja depth (typically star-shaped but not convex).
+</p>
+
+<p>
+Convexity yields cleaner geometry, easier optimization, and stronger theoretical control, at the cost of flexibility.
+</p>
+
+<h3>Part B — D2iso (Isometric Invariance)</h3>
+
+<h4>B.1 Definition of an isometry</h4>
+
+<p>
+A map \(T : \mathbb{R}^d \to \mathbb{R}^d\) is an <strong>isometry</strong> if
+</p>
+
+<p>
+\[
+|T(x) - T(y)| = |x - y| \quad \forall x,y.
+\]
+</p>
+
+<p>
+In Euclidean space, every isometry has the form
+\[
+T(x) = Qx + b,
+\]
+where \(Q\) is orthogonal and \(b \in \mathbb{R}^d\).
+</p>
+
+<h4>B.2 Definition of D2iso</h4>
+
+<p>
+A depth satisfies <strong>D2iso</strong> if
+</p>
+
+<p>
+\[
+D(z \mid X) = D(Qz + b \mid QX + b)
+\]
+</p>
+
+<p>
+for every orthogonal matrix \(Q\) and vector \(b\).
+</p>
+
+<h4>B.3 What D2iso preserves</h4>
+
+<ul>
+  <li>Distances</li>
+  <li>Angles</li>
+  <li>Volumes</li>
+  <li>Euclidean geometry</li>
+</ul>
+
+<p>
+It does <strong>not</strong> preserve general affine structure, anisotropy, or relative scaling.
+</p>
+
+<h4>B.4 Depths and D2iso</h4>
+
+<p>
+Depths satisfying D2iso include \(L_2\)-depth, spatial median depth, and Euclidean distance–based depths.
+</p>
+
+<p>
+Depths such as Mahalanobis, Tukey, and projection depth generally fail D2iso but satisfy full affine invariance.
+</p>
+
+<h4>B.5 D2iso versus D2</h4>
+
+<p>
+Every isometry is affine, but not every affine transformation is an isometry. Hence,
+</p>
+
+<p>
+\[
+\text{D2} \;\Rightarrow\; \text{D2iso},
+\quad \text{but not conversely}.
+\]
+</p>
+
+<h3>Part C — D2sca (Scale Invariance)</h3>
+
+<h4>C.1 Definition</h4>
+
+<p>
+A depth satisfies <strong>D2sca</strong> if
+</p>
+
+<p>
+\[
+D(z \mid X) = D(cz \mid cX)
+\quad \forall c > 0.
+\]
+</p>
+
+<p>
+This allows global expansion and contraction, but not rotation, shear, or anisotropic scaling.
+</p>
+
+<h4>C.2 Hierarchy of invariances</h4>
+
+<p>
+There is a strict hierarchy:
+</p>
+
+<p>
+\[
+\text{Affine invariance (D2)}
+\;\Rightarrow\;
+\text{Isometric invariance (D2iso)}
+\;\Rightarrow\;
+\text{Scale invariance (D2sca)}.
+\]
+</p>
+
+<p>
+None of the reverse implications hold.
+</p>
+
+<h4>C.3 Examples</h4>
+
+<p>
+Depths satisfying only D2sca include certain univariate rank-based and radial depths.
+</p>
+
+<p>
+Depths such as raw \(L_2\)-depth and moment Mahalanobis depth (without normalization) fail D2sca.
+</p>
+
+<h4>C.4 Limitations of scale invariance</h4>
+
+<p>
+Without full affine invariance, units of measurement matter, anisotropy is ignored, and multivariate geometry is distorted. Scale invariance is therefore mainly appropriate in univariate settings.
+</p>
+
+<h3>Part D — What is gained and what is lost?</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>What is gained</th>
+      <th>What is lost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>D4con</td>
+      <td>Convex regions, clean geometry</td>
+      <td>Flexibility</td>
+    </tr>
+    <tr>
+      <td>D2iso</td>
+      <td>Metric faithfulness</td>
+      <td>Affine robustness</td>
+    </tr>
+    <tr>
+      <td>D2sca</td>
+      <td>Unit invariance</td>
+      <td>Directional information</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
 
 
 
