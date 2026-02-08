@@ -437,6 +437,286 @@ D(\lambda x \mid \lambda X) = D(x \mid X),
 </section>
 </div>
 
+<!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="2.2.2-2.2.3">
+<section>
+
+<h2>2.2.2 Central Regions and Outliers</h2>
+
+<h3>Restated goal of the section</h3>
+
+<p>This section explains how a depth function induces:</p>
+
+<ul>
+  <li><strong>Central regions</strong> (multivariate analogues of quantiles)</li>
+  <li>A notion of <strong>outlyingness</strong></li>
+  <li>An ordering of points from “most central” to “most extreme”</li>
+</ul>
+
+<p>This forms the bridge between abstract depth axioms and practical data analysis.</p>
+
+<h3>Step 1: Level sets of a depth function</h3>
+
+<h4>Given objects</h4>
+
+<ul>
+  <li><span>\(P \in \mathcal P\)</span>: a probability distribution on <span>\(E\)</span></li>
+  <li><span>\(D(\cdot \mid P)\)</span>: a depth function satisfying D1–D5</li>
+  <li><span>\(\alpha \in [0,1]\)</span></li>
+</ul>
+
+<h4>Definition: <span>\(\alpha\)</span>-central region</h4>
+
+<p>
+\[
+D_\alpha(P)
+\;:=\;
+\{x \in E : D(x \mid P) \ge \alpha\}.
+\]
+</p>
+
+<p>These are also called <strong>depth-trimmed regions</strong> or <strong>central regions</strong>.</p>
+
+<h4>Formal properties</h4>
+
+<p>From axioms D3–D5 and possibly D4con:</p>
+
+<ul>
+  <li>Closed (D5)</li>
+  <li>Bounded (D3)</li>
+  <li>Star-shaped (D4)</li>
+  <li>Convex if D4con holds</li>
+</ul>
+
+<h4>Nested structure</h4>
+
+<p>If <span>\(0 \le \alpha_1 < \alpha_2 \le 1\)</span>, then</p>
+
+<p>
+\[
+D_{\alpha_2}(P) \subseteq D_{\alpha_1}(P).
+\]
+</p>
+
+<p>Higher depth corresponds to a stricter inclusion criterion.</p>
+
+<h3>Step 2: The deepest point(s)</h3>
+
+<p>Define</p>
+
+<p>
+\[
+\alpha_{\max} := \sup_{x \in E} D(x \mid P).
+\]
+</p>
+
+<p>Then <span>\(D_{\alpha_{\max}}(P)\)</span> is the set of <strong>deepest points</strong>.</p>
+
+<ul>
+  <li>If unique, it is a multivariate median</li>
+  <li>Otherwise, it forms a deepest region</li>
+</ul>
+
+<h3>Step 3: Affine equivariance of central regions</h3>
+
+<p>From D1 and D2, if <span>\(A\)</span> is affine and bijective, then</p>
+
+<p>
+\[
+D_\alpha(AP) = A D_\alpha(P).
+\]
+</p>
+
+<p>Central regions transform exactly like the data, preserving geometry such as location, spread, and shape.</p>
+
+<h3>Step 4: From regions to depth</h3>
+
+<h4>Assumption</h4>
+
+<p>We are given a nested family of sets <span>\(\{C_\alpha(P)\}_{\alpha \in [0,1]}\)</span>, each of which is convex, bounded, closed, and nested in <span>\(\alpha\)</span>.</p>
+
+<h4>Definition (Equation 2.1)</h4>
+
+<p>
+\[
+D(z \mid P)
+\;:=\;
+\sup\{\alpha : z \in C_\alpha(P)\}.
+\tag{2.1}
+\]
+</p>
+
+<h4>Formal justification</h4>
+
+<ul>
+  <li>Nestedness ensures the supremum is well defined</li>
+  <li>Closedness implies upper semicontinuity</li>
+  <li>Convexity yields quasiconcavity</li>
+</ul>
+
+<p>This construction automatically satisfies D5 and D4con.</p>
+
+<h3>Step 5: Depth ordering and outlyingness</h3>
+
+<h4>Center–outward ordering</h4>
+
+<p>
+\[
+D(x \mid X) > D(y \mid X)
+\;\Rightarrow\;
+x \text{ is more central than } y.
+\]
+</p>
+
+<p>Depth induces an ordering from the center to the periphery.</p>
+
+<h3>Step 6: Outlyingness function</h3>
+
+<h4>Definition</h4>
+
+<p>
+\[
+\mathrm{Out}(z \mid X)
+\;:=\;
+\frac{1}{D(z \mid X)} - 1.
+\]
+</p>
+
+<h4>Properties</h4>
+
+<ul>
+  <li>If <span>\(z\)</span> is deepest: <span>\(D=1 \Rightarrow \mathrm{Out}=0\)</span></li>
+  <li>If <span>\(D \downarrow 0\)</span>: <span>\(\mathrm{Out} \uparrow \infty\)</span></li>
+</ul>
+
+<p>The transformation converts “large depth” into “small outlyingness.”</p>
+
+<p>
+\[
+D(z \mid X) = \frac{1}{1 + \mathrm{Out}(z \mid X)}.
+\]
+</p>
+
+<h3>Step 7: Outliers via central regions</h3>
+
+<p>If</p>
+
+<p>
+\[
+z \notin D_\alpha(X),
+\]
+</p>
+
+<p>then</p>
+
+<p>
+\[
+\mathrm{Out}(z \mid X) > \frac{1}{\alpha} - 1.
+\]
+</p>
+
+<p>This yields a distribution-free notion of multivariate outliers.</p>
+
+<h2>2.2.3 Depth Lifts, Stochastic Orderings, and Metrics</h2>
+
+<h3>Goal of the section</h3>
+
+<p>Depth induces:</p>
+
+<ul>
+  <li>A partial ordering on distributions</li>
+  <li>A notion of dispersion</li>
+  <li>A distance (semi-metric) between distributions</li>
+</ul>
+
+<h3>Step 1: Normalization</h3>
+
+<p>Assume</p>
+
+<p>
+\[
+\alpha_{\max} = 1.
+\]
+</p>
+
+<p>This is a harmless rescaling of depth.</p>
+
+<h3>Step 2: Definition of the depth lift</h3>
+
+<p>
+\[
+\widehat D(P)
+\;:=\;
+\{(\alpha,x) \in [0,1] \times E : x \in D_\alpha(P)\}.
+\tag{2.2}
+\]
+</p>
+
+<p>This stacks all central regions along the <span>\(\alpha\)</span>-axis into a single geometric object.</p>
+
+<h3>Step 3: Dispersion ordering of distributions</h3>
+
+<p>
+\[
+P \preceq_D Q
+\quad \text{if} \quad
+\widehat D(P) \subseteq \widehat D(Q).
+\tag{2.3}
+\]
+</p>
+
+<p>Equivalently,</p>
+
+<p>
+\[
+D_\alpha(P) \subseteq D_\alpha(Q)
+\quad \text{for all } \alpha.
+\]
+</p>
+
+<p>This means that <span>\(Q\)</span> is more dispersed than <span>\(P\)</span>.</p>
+
+<h3>Step 4: Partial order vs preorder</h3>
+
+<ul>
+  <li>If the family <span>\(\{D_\alpha(P)\}\)</span> uniquely determines <span>\(P\)</span>, then <span>\(\preceq_D\)</span> is a partial order</li>
+  <li>Otherwise, it is only a preorder</li>
+</ul>
+
+<h3>Step 5: Depth-induced distance</h3>
+
+<p>
+\[
+\delta_D(P,Q)
+\;:=\;
+\delta_H(\widehat D(P), \widehat D(Q)),
+\tag{2.4}
+\]
+</p>
+
+<p>where <span>\(\delta_H\)</span> is the Hausdorff distance.</p>
+
+<h4>Hausdorff distance</h4>
+
+<p>
+\[
+\delta_H(C_1,C_2)
+=
+\inf\{\varepsilon>0 :
+C_1 \subseteq C_2^\varepsilon
+\text{ and }
+C_2 \subseteq C_1^\varepsilon
+\}.
+\]
+</p>
+
+<p>Two distributions are close if their entire depth geometry is close.</p>
+
+</section>
+</div>
+
+
 
 
 
