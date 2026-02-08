@@ -1558,6 +1558,197 @@ D^{L_2}(z \mid X) \to 0
 </section>
 </div>
 
+<div class="glow-box" id="l2-depth-d4">
+<section>
+
+<h3><span>\(L_2\)</span>-Depth and Axiom D4 (Monotonicity on Rays)</h3>
+
+<h4>Axiom D4: Formal statement</h4>
+
+<p>Let <span>\(D(\cdot \mid X)\)</span> be a depth function on <span>\(\mathbb{R}^d\)</span>. Let <span>\(z^\ast \in \mathbb{R}^d\)</span> be a deepest point, that is,</p>
+
+<p>
+\[
+D(z^\ast \mid X) = \sup_{z \in \mathbb{R}^d} D(z \mid X).
+\]
+</p>
+
+<p><strong>Axiom D4 (Monotonicity on Rays).</strong> For every <span>\(z \in \mathbb{R}^d\)</span> and every <span>\(t \in [0,1]\)</span>,</p>
+
+<p>
+\[
+D\bigl(z^\ast + t(z - z^\ast) \mid X\bigr)
+\;\ge\;
+D(z \mid X).
+\]
+</p>
+
+<p>Equivalently, along any ray emanating from a deepest point, depth does not increase as one moves away from that deepest point.</p>
+
+<h4>Meaning of Axiom D4</h4>
+
+<p>Starting from a deepest point and moving in any direction, depth should decrease monotonically, or at least not increase. There should be no secondary peaks of depth farther away from the center.</p>
+
+<h4>Why Axiom D4 is desirable</h4>
+
+<p>Without D4:</p>
+
+<ul>
+  <li>Central regions could be disconnected or shell-like</li>
+  <li>A point farther from the center could appear more central than a closer one</li>
+  <li>Depth contours would lose geometric meaning</li>
+</ul>
+
+<p>Axiom D4 enforces a single-center geometry: depth behaves like a hill with no bumps.</p>
+
+<h4>Verification for the <span>\(L_2\)</span>-depth</h4>
+
+<h5>Step 1: Definition and deepest points</h5>
+
+<p>The <span>\(L_2\)</span>-depth is defined by</p>
+
+<p>
+\[
+D^{L_2}(z \mid X)
+=
+\bigl(1 + \mathbb{E}|z - X|\bigr)^{-1}.
+\]
+</p>
+
+<p>Depth is maximized when <span>\(\mathbb{E}|z - X|\)</span> is minimized. Hence a deepest point <span>\(z^\ast\)</span> is any <strong>spatial median</strong>:</p>
+
+<p>
+\[
+z^\ast \in \arg\min_{z \in \mathbb{R}^d} \mathbb{E}|z - X|.
+\]
+</p>
+
+<h5>Step 2: Reduction to an inequality for expectations</h5>
+
+<p>The mapping <span>\(u \mapsto (1+u)^{-1}\)</span> is strictly decreasing on <span>\([0,\infty)\)</span>. Therefore, Axiom D4 is equivalent to showing that, for all <span>\(z \in \mathbb{R}^d\)</span> and <span>\(t \in [0,1]\)</span>,</p>
+
+<p>
+\[
+\mathbb{E}|z^\ast + t(z - z^\ast) - X|
+\;\le\;
+\mathbb{E}|z - X|.
+\]
+</p>
+
+<h5>Step 3: Convexity of the Euclidean norm</h5>
+
+<p>For every fixed <span>\(x \in \mathbb{R}^d\)</span>, the function</p>
+
+<p>
+\[
+f_x(z) = |z - x|
+\]
+</p>
+
+<p>is convex on <span>\(\mathbb{R}^d\)</span>. Hence, for all <span>\(z_1, z_2 \in \mathbb{R}^d\)</span> and <span>\(t \in [0,1]\)</span>,</p>
+
+<p>
+\[
+|t z_1 + (1-t) z_2 - x|
+\;\le\;
+t|z_1 - x| + (1-t)|z_2 - x|.
+\]
+</p>
+
+<h5>Step 4: Apply convexity pointwise</h5>
+
+<p>Fix a realization <span>\(X = x\)</span> and apply the inequality with</p>
+
+<p>
+\[
+z_1 = z,
+\qquad
+z_2 = z^\ast.
+\]
+</p>
+
+<p>This yields</p>
+
+<p>
+\[
+|z^\ast + t(z - z^\ast) - x|
+\;\le\;
+t|z - x| + (1-t)|z^\ast - x|.
+\]
+</p>
+
+<h5>Step 5: Take expectations</h5>
+
+<p>Taking expectations with respect to <span>\(X\)</span>,</p>
+
+<p>
+\[
+\mathbb{E}|z^\ast + t(z - z^\ast) - X|
+\;\le\;
+t\,\mathbb{E}|z - X|
++
+(1-t)\,\mathbb{E}|z^\ast - X|.
+\]
+</p>
+
+<h5>Step 6: Use minimality of the spatial median</h5>
+
+<p>By definition of <span>\(z^\ast\)</span>,</p>
+
+<p>
+\[
+\mathbb{E}|z^\ast - X|
+\;\le\;
+\mathbb{E}|z - X|
+\quad \text{for all } z \in \mathbb{R}^d.
+\]
+</p>
+
+<p>Substituting,</p>
+
+<p>
+\[
+\mathbb{E}|z^\ast + t(z - z^\ast) - X|
+\;\le\;
+\mathbb{E}|z - X|.
+\]
+</p>
+
+<h5>Step 7: Translate back to depth</h5>
+
+<p>Since depth is a decreasing function of the expectation,</p>
+
+<p>
+\[
+D^{L_2}(z^\ast + t(z - z^\ast) \mid X)
+\;\ge\;
+D^{L_2}(z \mid X).
+\]
+</p>
+
+<h4>Conclusion</h4>
+
+<p>The <span>\(L_2\)</span>-depth satisfies <strong>Axiom D4 (Monotonicity on Rays)</strong>:</p>
+
+<p>
+\[
+\boxed{
+D^{L_2}(z^\ast + t(z - z^\ast) \mid X)
+\;\ge\;
+D^{L_2}(z \mid X)
+\quad \forall\, t \in [0,1]
+}
+\]
+</p>
+
+<h4>Geometric intuition</h4>
+
+<p>The <span>\(L_2\)</span>-depth is based on a convex objective: average distance. Convexity implies the absence of secondary minima and enforces monotone behavior along straight paths toward the minimizer.</p>
+
+<p>In one dimension, distance is V-shaped around the median. In higher dimensions, level sets remain convex, and any straight path toward the center moves inward. This is why central regions of <span>\(L_2\)</span>-depth are not merely star-shaped but genuinely convex.</p>
+
+</section>
+</div>
 
   
 
