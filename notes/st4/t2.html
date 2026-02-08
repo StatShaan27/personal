@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Topic-2 | Shaan</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: #6effe0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      background: #1e1e1e;
+      border-bottom: 2px solid #333;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0;
+    }
+
+    header nav ul li {
+      display: inline;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: #6effe0;
+      font-weight: 500;
+      border: 1px solid transparent;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      border-color: #6effe0;
+      background-color: #6effe0;
+      color: #000;
+    }
+
+    .notes-wrapper {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .info-block {
+      margin-bottom: 2rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .info-block strong {
+      color: #6effe0;
+    }
+
+    .toc {
+      background-color: #1e1e1e;
+      border-left: 4px solid #6effe0;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+    }
+
+    .toc ul {
+      padding-left: 1rem;
+    }
+
+    .toc ul li {
+      padding: 0.3rem 0;
+    }
+
+    .toc a {
+      color: #c9d1d9;
+      text-decoration: none;
+      border-bottom: 1px dashed #6effe0;
+    }
+
+    .toc a:hover {
+      color: #6effe0;
+    }
+
+    .glow-box {
+      border: 2px solid #6effe0;
+      box-shadow: 0 0 20px rgba(110, 255, 224, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background-color: #1e1e1e;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(110, 255, 224, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(110, 255, 224, 0.4); }
+    }
+
+    ul {
+      line-height: 1.6;
+      padding-left: 1.2rem;
+    }
+
+    code, pre {
+      background-color: #222;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      color: #6effe0;
+      display: block;
+      overflow-x: auto;
+    }
+
+    .next-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #6effe0;
+      color: #000;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #6effe0;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+
+    .next-btn:hover {
+      background-color: #00ffcc;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
+  </style>
+  <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</head>
+<body>
+
+<header>
+  <h1>Statistical Methods IV: Depth Statistics</h1>
+  <p>AY 2025–26</p>
+  <nav>
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../assets/Shaan_CV.pdf">CV</a></li>
+      <li><a href="../../sections/projects.html">Projects</a></li>
+      <li><a href="../../sections/education.html">Education</a></li>
+      <li><a href="../../sections/misc.html">Misc</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="notes-wrapper">
+
+  <div class="info-block">
+    <p><strong>Instructor:</strong> Shyamal K De </p>
+    <p><strong>Office / Department:</strong> ASU</p>
+    <p><strong>Email:</strong> skd.isical@gmail.com</p>
+    <p><strong>Marking Scheme:</strong><br>
+      Class Test: 10% | Project: 15: | Midterm Test: 25% | End Semester: 50%
+    </p>
+  </div>
+
+ <div class="glow-box" id="pdf">
+<section>
+
+<h2>PDF Version of the Notes</h2>
+
+<p>For offline reading, printing, or long-form study, a compiled <strong>PDF version</strong> of these contents is provided.</p>
+
+<p>The PDF mirrors the structure and notation of the webpage and is suitable for academic reference.</p>
+
+<h3>Download</h3>
+
+<p>
+  <a href="../../assets/Depth.pdf" target="_blank" style="color:#6effe0; text-decoration:none; font-weight:500;">
+    📄 Download the PDF version of these notes
+  </a>
+</p>
+
+<h3>Remarks</h3>
+
+<ul>
+  <li>The PDF is generated directly from the same source material as this webpage</li>
+  <li>Mathematical notation and figures are preserved</li>
+  <li>Page numbering makes it convenient for citation and discussion</li>
+</ul>
+
+</section>
+</div>
+
+
+  <!-- Notes section boxes -->
+ <!-- INDEX_TOPIC -->
+
+<div class="glow-box" id="2.1">
+<section>
+
+<h2>1. Computation: what is <em>the</em> sample median, really?</h2>
+
+<p>Up to now, the sample median (<span>\(\hat\mu = T(F_n)\)</span>) was defined abstractly via several equivalent population characterizations. But when you plug in the <strong>empirical CDF</strong> (<span>\(F_n\)</span>):</p>
+
+<ul>
+  <li>Those definitions <strong>need not give a unique solution</strong></li>
+  <li>So a <strong>convention</strong> is imposed</li>
+</ul>
+
+<h3>Procedure</h3>
+
+<ol>
+  <li>
+    <p>Order the data:</p>
+    <p>
+      \[
+      x_{(1)} \le x_{(2)} \le \cdots \le x_{(n)}
+      \]
+    </p>
+  </li>
+  <li>
+    <p>Define:</p>
+    <p>
+      \[
+      \hat\mu = \frac{x_{[(n+1)/2]} + x_{[(n+2)/2]}}{2}
+      \]
+    </p>
+  </li>
+</ol>
+
+<h3>Interpretation</h3>
+
+<ul>
+  <li>If <span>\(n\)</span> is odd: both indices coincide → usual middle order statistic</li>
+  <li>If <span>\(n\)</span> is even: average of the two central observations</li>
+</ul>
+
+<h3>Why this matters</h3>
+
+<ul>
+  <li>This choice ensures symmetry and equivariance</li>
+  <li>It matches the estimating-equation view (<span>\(\hat R(\hat\mu)=0\)</span>)</li>
+</ul>
+
+<h3>Important remark</h3>
+
+<blockquote>
+  <p>In the multivariate case there is no natural ordering.</p>
+</blockquote>
+
+<p>This sentence is a warning shot: everything above relies on order. Once you lose order, the median becomes genuinely geometric.</p>
+
+</section>
+</div>
+
+<div class="glow-box" id="2.2">
+<section>
+
+<h2>2. Robustness: why statisticians love the median</h2>
+
+<p>Two core robustness concepts appear here.</p>
+
+<h3>(a) Breakdown point = <span>\(\tfrac12\)</span></h3>
+
+<p>The <strong>asymptotic breakdown point</strong> is the smallest fraction of contamination that can drive the estimator arbitrarily far.</p>
+
+<p>For the median:</p>
+
+<p>
+\[
+\varepsilon^* = \frac12
+\]
+</p>
+
+<h4>Meaning</h4>
+
+<ul>
+  <li>You can replace almost half the data with arbitrarily bad outliers</li>
+  <li>The median still does not explode</li>
+</ul>
+
+<p>No location estimator can do better. This is maximal robustness.</p>
+
+<h3>(b) Influence function is bounded</h3>
+
+<p>The influence function is:</p>
+
+<p>
+\[
+\mathrm{IF}(x;T,F) = \delta^{-1} S(x - T(F)), \quad \delta = 2f(\mu)
+\]
+</p>
+
+<h4>Key features</h4>
+
+<ul>
+  <li>Takes only three values: <span>\((\pm \delta^{-1}, 0)\)</span></li>
+  <li>Does <strong>not grow</strong> as <span>\(|x|\to\infty\)</span></li>
+</ul>
+
+<h4>Interpretation</h4>
+
+<ul>
+  <li>A single extreme outlier has <em>limited effect</em></li>
+  <li>Contrast with the mean, whose influence function is linear and unbounded</li>
+</ul>
+
+<p>This formally explains why the median resists outliers.</p>
+
+</section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+<button class="next-btn" onclick="location.href='t3.html'">Next Section →</button>
+
+<footer>
+  <p>&copy; 2026 Shaan | Built with purpose</p>
+</footer>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+</body>
+</html>
