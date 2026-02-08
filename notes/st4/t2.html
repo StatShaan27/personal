@@ -1058,6 +1058,157 @@ D(x) = \left\lVert \sum_i w_i(x)(x_i - x) \right\rVert^{-1}.
 </section>
 </div>
 
+<div class="glow-box" id="l2-depth-d1">
+<section>
+
+<h3><span>\(L_2\)</span>-Depth and Axiom D1 (Translation Invariance)</h3>
+
+<h4>Axiom D1: Formal statement</h4>
+
+<p>Let <span>\(X\)</span> be an <span>\(\mathbb{R}^d\)</span>-valued random vector with distribution <span>\(P\)</span>. Let <span>\(D(\cdot \mid X)\)</span> be a statistical depth function.</p>
+
+<p><strong>Axiom D1 (Translation Invariance).</strong> For every <span>\(z \in \mathbb{R}^d\)</span> and every translation vector <span>\(b \in \mathbb{R}^d\)</span>,</p>
+
+<p>
+\[
+D(z \mid X) = D(z + b \mid X + b),
+\]
+</p>
+
+<p>where <span>\(X+b\)</span> denotes the random vector defined by</p>
+
+<p>
+\[
+X+b := X + b \quad \text{almost surely}.
+\]
+</p>
+
+<h4>Meaning of Axiom D1</h4>
+
+<p>Translation invariance requires that depth depends only on <em>relative position</em>, not on absolute location. If the entire data cloud and the point under inspection are shifted by the same vector, their geometric relationship is unchanged, and the depth must remain unchanged.</p>
+
+<h4>Why Axiom D1 is desirable</h4>
+
+<p>Depth is meant to quantify centrality relative to the data. Absolute coordinates in <span>\(\mathbb{R}^d\)</span> have no intrinsic statistical meaning. Without D1:</p>
+
+<ul>
+  <li>The choice of origin would matter</li>
+  <li>Identical data configurations at different locations would yield different depths</li>
+  <li>The notion of a “center” would be ill-defined</li>
+</ul>
+
+<h4>Verification for the <span>\(L_2\)</span>-depth</h4>
+
+<h5>Step 1: Definition</h5>
+
+<p>The <span>\(L_2\)</span>-depth of <span>\(z \in \mathbb{R}^d\)</span> with respect to <span>\(X \sim P\)</span> is defined as</p>
+
+<p>
+\[
+D^{L_2}(z \mid X)
+=
+\bigl(1 + \mathbb{E}|z - X|\bigr)^{-1}.
+\]
+</p>
+
+<h5>Step 2: Translate data and point</h5>
+
+<p>Fix an arbitrary translation vector <span>\(b \in \mathbb{R}^d\)</span>. Define</p>
+
+<ul>
+  <li>Translated point: <span>\(z' = z + b\)</span></li>
+  <li>Translated random vector: <span>\(X' = X + b\)</span></li>
+</ul>
+
+<p>We compare <span>\(D^{L_2}(z \mid X)\)</span> and <span>\(D^{L_2}(z' \mid X')\)</span>.</p>
+
+<h5>Step 3: Expand the translated depth</h5>
+
+<p>By definition,</p>
+
+<p>
+\[
+D^{L_2}(z' \mid X')
+=
+\bigl(1 + \mathbb{E}|z' - X'|\bigr)^{-1}.
+\]
+</p>
+
+<p>Substituting <span>\(z' = z + b\)</span> and <span>\(X' = X + b\)</span>,</p>
+
+<p>
+\[
+|z' - X'|
+=
+|(z + b) - (X + b)|.
+\]
+</p>
+
+<h5>Step 4: Use translation invariance of subtraction</h5>
+
+<p>For all <span>\(a,b,c \in \mathbb{R}^d\)</span>,</p>
+
+<p>
+\[
+(a + c) - (b + c) = a - b.
+\]
+</p>
+
+<p>Hence, pointwise,</p>
+
+<p>
+\[
+|(z + b) - (X + b)| = |z - X|.
+\]
+</p>
+
+<h5>Step 5: Take expectations</h5>
+
+<p>Since the integrands are identical almost surely,</p>
+
+<p>
+\[
+\mathbb{E}|z' - X'| = \mathbb{E}|z - X|.
+\]
+</p>
+
+<h5>Step 6: Conclude equality of depths</h5>
+
+<p>Substituting back,</p>
+
+<p>
+\[
+D^{L_2}(z' \mid X')
+=
+\bigl(1 + \mathbb{E}|z - X|\bigr)^{-1}
+=
+D^{L_2}(z \mid X).
+\]
+</p>
+
+<h4>Conclusion</h4>
+
+<p>The <span>\(L_2\)</span>-depth satisfies <strong>Axiom D1 (Translation Invariance)</strong>:</p>
+
+<p>
+\[
+\boxed{
+D^{L_2}(z \mid X) = D^{L_2}(z + b \mid X + b)
+\quad \forall z,b \in \mathbb{R}^d
+}
+\]
+</p>
+
+<h4>Geometric intuition</h4>
+
+<p>The <span>\(L_2\)</span>-depth measures average distance from the data cloud. Shifting all points by the same vector does not change any distances. The definition depends only on differences <span>\(z - X\)</span>, and differences are blind to absolute location.</p>
+
+<p>This reasoning holds in one dimension, two dimensions, and in higher dimensions. Translation invariance is therefore not an added feature but a structural consequence of how <span>\(L_2\)</span>-depth is defined.</p>
+
+</section>
+</div>
+
+
 
 
   
