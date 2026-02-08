@@ -3392,6 +3392,184 @@ z \mapsto D^{\mathrm{sim}}(z \mid X)
 </section>
 </div>
 
+<section>
+
+<h2>Consequences of the Depth Axioms</h2>
+
+<p>
+We assume throughout that \(D(\cdot \mid X): \mathbb{R}^d \to [0,\infty)\) is a statistical depth function satisfying axioms D1–D4. 
+Axiom D5 will be invoked only when explicitly stated.
+</p>
+
+<h2>1. Affine Invariance from D1 and D2</h2>
+
+<h4>Goal</h4>
+<p>
+If a depth satisfies translation invariance (D1) and linear invariance (D2), then it is affine invariant.
+</p>
+
+<h4>Derivation</h4>
+<p>
+An affine transformation has the form \(T(x) = Ax + b\), with \(A\) invertible and \(b \in \mathbb{R}^d\).
+</p>
+
+<ul>
+  <li>
+    By D2 (linear invariance),
+    \[
+    D(z \mid X) = D(Az \mid AX).
+    \]
+  </li>
+  <li>
+    By D1 (translation invariance), applied to the transformed pair,
+    \[
+    D(Az \mid AX) = D(Az + b \mid AX + b).
+    \]
+  </li>
+</ul>
+
+<p>
+Combining the two equalities yields
+\[
+D(z \mid X) = D(Az + b \mid AX + b).
+\]
+</p>
+
+<p>
+Thus D1 and D2 together imply affine invariance.
+</p>
+
+<h2>2. Boundedness of Upper Level Sets from D3</h2>
+
+<h4>Goal</h4>
+<p>
+If a depth satisfies D3 (null at infinity), then all its upper level sets are bounded.
+</p>
+
+<h4>Upper level sets</h4>
+<p>
+For \(\alpha > 0\), define
+\[
+D_\alpha(X) := \{ z \in \mathbb{R}^d : D(z \mid X) \ge \alpha \}.
+\]
+</p>
+
+<h4>Argument</h4>
+<ul>
+  <li>
+    Assume, for contradiction, that \(D_\alpha(X)\) is unbounded.
+  </li>
+  <li>
+    Then there exists a sequence \(z_n \in D_\alpha(X)\) with \(|z_n| \to \infty\).
+  </li>
+  <li>
+    By D3, \(D(z_n \mid X) \to 0\).
+  </li>
+  <li>
+    But by definition of \(D_\alpha(X)\), \(D(z_n \mid X) \ge \alpha > 0\) for all \(n\), a contradiction.
+  </li>
+</ul>
+
+<p>
+Hence every upper level set \(D_\alpha(X)\) must be bounded.
+</p>
+
+<h2>3. Star-Shapedness from D4</h2>
+
+<h4>Definition (star-shaped set)</h4>
+<p>
+A set \(S \subset \mathbb{R}^d\) is star-shaped about a point \(x_0\) if
+\[
+\forall x \in S,\ \forall t \in [0,1],\quad tx + (1-t)x_0 \in S.
+\]
+</p>
+
+<h4>Goal</h4>
+<p>
+If a depth satisfies D4 (monotonicity on rays), then each upper level set is star-shaped about a deepest point.
+</p>
+
+<h4>Derivation</h4>
+<ul>
+  <li>
+    Let \(z^\ast\) be a deepest point, so \(D(z^\ast \mid X) = \sup_z D(z \mid X)\).
+  </li>
+  <li>
+    Fix \(\alpha > 0\) and \(z \in D_\alpha(X)\), so \(D(z \mid X) \ge \alpha\).
+  </li>
+  <li>
+    By D4,
+    \[
+    D(z^\ast + t(z - z^\ast) \mid X) \ge D(z \mid X) \ge \alpha
+    \quad \forall t \in [0,1].
+    \]
+  </li>
+</ul>
+
+<p>
+Therefore,
+\[
+z^\ast + t(z - z^\ast) \in D_\alpha(X)\quad \forall t \in [0,1],
+\]
+and \(D_\alpha(X)\) is star-shaped about \(z^\ast\).
+</p>
+
+<h2>4. The Role of D5</h2>
+
+<p>
+Up to this point, none of the arguments required D5.
+</p>
+
+<ul>
+  <li>Affine invariance follows from D1 + D2.</li>
+  <li>Boundedness of central regions follows from D3.</li>
+  <li>Star-shapedness follows from D4.</li>
+</ul>
+
+<p>
+Axiom D5 (upper semicontinuity) adds topological regularity:
+</p>
+
+<ul>
+  <li>Upper level sets are closed.</li>
+  <li>Maximal depth is attained.</li>
+  <li>Deepest points exist as actual points, not merely limits.</li>
+</ul>
+
+<h2>Summary of Consequences</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Consequence</th>
+      <th>Axioms Used</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Affine invariance</td>
+      <td>D1 + D2</td>
+    </tr>
+    <tr>
+      <td>Bounded central regions</td>
+      <td>D3</td>
+    </tr>
+    <tr>
+      <td>Star-shaped central regions</td>
+      <td>D4</td>
+    </tr>
+    <tr>
+      <td>Closed central regions</td>
+      <td>D5</td>
+    </tr>
+    <tr>
+      <td>Existence of medians</td>
+      <td>D3 + D5</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
   
 
 
