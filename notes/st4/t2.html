@@ -1208,6 +1208,200 @@ D^{L_2}(z \mid X) = D^{L_2}(z + b \mid X + b)
 </section>
 </div>
 
+<div class="glow-box" id="l2-depth-d2">
+<section>
+
+<h3><span>\(L_2\)</span>-Depth and Axiom D2 (Linear Invariance)</h3>
+
+<h4>Axiom D2: Formal statement</h4>
+
+<p>Let <span>\(X\)</span> be an <span>\(\mathbb{R}^d\)</span>-valued random vector with distribution <span>\(P\)</span>. Let <span>\(D(\cdot \mid X)\)</span> be a statistical depth function.</p>
+
+<p><strong>Axiom D2 (Linear Invariance).</strong> For every <span>\(z \in \mathbb{R}^d\)</span> and every <strong>invertible</strong> matrix <span>\(A \in \mathbb{R}^{d\times d}\)</span>,</p>
+
+<p>
+\[
+D(z \mid X) = D(Az \mid AX),
+\]
+</p>
+
+<p>where <span>\(AX\)</span> denotes the random vector obtained by applying the linear map <span>\(A\)</span> to <span>\(X\)</span>.</p>
+
+<h4>Meaning of Axiom D2</h4>
+
+<p>Linear invariance requires depth to be unaffected by any invertible change of coordinates, including rotations, reflections, scalings, and shear transformations. Depth should depend on the intrinsic geometry of the data configuration, not on the coordinate system used to describe it.</p>
+
+<h4>Why Axiom D2 is desirable</h4>
+
+<p>Without D2:</p>
+
+<ul>
+  <li>The same data cloud viewed in different coordinate systems may yield different depths</li>
+  <li>Centrality would depend on units of measurement or axis orientation</li>
+  <li>Comparisons across transformed datasets would be meaningless</li>
+</ul>
+
+<p>Combined with D1, linear invariance yields affine invariance, ensuring that depth is a geometric property of the distribution rather than of its representation.</p>
+
+<h4>Verification for the <span>\(L_2\)</span>-depth</h4>
+
+<h5>Step 1: Definition</h5>
+
+<p>The <span>\(L_2\)</span>-depth is defined as</p>
+
+<p>
+\[
+D^{L_2}(z \mid X)
+=
+\bigl(1 + \mathbb{E}|z - X|\bigr)^{-1}.
+\]
+</p>
+
+<h5>Step 2: Apply a general linear transformation</h5>
+
+<p>Let <span>\(A \in \mathbb{R}^{d\times d}\)</span> be invertible. Define</p>
+
+<ul>
+  <li>Transformed point: <span>\(z' = Az\)</span></li>
+  <li>Transformed random vector: <span>\(X' = AX\)</span></li>
+</ul>
+
+<p>We compare <span>\(D^{L_2}(z \mid X)\)</span> and <span>\(D^{L_2}(z' \mid X')\)</span>.</p>
+
+<h5>Step 3: Expand the transformed depth</h5>
+
+<p>By definition,</p>
+
+<p>
+\[
+D^{L_2}(z' \mid X')
+=
+\bigl(1 + \mathbb{E}|Az - AX|\bigr)^{-1}.
+\]
+</p>
+
+<p>Using linearity,</p>
+
+<p>
+\[
+Az - AX = A(z - X),
+\qquad
+|Az - AX| = |A(z - X)|.
+\]
+</p>
+
+<h5>Step 4: Use properties of the Euclidean norm</h5>
+
+<p>The Euclidean norm satisfies</p>
+
+<p>
+\[
+|Av| = |v|
+\quad \text{for all } v \in \mathbb{R}^d
+\]
+</p>
+
+<p>if and only if <span>\(A\)</span> is orthogonal. For a general invertible matrix, there exist constants</p>
+
+<p>
+\[
+0 < c_A \le C_A < \infty
+\]
+</p>
+
+<p>such that</p>
+
+<p>
+\[
+c_A |v| \le |Av| \le C_A |v|
+\quad \text{for all } v \in \mathbb{R}^d.
+\]
+</p>
+
+<p>In general, therefore,</p>
+
+<p>
+\[
+|A(z - X)| \neq |z - X|.
+\]
+</p>
+
+<h5>Step 5: Compare expectations</h5>
+
+<p>Since the integrands differ,</p>
+
+<p>
+\[
+\mathbb{E}|Az - AX|
+\neq
+\mathbb{E}|z - X|
+\quad \text{in general}.
+\]
+</p>
+
+<p>Hence,</p>
+
+<p>
+\[
+D^{L_2}(Az \mid AX)
+=
+\bigl(1 + \mathbb{E}|A(z - X)|\bigr)^{-1}
+\neq
+\bigl(1 + \mathbb{E}|z - X|\bigr)^{-1}
+=
+D^{L_2}(z \mid X).
+\]
+</p>
+
+<h5>Step 6: Explicit one-dimensional counterexample</h5>
+
+<p>Let <span>\(d=1\)</span>, <span>\(X \sim N(0,1)\)</span>, and <span>\(z=0\)</span>. Then</p>
+
+<p>
+\[
+D^{L_2}(0 \mid X)
+=
+\bigl(1 + \mathbb{E}|X|\bigr)^{-1}.
+\]
+</p>
+
+<p>Take the linear transformation <span>\(A = [2]\)</span>, so <span>\(AX = 2X\)</span>. Then</p>
+
+<p>
+\[
+D^{L_2}(0 \mid 2X)
+=
+\bigl(1 + \mathbb{E}|2X|\bigr)^{-1}
+=
+\bigl(1 + 2\mathbb{E}|X|\bigr)^{-1}
+\neq
+D^{L_2}(0 \mid X).
+\]
+</p>
+
+<h4>Conclusion</h4>
+
+<p>The <span>\(L_2\)</span>-depth does <strong>not</strong> satisfy Axiom D2 (Linear Invariance):</p>
+
+<p>
+\[
+\boxed{
+D^{L_2}(Az \mid AX) \neq D^{L_2}(z \mid X)
+\quad \text{for general invertible } A
+}
+\]
+</p>
+
+<p>It is invariant only under orthogonal transformations, which is strictly weaker than full linear invariance.</p>
+
+<h4>Geometric intuition</h4>
+
+<p>The <span>\(L_2\)</span>-depth measures average Euclidean distance. General linear transformations distort distances by stretching different directions unequally. As a result, points that were equally distant before transformation need not remain so afterward.</p>
+
+<p>This behavior reflects that <span>\(L_2\)</span>-depth is fundamentally metric-based rather than affine-geometric.</p>
+
+</section>
+</div>
 
 
 
