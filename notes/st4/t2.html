@@ -1750,6 +1750,215 @@ D^{L_2}(z \mid X)
 </section>
 </div>
 
+<div class="glow-box" id="l2-depth-d5">
+<section>
+
+<h3><span>\(L_2\)</span>-Depth and Axiom D5 (Upper Semicontinuity)</h3>
+
+<h4>Axiom D5: Formal statement</h4>
+
+<p>Let <span>\(D(\cdot \mid X)\)</span> be a depth function on <span>\(\mathbb{R}^d\)</span>.</p>
+
+<p><strong>Axiom D5 (Upper semicontinuity).</strong> For every <span>\(\alpha \in \mathbb{R}\)</span>, the upper level set</p>
+
+<p>
+\[
+D_\alpha(X)
+:=
+\{ z \in \mathbb{R}^d : D(z \mid X) \ge \alpha \}
+\]
+</p>
+
+<p>is a <strong>closed</strong> subset of <span>\(\mathbb{R}^d\)</span>.</p>
+
+<p>Equivalently,</p>
+
+<p>
+\[
+\limsup_{n\to\infty} D(z_n \mid X) \le D(z \mid X)
+\quad \text{whenever } z_n \to z .
+\]
+</p>
+
+<h4>Meaning of Axiom D5</h4>
+
+<p>Upper semicontinuity prevents depth from jumping upward at a limit point. If a sequence of points has depth at least <span>\(\alpha\)</span>, then its limit must also have depth at least <span>\(\alpha\)</span>.</p>
+
+<h4>Why Axiom D5 is desirable</h4>
+
+<ul>
+  <li>Ensures central regions are closed</li>
+  <li>Guarantees existence of deepest points</li>
+  <li>Prevents pathological “limit-only” medians</li>
+</ul>
+
+<p>Axiom D5 guarantees geometric regularity and well-posedness of depth-based medians.</p>
+
+<h4>Verification for the <span>\(L_2\)</span>-depth</h4>
+
+<h5>Step 1: Definition</h5>
+
+<p>The <span>\(L_2\)</span>-depth is</p>
+
+<p>
+\[
+D^{L_2}(z \mid X)
+=
+\bigl(1 + \mathbb{E}|z - X|\bigr)^{-1}.
+\]
+</p>
+
+<p>For any <span>\(\alpha \in (0,1]\)</span>,</p>
+
+<p>
+\[
+D^{L_2}(z \mid X) \ge \alpha
+\quad \Longleftrightarrow \quad
+\mathbb{E}|z - X| \le \frac{1}{\alpha} - 1.
+\]
+</p>
+
+<p>Hence the upper level set is</p>
+
+<p>
+\[
+D^{L_2}_\alpha(X)
+=
+\left\{
+z \in \mathbb{R}^d :
+\mathbb{E}|z - X| \le c_\alpha
+\right\},
+\qquad
+c_\alpha := \frac{1}{\alpha} - 1.
+\]
+</p>
+
+<h5>Step 2: Reduction</h5>
+
+<p>It suffices to show that the function</p>
+
+<p>
+\[
+f(z) := \mathbb{E}|z - X|
+\]
+</p>
+
+<p>is continuous on <span>\(\mathbb{R}^d\)</span>, since sublevel sets of continuous functions are closed.</p>
+
+<h5>Step 3: Pointwise convergence</h5>
+
+<p>Let <span>\(z_n \to z\)</span>. For each fixed realization <span>\(X=x\)</span>,</p>
+
+<p>
+\[
+|z_n - x| \longrightarrow |z - x|
+\]
+</p>
+
+<p>by continuity of the Euclidean norm. Thus <span>\(|z_n - X| \to |z - X|\)</span> almost surely.</p>
+
+<h5>Step 4: Dominated convergence</h5>
+
+<p>For all <span>\(n\)</span>,</p>
+
+<p>
+\[
+|z_n - X| \le |z_n| + |X|.
+\]
+</p>
+
+<p>Since <span>\(z_n \to z\)</span>, the sequence <span>\(|z_n|\)</span> is bounded, so there exists <span>\(M<\infty\)</span> with</p>
+
+<p>
+\[
+|z_n - X| \le M + |X|.
+\]
+</p>
+
+<p>Assuming <span>\(\mathbb{E}|X| < \infty\)</span>, the dominating function is integrable. By the Dominated Convergence Theorem,</p>
+
+<p>
+\[
+\mathbb{E}|z_n - X| \longrightarrow \mathbb{E}|z - X|.
+\]
+</p>
+
+<h5>Step 5: Closedness of upper level sets</h5>
+
+<p>Since <span>\(f(z)\)</span> is continuous,</p>
+
+<p>
+\[
+D^{L_2}_\alpha(X)
+=
+f^{-1}((-\infty,c_\alpha])
+\]
+</p>
+
+<p>is closed. Therefore, <span>\(D^{L_2}(\cdot \mid X)\)</span> is upper semicontinuous.</p>
+
+<h4>Conclusion</h4>
+
+<p>The <span>\(L_2\)</span>-depth satisfies <strong>Axiom D5 (Upper semicontinuity)</strong>:</p>
+
+<p>
+\[
+\boxed{
+D^{L_2}(\cdot \mid X) \text{ is upper semicontinuous on } \mathbb{R}^d
+}
+\]
+</p>
+
+<h4>Geometric intuition</h4>
+
+<p>Average distance varies smoothly with location. There is no mechanism by which an infinitesimal movement can suddenly increase centrality. As a result, depth contours form smooth, closed shells shrinking continuously toward the spatial median.</p>
+
+<p>This guarantees that deepest points genuinely exist and are not merely limiting artifacts.</p>
+
+<h4>Final status of <span>\(L_2\)</span>-depth</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Axiom</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>D1 (Translation invariance)</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>D2 (Linear invariance)</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td>D3 (Null at infinity)</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>D4 (Monotonicity on rays)</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>D5 (Upper semicontinuity)</td>
+      <td>✔️</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+</div>
+
+
+
+
+
+
+
+
+  
   
 
 
