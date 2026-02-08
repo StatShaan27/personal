@@ -3571,6 +3571,139 @@ Axiom D5 (upper semicontinuity) adds topological regularity:
 
 </section>
   
+<section>
+
+<h2>Proposition 2.1 (Central Symmetry)</h2>
+
+<p>
+This proposition states a fundamental consequence of the depth axioms: if a distribution is perfectly symmetric about a point, then that point must be assigned maximal depth by any depth function satisfying axioms D1–D5. The result is axiomatic and does not depend on the construction of a specific depth.
+</p>
+
+<h2>Statement of the Proposition</h2>
+
+<p>
+Let \(X \sim P\) be a random vector in \(\mathbb{R}^d\), and let \(D(\cdot \mid X)\) be a depth function satisfying axioms D1–D5.  
+If \(P\) is centrally symmetric about \(\theta \in \mathbb{R}^d\), then
+\[
+D(\theta \mid X) = \sup_{z \in \mathbb{R}^d} D(z \mid X).
+\]
+Thus, \(\theta\) is a deepest point.
+</p>
+
+<h2>Central Symmetry</h2>
+
+<p>
+A distribution \(P\) is centrally symmetric about \(\theta\) if
+\[
+X - \theta \;\stackrel{d}{=}\; \theta - X.
+\]
+Equivalently, for every Borel set \(B \subset \mathbb{R}^d\),
+\[
+P(\theta + B) = P(\theta - B).
+\]
+</p>
+
+<p>
+Geometrically, reflecting the distribution through \(\theta\) leaves it unchanged. No direction carries more probability mass than its opposite.
+</p>
+
+<h2>Proof of Proposition 2.1</h2>
+
+<h4>Step 1: Reduction by Translation Invariance (D1)</h4>
+
+<p>
+Define \(Y := X - \theta\). By translation invariance,
+\[
+D(z \mid X) = D(z - \theta \mid Y).
+\]
+In particular,
+\[
+D(\theta \mid X) = D(0 \mid Y).
+\]
+Hence it suffices to prove that the origin is a deepest point when the distribution is centrally symmetric about \(0\).
+</p>
+
+<h4>Step 2: Consequence of Central Symmetry</h4>
+
+<p>
+Since \(X \stackrel{d}{=} -X\), the distribution of \(X\) is invariant under reflection. Therefore,
+\[
+D(z \mid X) = D(-z \mid X) \quad \forall z \in \mathbb{R}^d.
+\]
+</p>
+
+<h4>Step 3: Contradiction Hypothesis</h4>
+
+<p>
+Assume that \(0\) is not a deepest point. Then there exists some \(z \neq 0\) such that
+\[
+D(z \mid X) > D(0 \mid X).
+\]
+</p>
+
+<h4>Step 4: Use of Symmetry</h4>
+
+<p>
+By Step 2,
+\[
+D(-z \mid X) = D(z \mid X).
+\]
+Thus both \(z\) and \(-z\) have depth strictly larger than that of \(0\).
+</p>
+
+<h4>Step 5: Midpoint Argument</h4>
+
+<p>
+The midpoint of \(z\) and \(-z\) is \(0\). Both endpoints lie in the same upper level set
+\[
+\{x : D(x \mid X) \ge D(z \mid X)\}.
+\]
+</p>
+
+<h4>Step 6: Monotonicity on Rays (D4)</h4>
+
+<p>
+By D4, depth cannot decrease when moving along a segment toward a deepest point. Hence the depth at the midpoint cannot be smaller than the depth at the endpoints:
+\[
+D(0 \mid X) \ge \min\{D(z \mid X), D(-z \mid X)\} = D(z \mid X).
+\]
+</p>
+
+<h4>Step 7: Contradiction</h4>
+
+<p>
+This contradicts the assumption \(D(z \mid X) > D(0 \mid X)\). Therefore the assumption was false.
+</p>
+
+<h4>Step 8: Conclusion</h4>
+
+<p>
+Thus,
+\[
+D(0 \mid X) = \sup_{z \in \mathbb{R}^d} D(z \mid X).
+\]
+Undoing the translation yields
+\[
+D(\theta \mid X) = \sup_{z \in \mathbb{R}^d} D(z \mid X).
+\]
+</p>
+
+<h2>Use of the Axioms</h2>
+
+<ul>
+  <li>D1 (translation invariance): reduction to symmetry about the origin.</li>
+  <li>D4 (monotonicity on rays): comparison of endpoint and midpoint depths.</li>
+  <li>D5 (upper semicontinuity): guarantees existence of deepest points.</li>
+  <li>D2 and D3 are not required for this result.</li>
+</ul>
+
+<h2>Interpretation</h2>
+
+<p>
+In a centrally symmetric distribution, any point off-center has an equally deep mirror image. If such points were deeper than the center, their midpoint would have to be even deeper. The midpoint is the center itself. Hence the center must be deepest.
+</p>
+
+</section>
 
 
 
