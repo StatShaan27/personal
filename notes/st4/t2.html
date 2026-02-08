@@ -1951,6 +1951,220 @@ D^{L_2}(\cdot \mid X) \text{ is upper semicontinuous on } \mathbb{R}^d
 </section>
 </div>
 
+<div class="glow-box" id="affine-l2-depth">
+<section>
+
+<h3>Affine-Invariant <span>\(L_2\)</span>-Depth</h3>
+
+<h4>Depth under study</h4>
+
+<p>Let <span>\(X \sim P\)</span> be an <span>\(\mathbb{R}^d\)</span>-valued random vector. Let <span>\(S_X \in \mathbb{R}^{d\times d}\)</span> be a <strong>positive definite, affine-equivariant scatter functional</strong>, satisfying</p>
+
+<p>
+\[
+S_{AX+b} = A S_X A^\top
+\quad \text{for all invertible } A \text{ and all } b \in \mathbb{R}^d.
+\]
+</p>
+
+<p>Define the Mahalanobis-type norm</p>
+
+<p>
+\[
+|u|_{S_X} := \sqrt{u^\top S_X^{-1} u}.
+\]
+</p>
+
+<p>The affine-invariant <span>\(L_2\)</span>-depth is</p>
+
+<p>
+\[
+D^{L_2}_{\mathrm{aff}}(z \mid X)
+=
+\bigl(1 + \mathbb{E}|z - X|_{S_X}\bigr)^{-1}.
+\]
+</p>
+
+<p>Assume throughout that <span>\(S_X\)</span> is positive definite and <span>\(\mathbb{E}|X|_{S_X} < \infty\)</span>.</p>
+
+<h4>Axiom D1 — Translation invariance</h4>
+
+<p>For all <span>\(z,b \in \mathbb{R}^d\)</span>,</p>
+
+<p>
+\[
+D(z \mid X) = D(z+b \mid X+b).
+\]
+</p>
+
+<h5>Proof</h5>
+
+<p>Let <span>\(X' = X + b\)</span> and <span>\(z' = z + b\)</span>. By affine equivariance,</p>
+
+<p>
+\[
+S_{X'} = S_{X+b} = S_X.
+\]
+</p>
+
+<p>Therefore,</p>
+
+<p>
+\[
+|z' - X'|_{S_{X'}}
+=
+|(z+b)-(X+b)|_{S_X}
+=
+|z - X|_{S_X}.
+\]
+</p>
+
+<p>Taking expectations yields</p>
+
+<p>
+\[
+D^{L_2}_{\mathrm{aff}}(z+b \mid X+b)
+=
+D^{L_2}_{\mathrm{aff}}(z \mid X).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> affine-invariant <span>\(L_2\)</span>-depth satisfies D1.</p>
+
+<h4>Axiom D2 — Linear (Affine) invariance</h4>
+
+<p>For every invertible <span>\(A\)</span>,</p>
+
+<p>
+\[
+D(z \mid X) = D(Az \mid AX).
+\]
+</p>
+
+<h5>Proof</h5>
+
+<p>Let <span>\(X' = AX\)</span> and <span>\(z' = Az\)</span>. By affine equivariance,</p>
+
+<p>
+\[
+S_{X'} = S_{AX} = A S_X A^\top.
+\]
+</p>
+
+<p>Then</p>
+
+<p>
+\[
+|z' - X'|_{S_{X'}}
+=
+\sqrt{(Az-AX)^\top (A S_X A^\top)^{-1} (Az-AX)}.
+\]
+</p>
+
+<p>Using <span>\((A S_X A^\top)^{-1} = A^{-\top} S_X^{-1} A^{-1}\)</span>, we obtain</p>
+
+<p>
+\[
+|z' - X'|_{S_{X'}}
+=
+\sqrt{(z-X)^\top S_X^{-1} (z-X)}
+=
+|z - X|_{S_X}.
+\]
+</p>
+
+<p>Hence expectations coincide and</p>
+
+<p>
+\[
+D^{L_2}_{\mathrm{aff}}(Az \mid AX)
+=
+D^{L_2}_{\mathrm{aff}}(z \mid X).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> affine-invariant <span>\(L_2\)</span>-depth satisfies D2.</p>
+
+<h4>Axiom D3 — Null at infinity</h4>
+
+<p>By the reverse triangle inequality in Mahalanobis norm,</p>
+
+<p>
+\[
+|z-X|_{S_X}
+\ge
+|z|_{S_X} - |X|_{S_X}.
+\]
+</p>
+
+<p>Taking expectations gives</p>
+
+<p>
+\[
+\mathbb{E}|z-X|_{S_X}
+\ge
+|z|_{S_X} - \mathbb{E}|X|_{S_X}.
+\]
+</p>
+
+<p>Since <span>\(|z|_{S_X} \to \infty\)</span> as <span>\(|z| \to \infty\)</span>, it follows that</p>
+
+<p>
+\[
+D^{L_2}_{\mathrm{aff}}(z \mid X) \to 0.
+\]
+</p>
+
+<p><strong>Conclusion:</strong> affine-invariant <span>\(L_2\)</span>-depth satisfies D3.</p>
+
+<h4>Axiom D4 — Monotonicity on rays</h4>
+
+<p>The proof mirrors the <span>\(L_2\)</span>-depth case:</p>
+
+<ul>
+  <li><span>\(z^\ast\)</span> minimizes <span>\(\mathbb{E}|z-X|_{S_X}\)</span></li>
+  <li><span>\(|z-X|_{S_X}\)</span> is convex in <span>\(z\)</span></li>
+  <li>Expectation preserves convexity</li>
+</ul>
+
+<p>Hence, for all <span>\(t \in [0,1]\)</span>,</p>
+
+<p>
+\[
+D^{L_2}_{\mathrm{aff}}(z^\ast + t(z-z^\ast))
+\ge
+D^{L_2}_{\mathrm{aff}}(z).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> affine-invariant <span>\(L_2\)</span>-depth satisfies D4.</p>
+
+<h4>Axiom D5 — Upper semicontinuity</h4>
+
+<p>The map <span>\(z \mapsto |z-X|_{S_X}\)</span> is continuous. Under the finite first-moment assumption, dominated convergence implies continuity of <span>\(\mathbb{E}|z-X|_{S_X}\)</span>. Therefore, upper level sets are closed.</p>
+
+<p><strong>Conclusion:</strong> affine-invariant <span>\(L_2\)</span>-depth satisfies D5.</p>
+
+<h4>Final status — Affine-invariant <span>\(L_2\)</span>-depth</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Axiom</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>D1</td><td>✔️</td></tr>
+    <tr><td>D2</td><td>✔️</td></tr>
+    <tr><td>D3</td><td>✔️</td></tr>
+    <tr><td>D4</td><td>✔️</td></tr>
+    <tr><td>D5</td><td>✔️</td></tr>
+  </tbody>
+</table>
+
+</section>
+</div>
 
 
 
