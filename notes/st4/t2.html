@@ -897,6 +897,169 @@ D(x) = \left\lVert \sum_i w_i(x)(x_i - x) \right\rVert^{-1}.
 </div>
 
 
+<div class="glow-box" id="2.3-depth-table">
+<section>
+
+<h3>Summary of common multivariate depth functions</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Depth name</th>
+      <th>Formal definition <span>\(D(z \mid X)\)</span></th>
+      <th>Underlying intuition</th>
+      <th>Visualization principle</th>
+      <th>Associated median / deepest points</th>
+      <th>Claimed properties (no proof)</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><strong><span>\(L_2\)</span>-depth</strong></td>
+      <td>
+        <p>
+        \[
+        \bigl(1+\mathbb{E}|z-X|\bigr)^{-1}
+        \]
+        </p>
+      </td>
+      <td>Mean outlyingness measured by average Euclidean distance</td>
+      <td>Inverse-distance contours; closer to data cloud implies higher depth</td>
+      <td><strong>Spatial median</strong>: minimizers of <span>\(\mathbb{E}|z-X|\)</span></td>
+      <td>D1, D3–D5; convex compact regions; not affine invariant; poor dispersion ordering</td>
+    </tr>
+
+```
+<tr>
+  <td><strong>Affine-invariant <span>\(L_2\)</span>-depth</strong></td>
+  <td>
+    <p>
+    \[
+    \bigl(1+\mathbb{E}|z-X|_{S_X}\bigr)^{-1}
+    \]
+    </p>
+  </td>
+  <td>Distance scaled by affine-equivariant scatter</td>
+  <td>Ellipsoidal distortion correcting anisotropy</td>
+  <td>Affine spatial median</td>
+  <td>D1–D5; affine invariant; depends on choice of <span>\(S_X\)</span></td>
+</tr>
+
+<tr>
+  <td><strong>Mahalanobis depth</strong></td>
+  <td>
+    <p>
+    \[
+    \bigl(1+(z-c_X)^\top S_X^{-1}(z-c_X)\bigr)^{-1}
+    \]
+    </p>
+  </td>
+  <td>Squared standardized distance from center</td>
+  <td>Ellipsoids centered at <span>\(c_X\)</span></td>
+  <td>Center <span>\(c_X\)</span></td>
+  <td>D1, D2, D3–D5; moment-based; insensitive beyond first two moments</td>
+</tr>
+
+<tr>
+  <td><strong>Moment Mahalanobis depth</strong></td>
+  <td>
+    <p>
+    \[
+    \bigl(1+(z-\mathbb{E}X)^\top\Sigma_X^{-1}(z-\mathbb{E}X)\bigr)^{-1}
+    \]
+    </p>
+  </td>
+  <td>Classical quadratic distance</td>
+  <td>Covariance ellipsoids</td>
+  <td>Mean vector <span>\(\mathbb{E}X\)</span></td>
+  <td>Same as Mahalanobis; non-robust</td>
+</tr>
+
+<tr>
+  <td><strong>Projection depth</strong></td>
+  <td>
+    <p>
+    \[
+    \Bigl(
+    1+
+    \sup_{|p|=1}
+    \frac{
+    \langle p,z\rangle-\mathrm{med}(\langle p,X\rangle)
+    }{
+    \mathrm{Dmed}(\langle p,X\rangle)
+    }
+    \Bigr)^{-1}
+    \]
+    </p>
+  </td>
+  <td>Worst standardized univariate outlyingness</td>
+  <td>Intersection of all directional slabs</td>
+  <td>Projection median (possibly non-unique)</td>
+  <td>D1–D5; D4con; high robustness</td>
+</tr>
+
+<tr>
+  <td><strong>Oja depth</strong></td>
+  <td>
+    <p>
+    \[
+    \Bigl(
+    1+
+    \frac{
+    \mathbb{E}\,\mathrm{Vol}_d\bigl(\mathrm{co}(z,X_1,\dots,X_d)\bigr)
+    }{
+    \sqrt{\det \Sigma_X}
+    }
+    \Bigr)^{-1}
+    \]
+    </p>
+  </td>
+  <td>Average simplex volume with vertex at <span>\(z\)</span></td>
+  <td>Volume grows rapidly away from center</td>
+  <td><strong>Oja median</strong> (may be non-unique)</td>
+  <td>D1–D5; continuous; distribution-determining (compact support)</td>
+</tr>
+
+<tr>
+  <td><strong>Location / Tukey depth</strong></td>
+  <td>
+    <p>
+    \[
+    \inf\{P(H): H \text{ closed halfspace},\, z\in H\}
+    \]
+    </p>
+  </td>
+  <td>Minimum mass in any direction containing <span>\(z\)</span></td>
+  <td>Nested halfspace intersections</td>
+  <td>Tukey median(s)</td>
+  <td>D1, D2, D3–D5; maximum depth ≤ <span>\(1/2\)</span>; strong robustness</td>
+</tr>
+
+<tr>
+  <td><strong>Simplicial depth</strong></td>
+  <td>
+    <p>
+    \[
+    P\bigl(z\in\mathrm{co}(X_1,\dots,X_{d+1})\bigr)
+    \]
+    </p>
+  </td>
+  <td>Likelihood that <span>\(z\)</span> lies inside random simplices</td>
+  <td>Coverage frequency by simplices</td>
+  <td>Simplicial median(s)</td>
+  <td>D1, D2, D3–D5 (under continuity); sensitive to discreteness</td>
+</tr>
+```
+
+  </tbody>
+</table>
+
+</section>
+</div>
+
+
+
 
 
 
