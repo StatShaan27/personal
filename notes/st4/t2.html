@@ -2795,6 +2795,199 @@ z\mapsto \mathbb{E}\operatorname{Vol}_d(\operatorname{co}(z,X_1,\dots,X_d)).
 </section>
 </div>
 
+<div class="glow-box" id="tukey-depth">
+<section>
+
+<h3>Location (Halfspace / Tukey) Depth</h3>
+
+<h4>Depth under study</h4>
+
+<p>We work in <span>\(\mathbb{R}^d\)</span> with <span>\(d \ge 1\)</span>. Let <span>\(X \sim P\)</span> be a Borel probability measure on <span>\(\mathbb{R}^d\)</span>.</p>
+
+<p>A <strong>closed halfspace</strong> in <span>\(\mathbb{R}^d\)</span> is any set of the form</p>
+
+<p>
+\[
+H_{u,t}
+=
+\{ x \in \mathbb{R}^d : u^\top x \le t \},
+\]
+</p>
+
+<p>where <span>\(u \in \mathbb{R}^d \setminus \{0\}\)</span> and <span>\(t \in \mathbb{R}\)</span>.</p>
+
+<p>The <strong>location (halfspace / Tukey) depth</strong> of a point <span>\(z \in \mathbb{R}^d\)</span> is defined as</p>
+
+<p>
+\[
+D^{\mathrm{loc}}(z \mid X)
+=
+\inf\{ P(H) : H \text{ is a closed halfspace and } z \in H \}.
+\]
+</p>
+
+<h4>Axiom D1 — Translation invariance</h4>
+
+<p>Let <span>\(b \in \mathbb{R}^d\)</span>, and define <span>\(z' = z + b\)</span>, <span>\(X' = X + b\)</span>.</p>
+
+<p>If</p>
+
+<p>
+\[
+H = \{x : u^\top x \le t\}
+\]
+</p>
+
+<p>is a closed halfspace containing <span>\(z\)</span>, then</p>
+
+<p>
+\[
+H' = H + b = \{x : u^\top x \le t + u^\top b\}
+\]
+</p>
+
+<p>is a closed halfspace containing <span>\(z'\)</span>, and <span>\(P'(H') = P(H)\)</span>. Taking infima yields</p>
+
+<p>
+\[
+D^{\mathrm{loc}}(z \mid X) = D^{\mathrm{loc}}(z+b \mid X+b).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> halfspace depth satisfies D1.</p>
+
+<h4>Axiom D2 — Linear (Affine) invariance</h4>
+
+<p>Let <span>\(A\)</span> be invertible. If</p>
+
+<p>
+\[
+H = \{x : u^\top x \le t\},
+\]
+</p>
+
+<p>then</p>
+
+<p>
+\[
+A(H) = \{y : (A^{-\top}u)^\top y \le t\}
+\]
+</p>
+
+<p>is again a closed halfspace. Moreover,</p>
+
+<p>
+\[
+z \in H \iff Az \in A(H),
+\qquad
+P_{AX}(A(H)) = P(H).
+\]
+</p>
+
+<p>Taking infima over all halfspaces yields</p>
+
+<p>
+\[
+D^{\mathrm{loc}}(z \mid X) = D^{\mathrm{loc}}(Az \mid AX).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> halfspace depth satisfies D2.</p>
+
+<h4>Axiom D3 — Null at infinity</h4>
+
+<p>Fix a direction <span>\(u \in S^{d-1}\)</span> and define</p>
+
+<p>
+\[
+H_z = \{x : u^\top x \le u^\top z\}.
+\]
+</p>
+
+<p>Then <span>\(z \in H_z\)</span> and</p>
+
+<p>
+\[
+D^{\mathrm{loc}}(z \mid X) \le P(H_z).
+\]
+</p>
+
+<p>As <span>\(|z| \to \infty\)</span>, one can choose the sign of <span>\(u\)</span> so that <span>\(P(H_z) \to 0\)</span> by tightness of probability measures on <span>\(\mathbb{R}^d\)</span>. Hence</p>
+
+<p>
+\[
+D^{\mathrm{loc}}(z \mid X) \to 0.
+\]
+</p>
+
+<p><strong>Conclusion:</strong> halfspace depth satisfies D3.</p>
+
+<h4>Axiom D4 — Monotonicity on rays</h4>
+
+<p>Let <span>\(z^\ast\)</span> be a deepest point and define</p>
+
+<p>
+\[
+z_t = z^\ast + t(z - z^\ast), \quad t \in [0,1].
+\]
+</p>
+
+<p>If a closed halfspace <span>\(H\)</span> contains <span>\(z_t\)</span>, convexity of halfspaces implies that whenever <span>\(z \notin H\)</span>, also <span>\(z_t \notin H\)</span>. Hence</p>
+
+<p>
+\[
+\{H : z \in H\} \subseteq \{H : z_t \in H\}.
+\]
+</p>
+
+<p>Taking infima yields</p>
+
+<p>
+\[
+D^{\mathrm{loc}}(z_t \mid X) \ge D^{\mathrm{loc}}(z \mid X).
+\]
+</p>
+
+<p><strong>Conclusion:</strong> halfspace depth satisfies D4.</p>
+
+<h4>Axiom D5 — Upper semicontinuity</h4>
+
+<p>For <span>\(\alpha \in [0,1]\)</span>,</p>
+
+<p>
+\[
+D^{\mathrm{loc}}_\alpha(X)
+=
+\{z : D^{\mathrm{loc}}(z \mid X) \ge \alpha\}
+=
+\bigcap_{\substack{H \text{ closed halfspace} \\ P(H) \ge \alpha}} H.
+\]
+</p>
+
+<p>This is an arbitrary intersection of closed sets, hence closed.</p>
+
+<p><strong>Conclusion:</strong> halfspace depth satisfies D5.</p>
+
+<h4>Final status — Halfspace (Tukey) depth</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Axiom</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>D1</td><td>✔️</td></tr>
+    <tr><td>D2</td><td>✔️</td></tr>
+    <tr><td>D3</td><td>✔️</td></tr>
+    <tr><td>D4</td><td>✔️</td></tr>
+    <tr><td>D5</td><td>✔️</td></tr>
+  </tbody>
+</table>
+
+</section>
+</div>
 
 
 
