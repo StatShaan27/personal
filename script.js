@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Only define ONCE
   const projects = [
-    {
-      name: "ISI Summer Internship",
+  {
+    name: "ISI Summer Internship",
     university: "Indian Statistical Institute",
     country: "India",
     reg_start: "2026-03-01",
@@ -16,14 +16,19 @@ document.addEventListener("DOMContentLoaded", () => {
     prog_end: "2026-07-31",
     reco: 2,
     link: "#"
-    },
-    {
-      name: "IIT Madras Winter Project",
-      start: "2026-10-01",
-      end: "2026-11-10",
-      link: "#"
-    }
-  ];
+  },
+  {
+    name: "IIT Madras Winter Project",
+    university: "IIT Madras",
+    country: "India",
+    reg_start: "2026-10-01",
+    reg_end: "2026-11-10",
+    prog_start: "2026-12-01",
+    prog_end: "2027-01-15",
+    reco: 1,
+    link: "#"
+  }
+];
 
   // Only run if page has these sections
   if (liveContainer && otherContainer) {
