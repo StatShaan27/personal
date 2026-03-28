@@ -89,53 +89,7 @@
     <p>&copy; 2025 Shaan | Built with clarity</p>
   </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const today = new Date();
-
-      const liveContainer = document.getElementById("live-list");
-      const otherContainer = document.getElementById("other-list");
-
-      const projects = [
-        {
-          name: "ISI Summer Internship",
-          start: "2026-03-01",
-          end: "2026-04-15",
-          link: "#"
-        },
-        {
-          name: "IIT Madras Winter Project",
-          start: "2026-10-01",
-          end: "2026-11-10",
-          link: "#"
-        }
-      ];
-
-      projects.forEach(project => {
-  const startDate = new Date(project.reg_start);
-const endDate = new Date(project.reg_end);
-
-  const card = document.createElement("div");
-  card.className = "opp-card";
-
-  card.innerHTML = `
-    <div class="opp-title">${project.name}</div>
-    <div class="opp-meta">${project.university}, ${project.country}</div>
-    <div class="opp-meta"><strong>Registration:</strong> ${project.reg_start} → ${project.reg_end}</div>
-    <div class="opp-meta"><strong>Program:</strong> ${project.prog_start} → ${project.prog_end}</div>
-    <div class="opp-meta"><strong>Recommendations:</strong> ${project.reco}</div>
-    <a href="${project.link}" class="opp-link" target="_blank">View Details</a>
-  `;
-
-  if (today >= startDate && today <= endDate) {
-    liveContainer.innerHTML = "";
-    liveContainer.appendChild(card);
-  } else {
-    otherContainer.appendChild(card);
-  }
-});
-    });
-  </script>
+  
 
 </body>
 </html>
