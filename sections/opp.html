@@ -8,97 +8,44 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      background-color: #0d1117;
-      color: #e6edf3;
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+    .opp-card {
+  border-left: 4px solid #58a6ff;
+  background-color: #121212;
+  padding: 1rem 1.5rem;
+  margin: 1rem auto;
+  border-radius: 10px;
+  max-width: 700px;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
 
-    header {
-      text-align: center;
-      padding: 3rem 1rem 2rem;
-    }
+.opp-card:hover {
+  transform: scale(1.01);
+}
 
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.8rem;
-      color: #58a6ff;
-    }
+.opp-title {
+  font-size: 1.2rem;
+  color: #c9d1d9;
+  font-weight: 600;
+}
 
-    header p {
-      font-size: 1.1rem;
-      color: #8b949e;
-    }
+.opp-meta {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 0.3rem;
+}
 
-    nav ul {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      padding: 0;
-      list-style: none;
-    }
+.opp-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  color: #58a6ff;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
 
-    nav ul li a {
-      color: #c9d1d9;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    nav ul li a:hover {
-      color: #58a6ff;
-    }
-
-    .opp-wrapper {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-
-    .opp-block {
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-
-    .opp-block h2 {
-      font-family: 'Playfair Display', serif;
-      color: #58a6ff;
-      margin-bottom: 1rem;
-    }
-
-    .opp-link {
-      display: block;
-      margin: 0.8rem auto;
-      font-size: 1.05rem;
-      color: #c9d1d9;
-      text-decoration: none;
-      border: 2px solid #58a6ff;
-      border-radius: 8px;
-      padding: 0.6rem 1.2rem;
-      width: fit-content;
-      transition: all 0.3s ease;
-    }
-
-    .opp-link:hover {
-      background-color: #58a6ff;
-      color: #000;
-      transform: scale(1.05);
-    }
-
-    .coming-soon {
-      color: #888;
-      font-style: italic;
-      font-size: 0.95rem;
-      margin-top: 0.5rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      color: #8b949e;
-      font-size: 0.9rem;
-    }
+.opp-link:hover {
+  text-decoration: underline;
+}
   </style>
 </head>
 
