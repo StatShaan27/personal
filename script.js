@@ -49,9 +49,9 @@ card.innerHTML = `
 `;
       if (today >= startDate && today <= endDate) {
         liveContainer.innerHTML = "";
-        liveContainer.appendChild(link);
+        liveContainer.appendChild(card);
       } else {
-        otherContainer.appendChild(link);
+        otherContainer.appendChild(card);
       }
     });
   }
