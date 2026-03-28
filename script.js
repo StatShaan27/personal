@@ -8,9 +8,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const projects = [
     {
       name: "ISI Summer Internship",
-      start: "2026-03-01",
-      end: "2026-04-15",
-      link: "#"
+    university: "Indian Statistical Institute",
+    country: "India",
+    reg_start: "2026-03-01",
+    reg_end: "2026-04-15",
+    prog_start: "2026-06-01",
+    prog_end: "2026-07-31",
+    reco: 2,
+    link: "#"
     },
     {
       name: "IIT Madras Winter Project",
