@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Only run if page has these sections
   if (liveContainer && otherContainer) {
     projects.forEach(project => {
-      const startDate = new Date(project.start);
-      const endDate = new Date(project.end);
+      const startDate = new Date(project.reg_start);
+const endDate = new Date(project.reg_end);
 
       const link = document.createElement("a");
       link.href = project.link;
