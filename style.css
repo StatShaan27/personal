@@ -18,8 +18,7 @@ body {
 
 header {
   text-align: center;
-  padding: 4rem 2rem;
-  animation: fadeIn 1.5s ease-in;
+  padding: 3rem 1.5rem 2rem;
 }
 
 .profile-pic {
@@ -182,12 +181,15 @@ body::before {
   background-color: #121212;
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 0 10px rgba(110, 255, 224, 0.05);
+  margin-bottom: 2rem;
 }
 
 /* Header */
 #opp-table th {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Inter', sans-serif;
   color: #6effe0;
+  letter-spacing: 0.5px;
   padding: 0.8rem;
   border-bottom: 2px solid #333;
   cursor: pointer;
@@ -203,10 +205,11 @@ body::before {
 }
 
 /* Hover effect */
-#opp-table tr:hover {
-  background-color: #1a1a1a;
-}
 
+#opp-table tr:hover {
+  background-color: #1f1f1f;
+  transition: background 0.2s ease;
+}
 /* Links inside table */
 #opp-table a {
   color: #6effe0;
@@ -214,14 +217,18 @@ body::before {
   font-weight: 500;
 }
 
+#opp-table tr:nth-child(even) {
+  background-color: #161616;
+}
+
 #opp-table a:hover {
   text-decoration: underline;
 }
 
+
 /* ========================= */
 /* Responsive Fix */
 /* ========================= */
-
 @media (max-width: 768px) {
   #opp-table th,
   #opp-table td {
@@ -229,8 +236,8 @@ body::before {
     padding: 0.5rem;
   }
 
-  #searchBox {
-    width: 95%;
+  #searchBox::placeholder {
+    color: #888;
   }
 }
-
+  
