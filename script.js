@@ -120,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       renderTable(currentData);
-    });
   });
 
   // 🔥 Auto-sort by urgency on load
