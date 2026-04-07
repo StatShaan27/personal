@@ -4,12 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Opportunities | Shaan</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="../style.css" />
+
+  <!-- Script -->
   <script defer src="../script.js"></script>
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+  <!-- Background Pattern -->
+  <div class="background-pattern"></div>
 
   <header>
     <h1>Opportunities Tracker</h1>
@@ -32,12 +41,14 @@
     <section class="opp-block">
       <h2>Opportunities</h2>
 
+      <!-- Search -->
       <input 
         type="text" 
         id="searchBox" 
         placeholder="Search by name, university, or country..."
       >
 
+      <!-- Table -->
       <table id="opp-table">
         <thead>
           <tr>
@@ -52,7 +63,11 @@
             <th>Link</th>
           </tr>
         </thead>
-        <tbody id="table-body"></tbody>
+
+        <!-- IMPORTANT: This is required for JS -->
+        <tbody id="table-body">
+          <!-- Data will be inserted here by script.js -->
+        </tbody>
       </table>
 
     </section>
