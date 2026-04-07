@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!tableBody) return;
 
-  let projects = [
+  const projects = [
     {
       name: "ISI Summer Internship",
       university: "Indian Statistical Institute",
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let currentData = [...projects];
-  let sortDirection = {};
+  let sortState = { column: null, asc: true };
 
   function getDaysLeft(dateStr) {
     const today = new Date();
@@ -44,12 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     data.forEach(p => {
       const daysLeft = getDaysLeft(p.reg_end);
-
       const row = document.createElement("tr");
 
+      // Urgency highlight
       if (daysLeft <= 7 && daysLeft >= 0) {
         row.style.backgroundColor = "#2a1a1a";
-        row.style.borderLeft = "3px solid red";
+        row.style.borderLeft = "3px solid #ff4d4d";
       }
 
       row.innerHTML = `
@@ -82,40 +82,49 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 🔽 SORTING
-headers.forEach((th, index) => {
-  if (index === 8) return;
+  headers.forEach((th, index) => {
+    if (index === 8) return; // skip link column
 
-  th.addEventListener("click", () => {
+    th.addEventListener("click", () => {
 
-    // Remove previous indicators
-    headers.forEach(h => {
-      h.classList.remove("sorted-asc", "sorted-desc");
-    });
+      // Reset header indicators
+      headers.forEach(h => h.classList.remove("sorted-asc", "sorted-desc"));
 
-    sortDirection[index] = !sortDirection[index];
-
-    // Add indicator
-    th.classList.add(sortDirection[index] ? "sorted-asc" : "sorted-desc");
-
-    currentData.sort((a, b) => {
-      let valA, valB;
-
-      switch (index) {
-        case 0: valA = a.name; valB = b.name; break;
-        case 1: valA = a.university; valB = b.university; break;
-        case 2: valA = a.country; valB = b.country; break;
-        case 3: valA = new Date(a.reg_start); valB = new Date(b.reg_start); break;
-        case 4: valA = new Date(a.reg_end); valB = new Date(b.reg_end); break;
-        case 5: valA = new Date(a.prog_start); valB = new Date(b.prog_start); break;
-        case 6: valA = a.reco; valB = b.reco; break;
-        case 7: valA = getDaysLeft(a.reg_end); valB = getDaysLeft(b.reg_end); break;
+      // Toggle sort direction
+      if (sortState.column === index) {
+        sortState.asc = !sortState.asc;
+      } else {
+        sortState.column = index;
+        sortState.asc = true;
       }
 
-      if (valA < valB) return sortDirection[index] ? -1 : 1;
-      if (valA > valB) return sortDirection[index] ? 1 : -1;
-      return 0;
-    });
+      th.classList.add(sortState.asc ? "sorted-asc" : "sorted-desc");
 
-    renderTable(currentData);
+      currentData.sort((a, b) => {
+        let valA, valB;
+
+        switch (index) {
+          case 0: valA = a.name.toLowerCase(); valB = b.name.toLowerCase(); break;
+          case 1: valA = a.university.toLowerCase(); valB = b.university.toLowerCase(); break;
+          case 2: valA = a.country.toLowerCase(); valB = b.country.toLowerCase(); break;
+          case 3: valA = new Date(a.reg_start); valB = new Date(b.reg_start); break;
+          case 4: valA = new Date(a.reg_end); valB = new Date(b.reg_end); break;
+          case 5: valA = new Date(a.prog_start); valB = new Date(b.prog_start); break;
+          case 6: valA = a.reco; valB = b.reco; break;
+          case 7: valA = getDaysLeft(a.reg_end); valB = getDaysLeft(b.reg_end); break;
+        }
+
+        if (valA < valB) return sortState.asc ? -1 : 1;
+        if (valA > valB) return sortState.asc ? 1 : -1;
+        return 0;
+      });
+
+      renderTable(currentData);
+    });
   });
+
+  // 🔥 Auto-sort by urgency on load
+  currentData.sort((a, b) => getDaysLeft(a.reg_end) - getDaysLeft(b.reg_end));
+
+  renderTable(currentData);
 });
