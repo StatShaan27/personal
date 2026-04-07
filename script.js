@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const projects = [
     {
+  name: "NUS Amgen Scholars Program",
+  university: "National University of Singapore",
+  country: "Singapore",
+  reg_start: "2026-11-01",
+  reg_end: "2027-02-01",
+  prog_start: "2027-06-02",
+  prog_end: "2027-08-06",
+  reco: 2,
+  link: "https://www.dbs.nus.edu.sg/outreach/amgen-scholars-program/"
+},
+    {
   name: "Rockefeller SURF (Summer Undergraduate Research Fellowship)",
   university: "Rockefeller University",
   country: "United States",
