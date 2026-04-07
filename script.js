@@ -81,47 +81,59 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 🔽 SORTING
-  const keys = [
-    "name",
-    "university",
-    "country",
-    "reg_start",
-    "reg_end",
-    "prog_start",
-    "reco",
-    "daysLeft"
-  ];
+headers.forEach((th, index) => {
+  if (index === 8) return; // skip link column
 
-  headers.forEach((th, index) => {
-    if (index === 8) return; // Skip link column
+  th.addEventListener("click", () => {
+    sortDirection[index] = !sortDirection[index];
 
-    th.addEventListener("click", () => {
-      const key = keys[index];
-      sortDirection[key] = !sortDirection[key];
+    currentData.sort((a, b) => {
+      let valA, valB;
 
-      currentData.sort((a, b) => {
-        let valA, valB;
-
-        if (key === "daysLeft") {
+      // Handle each column explicitly
+      switch (index) {
+        case 0:
+          valA = a.name;
+          valB = b.name;
+          break;
+        case 1:
+          valA = a.university;
+          valB = b.university;
+          break;
+        case 2:
+          valA = a.country;
+          valB = b.country;
+          break;
+        case 3:
+          valA = new Date(a.reg_start);
+          valB = new Date(b.reg_start);
+          break;
+        case 4:
+          valA = new Date(a.reg_end);
+          valB = new Date(b.reg_end);
+          break;
+        case 5:
+          valA = new Date(a.prog_start);
+          valB = new Date(b.prog_start);
+          break;
+        case 6:
+          valA = a.reco;
+          valB = b.reco;
+          break;
+        case 7:
           valA = getDaysLeft(a.reg_end);
           valB = getDaysLeft(b.reg_end);
-        } else if (key.includes("date") || key.includes("reg") || key.includes("prog")) {
-          valA = new Date(a[key]);
-          valB = new Date(b[key]);
-        } else {
-          valA = a[key];
-          valB = b[key];
-        }
+          break;
+      }
 
-        if (valA < valB) return sortDirection[key] ? -1 : 1;
-        if (valA > valB) return sortDirection[key] ? 1 : -1;
-        return 0;
-      });
-
-      renderTable(currentData);
+      if (valA < valB) return sortDirection[index] ? -1 : 1;
+      if (valA > valB) return sortDirection[index] ? 1 : -1;
+      return 0;
     });
-  });
 
+    renderTable(currentData);
+  });
+});
   // Initial render
   renderTable(projects);
 });
