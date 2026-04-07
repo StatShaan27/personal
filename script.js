@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   prog_end: "2027-08-07",
   reco: 2,
   link: "https://www.rockefeller.edu/surf/"
-}
+},
     {
   name: "TIGP Summer Internship (Academia Sinica)",
   university: "Academia Sinica",
