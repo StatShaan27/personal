@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const projects = [
     {
+  name: "TIGP Summer Internship (Academia Sinica)",
+  university: "Academia Sinica",
+  country: "Taiwan",
+  reg_start: "2027-12-15",
+  reg_end: "2028-01-15",
+  prog_start: "2028-05-01",
+  prog_end: "2028-08-31",
+  reco: 2,
+  link: "https://tigp.sinica.edu.tw/"
+},
+    {
       name: "ISI Summer Internship",
       university: "Indian Statistical Institute",
       country: "India",
