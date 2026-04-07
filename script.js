@@ -60,6 +60,17 @@ document.addEventListener("DOMContentLoaded", () => {
   prog_end: "Flexible",
   reco: 0,
   link: "https://phd.ista.ac.at/scientific-internships/"
+},
+    {
+  name: "Warwick SRE (Summer Research Experience)",
+  university: "University of Warwick",
+  country: "United Kingdom",
+  reg_start: "2027-01-01",
+  reg_end: "2027-03-22",
+  prog_start: "2027-07-13",
+  prog_end: "2027-09-04",
+  reco: 0,
+  link: "https://warwick.ac.uk/"
 }
   ];
 
