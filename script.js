@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const tableBody = document.getElementById("table-body");
   const searchBox = document.getElementById("searchBox");
 
-  // Exit if not on opportunities page
   if (!tableBody) return;
 
   const projects = [
@@ -33,14 +32,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderTable(data) {
     tableBody.innerHTML = "";
 
+    const today = new Date();
+
     data.forEach(p => {
-      const today = new Date();
       const endDate = new Date(p.reg_end);
       const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
 
       const row = document.createElement("tr");
 
-      // Highlight urgent deadlines
+      // Urgency highlight
       if (daysLeft <= 7 && daysLeft >= 0) {
         row.style.backgroundColor = "#2a1a1a";
       }
@@ -61,10 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Initial render
   renderTable(projects);
 
-  // 🔍 Search / Filter
+  // Filter
   searchBox.addEventListener("input", () => {
     const value = searchBox.value.toLowerCase();
 
