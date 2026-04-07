@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const projects = [
     {
+  name: "Rockefeller SURF (Summer Undergraduate Research Fellowship)",
+  university: "Rockefeller University",
+  country: "United States",
+  reg_start: "2026-12-01",
+  reg_end: "2027-02-01",
+  prog_start: "2027-06-01",
+  prog_end: "2027-08-07",
+  reco: 2,
+  link: "https://www.rockefeller.edu/surf/"
+}
+    {
   name: "TIGP Summer Internship (Academia Sinica)",
   university: "Academia Sinica",
   country: "Taiwan",
