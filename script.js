@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🔍 FILTER
+  // FILTER
   searchBox.addEventListener("input", () => {
     const value = searchBox.value.toLowerCase();
 
@@ -80,12 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
     renderTable(currentData);
   });
 
-  // 🔽 SORTING
+  // SORTING
   headers.forEach((th, index) => {
     if (index === 8) return;
 
     th.addEventListener("click", () => {
-
       headers.forEach(h => h.classList.remove("sorted-asc", "sorted-desc"));
 
       if (sortState.column === index) {
@@ -120,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 🔥 Auto-sort on load
+  // AUTO SORT
   currentData.sort((a, b) => getDaysLeft(a.reg_end) - getDaysLeft(b.reg_end));
 
   renderTable(currentData);
