@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const today = new Date();
+  const tableBody = document.getElementById("table-body");
+  const searchBox = document.getElementById("searchBox");
 
-  const liveContainer = document.getElementById("live-list");
-  const otherContainer = document.getElementById("other-list");
-
-  if (!liveContainer || !otherContainer) return;
+  // Exit if not on opportunities page
+  if (!tableBody) return;
 
   const projects = [
     {
@@ -31,27 +30,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   ];
 
-  projects.forEach(project => {
-    const startDate = new Date(project.reg_start);
-    const endDate = new Date(project.reg_end);
+  function renderTable(data) {
+    tableBody.innerHTML = "";
 
-    const card = document.createElement("div");
-    card.className = "opp-card";
+    data.forEach(p => {
+      const today = new Date();
+      const endDate = new Date(p.reg_end);
+      const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
 
-    card.innerHTML = `
-      <div class="opp-title">${project.name}</div>
-      <div class="opp-meta">${project.university}, ${project.country}</div>
-      <div class="opp-meta"><strong>Registration:</strong> ${project.reg_start} → ${project.reg_end}</div>
-      <div class="opp-meta"><strong>Program:</strong> ${project.prog_start} → ${project.prog_end}</div>
-      <div class="opp-meta"><strong>Recommendations:</strong> ${project.reco}</div>
-      <a href="${project.link}" class="opp-link" target="_blank">View Details</a>
-    `;
+      const row = document.createElement("tr");
 
-    if (today >= startDate && today <= endDate) {
-      liveContainer.innerHTML = "";
-      liveContainer.appendChild(card);
-    } else {
-      otherContainer.appendChild(card);
-    }
+      // Highlight urgent deadlines
+      if (daysLeft <= 7 && daysLeft >= 0) {
+        row.style.backgroundColor = "#2a1a1a";
+      }
+
+      row.innerHTML = `
+        <td>${p.name}</td>
+        <td>${p.university}</td>
+        <td>${p.country}</td>
+        <td>${p.reg_start}</td>
+        <td>${p.reg_end}</td>
+        <td>${p.prog_start} → ${p.prog_end}</td>
+        <td>${p.reco}</td>
+        <td>${daysLeft >= 0 ? daysLeft + " days" : "Closed"}</td>
+        <td><a href="${p.link}" target="_blank">View</a></td>
+      `;
+
+      tableBody.appendChild(row);
+    });
+  }
+
+  // Initial render
+  renderTable(projects);
+
+  // 🔍 Search / Filter
+  searchBox.addEventListener("input", () => {
+    const value = searchBox.value.toLowerCase();
+
+    const filtered = projects.filter(p =>
+      p.name.toLowerCase().includes(value) ||
+      p.university.toLowerCase().includes(value) ||
+      p.country.toLowerCase().includes(value)
+    );
+
+    renderTable(filtered);
   });
 });
