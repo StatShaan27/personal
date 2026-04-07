@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (daysLeft <= 7 && daysLeft >= 0) {
         row.style.backgroundColor = "#2a1a1a";
+        row.style.borderLeft = "3px solid red";
       }
 
       row.innerHTML = `
@@ -82,48 +83,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🔽 SORTING
 headers.forEach((th, index) => {
-  if (index === 8) return; // skip link column
+  if (index === 8) return;
 
   th.addEventListener("click", () => {
+
+    // Remove previous indicators
+    headers.forEach(h => {
+      h.classList.remove("sorted-asc", "sorted-desc");
+    });
+
     sortDirection[index] = !sortDirection[index];
+
+    // Add indicator
+    th.classList.add(sortDirection[index] ? "sorted-asc" : "sorted-desc");
 
     currentData.sort((a, b) => {
       let valA, valB;
 
-      // Handle each column explicitly
       switch (index) {
-        case 0:
-          valA = a.name;
-          valB = b.name;
-          break;
-        case 1:
-          valA = a.university;
-          valB = b.university;
-          break;
-        case 2:
-          valA = a.country;
-          valB = b.country;
-          break;
-        case 3:
-          valA = new Date(a.reg_start);
-          valB = new Date(b.reg_start);
-          break;
-        case 4:
-          valA = new Date(a.reg_end);
-          valB = new Date(b.reg_end);
-          break;
-        case 5:
-          valA = new Date(a.prog_start);
-          valB = new Date(b.prog_start);
-          break;
-        case 6:
-          valA = a.reco;
-          valB = b.reco;
-          break;
-        case 7:
-          valA = getDaysLeft(a.reg_end);
-          valB = getDaysLeft(b.reg_end);
-          break;
+        case 0: valA = a.name; valB = b.name; break;
+        case 1: valA = a.university; valB = b.university; break;
+        case 2: valA = a.country; valB = b.country; break;
+        case 3: valA = new Date(a.reg_start); valB = new Date(b.reg_start); break;
+        case 4: valA = new Date(a.reg_end); valB = new Date(b.reg_end); break;
+        case 5: valA = new Date(a.prog_start); valB = new Date(b.prog_start); break;
+        case 6: valA = a.reco; valB = b.reco; break;
+        case 7: valA = getDaysLeft(a.reg_end); valB = getDaysLeft(b.reg_end); break;
       }
 
       if (valA < valB) return sortDirection[index] ? -1 : 1;
@@ -133,7 +118,4 @@ headers.forEach((th, index) => {
 
     renderTable(currentData);
   });
-});
-  // Initial render
-  renderTable(projects);
 });
