@@ -38,6 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
   prog_end: "2027-08-31",
   reco: 0,
   link: "https://www.cds.hku.hk/rintern/index.html"
+},
+    {
+  name: "FuSEP Summer Research Program",
+  university: "University of Science and Technology of China (USTC)",
+  country: "China",
+  reg_start: "2027-01-01",
+  reg_end: "2027-03-22",
+  prog_start: "2027-06-22",
+  prog_end: "2027-07-30",
+  reco: 1,
+  link: "https://fusep.ustc.edu.cn/fusep/"
 }
   ];
 
