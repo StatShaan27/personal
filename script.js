@@ -29,28 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
   link: "https://tigp.sinica.edu.tw/"
 },
     {
-      name: "ISI Summer Internship",
-      university: "Indian Statistical Institute",
-      country: "India",
-      reg_start: "2026-03-01",
-      reg_end: "2026-04-15",
-      prog_start: "2026-06-01",
-      prog_end: "2026-07-31",
-      reco: 2,
-      link: "#"
-    },
-    {
-      name: "IIT Madras Winter Project",
-      university: "IIT Madras",
-      country: "India",
-      reg_start: "2026-10-01",
-      reg_end: "2026-11-10",
-      prog_start: "2026-12-01",
-      prog_end: "2027-01-15",
-      reco: 1,
-      link: "#"
-    },
-    {
   name: "HKU CDS Research Internship Programme",
   university: "University of Hong Kong",
   country: "Hong Kong",
