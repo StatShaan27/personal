@@ -82,6 +82,17 @@ document.addEventListener("DOMContentLoaded", () => {
   prog_end: "2027-07-31",
   reco: 1,
   link: "https://ipa.gist.ac.kr/ipa/html/sub03/030101.html"
+},
+    {
+  name: "ETH Zurich Summer Research Fellowship",
+  university: "ETH Zurich",
+  country: "Switzerland",
+  reg_start: "2027-11-01",
+  reg_end: "2027-12-16",
+  prog_start: "2027-07-01",
+  prog_end: "2027-08-31",
+  reco: 0,
+  link: "https://inf.ethz.ch/studies/summer-research-fellowship.html"
 }
   ];
 
