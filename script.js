@@ -27,7 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
       prog_end: "2027-01-15",
       reco: 1,
       link: "#"
-    }
+    },
+    {
+  name: "HKU CDS Research Internship Programme",
+  university: "University of Hong Kong",
+  country: "Hong Kong",
+  reg_start: "2027-01-01", 
+  reg_end: "2027-05-31",
+  prog_start: "2027-07-19",
+  prog_end: "2027-08-31",
+  reco: 0,
+  link: "https://www.cds.hku.hk/rintern/index.html"
+}
   ];
 
   let currentData = [...projects];
