@@ -49,6 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
   prog_end: "2027-07-30",
   reco: 1,
   link: "https://fusep.ustc.edu.cn/fusep/"
+},
+    {
+  name: "ISTA Scientific Internship (Year-Round)",
+  university: "Institute of Science and Technology Austria",
+  country: "Austria",
+  reg_start: "2027-01-01",
+  reg_end: "2027-12-31",
+  prog_start: "Flexible",
+  prog_end: "Flexible",
+  reco: 0,
+  link: "https://phd.ista.ac.at/scientific-internships/"
 }
   ];
 
