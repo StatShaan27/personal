@@ -70,19 +70,37 @@
 
   <main class="opp-wrapper">
 
-    <!-- LIVE SECTION -->
-    <section class="opp-block">
-      <h2>Live Applications</h2>
-      <div id="live-list">
-        <p class="coming-soon">No active applications currently.</p>
-      </div>
-    </section>
+    <main class="opp-wrapper">
 
-    <!-- OTHERS SECTION -->
-    <section class="opp-block">
-      <h2>Other Opportunities</h2>
-      <div id="other-list"></div>
-    </section>
+  <section class="opp-block">
+    <h2>Opportunities</h2>
+
+    <input 
+      type="text" 
+      id="searchBox" 
+      placeholder="Search by name or university..."
+      style="padding:0.6rem; width:80%; margin:1rem auto; display:block; border-radius:6px; border:none;"
+    >
+
+    <table id="opp-table" style="width:100%; border-collapse: collapse; margin-top:1rem;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>University</th>
+          <th>Country</th>
+          <th>Reg Start</th>
+          <th>Reg End</th>
+          <th>Program</th>
+          <th>Reco</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+
+  </section>
+
+</main>
 
   </main>
 
