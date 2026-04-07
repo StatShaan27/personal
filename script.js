@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tableBody = document.getElementById("table-body");
   const searchBox = document.getElementById("searchBox");
+  const headers = document.querySelectorAll("#opp-table th");
 
   if (!tableBody) return;
 
-  const projects = [
+  let projects = [
     {
       name: "ISI Summer Internship",
       university: "Indian Statistical Institute",
@@ -29,18 +30,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   ];
 
+  let currentData = [...projects];
+  let sortDirection = {};
+
+  function getDaysLeft(dateStr) {
+    const today = new Date();
+    const endDate = new Date(dateStr);
+    return Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+  }
+
   function renderTable(data) {
     tableBody.innerHTML = "";
 
-    const today = new Date();
-
     data.forEach(p => {
-      const endDate = new Date(p.reg_end);
-      const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+      const daysLeft = getDaysLeft(p.reg_end);
 
       const row = document.createElement("tr");
 
-      // Urgency highlight
       if (daysLeft <= 7 && daysLeft >= 0) {
         row.style.backgroundColor = "#2a1a1a";
       }
@@ -61,18 +67,61 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  renderTable(projects);
-
-  // Filter
+  // 🔍 FILTER
   searchBox.addEventListener("input", () => {
     const value = searchBox.value.toLowerCase();
 
-    const filtered = projects.filter(p =>
+    currentData = projects.filter(p =>
       p.name.toLowerCase().includes(value) ||
       p.university.toLowerCase().includes(value) ||
       p.country.toLowerCase().includes(value)
     );
 
-    renderTable(filtered);
+    renderTable(currentData);
   });
+
+  // 🔽 SORTING
+  const keys = [
+    "name",
+    "university",
+    "country",
+    "reg_start",
+    "reg_end",
+    "prog_start",
+    "reco",
+    "daysLeft"
+  ];
+
+  headers.forEach((th, index) => {
+    if (index === 8) return; // Skip link column
+
+    th.addEventListener("click", () => {
+      const key = keys[index];
+      sortDirection[key] = !sortDirection[key];
+
+      currentData.sort((a, b) => {
+        let valA, valB;
+
+        if (key === "daysLeft") {
+          valA = getDaysLeft(a.reg_end);
+          valB = getDaysLeft(b.reg_end);
+        } else if (key.includes("date") || key.includes("reg") || key.includes("prog")) {
+          valA = new Date(a[key]);
+          valB = new Date(b[key]);
+        } else {
+          valA = a[key];
+          valB = b[key];
+        }
+
+        if (valA < valB) return sortDirection[key] ? -1 : 1;
+        if (valA > valB) return sortDirection[key] ? 1 : -1;
+        return 0;
+      });
+
+      renderTable(currentData);
+    });
+  });
+
+  // Initial render
+  renderTable(projects);
 });
