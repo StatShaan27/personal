@@ -71,6 +71,17 @@ document.addEventListener("DOMContentLoaded", () => {
   prog_end: "2027-09-04",
   reco: 0,
   link: "https://warwick.ac.uk/"
+},
+    {
+  name: "GIST Global Intern Program (GIP)",
+  university: "Gwangju Institute of Science and Technology",
+  country: "South Korea",
+  reg_start: "2027-02-02",
+  reg_end: "2027-02-27",
+  prog_start: "2027-06-01",
+  prog_end: "2027-07-31",
+  reco: 1,
+  link: "https://ipa.gist.ac.kr/ipa/html/sub03/030101.html"
 }
   ];
 
