@@ -6,6 +6,7 @@ body {
   overflow-x: hidden;
 }
 
+/* Background */
 .background-pattern {
   position: fixed;
   top: 0; left: 0;
@@ -16,22 +17,21 @@ body {
   opacity: 0.1;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(115deg, #1f1f1f, #151515, #0d0d0d);
+  background-size: 600% 600%;
+  animation: gradientFlow 30s ease infinite;
+  opacity: 0.6;
+}
+
+/* Header */
 header {
   text-align: center;
   padding: 3rem 1.5rem 2rem;
-}
-
-.profile-pic {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid #ffffff30;
-  box-shadow: 0 0 20px #6effe0;
-  transition: transform 0.4s ease;
-}
-.profile-pic:hover {
-  transform: scale(1.05);
 }
 
 h1 {
@@ -41,6 +41,22 @@ h1 {
   color: #6effe0;
 }
 
+/* Profile */
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ffffff30;
+  box-shadow: 0 0 20px #6effe0;
+  transition: transform 0.4s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation */
 nav ul {
   list-style: none;
   padding: 0;
@@ -67,19 +83,10 @@ nav a:hover {
   transform: scale(1.1);
 }
 
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
-}
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: -1;
-  background: linear-gradient(115deg, #1f1f1f, #151515, #0d0d0d);
-  background-size: 600% 600%;
-  animation: gradientFlow 30s ease infinite;
-  opacity: 0.6;
 }
 
 @keyframes gradientFlow {
@@ -87,6 +94,8 @@ body::before {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+/* Education Section */
 .edu-section {
   max-width: 800px;
   margin: 0 auto;
@@ -113,7 +122,6 @@ body::before {
 
 .edu-img {
   max-width: 90%;
-  height: auto;
   border: 3px solid white;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
@@ -127,7 +135,7 @@ body::before {
 }
 
 /* ========================= */
-/* Opportunities Page Layout */
+/* Opportunities Page        */
 /* ========================= */
 
 .opp-wrapper {
@@ -148,10 +156,7 @@ body::before {
   margin-bottom: 1rem;
 }
 
-/* ========================= */
-/* Search Box */
-/* ========================= */
-
+/* Search */
 #searchBox {
   padding: 0.6rem;
   width: 80%;
@@ -162,27 +167,28 @@ body::before {
   border: 1px solid #333;
   background-color: #111;
   color: #fff;
-  outline: none;
+  transition: all 0.2s ease;
 }
 
 #searchBox:focus {
   border-color: #6effe0;
-  box-shadow: 0 0 5px #6effe0;
+  box-shadow: 0 0 6px #6effe0;
+  transform: scale(1.02);
 }
 
-/* ========================= */
-/* Table Styling */
-/* ========================= */
+#searchBox::placeholder {
+  color: #888;
+}
 
+/* Table */
 #opp-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1.5rem;
+  margin: 1.5rem 0 2rem;
   background-color: #121212;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(110, 255, 224, 0.05);
-  margin-bottom: 2rem;
 }
 
 /* Header */
@@ -193,42 +199,66 @@ body::before {
   padding: 0.8rem;
   border-bottom: 2px solid #333;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  opacity: 0.85;
 }
 
-/* Rows */
+/* Cells */
 #opp-table td {
   padding: 0.7rem;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #ccc;
   border-bottom: 1px solid #2a2a2a;
 }
 
-/* Hover effect */
+/* Better readability */
+#opp-table td:nth-child(1) {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+#opp-table td:nth-child(2) {
+  color: #6effe0;
+}
+
+/* Alternating rows */
+#opp-table tr:nth-child(even) {
+  background-color: #161616;
+}
+
+/* Hover */
+#opp-table tbody tr {
+  transition: all 0.2s ease;
+}
 
 #opp-table tr:hover {
   background-color: #1f1f1f;
-  transition: background 0.2s ease;
 }
-/* Links inside table */
+
+/* Links */
 #opp-table a {
   color: #6effe0;
   text-decoration: none;
   font-weight: 500;
 }
 
-#opp-table tr:nth-child(even) {
-  background-color: #161616;
-}
-
 #opp-table a:hover {
   text-decoration: underline;
 }
 
+/* Sorting Indicators */
+th.sorted-asc::after {
+  content: " ▲";
+  font-size: 0.7rem;
+}
 
-/* ========================= */
-/* Responsive Fix */
-/* ========================= */
+th.sorted-desc::after {
+  content: " ▼";
+  font-size: 0.7rem;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   #opp-table th,
   #opp-table td {
@@ -236,8 +266,7 @@ body::before {
     padding: 0.5rem;
   }
 
-  #searchBox::placeholder {
-    color: #888;
+  #searchBox {
+    width: 95%;
   }
 }
-  
