@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const daysLeft = getDaysLeft(p.reg_end);
       const row = document.createElement("tr");
 
-      // Urgency highlight
       if (daysLeft <= 7 && daysLeft >= 0) {
         row.style.backgroundColor = "#2a1a1a";
         row.style.borderLeft = "3px solid #ff4d4d";
@@ -83,14 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🔽 SORTING
   headers.forEach((th, index) => {
-    if (index === 8) return; // skip link column
+    if (index === 8) return;
 
     th.addEventListener("click", () => {
 
-      // Reset header indicators
       headers.forEach(h => h.classList.remove("sorted-asc", "sorted-desc"));
 
-      // Toggle sort direction
       if (sortState.column === index) {
         sortState.asc = !sortState.asc;
       } else {
@@ -120,9 +117,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       renderTable(currentData);
+    });
   });
 
-  // 🔥 Auto-sort by urgency on load
+  // 🔥 Auto-sort on load
   currentData.sort((a, b) => getDaysLeft(a.reg_end) - getDaysLeft(b.reg_end));
 
   renderTable(currentData);
