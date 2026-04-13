@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const projects = [
     {
+      name: "IMPRS-BAC PhD Program",
+      university: "Max Planck Institute for Molecular Genetics",
+      country: "Germany",
+      reg_start: "2026-10-01",
+      reg_end: "2027-01-07",
+      prog_start: "2027-04-01",
+      prog_end: "2030-11-01",
+      reco: 2,
+      link: "https://www.imprs-bac.mpg.de/"
+    },
+    {
   name: "NUS Amgen Scholars Program",
   university: "National University of Singapore",
   country: "Singapore",
