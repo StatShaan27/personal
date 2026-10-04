@@ -139,17 +139,106 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const projects2 = [
     {
-      name: "Example Summer Research Program",
-      university: "Example University",
-      country: "United States",
-      reg_start: "2027-01-01",
-      reg_end: "2027-03-01",
-      prog_start: "2027-06-01",
-      prog_end: "2027-08-01",
-      reco: 2,
-      link: "https://example.com/"
-    }
+  name: "ICTS - S. N. Bhatt Memorial Excellence Fellowship Program",
+  university: "International Centre for Theoretical Sciences (ICTS-TIFR)",
+  country: "India",
+  reg_start: "2026-11-01",
+  reg_end: "2026-12-20",
+  prog_start: "2027-05-15",
+  prog_end: "2027-07-15",
+  reco: 2,
+  link: "https://www.icts.res.in/academic/summer-research-program"
+    },
 
+    {
+  name: "JNCASR Summer Research Fellowship Programme (SRFP)",
+  university: "Jawaharlal Nehru Centre for Advanced Scientific Research (JNCASR)",
+  country: "India",
+  reg_start: "2025-12-22",
+  reg_end: "2026-01-31",
+  prog_start: "2026-05-01",
+  prog_end: "2026-06-30",
+  reco: 1,
+  link: "https://www.jncasr.ac.in/academic/fandeprogrammes/srfp"
+},
+
+    {
+  name: "Science Academies Summer Research Fellowship Programme",
+  university: "Indian Academy of Sciences / Indian National Science Academy / The National Academy of Sciences, India",
+  country: "India",
+  reg_start: "2026-10-01",
+  reg_end: "2026-01-31",
+  prog_start: "Flexible",
+  prog_end: "Flexible",
+  reco: 1,
+  link: "https://webjapps.ias.ac.in/fellowship2027/index.html"
+},
+
+
+    {
+  name: "SURGE 2026",
+  university: "Indian Institute of Technology Kanpur",
+  country: "India",
+  reg_start: "2026-02-02",
+  reg_end: "2026-02-22",
+  prog_start: "2026-05-11",
+  prog_end: "2026-07-10",
+  reco: 2,
+  link: "https://surge.iitk.ac.in/"
+    },
+
+
+
+    {
+  name: "IMSc Summer Research Programme",
+  university: "Institute of Mathematical Sciences (IMSc), Chennai",
+  country: "India",
+  reg_start: "2026-11-01",
+  reg_end: "2027-02-01",
+  prog_start: "2027-05-01",
+  prog_end: "2027-07-31",
+  reco: 2,
+  link: "https://www.imsc.res.in/summer_research_programme"
+},
+
+    {
+  name: "External Summer Research / Project with Prof. Manjunath Krishnapur",
+  university: "Indian Institute of Science (IISc), Bengaluru",
+  country: "India",
+  reg_start: "2026-11-01",
+  reg_end: "2026-12-31",
+  prog_start: "2027-05-01",
+  prog_end: "2027-07-31",
+  reco: 0,
+  link: "https://math.iisc.ac.in/~manju/"
+},
+
+
+    {
+  name: "IIIT-Delhi Summer Internship",
+  university: "Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)",
+  country: "India",
+  reg_start: "2027-02-18",
+  reg_end: "2027-03-15",
+  prog_start: "2027-05-11",
+  prog_end: "2027-07-07",
+  reco: 0,
+  link: "https://iiitd.ac.in/placement/summer-internships"
+},
+
+
+    {
+  name: "TIFR-CAM Summer Student Research Programme (SSRP)",
+  university: "TIFR Centre for Applicable Mathematics (TIFR-CAM)",
+  country: "India",
+  reg_start: "2026-11-01",
+  reg_end: "2027-03-29",
+  prog_start: "2027-05-15",
+  prog_end: "2027-07-31",
+  reco: 1,
+  link: "https://career.tifrbng.res.in/ssrp"
+},
+    
     // Add your actual 2nd-year programs here
   ];
 
