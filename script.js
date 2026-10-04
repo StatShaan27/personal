@@ -5,7 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!tableBody) return;
 
-  const projects = [
+
+  // ============================================================
+  // AFTER 3RD YEAR PROGRAMS
+  // ============================================================
+
+  const projects3 = [
     {
       name: "IMPRS-BAC PhD Program",
       university: "Max Planck Institute for Molecular Genetics",
@@ -17,111 +22,122 @@ document.addEventListener("DOMContentLoaded", () => {
       reco: 2,
       link: "https://www.imprs-bac.mpg.de/"
     },
+
     {
-  name: "NUS Amgen Scholars Program",
-  university: "National University of Singapore",
-  country: "Singapore",
-  reg_start: "2026-11-01",
-  reg_end: "2027-02-01",
-  prog_start: "2027-06-02",
-  prog_end: "2027-08-06",
-  reco: 2,
-  link: "https://www.dbs.nus.edu.sg/outreach/amgen-scholars-program/"
-},
+      name: "NUS Amgen Scholars Program",
+      university: "National University of Singapore",
+      country: "Singapore",
+      reg_start: "2026-11-01",
+      reg_end: "2027-02-01",
+      prog_start: "2027-06-02",
+      prog_end: "2027-08-06",
+      reco: 2,
+      link: "https://www.dbs.nus.edu.sg/outreach/amgen-scholars-program/"
+    },
+
     {
-  name: "Rockefeller SURF (Summer Undergraduate Research Fellowship)",
-  university: "Rockefeller University",
-  country: "United States",
-  reg_start: "2026-12-01",
-  reg_end: "2027-02-01",
-  prog_start: "2027-06-01",
-  prog_end: "2027-08-07",
-  reco: 2,
-  link: "https://www.rockefeller.edu/surf/"
-},
+      name: "Rockefeller SURF (Summer Undergraduate Research Fellowship)",
+      university: "Rockefeller University",
+      country: "United States",
+      reg_start: "2026-12-01",
+      reg_end: "2027-02-01",
+      prog_start: "2027-06-01",
+      prog_end: "2027-08-07",
+      reco: 2,
+      link: "https://www.rockefeller.edu/surf/"
+    },
+
     {
-  name: "TIGP Summer Internship (Academia Sinica)",
-  university: "Academia Sinica",
-  country: "Taiwan",
-  reg_start: "2026-12-15",
-  reg_end: "2027-01-15",
-  prog_start: "2027-05-01",
-  prog_end: "2027-08-31",
-  reco: 2,
-  link: "https://tigp.sinica.edu.tw/"
-},
+      name: "TIGP Summer Internship (Academia Sinica)",
+      university: "Academia Sinica",
+      country: "Taiwan",
+      reg_start: "2026-12-15",
+      reg_end: "2027-01-15",
+      prog_start: "2027-05-01",
+      prog_end: "2027-08-31",
+      reco: 2,
+      link: "https://tigp.sinica.edu.tw/"
+    },
+
     {
-  name: "HKU CDS Research Internship Programme",
-  university: "University of Hong Kong",
-  country: "Hong Kong",
-  reg_start: "2027-01-01", 
-  reg_end: "2027-05-31",
-  prog_start: "2027-07-19",
-  prog_end: "2027-08-31",
-  reco: 0,
-  link: "https://www.cds.hku.hk/rintern/index.html"
-},
+      name: "HKU CDS Research Internship Programme",
+      university: "University of Hong Kong",
+      country: "Hong Kong",
+      reg_start: "2027-01-01",
+      reg_end: "2027-05-31",
+      prog_start: "2027-07-19",
+      prog_end: "2027-08-31",
+      reco: 0,
+      link: "https://www.cds.hku.hk/rintern/index.html"
+    },
+
     {
-  name: "FuSEP Summer Research Program",
-  university: "University of Science and Technology of China (USTC)",
-  country: "China",
-  reg_start: "2027-01-01",
-  reg_end: "2027-03-22",
-  prog_start: "2027-06-22",
-  prog_end: "2027-07-30",
-  reco: 1,
-  link: "https://fusep.ustc.edu.cn/fusep/"
-},
+      name: "FuSEP Summer Research Program",
+      university: "University of Science and Technology of China (USTC)",
+      country: "China",
+      reg_start: "2027-01-01",
+      reg_end: "2027-03-22",
+      prog_start: "2027-06-22",
+      prog_end: "2027-07-30",
+      reco: 1,
+      link: "https://fusep.ustc.edu.cn/fusep/"
+    },
+
     {
-  name: "ISTA Scientific Internship (Year-Round)",
-  university: "Institute of Science and Technology Austria",
-  country: "Austria",
-  reg_start: "2027-01-01",
-  reg_end: "2027-12-31",
-  prog_start: "Flexible",
-  prog_end: "Flexible",
-  reco: 0,
-  link: "https://phd.ista.ac.at/scientific-internships/"
-},
+      name: "ISTA Scientific Internship (Year-Round)",
+      university: "Institute of Science and Technology Austria",
+      country: "Austria",
+      reg_start: "2027-01-01",
+      reg_end: "2027-12-31",
+      prog_start: "Flexible",
+      prog_end: "Flexible",
+      reco: 0,
+      link: "https://phd.ista.ac.at/scientific-internships/"
+    },
+
     {
-  name: "Warwick SRE (Summer Research Experience)",
-  university: "University of Warwick",
-  country: "United Kingdom",
-  reg_start: "2027-01-01",
-  reg_end: "2027-03-22",
-  prog_start: "2027-07-13",
-  prog_end: "2027-09-04",
-  reco: 0,
-  link: "https://warwick.ac.uk/"
-},
+      name: "Warwick SRE (Summer Research Experience)",
+      university: "University of Warwick",
+      country: "United Kingdom",
+      reg_start: "2027-01-01",
+      reg_end: "2027-03-22",
+      prog_start: "2027-07-13",
+      prog_end: "2027-09-04",
+      reco: 0,
+      link: "https://warwick.ac.uk/"
+    },
+
     {
-  name: "GIST Global Intern Program (GIP)",
-  university: "Gwangju Institute of Science and Technology",
-  country: "South Korea",
-  reg_start: "2027-02-02",
-  reg_end: "2027-02-27",
-  prog_start: "2027-06-01",
-  prog_end: "2027-07-31",
-  reco: 1,
-  link: "https://ipa.gist.ac.kr/ipa/html/sub03/030101.html"
-},
+      name: "GIST Global Intern Program (GIP)",
+      university: "Gwangju Institute of Science and Technology",
+      country: "South Korea",
+      reg_start: "2027-02-02",
+      reg_end: "2027-02-27",
+      prog_start: "2027-06-01",
+      prog_end: "2027-07-31",
+      reco: 1,
+      link: "https://ipa.gist.ac.kr/ipa/html/sub03/030101.html"
+    },
+
     {
-  name: "ETH Zurich Summer Research Fellowship",
-  university: "ETH Zurich",
-  country: "Switzerland",
-  reg_start: "2026-11-01",
-  reg_end: "2026-12-16",
-  prog_start: "2027-07-01",
-  prog_end: "2027-08-31",
-  reco: 0,
-  link: "https://inf.ethz.ch/studies/summer-research-fellowship.html"
-}
+      name: "ETH Zurich Summer Research Fellowship",
+      university: "ETH Zurich",
+      country: "Switzerland",
+      reg_start: "2026-11-01",
+      reg_end: "2026-12-16",
+      prog_start: "2027-07-01",
+      prog_end: "2027-08-31",
+      reco: 0,
+      link: "https://inf.ethz.ch/studies/summer-research-fellowship.html"
+    }
   ];
 
 
-  const projects2 = [
-    // PUT YOUR NEW PROGRAMS HERE
+  // ============================================================
+  // AFTER 2ND YEAR PROGRAMS
+  // ============================================================
 
+  const projects2 = [
     {
       name: "Example Summer Research Program",
       university: "Example University",
@@ -134,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
       link: "https://example.com/"
     }
 
-    // Add more programs here
+    // Add your actual 2nd-year programs here
   ];
 
 
@@ -153,97 +169,292 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  // ============================================================
+  // TABLE STATE
+  // ============================================================
+
   let currentData = [...projects];
-  let sortState = { column: null, asc: true };
+
+  let sortState = {
+    column: null,
+    asc: true
+  };
+
+
+  // ============================================================
+  // DAYS LEFT
+  // ============================================================
 
   function getDaysLeft(dateStr) {
     const today = new Date();
     const endDate = new Date(dateStr);
-    return Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+
+    return Math.ceil(
+      (endDate - today) / (1000 * 60 * 60 * 24)
+    );
   }
 
+
+  // ============================================================
+  // RENDER TABLE
+  // ============================================================
+
   function renderTable(data) {
+
     tableBody.innerHTML = "";
 
     data.forEach(p => {
+
       const daysLeft = getDaysLeft(p.reg_end);
+
       const row = document.createElement("tr");
 
+
+      // Highlight deadlines within 7 days
+
       if (daysLeft <= 7 && daysLeft >= 0) {
+
         row.style.backgroundColor = "#2a1a1a";
         row.style.borderLeft = "3px solid #ff4d4d";
+
       }
+
 
       row.innerHTML = `
         <td>${p.name}</td>
+
         <td>${p.university}</td>
+
         <td>${p.country}</td>
+
         <td>${p.reg_start}</td>
+
         <td>${p.reg_end}</td>
+
         <td>${p.prog_start} → ${p.prog_end}</td>
+
         <td>${p.reco}</td>
-        <td>${daysLeft >= 0 ? daysLeft + " days" : "Closed"}</td>
-        <td><a href="${p.link}" target="_blank">View</a></td>
+
+        <td>
+          ${daysLeft >= 0 ? daysLeft + " days" : "Closed"}
+        </td>
+
+        <td>
+          <a href="${p.link}" target="_blank">
+            View
+          </a>
+        </td>
       `;
 
+
       tableBody.appendChild(row);
+
     });
+
   }
 
-  // FILTER
-  searchBox.addEventListener("input", () => {
-    const value = searchBox.value.toLowerCase();
 
-    currentData = projects.filter(p =>
-      p.name.toLowerCase().includes(value) ||
-      p.university.toLowerCase().includes(value) ||
-      p.country.toLowerCase().includes(value)
-    );
+  // ============================================================
+  // SEARCH / FILTER
+  // ============================================================
 
-    renderTable(currentData);
-  });
+  if (searchBox) {
 
-  // SORTING
-  headers.forEach((th, index) => {
-    if (index === 8) return;
+    searchBox.addEventListener("input", () => {
 
-    th.addEventListener("click", () => {
-      headers.forEach(h => h.classList.remove("sorted-asc", "sorted-desc"));
+      const value = searchBox.value.toLowerCase().trim();
 
-      if (sortState.column === index) {
-        sortState.asc = !sortState.asc;
-      } else {
-        sortState.column = index;
-        sortState.asc = true;
-      }
 
-      th.classList.add(sortState.asc ? "sorted-asc" : "sorted-desc");
+      currentData = projects.filter(p =>
 
-      currentData.sort((a, b) => {
-        let valA, valB;
+        p.name.toLowerCase().includes(value) ||
 
-        switch (index) {
-          case 0: valA = a.name.toLowerCase(); valB = b.name.toLowerCase(); break;
-          case 1: valA = a.university.toLowerCase(); valB = b.university.toLowerCase(); break;
-          case 2: valA = a.country.toLowerCase(); valB = b.country.toLowerCase(); break;
-          case 3: valA = new Date(a.reg_start); valB = new Date(b.reg_start); break;
-          case 4: valA = new Date(a.reg_end); valB = new Date(b.reg_end); break;
-          case 5: valA = new Date(a.prog_start); valB = new Date(b.prog_start); break;
-          case 6: valA = a.reco; valB = b.reco; break;
-          case 7: valA = getDaysLeft(a.reg_end); valB = getDaysLeft(b.reg_end); break;
-        }
+        p.university.toLowerCase().includes(value) ||
 
-        if (valA < valB) return sortState.asc ? -1 : 1;
-        if (valA > valB) return sortState.asc ? 1 : -1;
-        return 0;
-      });
+        p.country.toLowerCase().includes(value)
+
+      );
+
 
       renderTable(currentData);
+
     });
+
+  }
+
+
+  // ============================================================
+  // SORTING
+  // ============================================================
+
+  headers.forEach((th, index) => {
+
+    // Do not sort the Link column
+
+    if (index === 8) return;
+
+
+    th.addEventListener("click", () => {
+
+      // Remove previous sorting indicators
+
+      headers.forEach(h =>
+        h.classList.remove(
+          "sorted-asc",
+          "sorted-desc"
+        )
+      );
+
+
+      // Toggle sorting direction
+
+      if (sortState.column === index) {
+
+        sortState.asc = !sortState.asc;
+
+      } else {
+
+        sortState.column = index;
+        sortState.asc = true;
+
+      }
+
+
+      // Add sorting indicator
+
+      th.classList.add(
+        sortState.asc
+          ? "sorted-asc"
+          : "sorted-desc"
+      );
+
+
+      // Sort data
+
+      currentData.sort((a, b) => {
+
+        let valA;
+        let valB;
+
+
+        switch (index) {
+
+          // Name
+
+          case 0:
+            valA = a.name.toLowerCase();
+            valB = b.name.toLowerCase();
+            break;
+
+
+          // University
+
+          case 1:
+            valA = a.university.toLowerCase();
+            valB = b.university.toLowerCase();
+            break;
+
+
+          // Country
+
+          case 2:
+            valA = a.country.toLowerCase();
+            valB = b.country.toLowerCase();
+            break;
+
+
+          // Registration Start
+
+          case 3:
+            valA = new Date(a.reg_start);
+            valB = new Date(b.reg_start);
+            break;
+
+
+          // Registration End
+
+          case 4:
+            valA = new Date(a.reg_end);
+            valB = new Date(b.reg_end);
+            break;
+
+
+          // Program Start
+
+          case 5:
+
+            // Handle "Flexible"
+
+            if (a.prog_start === "Flexible") {
+              valA = Infinity;
+            } else {
+              valA = new Date(a.prog_start);
+            }
+
+            if (b.prog_start === "Flexible") {
+              valB = Infinity;
+            } else {
+              valB = new Date(b.prog_start);
+            }
+
+            break;
+
+
+          // Recommendation
+
+          case 6:
+            valA = a.reco;
+            valB = b.reco;
+            break;
+
+
+          // Days Left
+
+          case 7:
+            valA = getDaysLeft(a.reg_end);
+            valB = getDaysLeft(b.reg_end);
+            break;
+
+        }
+
+
+        if (valA < valB) {
+          return sortState.asc ? -1 : 1;
+        }
+
+
+        if (valA > valB) {
+          return sortState.asc ? 1 : -1;
+        }
+
+
+        return 0;
+
+      });
+
+
+      renderTable(currentData);
+
+    });
+
   });
 
-  // AUTO SORT
-  currentData.sort((a, b) => getDaysLeft(a.reg_end) - getDaysLeft(b.reg_end));
+
+  // ============================================================
+  // INITIAL AUTO SORT
+  // ============================================================
+
+  currentData.sort(
+    (a, b) =>
+      getDaysLeft(a.reg_end) -
+      getDaysLeft(b.reg_end)
+  );
+
+
+  // ============================================================
+  // INITIAL RENDER
+  // ============================================================
 
   renderTable(currentData);
+
 });
