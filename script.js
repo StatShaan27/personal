@@ -118,6 +118,41 @@ document.addEventListener("DOMContentLoaded", () => {
 }
   ];
 
+
+  const projects2 = [
+    // PUT YOUR NEW PROGRAMS HERE
+
+    {
+      name: "Example Summer Research Program",
+      university: "Example University",
+      country: "United States",
+      reg_start: "2027-01-01",
+      reg_end: "2027-03-01",
+      prog_start: "2027-06-01",
+      prog_end: "2027-08-01",
+      reco: 2,
+      link: "https://example.com/"
+    }
+
+    // Add more programs here
+  ];
+
+
+  // ============================================================
+  // SELECT DATASET BASED ON PAGE
+  // ============================================================
+
+  const page = window.location.pathname;
+
+  let projects;
+
+  if (page.includes("opportunities-after-2nd-year")) {
+    projects = projects2;
+  } else {
+    projects = projects3;
+  }
+
+
   let currentData = [...projects];
   let sortState = { column: null, asc: true };
 
