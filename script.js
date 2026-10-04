@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
   prog_end: "2027-07-31",
   reco: 1,
   link: "https://career.tifrbng.res.in/ssrp"
-},
+}
     
     // Add your actual 2nd-year programs here
   ];
