@@ -153,20 +153,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add your actual 2nd-year programs here
   ];
 
+// ============================================================
+// SELECT DATASET BASED ON PAGE
+// ============================================================
 
-  // ============================================================
-  // SELECT DATASET BASED ON PAGE
-  // ============================================================
+const opportunityLevel = document.body.dataset.opportunityLevel;
 
-  const page = window.location.pathname;
+let projects;
 
-  let projects;
-
-  if (page.includes("opportunities-after-2nd-year")) {
-    projects = projects2;
-  } else {
-    projects = projects3;
-  }
+if (opportunityLevel === "2") {
+  projects = projects2;
+} else if (opportunityLevel === "3") {
+  projects = projects3;
+} else {
+  projects = projects3;
+}
+  
 
 
   // ============================================================
