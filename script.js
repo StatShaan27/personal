@@ -164,6 +164,28 @@ document.addEventListener("DOMContentLoaded", () => {
       reco: 1,
       link: "https://www.mdanderson.org/education-training/research-training/early-career-pathway-programs/summer-research-programs/programs/cprit-cure.html"
     },
+        {
+      name: "Florida Summer Institute in Biostatistics and Data Science (SIBDS)",
+      university: "Florida Atlantic University",
+      country: "United States",
+      reg_start: "2026-12-15",
+      reg_end: "2027-03-13",
+      prog_start: "2027-05-18",
+      prog_end: "2027-06-26",
+      reco: 2,
+      link: "https://www.fau.edu/research/cores/biostatistics-core/fl-summer-institute-biostatistics-data-science-program-2026/"
+    },
+    {
+      name: "Duke Supporting Undergraduate Research Experiences (SURE)",
+      university: "Duke University",
+      country: "United States",
+      reg_start: "2027-01-01",
+      reg_end: "2027-02-01",
+      prog_start: "2027-05-18",
+      prog_end: "2027-07-24",
+      reco: 1,
+      link: "https://ctsi.duke.edu/duke-supporting-undergraduate-research-experiences-sure-program-2026"
+    }
     
   ];
 
