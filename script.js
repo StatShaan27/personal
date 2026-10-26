@@ -129,7 +129,42 @@ document.addEventListener("DOMContentLoaded", () => {
       prog_end: "2027-08-31",
       reco: 0,
       link: "https://inf.ethz.ch/studies/summer-research-fellowship.html"
-    }
+    },
+
+        {
+      name: "Yale BDSY (Big Data Summer Immersion)",
+      university: "Yale University",
+      country: "United States",
+      reg_start: "TBA",
+      reg_end: "TBA",
+      prog_start: "2027-06-14",
+      prog_end: "2027-07-23",
+      reco: 2,
+      link: "https://www.bdsy.org/"
+    },
+    {
+      name: "Michigan BDSI (Big Data Summer Institute)",
+      university: "University of Michigan",
+      country: "United States",
+      reg_start: "TBA",
+      reg_end: "TBA",
+      prog_start: "TBA",
+      prog_end: "TBA",
+      reco: 2,
+      link: "https://sph.umich.edu/bdsi/"
+    },
+    {
+      name: "CPRIT CURE Summer Undergraduate Research Program",
+      university: "Cancer Prevention and Research Institute of Texas (CPRIT)",
+      country: "United States",
+      reg_start: "2026-11-16",
+      reg_end: "2027-01-13",
+      prog_start: "TBA",
+      prog_end: "TBA",
+      reco: 1,
+      link: "https://www.mdanderson.org/education-training/research-training/early-career-pathway-programs/summer-research-programs/programs/cprit-cure.html"
+    },
+    
   ];
 
 
