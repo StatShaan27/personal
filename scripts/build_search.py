@@ -10,6 +10,6 @@ for f in [p/'index.html',p/'publications.html',*(p/'sections').glob('*.html'),*(
  text=html.unescape(re.sub(r'\s+',' ',re.sub('<[^>]+>',' ',main)))
  lead=re.search(r'<p class="(?:lead|hero-description|post-subtitle)">(.*?)</p>',main,re.S)
  summary=html.unescape(re.sub('<[^>]+>',' ',lead[1])) if lead else title
- index.append(dict(title=title,path=str(f.relative_to(p)),tags=text,summary=summary[:110]))
+ index.append(dict(title=title,path=str(f.relative_to(p)),tags=text+' '+('photos photography pictures camera clicks' if 'photography' in str(f) else 'books bookshelf reading shelf' if 'books' in str(f) else ''),summary=summary[:110]))
 (p/'search-index.json').write_text(json.dumps(index,ensure_ascii=False))
 print('Indexed',len(index),'pages')
