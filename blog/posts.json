@@ -1,0 +1,29 @@
+[
+  {
+    "slug": "bms",
+    "title": "Where it all began",
+    "subtitle": "Bishop Morrow School, Krishnagar",
+    "period": "KG – Class 10",
+    "summary": "The classrooms, responsibilities, and small moments that shaped my school years.",
+    "category": "Life & learning",
+    "cover": "../assets/bms1.jpg"
+  },
+  {
+    "slug": "bgkv",
+    "title": "Two years in Kolkata",
+    "subtitle": "Bhavans Gangabux Kanoria Vidyamandir",
+    "period": "Classes 11 – 12",
+    "summary": "A new city, serious preparation, and a peer group that made those years memorable.",
+    "category": "Life & learning",
+    "cover": "../assets/bvb2.jpg"
+  },
+  {
+    "slug": "isi",
+    "title": "Life at ISI, so far",
+    "subtitle": "Indian Statistical Institute, Kolkata",
+    "period": "B.Stat · ongoing",
+    "summary": "Finding my way through an intense course, with the support of peers and a shared interest in mathematics.",
+    "category": "Life & learning",
+    "cover": "../assets/isi3.jpg"
+  }
+]
