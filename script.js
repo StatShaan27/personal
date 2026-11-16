@@ -12,6 +12,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const projects3 = [
     {
+      name: "University of Tokyo Research Internship Program (UTRIP 2027)",
+      university: "The University of Tokyo",
+      country: "Japan",
+      location: "Tokyo",
+      reg_start: "2026-11-12",
+      reg_end: "2026-12-25T17:00:00+09:00",
+      deadline_label: "2026-12-25, 5:00 p.m. JST (1:30 p.m. IST)",
+      prog_start: "2027-06-23",
+      prog_end: "2027-08-03",
+      reco: 1,
+      details: "Six weeks of full-time research. Applicants in natural science or a related field must have completed a full year of undergraduate study and return to a bachelor’s program (or bachelor’s-equivalent year of an integrated program) outside Japan afterward. One professor recommendation is due at the same time. No program or accommodation fees.",
+      link: "https://www.s.u-tokyo.ac.jp/en/utrip/apply-now/index.html"
+    },
+
+    {
+      name: "International Summer Lab Project",
+      university: "Peking University",
+      country: "China",
+      location: "Beijing",
+      reg_start: "2027-04-01",
+      reg_end: "2027-04-30",
+      deadline_label: "2027-04-30 (annual schedule)",
+      program_label: "Summer 2027 · dates set in admission notice",
+      reco: 2,
+      details: "Short-term science and engineering research for non-Chinese citizens aged 18–45 who are undergraduates, graduate students, postdocs, or full-time researchers at universities outside China. Contact a PKU professor in March–April and obtain preliminary agreement before applying online. Supporting materials must arrive by May 15 under the annual schedule. Application and tuition fees are waived. Housing is subject to availability.",
+      link: "https://isd.pku.edu.cn/en/further_detail.php?tag=summer_lab"
+    },
+
+    {
+      name: "Summer Research Internship",
+      university: "Westlake University",
+      country: "China",
+      location: "Hangzhou",
+      reg_start: null,
+      reg_end: null,
+      deadline_label: "2027 dates pending",
+      program_label: "One month (2026 cycle)",
+      reco: "TBA",
+      details: "The 2026 cycle offered research in science, engineering, life sciences, and medicine for international undergraduates, graduate students, and recent bachelor’s or master’s graduates. The 2026 package included waived application and program fees, free on-campus housing, and RMB 1,760 for the full program. Participants covered travel, visa, meals, and health insurance. Check the official page for the 2027 terms.",
+      link: "https://en.westlake.edu.cn/admissions/summer_sessions/summer_graduate_research_internship/"
+    },
+
+    {
       name: "IMPRS-BAC PhD Program",
       university: "Max Planck Institute for Molecular Genetics",
       country: "Germany",
@@ -334,8 +377,11 @@ if (opportunityLevel === "2") {
   // ============================================================
 
   function getDaysLeft(dateStr) {
+    if (!dateStr) return null;
+
     const today = new Date();
     const endDate = new Date(dateStr);
+    if (dateStr.includes("T") && endDate < today) return -1;
 
     return Math.ceil(
       (endDate - today) / (1000 * 60 * 60 * 24)
@@ -360,7 +406,7 @@ if (opportunityLevel === "2") {
 
       // Highlight deadlines within 7 days
 
-      if (daysLeft <= 7 && daysLeft >= 0) {
+      if (daysLeft !== null && daysLeft <= 7 && daysLeft >= 0) {
 
         row.style.backgroundColor = "#2a1a1a";
         row.style.borderLeft = "3px solid #ff4d4d";
@@ -369,22 +415,25 @@ if (opportunityLevel === "2") {
 
 
       row.innerHTML = `
-        <td>${p.name}</td>
+        <td>
+          ${p.name}
+          ${p.details ? `<details><summary>Eligibility &amp; details</summary><p>${p.details}</p></details>` : ""}
+        </td>
 
         <td>${p.university}</td>
 
-        <td>${p.country}</td>
+        <td>${p.location ? `${p.location}, ` : ""}${p.country}</td>
 
-        <td>${p.reg_start}</td>
+        <td>${p.reg_start ?? "TBA"}</td>
 
-        <td>${p.reg_end}</td>
+        <td>${p.deadline_label ?? p.reg_end}</td>
 
-        <td>${p.prog_start} → ${p.prog_end}</td>
+        <td>${p.program_label ?? `${p.prog_start} → ${p.prog_end}`}</td>
 
         <td>${p.reco}</td>
 
         <td>
-          ${daysLeft >= 0 ? daysLeft + " days" : "Closed"}
+          ${daysLeft === null ? "TBA" : daysLeft >= 0 ? daysLeft + " days" : "Closed"}
         </td>
 
         <td>
@@ -514,16 +563,16 @@ if (opportunityLevel === "2") {
           // Registration Start
 
           case 3:
-            valA = new Date(a.reg_start);
-            valB = new Date(b.reg_start);
+            valA = a.reg_start ? new Date(a.reg_start) : Infinity;
+            valB = b.reg_start ? new Date(b.reg_start) : Infinity;
             break;
 
 
           // Registration End
 
           case 4:
-            valA = new Date(a.reg_end);
-            valB = new Date(b.reg_end);
+            valA = a.reg_end ? new Date(a.reg_end) : Infinity;
+            valB = b.reg_end ? new Date(b.reg_end) : Infinity;
             break;
 
 
@@ -533,13 +582,13 @@ if (opportunityLevel === "2") {
 
             // Handle "Flexible"
 
-            if (a.prog_start === "Flexible") {
+            if (!a.prog_start || a.prog_start === "Flexible") {
               valA = Infinity;
             } else {
               valA = new Date(a.prog_start);
             }
 
-            if (b.prog_start === "Flexible") {
+            if (!b.prog_start || b.prog_start === "Flexible") {
               valB = Infinity;
             } else {
               valB = new Date(b.prog_start);
@@ -551,16 +600,16 @@ if (opportunityLevel === "2") {
           // Recommendation
 
           case 6:
-            valA = a.reco;
-            valB = b.reco;
+            valA = typeof a.reco === "number" ? a.reco : Infinity;
+            valB = typeof b.reco === "number" ? b.reco : Infinity;
             break;
 
 
           // Days Left
 
           case 7:
-            valA = getDaysLeft(a.reg_end);
-            valB = getDaysLeft(b.reg_end);
+            valA = getDaysLeft(a.reg_end) ?? Infinity;
+            valB = getDaysLeft(b.reg_end) ?? Infinity;
             break;
 
         }
@@ -594,8 +643,8 @@ if (opportunityLevel === "2") {
 
   currentData.sort(
     (a, b) =>
-      getDaysLeft(a.reg_end) -
-      getDaysLeft(b.reg_end)
+      (getDaysLeft(a.reg_end) ?? Infinity) -
+      (getDaysLeft(b.reg_end) ?? Infinity)
   );
 
 
