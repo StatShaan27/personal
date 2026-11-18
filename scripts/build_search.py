@@ -2,7 +2,7 @@ from pathlib import Path
 import re,json,html
 p=Path(__file__).resolve().parents[1]
 index=[]
-for f in [p/'index.html',p/'publications.html',*(p/'sections').glob('*.html'),*(p/'blog').glob('*.html'),*(p/'beyond').glob('*.html'),*(p/'books').glob('*.html'),*(p/'photography').glob('*.html')]:
+for f in [p/'index.html',p/'publications.html',p/'notes'/'sem5.html',*(p/'sections').glob('*.html'),*(p/'blog').glob('*.html'),*(p/'beyond').glob('*.html'),*(p/'books').glob('*.html'),*(p/'photography').glob('*.html')]:
  if f.name in ['opp.html','opp2nd.html','misc1.html']:continue
  t=f.read_text();title=html.unescape(re.search(r'<title>(.*?)</title>',t,re.S)[1]).split(' · ')[0].split(' | ')[0]
  main=re.search(r'<main\b.*?</main>',t,re.S)[0]
